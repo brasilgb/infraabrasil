@@ -1,0 +1,148 @@
+name: infra-abrasil
+
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?configure MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_ROOT_HOST: "%"
+      VETOROS_DB_PASSWORD: ${VETOROS_DB_PASSWORD:?configure VETOROS_DB_PASSWORD in .env}
+      VETORPET_DB_PASSWORD: ${VETORPET_DB_PASSWORD:?configure VETORPET_DB_PASSWORD in .env}
+      ABRASILSISTEMA_DB_PASSWORD: ${ABRASILSISTEMA_DB_PASSWORD:?configure ABRASILSISTEMA_DB_PASSWORD in .env}
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d:ro
+    networks: [infra-abrasil-network]
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$${MYSQL_ROOT_PASSWORD}\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    logging: &default-logging
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD", "redis-cli", "ping"], interval: 10s, timeout: 3s, retries: 10}
+    logging: *default-logging
+  waha:
+    image: devlikeapro/waha:latest
+    restart: unless-stopped
+    environment:
+      WHATSAPP_DEFAULT_ENGINE: ${WAHA_ENGINE:-NOWEB}
+      WHATSAPP_API_KEY: ${WAHA_API_KEY:-}
+    volumes: [./volumes/waha:/app/.sessions]
+    networks: [infra-abrasil-network]
+    ports: ["${WAHA_PORT:-3000}:3000"]
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:3000/health', {headers: {'X-Api-Key': process.env.WHATSAPP_API_KEY || ''}}).then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+    logging: *default-logging
+  vetoros:
+    build: {context: ./gateway/vetoros, dockerfile: Dockerfile}
+    restart: unless-stopped
+    env_file: ./gateway/vetoros/.env.example
+    environment: &laravel-environment
+      APP_ENV: ${APP_ENV:-local}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_KEY: ${VETOROS_APP_KEY:?configure VETOROS_APP_KEY in .env}
+      APP_URL: http://vetoros.localhost
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: vetoros
+      DB_USERNAME: vetoros_user
+      DB_PASSWORD: ${VETOROS_DB_PASSWORD:?configure VETOROS_DB_PASSWORD in .env}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PREFIX: vetoros_
+      WAHA_BASE_URL: http://waha:3000
+      WAHA_API_KEY: ${WAHA_API_KEY:-}
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+    volumes: [./volumes/vetoros:/var/www/html/storage/app/public, vetoros-build:/var/www/html/public/build]
+    depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
+    logging: *default-logging
+  vetoros-worker:
+    extends: {service: vetoros}
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
+  vetoros-scheduler:
+    extends: {service: vetoros}
+    command: php artisan schedule:work
+  vetorpet:
+    build: {context: ./gateway/vetorpet, dockerfile: Dockerfile}
+    restart: unless-stopped
+    env_file: ./gateway/vetorpet/.env.example
+    environment:
+      <<: *laravel-environment
+      APP_URL: http://vetorpet.localhost
+      APP_KEY: ${VETORPET_APP_KEY:?configure VETORPET_APP_KEY in .env}
+      DB_DATABASE: vetorpet
+      DB_USERNAME: vetorpet_user
+      DB_PASSWORD: ${VETORPET_DB_PASSWORD:?configure VETORPET_DB_PASSWORD in .env}
+      REDIS_PREFIX: vetorpet_
+      WAHA_BASE_URL: http://waha:3000
+    volumes: [./volumes/vetorpet:/var/www/html/storage/app/public, vetorpet-build:/var/www/html/public/build]
+    depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
+    logging: *default-logging
+  vetorpet-worker:
+    extends: {service: vetorpet}
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
+  vetorpet-scheduler:
+    extends: {service: vetorpet}
+    command: php artisan schedule:work
+  abrasilsistema:
+    build: {context: ./gateway/abrasilsistemas, dockerfile: Dockerfile}
+    restart: unless-stopped
+    env_file: ./gateway/abrasilsistemas/.env.example
+    environment:
+      <<: *laravel-environment
+      APP_URL: http://abrasilsistema.localhost
+      APP_KEY: ${ABRASILSISTEMA_APP_KEY:?configure ABRASILSISTEMA_APP_KEY in .env}
+      DB_DATABASE: abrasilsistema
+      DB_USERNAME: abrasilsistema_user
+      DB_PASSWORD: ${ABRASILSISTEMA_DB_PASSWORD:?configure ABRASILSISTEMA_DB_PASSWORD in .env}
+      REDIS_PREFIX: abrasilsistema_
+      WAHA_BASE_URL: http://waha:3000
+    volumes: [./volumes/abrasilsistema:/var/www/html/storage/app/public, abrasilsistema-build:/var/www/html/public/build]
+    depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
+    logging: *default-logging
+  abrasilsistema-worker:
+    extends: {service: abrasilsistema}
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
+  abrasilsistema-scheduler:
+    extends: {service: abrasilsistema}
+    command: php artisan schedule:work
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports: ["${HTTP_PORT:-80}:80"]
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./gateway/vetoros/public:/var/www/vetoros/public:ro
+      - ./gateway/vetorpet/public:/var/www/vetorpet/public:ro
+      - ./gateway/abrasilsistemas/public:/var/www/abrasilsistema/public:ro
+      - vetoros-build:/var/www/vetoros/build:ro
+      - vetorpet-build:/var/www/vetorpet/build:ro
+      - abrasilsistema-build:/var/www/abrasilsistema/build:ro
+    depends_on: [vetoros, vetorpet, abrasilsistema]
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz"], interval: 15s, timeout: 5s, retries: 5}
+    logging: *default-logging
+networks:
+  infra-abrasil-network: {name: infra-abrasil-network}
+volumes:
+  vetoros-build:
+  vetorpet-build:
+  abrasilsistema-build:

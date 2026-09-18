@@ -1,0 +1,7 @@
+.env
+volumes/mysql/*
+volumes/waha/*
+volumes/vetoros/*
+volumes/vetorpet/*
+volumes/abrasilsistema/*
+!volumes/*/.gitkeep

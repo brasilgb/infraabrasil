@@ -1,1418 +1,474 @@
-# Projeto `infra-abrasil` — Consolidar ecossistema Docker completo
+Continuar o módulo de prospecção/WhatsApp do CRM ABrasil Sistemas.
 
-Trabalhe exclusivamente dentro do projeto:
+ESTADO ATUAL VALIDADO EM PRODUÇÃO
 
-```text
-infra-abrasil/
-```
+O pipeline abaixo está funcionando:
 
-Estrutura base atual:
+CRM -> n8n -> WAHA -> WhatsApp
+                    ↓
+                 message_id
+                    ↓
+                 n8n -> CRM
 
-```text
-infra-abrasil/
-├── docker-compose.yml
-├── .env
-├── nginx/
-│   └── conf.d/
-├── gateway/
-│   ├── vetoros/
-│   ├── vetorpet/
-│   └── abrasilsistema/
-├── waha/
-├── volumes/
-└── scripts/
-```
+E também:
 
-Os três sistemas já estão localizados dentro de:
+WhatsApp -> WAHA message.ack -> n8n -> CRM
 
-```text
-infra-abrasil/gateway/
-```
+O histórico do prospect já mostra os estados técnicos de forma amigável:
 
-São eles:
+PENDING -> Enviando
+SERVER  -> Enviada
+DEVICE  -> Entregue
+READ    -> Lida
+PLAYED  -> Reproduzida
+ERROR   -> Erro no envio
 
-```text
-gateway/vetoros
-gateway/vetorpet
-gateway/abrasilsistema
-```
+O endpoint de registro do envio já existe:
 
-O objetivo é transformar `infra-abrasil` em uma stack Docker organizada, integrada e preparada para futuramente ser enviada para uma VPS Linux.
+POST /api/prospects/{lead}/whatsapp/log
 
-Neste momento:
+O endpoint de atualização de ACK já existe:
 
-* trabalhar localmente;
-* validar tudo via Docker Compose;
-* não fazer deploy em nuvem;
-* não alterar regras funcionais dos sistemas sem necessidade;
-* não misturar código entre os três projetos.
+PATCH /api/whatsapp/messages/{providerMessageId}/status
 
----
+Não alterar esses endpoints sem necessidade.
 
-# 1. Premissas já definidas
+OBJETIVO DESTA ETAPA
 
-Considere como decisões já tomadas:
+Permitir que um usuário autenticado envie uma mensagem WhatsApp diretamente pela tela de edição/detalhes do prospect.
 
-## Backend
+Fluxo desejado:
 
-Os sistemas são Laravel/PHP.
+Tela do prospect
+    ↓
+usuário escreve mensagem
+    ↓
+Laravel
+    ↓
+webhook existente do n8n
+    ↓
+WAHA
+    ↓
+WhatsApp
+    ↓
+n8n registra automaticamente LeadActivity
+    ↓
+histórico passa a mostrar a mensagem/status
 
-Cada aplicação deve ter ambiente PHP adequado à sua versão real.
+IMPORTANTE
 
-Audite a versão necessária antes de fixar imagem.
+O navegador NÃO deve chamar diretamente:
 
-## Frontend
+- n8n;
+- WAHA;
+- endpoint interno protegido por prospect.token.
 
-Os projetos Laravel utilizam Node para build dos assets.
+O frontend deve chamar apenas o backend Laravel autenticado.
 
-Node deve estar disponível no processo de build.
+O Laravel será responsável por chamar o webhook do n8n no servidor.
 
-Não utilizar servidor de desenvolvimento Vite em produção.
+--------------------------------------------------
+1. AUDITORIA ANTES DA IMPLEMENTAÇÃO
+--------------------------------------------------
 
-Preferir build dos assets durante a construção da imagem.
+Antes de alterar código, localizar e documentar:
 
-## Banco
+- página atual `leads/edit`;
+- LeadController;
+- rotas web relacionadas ao Lead;
+- modelo Lead;
+- campos existentes para telefone/WhatsApp;
+- validações existentes;
+- padrão atual de chamadas Inertia/React;
+- services/actions existentes para integrações HTTP;
+- configuração atual em config/services.php;
+- variável/configuração existente para URL do webhook do n8n, se houver;
+- como mensagens de sucesso/erro são apresentadas na interface.
 
-O banco definido é:
+Não criar arquitetura paralela se já existir padrão adequado.
 
-```text
-MySQL
-```
+--------------------------------------------------
+2. BACKEND PARA ENVIO
+--------------------------------------------------
 
-Não considerar PostgreSQL.
-
-Não migrar para outro banco.
-
-## WhatsApp
-
-WAHA será o motor compartilhado de WhatsApp.
-
-Ele deve ficar na raiz de:
-
-```text
-infra-abrasil/waha/
-```
-
-WAHA não pertence exclusivamente ao VetorOS.
-
-Será compartilhado por:
-
-```text
-VetorOS
-VetorPet
-ABrasil Sistemas
-```
-
----
-
-# 2. Primeiro faça auditoria dos três sistemas
-
-Antes de alterar a infraestrutura, analise:
-
-```text
-gateway/vetoros
-gateway/vetorpet
-gateway/abrasilsistema
-```
-
-Para cada projeto descubra:
-
-* versão Laravel;
-* versão PHP necessária;
-* versão Node necessária;
-* gerenciador de pacotes (`npm`, `pnpm` ou `yarn`);
-* banco/configuração MySQL;
-* uso de Redis;
-* uso de queues;
-* scheduler;
-* geração de PDF;
-* GD/Imagick;
-* uploads;
-* storage persistente;
-* websocket, se existir;
-* comandos de build;
-* comandos de produção;
-* extensões PHP necessárias;
-* dependências do sistema operacional;
-* variáveis `.env`;
-* workers;
-* cron;
-* integrações externas.
-
-Não assumir que os três são idênticos.
-
----
-
-# 3. Não alterar regras de negócio
-
-Esta tarefa é de infraestrutura.
-
-Não:
-
-* alterar módulos funcionais;
-* reestruturar domínio;
-* refazer migrations sem necessidade;
-* alterar multitenancy;
-* modificar autenticação;
-* mudar regras de clientes, OS, vendas, financeiro etc.;
-* trazer arquitetura de outro projeto.
-
-Pequenas mudanças necessárias para containerização são permitidas, mas devem ser documentadas.
-
----
-
-# 4. Arquitetura desejada
-
-O ecossistema deve ficar conceitualmente assim:
-
-```text
-                           NGINX
-                             │
-             ┌───────────────┼───────────────┐
-             │               │               │
-             ▼               ▼               ▼
-          VetorOS         VetorPet      ABrasil Sistemas
-             │               │               │
-             └───────────────┼───────────────┘
-                             │
-                             ▼
-                            WAHA
-                             │
-                             ▼
-                          WhatsApp
-```
-
-E com infraestrutura compartilhada onde fizer sentido:
-
-```text
-MySQL
-Redis, se necessário
-workers
-scheduler
-volumes
-```
-
----
-
-# 5. WAHA deve ficar fora do VetorOS
-
-Localize qualquer configuração antiga do WAHA ainda existente dentro de:
-
-```text
-gateway/vetoros/
-```
-
-Incluindo:
-
-* docker-compose interno;
-* volumes;
-* scripts;
-* `.env`;
-* configurações Nginx;
-* arquivos WAHA;
-* referências de container;
-* paths;
-* documentação;
-* serviços.
-
-Mova para:
-
-```text
-infra-abrasil/waha/
-```
-
-somente o que realmente pertence ao WAHA.
-
-Depois ajuste toda a infraestrutura para que o serviço seja controlado pelo:
-
-```text
-infra-abrasil/docker-compose.yml
-```
-
-Não deixar uma segunda instalação concorrente dentro do VetorOS.
-
----
-
-# 6. Serviço WAHA central
-
-Criar um serviço Docker claro:
-
-```yaml
-services:
-  waha:
-```
-
-Requisitos:
-
-* container próprio;
-* persistência de sessão;
-* API key via `.env`;
-* healthcheck, se suportado;
-* `restart: unless-stopped`;
-* acesso pela rede Docker;
-* logs limitados;
-* não expor dados sensíveis;
-* não depender do VetorOS para subir.
-
-Os sistemas devem conseguir acessar internamente por:
-
-```text
-http://waha:<porta>
-```
-
-Nunca utilizar:
-
-```text
-localhost
-127.0.0.1
-```
-
-entre containers.
-
----
-
-# 7. Persistência WAHA
-
-A sessão do WhatsApp deve sobreviver a:
-
-```bash
-docker compose restart
-```
-
-e recriações normais da stack.
-
-Utilize:
-
-```text
-infra-abrasil/volumes/waha/
-```
-
-ou named volume equivalente.
-
-Não manter sessão em filesystem efêmero do container.
-
-Não apagar volumes existentes automaticamente.
-
-Se houver sessões antigas dentro do VetorOS, avaliar migração antes de remover.
-
----
-
-# 8. Separação das sessões WhatsApp
-
-Preparar o ecossistema para nomes de sessão distintos por aplicação e cliente.
-
-Padrão recomendado:
-
-```text
-vetoros_<tenant>
-vetorpet_<tenant>
-abrasilsistema_<tenant>
-```
-
-ou equivalente seguro.
-
-A responsabilidade de montar esse identificador pertence às aplicações ou ao gateway lógico.
-
-Docker apenas deve suportar isso.
-
----
-
-# 9. Redes Docker
-
-Criar uma rede compartilhada:
-
-```text
-infra-abrasil-network
-```
-
-ou nome equivalente.
-
-Deve permitir:
-
-```text
-nginx → vetoros
-nginx → vetorpet
-nginx → abrasilsistema
-
-vetoros → mysql
-vetorpet → mysql
-abrasilsistema → mysql
-
-vetoros → waha
-vetorpet → waha
-abrasilsistema → waha
-
-apps → redis
-```
-
-quando aplicável.
-
----
-
-# 10. Nginx
-
-O Nginx deve ser o reverse proxy central.
-
-Estrutura recomendada:
-
-```text
-nginx/
-├── nginx.conf
-└── conf.d/
-    ├── vetoros.conf
-    ├── vetorpet.conf
-    ├── abrasilsistema.conf
-    └── waha.conf
-```
-
-No ambiente local, configurar hosts claros, por exemplo:
-
-```text
-vetoros.localhost
-vetorpet.localhost
-abrasilsistema.localhost
-```
-
-WAHA pode ter host próprio para administração/teste, se necessário.
-
-Não hardcodar domínios reais de produção ainda.
-
----
-
-# 11. Preparar para HTTPS futuro
-
-Não é obrigatório emitir certificados agora.
-
-Mas deixar a configuração pronta para futuramente usar:
-
-```text
-Let's Encrypt
-Certbot
-```
-
-ou solução equivalente.
-
-Documentar onde entrarão os certificados.
-
----
-
-# 12. Containers Laravel
-
-Cada aplicação deve ter seu próprio serviço.
+Criar uma rota WEB autenticada para envio.
 
 Exemplo conceitual:
 
-```text
-vetoros
-vetorpet
-abrasilsistema
-```
+POST /leads/{lead}/whatsapp
 
-Cada uma deve usar PHP compatível com seu projeto.
+ou outra URI coerente com o padrão existente.
 
-Não forçar versão PHP única se houver incompatibilidade.
+Essa rota é para o usuário autenticado do CRM.
 
----
+NÃO reutilizar `prospect.token` nessa rota.
 
-# 13. Node para build
+Usar autenticação/autorização normal do painel.
 
-Os três projetos Laravel devem ter Node disponível no processo de build quando necessário.
+Criar Request dedicado, por exemplo:
 
-Preferir Dockerfile multi-stage:
+SendLeadWhatsappRequest
 
-```text
-stage node
-    npm/pnpm/yarn install
-    build frontend
+Validar pelo menos:
 
-stage php
-    composer install
-    copiar assets compilados
-```
+message:
+- required
+- string
+- tamanho máximo razoável
 
-Não executar servidor Vite em produção.
+Não receber o telefone livremente do frontend se não for necessário.
 
-Não deixar `npm run dev` como dependência de runtime.
+O backend deve buscar o WhatsApp diretamente do Lead.
 
----
+--------------------------------------------------
+3. TELEFONE/WHATSAPP
+--------------------------------------------------
 
-# 14. Composer
+Identificar qual campo do Lead representa atualmente o WhatsApp.
 
-Instalar dependências PHP com Composer.
+Normalizar o número antes de enviar ao n8n.
 
-Para imagem de produção:
+Não inventar regras incompatíveis com o que o sistema já utiliza.
 
-```text
-composer install --no-dev --optimize-autoloader
-```
+Para números brasileiros, preservar a lógica atualmente usada pelo projeto/integrador.
 
-ou equivalente compatível.
+Se o Lead não possuir WhatsApp válido:
 
-Não executar Composer toda vez que o container subir.
+- não chamar n8n;
+- retornar erro de validação amigável.
 
----
+Não permitir envio silencioso para número vazio.
 
-# 15. Extensões PHP
+--------------------------------------------------
+4. SERVIÇO DE INTEGRAÇÃO
+--------------------------------------------------
 
-Auditar e instalar somente o necessário.
+Preferencialmente encapsular a chamada ao n8n em um Service/Action, por exemplo:
 
-Exemplos comuns:
+WhatsappService
+LeadWhatsappService
+N8nWhatsappService
 
-```text
-pdo_mysql
-mbstring
-bcmath
-intl
-zip
-gd
-exif
-opcache
-pcntl
-redis
-```
+Escolher nome coerente com o projeto.
 
-Instalar Imagick somente se algum projeto realmente precisar.
+Evitar colocar toda a chamada HTTP dentro do controller.
 
----
+Usar Laravel HTTP Client.
 
-# 16. PHP-FPM ou servidor apropriado
+O webhook atual do n8n recebe conceitualmente:
 
-Organizar o runtime adequadamente.
+{
+    "prospect_id": 118,
+    "nome": "Nome do prospect",
+    "whatsapp": "5551...",
+    "mensagem": "Texto da mensagem"
+}
 
-Não utilizar:
+Manter o contrato já validado pelo workflow.
 
-```bash
-php artisan serve
-```
+--------------------------------------------------
+5. CONFIGURAÇÃO
+--------------------------------------------------
 
-como solução definitiva de produção se houver Nginx + PHP-FPM disponível.
+Não hardcodar a URL do n8n no controller.
 
-Preferir:
+Adicionar configuração apropriada em:
 
-```text
-Nginx → PHP-FPM
-```
+config/services.php
 
-ou arquitetura equivalente consistente.
+e variável correspondente no `.env.example`.
 
----
+Exemplo conceitual:
 
-# 17. MySQL
+N8N_WHATSAPP_WEBHOOK_URL=
 
-O banco deve ser MySQL.
+A URL de produção atualmente utilizada pelo workflow deve ser configurável por ambiente.
 
-Avalie a melhor estratégia para os três sistemas.
+NÃO colocar tokens, senhas ou segredos reais no repositório.
 
-Preferência:
+--------------------------------------------------
+6. TRATAMENTO DA RESPOSTA DO N8N
+--------------------------------------------------
 
-```text
-um serviço MySQL
-```
+O fluxo n8n já retorna algo semelhante a:
 
-com databases separados:
+{
+    "success": true,
+    "message": "Mensagem enviada ao WAHA e registrada no CRM",
+    "message_id": "3EB0...",
+    "status": "PENDING",
+    "activity_id": 11
+}
 
-```text
-vetoros
-vetorpet
-abrasilsistema
-```
+O backend deve:
 
-desde que isso seja seguro e adequado.
+- verificar erro HTTP;
+- verificar `success`;
+- tratar timeout/conexão indisponível;
+- retornar feedback amigável ao usuário;
+- não criar uma segunda LeadActivity.
 
-Não misturar tabelas dos três projetos no mesmo database.
+IMPORTANTE:
 
-Criar usuários distintos por aplicação, se possível:
+Quem registra a LeadActivity continua sendo o fluxo n8n através do endpoint já existente.
 
-```text
-vetoros_user
-vetorpet_user
-abrasilsistema_user
-```
+Não duplicar esse registro no controller web.
 
-Cada usuário deve ter acesso somente ao seu database.
+--------------------------------------------------
+7. INTERFACE DO PROSPECT
+--------------------------------------------------
 
-Se houver razão técnica forte para instâncias MySQL separadas, documentar.
+Na página do prospect, adicionar uma ação clara:
 
----
+"Enviar WhatsApp"
 
-# 18. Persistência MySQL
+Não abrir WhatsApp Web.
 
-Usar volume persistente.
+Essa ação utiliza nossa integração CRM -> n8n -> WAHA.
+
+Ao clicar, apresentar uma interface simples para escrever a mensagem.
+
+Pode ser:
+
+- modal/dialog;
+- card expansível;
+
+Escolher o padrão visual já utilizado pelo sistema.
+
+Campos:
+
+Mensagem
+[textarea]
+
+Mostrar contador de caracteres se for coerente com os componentes existentes.
+
+Botões:
+
+Cancelar
+Enviar WhatsApp
+
+Durante o envio:
+
+- desabilitar botão;
+- impedir duplo clique;
+- mostrar estado "Enviando...".
+
+Após sucesso:
+
+- fechar modal;
+- limpar mensagem;
+- mostrar feedback de sucesso;
+- atualizar/recarregar os dados necessários para que a nova atividade apareça no histórico.
+
+Evitar reload completo da página se o padrão Inertia existente permitir atualização parcial.
+
+--------------------------------------------------
+8. CONTEXTO DO PROSPECT
+--------------------------------------------------
+
+No modal/card mostrar discretamente:
+
+Nome do prospect
+WhatsApp de destino
 
 Exemplo:
 
-```text
-volumes/mysql/
-```
+Enviar WhatsApp
 
-ou named volume.
+Cliente:
+Assistência Técnica ABC
 
-Nunca armazenar dados do MySQL apenas dentro do container.
+Destino:
+(51) 99999-9999
 
----
+Mensagem:
+[...........................]
 
-# 19. Redis
+Isso reduz o risco de o operador enviar mensagem para o prospect errado.
 
-Audite se os projetos realmente utilizam Redis.
+--------------------------------------------------
+9. SEGURANÇA
+--------------------------------------------------
 
-Se sim, pode haver um serviço compartilhado:
+A rota deve:
 
-```text
-redis
-```
+- exigir usuário autenticado;
+- respeitar a autorização existente para acesso/edição do Lead;
+- não aceitar lead_id arbitrário no body;
+- usar route model binding;
+- não expor token interno;
+- não expor credenciais WAHA;
+- não expor URL interna desnecessariamente ao frontend.
 
-Mas configurar isolamento por:
+Adicionar throttle coerente para envio manual de WhatsApp.
 
-* prefixo;
-* database;
-* nome de aplicação.
+Não criar mecanismo de disparo em massa nesta etapa.
 
-Evitar colisão de:
+O objetivo é envio individual e deliberado pelo operador.
 
-```text
-cache
-session
-queues
-locks
-```
+--------------------------------------------------
+10. ERROS DE UX
+--------------------------------------------------
 
-Se compartilhamento não for seguro, criar Redis separado.
+Tratar claramente pelo menos:
 
----
+- prospect sem WhatsApp;
+- mensagem vazia;
+- número inválido;
+- n8n indisponível;
+- timeout;
+- resposta inválida do n8n;
+- WAHA/n8n retornando success=false;
+- HTTP 4xx/5xx.
 
-# 20. Queue workers
+Não mostrar stack trace nem detalhes internos para o usuário.
 
-Se algum projeto usa Laravel Queue:
+Registrar detalhes técnicos nos logs do Laravel quando necessário.
 
-Criar containers separados reutilizando a mesma imagem.
+Não registrar tokens/segredos nos logs.
 
-Exemplo:
+--------------------------------------------------
+11. HISTÓRICO
+--------------------------------------------------
 
-```text
-vetoros-worker
-vetorpet-worker
-abrasilsistema-worker
-```
+Depois do envio bem-sucedido, a atividade criada pelo fluxo n8n deverá aparecer no histórico existente.
 
-Executando algo equivalente a:
+Ela já suporta:
 
-```bash
-php artisan queue:work
-```
+Enviando
+Enviada
+Entregue
+Lida
+Reproduzida
+Erro no envio
 
-Configurar:
+Não duplicar o componente de status.
 
-* timeout;
-* retries;
-* sleep;
-* stopwait;
-* restart;
-* conexão correta.
+Reutilizar:
 
-Não criar worker para aplicação que não utiliza fila.
+WhatsappMessageStatus
 
----
+--------------------------------------------------
+12. NÃO IMPLEMENTAR AINDA
+--------------------------------------------------
 
-# 21. Scheduler
+Nesta etapa NÃO implementar:
 
-Se houver tarefas agendadas Laravel:
+- disparo em massa;
+- campanhas;
+- fila automática de prospecção;
+- templates persistidos em banco;
+- IA gerando mensagens;
+- agendamento;
+- chatbot;
+- respostas recebidas do WhatsApp;
+- WebSocket;
+- polling contínuo;
+- edição de n8n;
+- edição de WAHA.
 
-Criar scheduler adequado.
+Queremos primeiro o envio manual individual funcionando perfeitamente.
 
-Exemplo:
+--------------------------------------------------
+13. TESTES
+--------------------------------------------------
 
-```text
-vetoros-scheduler
-vetorpet-scheduler
-abrasilsistema-scheduler
-```
+Adicionar testes compatíveis com a arquitetura atual cobrindo pelo menos:
 
-ou estratégia central de cron.
+- rota exige autenticação;
+- usuário autorizado consegue enviar;
+- usuário sem acesso ao Lead não consegue enviar;
+- Lead sem WhatsApp;
+- mensagem vazia;
+- mensagem válida;
+- payload correto enviado ao n8n;
+- prospect_id vem da rota/model e não do body;
+- nome correto;
+- WhatsApp correto/normalizado;
+- mensagem correta;
+- timeout do n8n;
+- HTTP 500 do n8n;
+- resposta success=false;
+- resposta inválida;
+- sucesso;
+- nenhuma LeadActivity adicional é criada pelo controller web.
 
-Não executar scheduler onde não existir necessidade.
+Usar Http::fake() nos testes.
 
----
+Não realizar chamadas reais ao n8n/WAHA durante testes.
 
-# 22. Storage Laravel
+Testar também que segredos/URLs internas não são enviados como props Inertia.
 
-Garantir permissões corretas para:
+--------------------------------------------------
+14. BUILD E QUALIDADE
+--------------------------------------------------
 
-```text
-storage/
-bootstrap/cache/
-```
+Executar:
 
-Não usar:
+- testes relevantes;
+- Pint;
+- TypeScript;
+- build frontend;
+- git diff --check.
 
-```text
-chmod 777
-```
+Não introduzir nova infraestrutura de testes frontend apenas para esta alteração.
 
-como solução permanente.
+O projeto roda em Docker.
 
-Configurar usuário/grupo adequadamente.
+O container principal de produção é:
 
----
+infra-abrasil-abrasilsistema-1
 
-# 23. Uploads
+PHP/Artisan não devem ser executados diretamente no host.
 
-Auditar onde cada projeto grava:
+O container de produção possui código embutido na imagem e não deve receber arquivos copiados manualmente apenas para teste.
 
-* imagens;
-* anexos;
-* PDFs;
-* documentos;
-* uploads de usuários.
+Usar ambiente/container descartável para testes quando necessário, como nas etapas anteriores.
 
-Persistir apenas diretórios necessários.
+Não executar:
 
-Não persistir toda a aplicação.
+migrate:fresh
+db:wipe
+rollback global
+ou comandos destrutivos.
 
----
+--------------------------------------------------
+15. PRODUÇÃO
+--------------------------------------------------
 
-# 24. Volumes
+Não fazer rebuild/redeploy automaticamente.
 
-Organizar volumes aproximadamente assim:
+Não alterar `.env` de produção automaticamente.
 
-```text
-volumes/
-├── mysql/
-├── waha/
-├── vetoros/
-├── vetorpet/
-└── abrasilsistema/
-```
+Ao final informar exatamente qual variável precisa ser adicionada ao `.env` de produção e qual valor ela deve receber, SEM inventar a URL.
 
-Dentro de cada aplicação, persistir apenas os dados necessários, por exemplo:
+Se a URL puder ser determinada inequivocamente pela configuração/documentação atual do projeto, informar a URL encontrada; caso contrário, indicar que precisa ser preenchida com a URL de produção do webhook já existente.
 
-```text
-storage/app/public
-uploads
-```
+--------------------------------------------------
+16. ENTREGA
+--------------------------------------------------
 
----
+Ao terminar, gerar relatório contendo:
 
-# 25. `.env` da infraestrutura
+- arquitetura encontrada;
+- arquivos criados;
+- arquivos alterados;
+- rota criada;
+- Request criado;
+- Service/Action criado;
+- configuração adicionada;
+- variável `.env` necessária;
+- contrato enviado ao n8n;
+- tratamento de erros;
+- autorização aplicada;
+- alterações na interface;
+- comportamento após sucesso;
+- testes executados;
+- resultado dos testes;
+- resultado do TypeScript/build;
+- comandos necessários para deploy;
+- qualquer pendência encontrada.
 
-O arquivo:
+Pare ao concluir esta etapa.
 
-```text
-infra-abrasil/.env
-```
-
-deve controlar infraestrutura comum.
-
-Exemplos:
-
-```env
-MYSQL_ROOT_PASSWORD=
-MYSQL_PORT=
-
-WAHA_API_KEY=
-WAHA_PORT=
-
-REDIS_PORT=
-```
-
-Não colocar secrets reais no repositório.
-
-Criar:
-
-```text
-.env.example
-```
-
-com todas as variáveis necessárias.
-
----
-
-# 26. `.env` das aplicações
-
-Cada aplicação pode manter seu próprio `.env`.
-
-Atualizar para usar hostnames Docker.
-
-Exemplo:
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-```
-
-com seu database específico.
-
-Para WAHA:
-
-```env
-WAHA_BASE_URL=http://waha:3000
-```
-
-ajustando porta real.
-
----
-
-# 27. Nomes de databases
-
-Sugestão:
-
-```text
-vetoros
-vetorpet
-abrasilsistema
-```
-
-Não inventar outro padrão sem necessidade.
-
----
-
-# 28. Healthchecks
-
-Adicionar healthcheck para:
-
-```text
-mysql
-redis
-waha
-vetoros
-vetorpet
-abrasilsistema
-```
-
-quando tecnicamente possível.
-
-`depends_on` deve considerar health status onde fizer sentido.
-
-Não confiar somente na ordem dos containers.
-
----
-
-# 29. Restart policies
-
-Para serviços de runtime, usar:
-
-```yaml
-restart: unless-stopped
-```
-
-ou equivalente.
-
-Não aplicar cegamente em jobs de build ou init.
-
----
-
-# 30. Logs
-
-Configurar rotação de logs do Docker.
-
-Exemplo:
-
-```yaml
-logging:
-  options:
-    max-size: "10m"
-    max-file: "3"
-```
-
-ou equivalente.
-
-Evitar crescimento ilimitado.
-
----
-
-# 31. Dados sensíveis
-
-Não registrar em logs:
-
-* senhas;
-* API keys;
-* QR Code WAHA;
-* cookies;
-* tokens;
-* dados de sessão;
-* secrets;
-* credenciais MySQL.
-
----
-
-# 32. Portas
-
-Na futura VPS, o ideal é expor publicamente somente:
-
-```text
-80
-443
-```
-
-MySQL, Redis e WAHA devem ficar internos sempre que possível.
-
-No local, portas extras podem ser publicadas para debug, mas documentar.
-
----
-
-# 33. Docker Compose
-
-O arquivo principal deve ser:
-
-```text
-infra-abrasil/docker-compose.yml
-```
-
-Evitar múltiplos Compose concorrentes controlando a mesma infraestrutura.
-
-Compose internos dos projetos podem permanecer apenas se houver razão de desenvolvimento isolado, mas a stack consolidada deve ser controlada pela raiz.
-
----
-
-# 34. Dockerfiles
-
-Criar Dockerfile adequado para cada aplicação.
-
-Se forem realmente compatíveis, pode haver base compartilhada.
-
-Mas não sacrificar compatibilidade para reduzir arquivos.
-
----
-
-# 35. Build frontend
-
-Para cada aplicação:
-
-1. instalar dependências Node;
-2. compilar assets;
-3. copiar assets finais para imagem PHP;
-4. não carregar `node_modules` no runtime se não for necessário.
-
----
-
-# 36. Cache Laravel
-
-Preparar para ambiente de produção.
-
-Ao construir ou inicializar corretamente, considerar:
-
-```bash
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-```
-
-somente se o projeto suportar sem problemas.
-
-Não mascarar erros de configuração.
-
----
-
-# 37. Migrations
-
-Não rodar migrations destrutivas automaticamente a cada restart.
-
-Documentar comandos manuais:
-
-```bash
-docker compose exec vetoros php artisan migrate
-docker compose exec vetorpet php artisan migrate
-docker compose exec abrasilsistema php artisan migrate
-```
-
-ou nomes reais dos serviços.
-
----
-
-# 38. Seeders
-
-Não executar seeders automaticamente em produção.
-
-Somente documentar quando necessário.
-
----
-
-# 39. Scripts auxiliares
-
-Criar scripts simples se ajudar:
-
-```text
-scripts/
-├── up.sh
-├── down.sh
-├── rebuild.sh
-├── logs.sh
-└── status.sh
-```
-
-Exemplo:
-
-```bash
-docker compose up -d --build
-```
-
-Não criar automação excessiva.
-
----
-
-# 40. Desenvolvimento local
-
-O ambiente deve conseguir subir com:
-
-```bash
-docker compose up -d --build
-```
-
-Depois validar:
-
-```bash
-docker compose ps
-```
-
----
-
-# 41. Não depender de Windows/WSL
-
-A stack final deve funcionar em Linux Docker Engine.
-
-Não usar:
-
-* paths Windows;
-* scripts `.bat`;
-* dependências específicas de WSL;
-* paths absolutos do computador atual.
-
----
-
-# 42. WAHA compartilhado
-
-Os três sistemas devem poder consumir a mesma instância WAHA.
-
-Fluxo:
-
-```text
-VetorOS ──────────┐
-                  │
-VetorPet ─────────┼──> WAHA
-                  │
-ABrasil Sistemas ─┘
-```
-
-Não criar três containers WAHA sem necessidade.
-
----
-
-# 43. Gateway próprio futuro
-
-Prepare a infraestrutura para futuramente adicionar:
-
-```text
-WhatsApp Gateway próprio
-```
-
-entre as aplicações e WAHA:
-
-```text
-VetorOS
-VetorPet
-ABrasil Sistemas
-       ↓
-WhatsApp Gateway
-       ↓
-WAHA
-```
-
-Mas não criar complexidade desnecessária nesta etapa se ainda não houver necessidade.
-
----
-
-# 44. VetorOS
-
-No VetorOS:
-
-* remover dependência de WAHA interno;
-* ajustar URL para WAHA compartilhado;
-* manter integração atual funcionando;
-* não alterar regras funcionais.
-
----
-
-# 45. VetorPet
-
-Deixar infraestrutura preparada para consumir WAHA.
-
-Não implementar funcionalidades WhatsApp completas se ainda não existirem.
-
-Apenas garantir conectividade e configuração.
-
----
-
-# 46. ABrasil Sistemas
-
-O nome correto é:
-
-```text
-ABrasil Sistemas
-```
-
-O diretório é:
-
-```text
-gateway/abrasilsistema
-```
-
-Não utilizar nomes:
-
-```text
-abrasilweb
-ABrasilWeb
-```
-
-Deixar infraestrutura preparada para WAHA da mesma forma que os demais.
-
----
-
-# 47. Nginx local
-
-Criar arquivos separados.
-
-Exemplo:
-
-```text
-vetoros.conf
-vetorpet.conf
-abrasilsistema.conf
-waha.conf
-```
-
-Configurar upstreams usando nomes dos serviços Docker.
-
----
-
-# 48. Produção futura
-
-A stack deve poder ser levada para uma VPS apenas com:
-
-* clone/cópia do projeto;
-* preenchimento do `.env`;
-* DNS;
-* certificados;
-* volumes;
-* `docker compose up -d --build`.
-
-Evitar configurações manuais desnecessárias.
-
----
-
-# 49. Backup futuro
-
-Não precisa implementar sistema completo agora, mas organizar volumes para facilitar backup de:
-
-```text
-MySQL
-uploads
-WAHA sessions
-```
-
----
-
-# 50. Validação obrigatória
-
-Após ajustes executar, quando possível:
-
-```bash
-docker compose config
-docker compose build
-docker compose up -d
-docker compose ps
-```
-
-Também verificar logs:
-
-```bash
-docker compose logs --tail=100
-```
-
-dos serviços com problema.
-
----
-
-# 51. Validar MySQL
-
-Confirmar:
-
-* container healthy;
-* databases existentes;
-* usuários corretos;
-* aplicações conectando;
-* isolamento entre databases.
-
----
-
-# 52. Validar WAHA
-
-Confirmar:
-
-* container healthy;
-* API acessível internamente;
-* volume persistente;
-* reinício não remove sessão;
-* VetorOS consegue acessar;
-* VetorPet consegue resolver hostname;
-* ABrasil Sistemas consegue resolver hostname.
-
----
-
-# 53. Validar Nginx
-
-Confirmar acesso local aos três hosts configurados.
-
-Exemplo:
-
-```text
-vetoros.localhost
-vetorpet.localhost
-abrasilsistema.localhost
-```
-
-Se `.localhost` não funcionar no ambiente, usar solução equivalente e documentar.
-
----
-
-# 54. Validar Node/build
-
-Confirmar que os assets dos três projetos são compilados corretamente.
-
-Não considerar aplicação pronta se backend sobe mas frontend está sem build.
-
----
-
-# 55. Validar Laravel
-
-Para cada sistema verificar:
-
-```bash
-php artisan about
-```
-
-ou equivalente.
-
-Também validar:
-
-* config;
-* conexão banco;
-* storage;
-* cache;
-* rotas;
-* frontend.
-
----
-
-# 56. Não ficar preso em erros do Docker
-
-Se algum comando falhar por:
-
-* socket;
-* permissão;
-* contexto;
-* ambiente;
-
-não ficar repetindo indefinidamente.
-
-Documentar:
-
-* comando;
-* erro;
-* solução provável;
-* comando manual para operador.
-
-Continue o restante do trabalho.
-
----
-
-# 57. Não declarar concluído cedo
-
-Somente declarar concluído quando:
-
-* Compose estiver válido;
-* builds estiverem definidos;
-* MySQL configurado;
-* WAHA movido para raiz;
-* volumes configurados;
-* rede funcionando;
-* Nginx configurado;
-* três aplicações definidas;
-* Node incluído no build;
-* PHP correto;
-* `.env.example` criado;
-* scripts/documentação disponíveis;
-* stack preparada para VPS.
-
----
-
-# 58. Estrutura final esperada
-
-Algo próximo de:
-
-```text
-infra-abrasil/
-├── docker-compose.yml
-├── .env
-├── .env.example
-├── nginx/
-│   ├── nginx.conf
-│   └── conf.d/
-│       ├── vetoros.conf
-│       ├── vetorpet.conf
-│       ├── abrasilsistema.conf
-│       └── waha.conf
-├── gateway/
-│   ├── vetoros/
-│   │   └── Dockerfile
-│   ├── vetorpet/
-│   │   └── Dockerfile
-│   └── abrasilsistema/
-│       └── Dockerfile
-├── waha/
-├── volumes/
-│   ├── mysql/
-│   ├── waha/
-│   ├── vetoros/
-│   ├── vetorpet/
-│   └── abrasilsistema/
-└── scripts/
-    ├── up.sh
-    ├── down.sh
-    ├── rebuild.sh
-    └── logs.sh
-```
-
-Ajustar somente se houver justificativa técnica.
-
----
-
-# 59. Entrega final
-
-Ao concluir, gerar relatório detalhado com:
-
-## Auditoria inicial
-
-* versões Laravel;
-* versões PHP;
-* versões Node;
-* package manager;
-* extensões;
-* banco;
-* Redis;
-* queues;
-* scheduler.
-
-## Arquitetura final
-
-Diagrama textual dos serviços.
-
-## Containers
-
-Listar todos os serviços criados.
-
-## MySQL
-
-* databases;
-* usuários;
-* volumes;
-* portas.
-
-## PHP
-
-Versão utilizada por aplicação.
-
-## Node
-
-Como o build frontend foi feito.
-
-## Nginx
-
-Hosts e upstreams.
-
-## WAHA
-
-* localização;
-* serviço;
-* persistência;
-* healthcheck;
-* integração.
-
-## Volumes
-
-Todos os volumes e função.
-
-## Rede
-
-Nome e comunicação entre containers.
-
-## Workers
-
-Workers ativos.
-
-## Scheduler
-
-Schedulers ativos.
-
-## Variáveis de ambiente
-
-Variáveis novas ou alteradas, sem revelar secrets.
-
-## Arquivos alterados
-
-Lista completa.
-
-## Arquivos removidos/movidos do WAHA antigo
-
-Listar claramente.
-
-## Testes realizados
-
-Comandos e resultados.
-
-## Comandos manuais
-
-Tudo que eu precisar executar manualmente.
-
-## Pendências
-
-Somente pendências reais.
-
----
-
-# Objetivo final
-
-Transformar:
-
-```text
-infra-abrasil
-```
-
-em uma infraestrutura única, organizada e pronta para nuvem, contendo:
-
-```text
-Laravel/PHP
-Node para build
-MySQL
-Nginx
-WAHA compartilhado
-Redis quando necessário
-workers
-scheduler
-volumes persistentes
-```
-
-atendendo:
-
-```text
-VetorOS
-VetorPet
-ABrasil Sistemas
-```
-
-com o WAHA centralizado na raiz da infraestrutura e não mais dentro do VetorOS.
-
-Primeiro fazer funcionar localmente.
-
-Depois de validado, o projeto será enviado para uma VPS Linux.
-
-Não realizar o deploy em nuvem nesta tarefa.
+Não faça deploy automaticamente.

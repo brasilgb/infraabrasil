@@ -4,4 +4,7 @@ volumes/waha/*
 volumes/vetoros/*
 volumes/vetorpet/*
 volumes/abrasilsistema/*
+volumes/certbot/*
+volumes/n8n/*
+backups/
 !volumes/*/.gitkeep

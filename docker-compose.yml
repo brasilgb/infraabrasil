@@ -1,5 +1,23 @@
 name: infra-abrasil
 
+x-laravel-environment: &laravel-environment
+  APP_ENV: ${APP_ENV:-local}
+  APP_DEBUG: ${APP_DEBUG:-false}
+  APP_KEY: ${VETOROS_APP_KEY:?configure VETOROS_APP_KEY in .env}
+  APP_URL: ${VETOROS_APP_URL:-http://vetoros.localhost}
+  DB_HOST: mysql
+  DB_PORT: 3306
+  DB_DATABASE: vetoros
+  DB_USERNAME: vetoros_user
+  DB_PASSWORD: ${VETOROS_DB_PASSWORD:?configure VETOROS_DB_PASSWORD in .env}
+  REDIS_HOST: redis
+  REDIS_PORT: 6379
+  REDIS_PREFIX: vetoros_
+  WAHA_BASE_URL: http://waha:3000
+  WAHA_API_KEY: ${WAHA_API_KEY:-}
+  QUEUE_CONNECTION: database
+  CACHE_STORE: database
+
 services:
   mysql:
     image: mysql:8.4
@@ -37,7 +55,6 @@ services:
       UPLOAD_LIMIT: 64M
     depends_on: {mysql: {condition: service_healthy}}
     networks: [infra-abrasil-network]
-    ports: ["${PHPMYADMIN_PORT:-8084}:80"]
     healthcheck:
       test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/80'"]
       interval: 15s
@@ -49,12 +66,12 @@ services:
     restart: unless-stopped
     environment:
       WHATSAPP_DEFAULT_ENGINE: ${WAHA_ENGINE:-NOWEB}
+      WAHA_NOWEB_WA_VERSION: ${WAHA_NOWEB_WA_VERSION:-auto-web}
       WHATSAPP_API_KEY: ${WAHA_API_KEY:-}
       WAHA_DASHBOARD_USERNAME: ${WAHA_DASHBOARD_USERNAME:-admin}
       WAHA_DASHBOARD_PASSWORD: ${WAHA_DASHBOARD_PASSWORD:?configure WAHA_DASHBOARD_PASSWORD in .env}
     volumes: [./volumes/waha:/app/.sessions]
     networks: [infra-abrasil-network]
-    ports: ["${WAHA_PORT:-3000}:3000"]
     healthcheck:
       test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:3000/health', {headers: {'X-Api-Key': process.env.WHATSAPP_API_KEY || ''}}).then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))\""]
       interval: 15s
@@ -85,23 +102,13 @@ services:
     build: {context: ./gateway/vetoros, dockerfile: Dockerfile}
     restart: unless-stopped
     env_file: ./gateway/vetoros/.env.example
-    environment: &laravel-environment
-      APP_ENV: ${APP_ENV:-local}
-      APP_DEBUG: ${APP_DEBUG:-false}
-      APP_KEY: ${VETOROS_APP_KEY:?configure VETOROS_APP_KEY in .env}
-      APP_URL: ${VETOROS_APP_URL:-http://vetoros.localhost}
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_DATABASE: vetoros
-      DB_USERNAME: vetoros_user
-      DB_PASSWORD: ${VETOROS_DB_PASSWORD:?configure VETOROS_DB_PASSWORD in .env}
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      REDIS_PREFIX: vetoros_
-      WAHA_BASE_URL: http://waha:3000
-      WAHA_API_KEY: ${WAHA_API_KEY:-}
-      QUEUE_CONNECTION: database
-      CACHE_STORE: database
+    environment:
+      <<: *laravel-environment
+      # Token do CRM ABrasil para /api/integrations/registration-check (só no VetorOS; vazio = endpoint nega tudo)
+      CRM_REGISTRATION_CHECK_TOKEN: ${VETOROS_CRM_REGISTRATION_CHECK_TOKEN:-}
+      MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN:-}
+      MP_PUBLIC_KEY: ${MP_PUBLIC_KEY:-}
+      MP_WEBHOOK_TOKEN: ${MP_WEBHOOK_TOKEN:-}
     volumes: [./volumes/vetoros:/var/www/html/storage/app/public, vetoros-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]
@@ -126,6 +133,9 @@ services:
       DB_PASSWORD: ${VETORPET_DB_PASSWORD:?configure VETORPET_DB_PASSWORD in .env}
       REDIS_PREFIX: vetorpet_
       WAHA_BASE_URL: http://waha:3000
+      MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN:-}
+      MP_PUBLIC_KEY: ${MP_PUBLIC_KEY:-}
+      MP_WEBHOOK_TOKEN: ${MP_WEBHOOK_TOKEN:-}
     volumes: [./volumes/vetorpet:/var/www/html/storage/app/public, vetorpet-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]
@@ -150,9 +160,11 @@ services:
       DB_PASSWORD: ${ABRASILSISTEMA_DB_PASSWORD:?configure ABRASILSISTEMA_DB_PASSWORD in .env}
       REDIS_PREFIX: abrasilsistema_
       WAHA_BASE_URL: http://waha:3000
+      WAHA_API_KEY: ${WAHA_API_KEY:-}
       N8N_WHATSAPP_WEBHOOK_URL: ${ABRASILSISTEMA_N8N_WHATSAPP_WEBHOOK_URL:-}
       N8N_WHATSAPP_WEBHOOK_HEADER: ${ABRASILSISTEMA_N8N_WHATSAPP_WEBHOOK_HEADER:-X-CRM-Token}
       N8N_WHATSAPP_WEBHOOK_TOKEN: ${ABRASILSISTEMA_N8N_WHATSAPP_WEBHOOK_TOKEN:-}
+      PROSPECT_REGISTRATION_CHECK_ENABLED: ${ABRASILSISTEMA_PROSPECT_REGISTRATION_CHECK_ENABLED:-false}
     volumes: [./volumes/abrasilsistema:/var/www/html/storage/app/public, abrasilsistema-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]

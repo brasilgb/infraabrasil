@@ -1,12 +1,12 @@
 # infra-abrasil
 
-Stack Docker local consolidada para VetorOS, VetorPet e ABrasil Sistemas.
+Stack Docker local consolidada para VetorOS, VetorPet, ABrasil Sistemas e Desgarrados.
 
 ## Subida local
 
 1. Copie `.env.example` para `.env` e preencha os segredos.
 2. Execute `./scripts/up.sh`.
-3. Acesse `http://vetoros.localhost`, `http://vetorpet.localhost` e `http://abrasilsistema.localhost`.
+3. Acesse `http://vetoros.localhost`, `http://vetorpet.localhost`, `http://abrasilsistema.localhost` e `http://desgarrados.localhost`.
 
 O host `waha.localhost` encaminha para a API compartilhada. WAHA também fica publicado localmente em `WAHA_PORT`; em VPS, remova essa publicação e exponha somente Nginx/HTTPS.
 
@@ -16,13 +16,13 @@ O host `n8n.localhost` dá acesso ao n8n (automações de prospecção do CRM AB
 
 ## Subida em VPS com domínio real e HTTPS
 
-Com o DNS de `vetoros.com.br`, `vetorpet.com.br`, `abrasilsistemas.com.br` (+ `www.`, redirecionado para o apex) e `n8n.abrasilsistemas.com.br` (sem `www.`) apontando (registro A) para o IP da VPS, o Nginx atende cada domínio com certificado Let's Encrypt:
+Com o DNS de `vetoros.com.br`, `vetorpet.com.br`, `abrasilsistemas.com.br`, `desgarrados.com.br` (+ `www.`, redirecionado para o apex) e `n8n.abrasilsistemas.com.br` (sem `www.`) apontando (registro A) para o IP da VPS, o Nginx atende cada domínio com certificado Let's Encrypt:
 
 1. Copie `.env.example` para `.env`, gere segredos reais (`MYSQL_ROOT_PASSWORD`, `*_DB_PASSWORD`, `*_APP_KEY` no formato `base64:...`), confirme `*_DOMAIN`/`*_APP_URL` com os domínios reais e defina `CERTBOT_EMAIL` com um e-mail válido (usado pelo Let's Encrypt para avisos).
 2. Libere as portas 80 e 443 no firewall da VPS.
 3. Execute `./scripts/up.sh` (ou `docker compose up -d --build`). Nesse primeiro boot o Nginx ainda não tem certificado real; rode em seguida `./scripts/init-letsencrypt.sh`, que gera um certificado autoassinado temporário (para o Nginx conseguir subir), sobe o Nginx e então solicita o certificado real via Certbot (webroot) para cada domínio. Domínios cujo DNS ainda não propagou ficam com o certificado autoassinado até serem executados novamente.
-4. Rode as migrations (`docker compose exec vetoros php artisan migrate --force`, idem para `vetorpet` e `abrasilsistema`).
-5. Acesse `https://vetoros.com.br`, `https://vetorpet.com.br` e `https://abrasilsistemas.com.br`.
+4. Rode as migrations (`docker compose exec vetoros php artisan migrate --force`, idem para `vetorpet`, `abrasilsistema` e `desgarrados`).
+5. Acesse `https://vetoros.com.br`, `https://vetorpet.com.br`, `https://abrasilsistemas.com.br` e `https://desgarrados.com.br`.
 6. Configure a renovação periódica de certificados chamando `./scripts/renew-certs.sh` (ex.: cron diário/semanal do host — `crontab -e`: `0 3 * * * cd /root/infra-abrasil && ./scripts/renew-certs.sh >> /var/log/certbot-renew.log 2>&1`). Certificados Let's Encrypt duram 90 dias.
 
 Os vhosts `*.localhost` continuam disponíveis em paralelo (HTTP, sem TLS) para uso em desenvolvimento local via `./scripts/up.sh` sem domínio configurado.
@@ -32,10 +32,11 @@ Os vhosts `*.localhost` continuam disponíveis em paralelo (HTTP, sem TLS) para 
 ```sh
 docker compose config
 docker compose ps
-docker compose logs --tail=100 nginx vetoros vetorpet abrasilsistema waha
+docker compose logs --tail=100 nginx vetoros vetorpet abrasilsistema desgarrados waha
 docker compose exec vetoros php artisan migrate
 docker compose exec vetorpet php artisan migrate
 docker compose exec abrasilsistema php artisan migrate
+docker compose exec desgarrados php artisan migrate
 ```
 
 Migrations e seeders não são executados automaticamente. O init do MySQL só roda na primeira criação de `volumes/mysql`; não remova esse volume sem backup.
@@ -59,7 +60,7 @@ Guarde `N8N_ENCRYPTION_KEY` (em `.env`) junto do backup — sem ela as credencia
 
 ## Arquitetura
 
-Nginx faz o reverse proxy para três pools PHP-FPM. MySQL usa databases e usuários separados; Redis fica disponível na rede compartilhada, embora os três projetos atualmente usem fila/cache em database. WAHA é único, persistido em `volumes/waha` e acessível internamente como `http://waha:3000`. phpMyAdmin gerencia o MySQL compartilhado, acessível internamente como `http://phpmyadmin:80`. n8n roda com SQLite interno (sem Postgres), persistido em `volumes/n8n`, sem porta publicada no host, e alcança o WAHA pela rede Docker interna (`http://waha:3000`) para a futura automação CRM → n8n → WAHA → WhatsApp.
+Nginx faz o reverse proxy para os pools PHP-FPM (vetoros, vetorpet, abrasilsistema e desgarrados). O Desgarrados (`gateway/desgarrados`, repositório `brasilgb/desgarrados2`) também roda `desgarrados-worker` (fila em database) e `desgarrados-scheduler` (`schedule:work`). MySQL usa databases e usuários separados; Redis fica disponível na rede compartilhada, embora os projetos atualmente usem fila/cache em database. WAHA é único, persistido em `volumes/waha` e acessível internamente como `http://waha:3000`. phpMyAdmin gerencia o MySQL compartilhado, acessível internamente como `http://phpmyadmin:80`. n8n roda com SQLite interno (sem Postgres), persistido em `volumes/n8n`, sem porta publicada no host, e alcança o WAHA pela rede Docker interna (`http://waha:3000`) para a futura automação CRM → n8n → WAHA → WhatsApp.
 
 Os Dockerfiles executam `npm ci`/Yarn e `npm run build` no estágio Node, depois `composer install --no-dev --optimize-autoloader` no estágio PHP. O runtime não executa Vite nem `php artisan serve`.
 

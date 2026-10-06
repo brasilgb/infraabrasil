@@ -1,0 +1,4 @@
+[submodule "gateway/vetoros"]
+	path = gateway/vetoros
+	url = https://github.com/brasilgb/vetoros.git
+	branch = main

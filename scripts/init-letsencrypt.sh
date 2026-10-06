@@ -16,7 +16,7 @@ fi
 
 : "${CERTBOT_EMAIL:?configure CERTBOT_EMAIL em .env}"
 # Domínios apex: certificado cobre também o "www.". Subdomínios (ex.: n8n) não usam "www.".
-APEX_DOMAINS="${VETOROS_DOMAIN:-vetoros.com.br} ${VETORPET_DOMAIN:-vetorpet.com.br} ${ABRASILSISTEMA_DOMAIN:-abrasilsistemas.com.br}"
+APEX_DOMAINS="${VETOROS_DOMAIN:-vetoros.com.br} ${VETORPET_DOMAIN:-vetorpet.com.br} ${ABRASILSISTEMA_DOMAIN:-abrasilsistemas.com.br} ${DESGARRADOS_DOMAIN:-desgarrados.com.br}"
 SUBDOMAINS="${N8N_DOMAIN:-n8n.abrasilsistemas.com.br}"
 DOMAINS="$APEX_DOMAINS $SUBDOMAINS"
 

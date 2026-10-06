@@ -1,0 +1,20 @@
+--- nginx/conf.d/apps.conf	2026-09-23 18:09:03.624394244 +0000
++++ staging/perf-vetoros-02/nginx/conf.d/apps.conf	2026-09-30 18:38:22.972104242 +0000
+@@ -8,6 +8,8 @@
+     listen 80; server_name vetoros.localhost; root /var/www/vetoros/public;
+     include /etc/nginx/conf.d/laravel.inc;
+     location /build/ { alias /var/www/vetoros/build/; try_files $uri =404; }
++    # Assets do Vite têm hash no nome: cache longo e immutable só aqui (PERF-VETOROS-02)
++    location /build/assets/ { alias /var/www/vetoros/build/assets/; try_files $uri =404; expires 1y; add_header Cache-Control "public, immutable"; }
+     location ~ \.php$ { include fastcgi_params; fastcgi_param SCRIPT_FILENAME /var/www/html/public$fastcgi_script_name; set $php_upstream vetoros:9000; fastcgi_pass $php_upstream; }
+ }
+ server {
+@@ -92,6 +94,8 @@
+     ssl_certificate_key /etc/letsencrypt/live/vetoros.com.br/privkey.pem;
+     include /etc/nginx/conf.d/laravel.inc;
+     location /build/ { alias /var/www/vetoros/build/; try_files $uri =404; }
++    # Assets do Vite têm hash no nome: cache longo e immutable só aqui (PERF-VETOROS-02)
++    location /build/assets/ { alias /var/www/vetoros/build/assets/; try_files $uri =404; expires 1y; add_header Cache-Control "public, immutable"; }
+     location ~ \.php$ { include fastcgi_params; fastcgi_param SCRIPT_FILENAME /var/www/html/public$fastcgi_script_name; set $php_upstream vetoros:9000; fastcgi_pass $php_upstream; }
+ }
+ server {

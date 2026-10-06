@@ -28,6 +28,8 @@ services:
       VETOROS_DB_PASSWORD: ${VETOROS_DB_PASSWORD:?configure VETOROS_DB_PASSWORD in .env}
       VETORPET_DB_PASSWORD: ${VETORPET_DB_PASSWORD:?configure VETORPET_DB_PASSWORD in .env}
       ABRASILSISTEMA_DB_PASSWORD: ${ABRASILSISTEMA_DB_PASSWORD:?configure ABRASILSISTEMA_DB_PASSWORD in .env}
+      AB_PROSPECT_DB_PASSWORD: ${AB_PROSPECT_DB_PASSWORD:?configure AB_PROSPECT_DB_PASSWORD in .env}
+      DESGARRADOS_DB_PASSWORD: ${DESGARRADOS_DB_PASSWORD:?configure DESGARRADOS_DB_PASSWORD in .env}
     volumes:
       - ./volumes/mysql:/var/lib/mysql
       - ./mysql-init:/docker-entrypoint-initdb.d:ro
@@ -176,6 +178,76 @@ services:
   abrasilsistema-scheduler:
     extends: {service: abrasilsistema}
     command: php artisan schedule:work
+  desgarrados:
+    build: {context: ./gateway/desgarrados, dockerfile: Dockerfile}
+    restart: unless-stopped
+    env_file: ./gateway/desgarrados/.env.example
+    environment:
+      <<: *laravel-environment
+      APP_NAME: Desgarrados
+      APP_URL: ${DESGARRADOS_APP_URL:-http://desgarrados.localhost}
+      APP_KEY: ${DESGARRADOS_APP_KEY:?configure DESGARRADOS_APP_KEY in .env}
+      DB_CONNECTION: mysql
+      DB_DATABASE: desgarrados
+      DB_USERNAME: desgarrados_user
+      DB_PASSWORD: ${DESGARRADOS_DB_PASSWORD:?configure DESGARRADOS_DB_PASSWORD in .env}
+      REDIS_PREFIX: desgarrados_
+      KIWIFY_CRESCER_SEGURO_CHECKOUT_URL: ${DESGARRADOS_KIWIFY_CRESCER_SEGURO_CHECKOUT_URL:-}
+    volumes: [./volumes/desgarrados:/var/www/html/storage/app/public, desgarrados-build:/var/www/html/public/build]
+    depends_on: {mysql: {condition: service_healthy}}
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
+    logging: *default-logging
+  desgarrados-worker:
+    extends: {service: desgarrados}
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
+  desgarrados-scheduler:
+    extends: {service: desgarrados}
+    command: php artisan schedule:work
+  ab-prospect:
+    build:
+      context: /opt/infra-ab-prospect
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: /opt/infra-ab-prospect/.env.example
+    environment:
+      <<: *laravel-environment
+      APP_NAME: "AB Prospect"
+      APP_URL: ${AB_PROSPECT_APP_URL:-http://ab-prospect.localhost}
+      APP_KEY: ${AB_PROSPECT_APP_KEY:?configure AB_PROSPECT_APP_KEY in .env}
+      DB_DATABASE: ab_prospect
+      DB_USERNAME: ab_prospect_user
+      DB_PASSWORD: ${AB_PROSPECT_DB_PASSWORD:?configure AB_PROSPECT_DB_PASSWORD in .env}
+      REDIS_PREFIX: ab_prospect_
+      WAHA_BASE_URL: http://waha:3000
+      WAHA_API_KEY: ${WAHA_API_KEY:-}
+      N8N_WHATSAPP_WEBHOOK_URL: ${AB_PROSPECT_N8N_WHATSAPP_WEBHOOK_URL:-}
+      N8N_WHATSAPP_WEBHOOK_HEADER: ${AB_PROSPECT_N8N_WHATSAPP_WEBHOOK_HEADER:-X-CRM-Token}
+      N8N_WHATSAPP_WEBHOOK_TOKEN: ${AB_PROSPECT_N8N_WHATSAPP_WEBHOOK_TOKEN:-}
+    volumes:
+      - ./volumes/ab-prospect:/var/www/html/storage/app/public
+      - ab-prospect-build:/var/www/html/public/build
+    depends_on:
+      mysql:
+        condition: service_healthy
+      waha:
+        condition: service_healthy
+    networks: [infra-abrasil-network]
+    healthcheck:
+      test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    logging: *default-logging
+
+  ab-prospect-worker:
+    extends: {service: ab-prospect}
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
+
+  ab-prospect-scheduler:
+    extends: {service: ab-prospect}
+    command: php artisan schedule:work
+
   nginx:
     image: nginx:1.27-alpine
     restart: unless-stopped
@@ -188,12 +260,16 @@ services:
       - ./gateway/vetoros/public:/var/www/vetoros/public:ro
       - ./gateway/vetorpet/public:/var/www/vetorpet/public:ro
       - ./gateway/abrasilsistemas/public:/var/www/abrasilsistema/public:ro
+      - /opt/infra-ab-prospect/public:/var/www/ab-prospect/public:ro
+      - ./gateway/desgarrados/public:/var/www/desgarrados/public:ro
       - vetoros-build:/var/www/vetoros/build:ro
       - vetorpet-build:/var/www/vetorpet/build:ro
       - abrasilsistema-build:/var/www/abrasilsistema/build:ro
+      - ab-prospect-build:/var/www/ab-prospect/build:ro
+      - desgarrados-build:/var/www/desgarrados/build:ro
       - ./volumes/certbot/conf:/etc/letsencrypt:ro
       - ./volumes/certbot/www:/var/www/certbot:ro
-    depends_on: [vetoros, vetorpet, abrasilsistema, n8n]
+    depends_on: [vetoros, vetorpet, abrasilsistema, desgarrados, n8n]
     networks: [infra-abrasil-network]
     healthcheck: {test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz"], interval: 15s, timeout: 5s, retries: 5}
     logging: *default-logging
@@ -210,3 +286,5 @@ volumes:
   vetoros-build:
   vetorpet-build:
   abrasilsistema-build:
+  ab-prospect-build:
+  desgarrados-build:

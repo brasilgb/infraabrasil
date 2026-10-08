@@ -1,76 +1,63 @@
-# VETOR-HML-01.2 — Finalização do polimento e consolidação
+# VETOR-MAIL-01 — Auditoria e centralização dos e-mails
 
 **Projeto:** VetorOS  
 **Infraestrutura:** `infra-abrasil`  
-**Data:** 2026-10-08
+**Prioridade:** após estabilização do VETOR-INTEL em produção
 
 ## Objetivo
 
-Concluir as pendências da homologação VETOR-HML-01.1 e consolidar as alterações aprovadas.
+Auditar e organizar toda a comunicação por e-mail do VetorOS, separando os envios institucionais do SaaS dos envios operacionais dos tenants.
 
-### 1. D6 — Layout responsivo
+## 1. SMTP central do RootAdmin
 
-- Preservar os atalhos Caixa, PDV e Calendário junto de "Prioridades de hoje".
-- Redimensionar os atalhos conforme a largura disponível.
-- Manter todos os oito indicadores legíveis.
-- Permitir rótulos com até duas linhas quando necessário.
-- Caso não exista espaço suficiente, posicionar os três atalhos abaixo da barra, lado a lado.
-- Não criar consultas adicionais.
-- Validar especificamente 1024, 1280, 1366, 1920, 768 e 375 px.
-- Não considerar a tarefa concluída enquanto houver truncamento que prejudique a compreensão.
+Criar ou reaproveitar uma configuração administrativa para:
 
-### 2. D2 — Permissões do técnico
+- Confirmação de cadastro;
+- Boas-vindas;
+- Recuperação de senha;
+- Avisos de assinatura;
+- Cobranças e vencimentos;
+- Envio de notas fiscais do SaaS;
+- Comunicados administrativos.
 
-- Mostrar cliente e equipamento em modo somente leitura quando o usuário não possuir a permissão necessária.
-- Evitar chamadas de busca que inevitavelmente retornariam 403.
-- Reforçar no backend a autorização para alteração de cliente e equipamento, sem ampliar privilégios.
-- Preservar a possibilidade de o técnico atualizar legitimamente sua própria OS.
-- Criar testes específicos de autorização e regressão.
+Permitir configurar servidor, porta, criptografia, usuário, senha e remetente pelo RootAdmin.
 
-### 3. Consolidar código
+Armazenar segredos de forma criptografada. Nunca exibir senhas recuperáveis na interface ou nos logs.
 
-Preservar todas as correções D1, D3, D4 e D5 aprovadas na etapa anterior.
+## 2. SMTP individual dos tenants
 
-Realizar revisão dos arquivos alterados, verificando especialmente possíveis regressões de autorização e sessão.
+Preservar as configurações de e-mail de cada empresa.
 
-### 4. Git
+Utilizar essas configurações para notificações de ordens de serviço, orçamentos e mensagens operacionais.
 
-A execução anterior não conseguiu criar commits devido à política do ambiente.
+Garantir isolamento entre tenants.
 
-Não contornar restrições de permissão.
+## 3. Auditoria dos jobs
 
-Caso o ambiente esteja autorizado, criar commits locais separados para:
+Analisar especificamente:
 
-1. VETOR-UX-DASH-01;
-2. correções VETOR-HML-01.1;
-3. comando de auditoria APP_KEY;
-4. ajustes VETOR-HML-01.2.
+- `SendOrderCreatedNotification`;
+- `SendOrderStatusUpdatedNotification`.
 
-Se a criação de commits continuar bloqueada, registrar os comandos necessários para execução manual.
+Investigar as 860 falhas históricas registradas em 20/09/2026.
 
-Atualizar o ponteiro do submódulo em `infra-abrasil` somente após os commits respectivos.
+Verificar qual configuração de envio cada job utiliza e se existe tratamento apropriado quando o SMTP está ausente ou indisponível.
 
-**Não realizar push, deploy ou migrations de produção.**
+Não reenviar nem excluir as notificações antigas automaticamente.
 
-### 5. Validação
+## 4. Segurança e confiabilidade
 
-- Executar toda a suíte de testes;
-- validar TypeScript e build;
-- executar verificações de lint;
-- testar visualmente todas as resoluções previstas;
-- confirmar que técnicos não recebem erros 403 desnecessários na interface;
-- verificar isolamento entre tenants;
-- validar que nenhuma regra financeira foi alterada.
+- Não permitir que credenciais SMTP de um tenant sejam utilizadas por outro.
+- Proteger senhas e tokens.
+- Implementar testes de envio autorizados.
+- Registrar falhas sem expor informações sensíveis.
+- Garantir tratamento de tentativas e limites para evitar envios duplicados.
+- Manter compatibilidade com o sistema atual.
 
-### 6. Entrega
+## 5. Execução
 
-Atualizar `executed.md` informando:
+**Nesta etapa, realizar primeiro uma auditoria somente leitura e apresentar a arquitetura proposta.**
 
-- arquivos alterados;
-- evidências de homologação;
-- testes aprovados e reprovados;
-- commits locais;
-- pendências existentes;
-- recomendação para iniciar a homologação externa.
+Não executar migrations, commits, push ou deploy sem aprovação posterior.
 
-Não iniciar VETOR-INTEL-05 e não tocar nas integrações WAHA ou Spedy nesta etapa.
+Documentar os resultados em `executed.md`.

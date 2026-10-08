@@ -1,122 +1,56 @@
-# VETOR-INTEL-04.2 — Aprovação da segunda entrega e preparação para homologação
+# VETOR-INTEL-04.3 — Encerramento e preparação para homologação
 
-A segunda entrega do VETOR-INTEL-04 está **APROVADA**.
+**Status:** Autorizado.
 
-Pode prosseguir com o commit controlado das alterações atualmente pendentes no submódulo `gateway/vetoros`.
+## 1. Encerrar o Git
 
-## 1. Commit da segunda entrega
+- Confirmar o commit `8f46d37d` do VetorOS.
+- Confirmar o commit do repositório principal `infra-abrasil`.
+- Verificar que o ponteiro do submódulo está correto.
+- Não realizar push ou deploy.
 
-Criar um commit contendo exclusivamente os arquivos pertencentes à segunda entrega do VETOR-INTEL-04:
+## 2. Finalizar rodapé e versão
 
-- `app/Http/Controllers/App/DashboardController.php`
-- `app/Http/Controllers/App/IntelIndicatorController.php`
-- `app/Services/Intel/OperationalIndicatorsService.php`
-- `resources/js/pages/app/intel/indicators.tsx`
-- `resources/js/pages/app/dashboard/ope-order/index.tsx`
-- `resources/js/Utils/navLinks.ts`
-- `tests/Feature/App/IntelIndicatorsPageTest.php`
-- `tests/Feature/App/OperationalIndicatorsTest.php`
-- `docs/architecture/vetor-intel-04-indicadores.md`
+Autorizar commit independente para:
 
-Mensagem sugerida:
+- `resources/js/components/app-footer.tsx`
+- `.env.example`
 
-`Finaliza painel de indicadores do VETOR-INTEL-04`
+O rodapé deverá apresentar:
 
-Não fazer push nem deploy.
+**ABrasil Sistemas — VetorOS | v2.0.0**
 
-## 2. Validação após o commit
+O nome ABrasil Sistemas deverá apontar para `https://abrasilsistemas.com.br`.
 
-Após o commit, executar novamente:
+Verificar a possibilidade de centralizar a versão, mantendo compatibilidade com o frontend e os ambientes existentes.
 
-- suíte PHP completa;
-- `npx tsc --noEmit`;
-- Pint nos arquivos PHP modificados;
-- verificações de lint/format necessárias.
+Não alterar regras comerciais, fiscais ou operacionais.
 
-Problemas preexistentes já documentados em arquivos não alterados por esta entrega não devem ser corrigidos nesta etapa.
+## 3. Homologação
 
-Registrar:
+Preservar o roteiro de homologação do INTEL-04.2.
 
-- hash do novo commit;
-- quantidade de testes;
-- quantidade de asserções;
-- resultado do TypeScript;
-- estado final do Git.
+Verificar desktop, tablet, celular, permissões, filtros, indicadores, integridade dos dados e comportamento do dashboard.
 
-## 3. Repositório principal
+Toda divergência encontrada deverá ser documentada antes de qualquer correção.
 
-Após o commit no submódulo, atualizar o ponteiro de `gateway/vetoros` no repositório principal `infra-abrasil`.
+## 4. Restrições
 
-Pode também incluir no commit principal:
+- Não iniciar VETOR-INTEL-05.
+- Não realizar push.
+- Não realizar deploy.
+- Não executar migrations em produção.
+- Não modificar WAHA ou Spedy.
+- Não introduzir funcionalidades fora deste escopo.
 
-- atualização do ponteiro do submódulo;
-- `correio.md`;
-- `executed.md`.
+## 5. Entrega
 
-Não incluir alterações estranhas ao escopo.
+Registrar no `executed.md`:
 
-Criar commit local no repositório principal, mas:
+- commits e hashes;
+- arquivos alterados;
+- testes executados;
+- estado do Git;
+- pendências de homologação.
 
-**NÃO FAZER PUSH.**  
-**NÃO FAZER DEPLOY.**  
-**NÃO EXECUTAR MIGRATIONS EM PRODUÇÃO.**
-
-## 4. Não alterar as regras aprovadas
-
-Preservar integralmente as decisões já homologadas:
-
-- OS atrasada deve continuar sendo avaliada contra o prazo original;
-- renegociação deve aparecer como contexto, sem apagar o atraso original;
-- técnico histórico somente quando houver atribuição registrada na trilha;
-- não atribuir retroativamente o técnico atual;
-- produtividade não deve gerar ranking simplista;
-- rentabilidade só pode considerar OS com dados suficientes;
-- dados `null`/não calculáveis não podem aparecer como zero;
-- isolamento por tenant deve permanecer;
-- acesso aos Indicadores continua por `reports.view`;
-- dashboard continua respeitando o escopo individual do usuário;
-- WAHA, Spedy e demais integrações não fazem parte desta etapa.
-
-## 5. Preparar homologação visual
-
-Não é necessário implementar novos recursos agora.
-
-Apenas deixar documentado no `executed.md` um roteiro curto para homologação manual da tela `/app/intel/indicators`, cobrindo pelo menos:
-
-### Desktop
-- menu Geral → Indicadores;
-- filtros e atalhos;
-- cards do resumo;
-- Qualidade dos dados;
-- tabelas;
-- links para OS;
-- estados vazio, carregando e erro;
-- legibilidade de valores e textos.
-
-### Mobile
-- largura dos cards;
-- tabelas/scroll;
-- filtros;
-- textos;
-- botões;
-- ausência de overflow ou elementos cortados.
-
-### Dados reais
-Conferir manualmente algumas OS conhecidas para validar:
-
-- OS parada;
-- OS atrasada;
-- orçamento aguardando;
-- orçamento vencido;
-- técnico atribuído;
-- OS sem trilha histórica;
-- prazo original e renegociado;
-- rentabilidade completa e incompleta.
-
-## 6. Próxima fase
-
-Não iniciar automaticamente um VETOR-INTEL-05.
-
-Depois do commit e da validação, retornar com o `executed.md` para revisão.
-
-O objetivo agora é **fechar tecnicamente o VETOR-INTEL-04 e homologar a experiência real de uso antes de ampliar o módulo inteligente**.
+Encerrar e aguardar avaliação antes da próxima etapa.

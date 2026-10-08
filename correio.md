@@ -1,81 +1,122 @@
-# VETOR-CONSOLIDATE-01 — Commit e continuidade
+# VETOR-INTEL-04.2 — Aprovação da segunda entrega e preparação para homologação
 
-**Projeto:** VetorOS  
-**Infraestrutura:** infra-abrasil  
-**Repositório:** gateway/vetoros
+A segunda entrega do VETOR-INTEL-04 está **APROVADA**.
 
-## 1. Consolidar o desenvolvimento
+Pode prosseguir com o commit controlado das alterações atualmente pendentes no submódulo `gateway/vetoros`.
 
-Autorizo realizar commits locais das etapas já implementadas e aprovadas:
+## 1. Commit da segunda entrega
 
-- VETOR-INTEL-01
-- VETOR-INTEL-02 e INTEL-02.1
-- VETOR-INTEL-03 e homologação
-- VETOR-PROD-IMPORT-01
+Criar um commit contendo exclusivamente os arquivos pertencentes à segunda entrega do VETOR-INTEL-04:
 
-Antes de commitar:
+- `app/Http/Controllers/App/DashboardController.php`
+- `app/Http/Controllers/App/IntelIndicatorController.php`
+- `app/Services/Intel/OperationalIndicatorsService.php`
+- `resources/js/pages/app/intel/indicators.tsx`
+- `resources/js/pages/app/dashboard/ope-order/index.tsx`
+- `resources/js/Utils/navLinks.ts`
+- `tests/Feature/App/IntelIndicatorsPageTest.php`
+- `tests/Feature/App/OperationalIndicatorsTest.php`
+- `docs/architecture/vetor-intel-04-indicadores.md`
 
-1. Conferir branch, HEAD e git status.
-2. Revisar os arquivos modificados e novos.
-3. Separar commits por funcionalidade, quando possível.
-4. Não incluir arquivos .env, credenciais, backups, dumps, temporários ou artefatos desnecessários.
-5. Preservar as alterações existentes sem descartar trabalho.
-6. Conferir o estado do submódulo e do repositório principal.
+Mensagem sugerida:
 
-## 2. Validar importação CSV
+`Finaliza painel de indicadores do VETOR-INTEL-04`
 
-Revisar o fluxo de produtos:
+Não fazer push nem deploy.
 
-- Download do template.
-- Seleção e prévia do CSV.
-- Importação de produtos válidos.
-- Tratamento de duplicados.
-- Registro de entrada no estoque.
-- Exibição dos erros de importação.
+## 2. Validação após o commit
 
-Executar testes automatizados. Quando houver navegador disponível, verificar também o funcionamento visual.
+Após o commit, executar novamente:
 
-## 3. Executar commits
+- suíte PHP completa;
+- `npx tsc --noEmit`;
+- Pint nos arquivos PHP modificados;
+- verificações de lint/format necessárias.
 
-Após validação, criar commits locais organizados com mensagens descritivas.
+Problemas preexistentes já documentados em arquivos não alterados por esta entrega não devem ser corrigidos nesta etapa.
 
-Não realizar push ou deploy nesta etapa.
+Registrar:
 
-Registrar os hashes dos commits e o estado final da árvore de trabalho.
+- hash do novo commit;
+- quantidade de testes;
+- quantidade de asserções;
+- resultado do TypeScript;
+- estado final do Git.
 
-## 4. Próxima implementação
+## 3. Repositório principal
 
-Após consolidar, iniciar o **VETOR-INTEL-04 — Indicadores Operacionais e Comerciais**.
+Após o commit no submódulo, atualizar o ponteiro de `gateway/vetoros` no repositório principal `infra-abrasil`.
 
-Iniciar pela auditoria das fontes existentes e pela definição documentada das regras de cálculo.
+Pode também incluir no commit principal:
 
-Priorizar:
+- atualização do ponteiro do submódulo;
+- `correio.md`;
+- `executed.md`.
 
-- OS paradas e atrasadas.
-- Orçamentos aguardando aprovação.
-- Orçamentos próximos do vencimento.
-- Conversão de orçamentos.
-- Tempo médio de aprovação.
-- Produtividade dos técnicos.
-- Cumprimento dos prazos.
-- Rentabilidade real das OS.
-- Indicadores com dados incompletos ou pendentes.
+Não incluir alterações estranhas ao escopo.
 
-Reutilizar os serviços e regras já existentes.
+Criar commit local no repositório principal, mas:
 
-Não criar indicadores financeiros com valores presumidos.
+**NÃO FAZER PUSH.**  
+**NÃO FAZER DEPLOY.**  
+**NÃO EXECUTAR MIGRATIONS EM PRODUÇÃO.**
 
-Implementar incrementalmente, com testes, respeitando tenants, permissões e compatibilidade.
+## 4. Não alterar as regras aprovadas
 
-## 5. Relatório
+Preservar integralmente as decisões já homologadas:
 
-Atualizar `executed.md` com:
+- OS atrasada deve continuar sendo avaliada contra o prazo original;
+- renegociação deve aparecer como contexto, sem apagar o atraso original;
+- técnico histórico somente quando houver atribuição registrada na trilha;
+- não atribuir retroativamente o técnico atual;
+- produtividade não deve gerar ranking simplista;
+- rentabilidade só pode considerar OS com dados suficientes;
+- dados `null`/não calculáveis não podem aparecer como zero;
+- isolamento por tenant deve permanecer;
+- acesso aos Indicadores continua por `reports.view`;
+- dashboard continua respeitando o escopo individual do usuário;
+- WAHA, Spedy e demais integrações não fazem parte desta etapa.
 
-- Commits realizados.
-- Testes executados.
-- Situação da importação CSV.
-- Evolução do INTEL-04.
-- Pendências e riscos.
-- Próxima etapa recomendada.
+## 5. Preparar homologação visual
 
-**Autorização:** commits locais e implementação incremental. Push e deploy permanecem sujeitos a autorização posterior.
+Não é necessário implementar novos recursos agora.
+
+Apenas deixar documentado no `executed.md` um roteiro curto para homologação manual da tela `/app/intel/indicators`, cobrindo pelo menos:
+
+### Desktop
+- menu Geral → Indicadores;
+- filtros e atalhos;
+- cards do resumo;
+- Qualidade dos dados;
+- tabelas;
+- links para OS;
+- estados vazio, carregando e erro;
+- legibilidade de valores e textos.
+
+### Mobile
+- largura dos cards;
+- tabelas/scroll;
+- filtros;
+- textos;
+- botões;
+- ausência de overflow ou elementos cortados.
+
+### Dados reais
+Conferir manualmente algumas OS conhecidas para validar:
+
+- OS parada;
+- OS atrasada;
+- orçamento aguardando;
+- orçamento vencido;
+- técnico atribuído;
+- OS sem trilha histórica;
+- prazo original e renegociado;
+- rentabilidade completa e incompleta.
+
+## 6. Próxima fase
+
+Não iniciar automaticamente um VETOR-INTEL-05.
+
+Depois do commit e da validação, retornar com o `executed.md` para revisão.
+
+O objetivo agora é **fechar tecnicamente o VETOR-INTEL-04 e homologar a experiência real de uso antes de ampliar o módulo inteligente**.

@@ -2,3 +2,15 @@
 	path = gateway/vetoros
 	url = https://github.com/brasilgb/vetoros.git
 	branch = main
+[submodule "gateway/abrasilsistemas"]
+	path = gateway/abrasilsistemas
+	url = https://github.com/brasilgb/abrasilsistemas.git
+	branch = main
+[submodule "gateway/desgarrados"]
+	path = gateway/desgarrados
+	url = https://github.com/brasilgb/desgarrados2.git
+	branch = main
+[submodule "gateway/vetorpet"]
+	path = gateway/vetorpet
+	url = https://github.com/brasilgb/vetorpet.git
+	branch = main

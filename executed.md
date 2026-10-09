@@ -1,3 +1,135 @@
+# Execução de `correio.md`: VETOR-MAIL-01 (auditoria e centralização dos e-mails). Resultado: **AUDITORIA SOMENTE LEITURA CONCLUÍDA, ARQUITETURA PROPOSTA, AGUARDANDO APROVAÇÃO**
+
+- **Data:** 2026-10-09 (America/Sao_Paulo).
+- **SHA-256 do `correio.md` executado:** `ff3d02a2a1a4269bb12f11320613209173467edc62d35b6e39f9f7c0eb161ebd`.
+- **SHA-256 do último correio registrado:** `340281df6ed3f1520d3adfb7f05c160ed0b234bc419fb824b6d4cd703cac6788` (VETOR-DEPLOY-01). O conteúdo mudou e o VETOR-MAIL-01 não tinha execução anterior, então foi executado.
+- **Código auditado:** VetorOS `439edbf0` (`main`). Laravel 12.69.2.
+- **Dados:** dump de produção `vetoros-new.sql` (phpMyAdmin, MySQL 8.4.11, gerado em 20/09/2026 21:38), lido só de forma agregada. Nenhum payload, e-mail, host ou usuário SMTP foi exibido ou copiado.
+- **Nada foi alterado:** nenhuma migration, commit, push, deploy, reenvio ou exclusão de jobs. Produção não foi acessada.
+
+## 1. Mapa dos envios atuais
+
+| E-mail | Classe | SMTP usado hoje | Como é enviado |
+|---|---|---|---|
+| OS criada | `OrderCreatedMail` | do tenant | síncrono (`OrderNotificationService::deliverCreated`) |
+| Status da OS / orçamento gerado | `OrderStatusUpdatedMail` | do tenant | síncrono |
+| Lembrete de cobrança | `OrderPaymentReminderMail` | do tenant | síncrono |
+| Acompanhamento de orçamento | `OrderBudgetFollowUpMail` | do tenant | síncrono |
+| Lembrete de avaliação | `OrderFeedbackReminderMail` | do tenant | síncrono |
+| Teste SMTP do tenant | `Mail::raw` (`OtherController`) | do tenant | síncrono |
+| Boas-vindas no cadastro | `UserRegisteredMail` | do sistema | síncrono, falha só registrada em log |
+| Avisos de assinatura | `SubscriptionStatusMail` | do sistema | comando agendado e RootAdmin |
+| Fatura paga | `SubscriptionInvoicePaidMail` | do sistema | síncrono |
+| NFS-e do SaaS | `SaasFiscalDocumentMail` | do sistema | síncrono |
+| Pedido de avaliação da plataforma | `TenantFeedbackRequestMail` | do sistema | comando agendado |
+| Ajustes e melhorias (criado/atualizado) | `TenantImprovementRequest*Mail` | do sistema | síncrono |
+| Recuperação de senha | notificação padrão do Laravel | `mail.default` do processo | síncrono |
+| Confirmação de cadastro | **não existe**: `User` não implementa `MustVerifyEmail` | — | — |
+| Comunicados administrativos | **não existe** | — | — |
+
+- O "SMTP do sistema" é `config('mail.system')`, lido de `MAIL_*` do ambiente. **Não existe tela de SMTP no RootAdmin.**
+- O SMTP do tenant fica em `others.mail_*`. A senha é gravada com `Crypt::encryptString` e não volta para a tela (`mail_password_set`). As duas linhas configuradas no dump estão nesse formato.
+
+## 2. As falhas históricas de `SendOrderCreatedNotification` e `SendOrderStatusUpdatedNotification`
+
+**Contagem no dump de 20/09:** 957 linhas em `failed_jobs`, e não 860. Todas estão na conexão `database`, fila `default`.
+
+| Item | Resultado |
+|---|---|
+| Jobs | 748 `SendOrderStatusUpdatedNotification` e 209 `SendOrderCreatedNotification` |
+| `failed_at` | todas entre **2026-09-18 18:57:42 e 18:58:14 UTC** (32 segundos), cerca de uma hora depois do primeiro commit da stack consolidada (`f11d50c`, 18/09 17:00 UTC) |
+| Despacho original (`createdAt`) | maio/2026: 257, junho: 594, julho: 106 |
+| Exceção | **as 957** são `RuntimeException: Unsupported cipher or incorrect key length` |
+| Ponto da falha | `TenantMailConfig.php:89` (`Crypt::decryptString` da senha SMTP do tenant), chamado por `OrderNotificationService::deliverCreated`/`deliverStatusUpdated` |
+| OS afetadas | 111 OS distintas (até 20 jobs por OS), todas ainda existentes, de **2 tenants**: os únicos com SMTP completo no dump |
+| Fila pendente | `jobs` vazia no dump |
+
+**Diagnóstico:**
+1. Até 06/07/2026 (`4b4fd6f7`), o envio era enfileirado (`::dispatch()->afterCommit()`). No ambiente antigo nenhum worker processava a fila, então os jobs foram se acumulando entre maio e julho.
+2. Em 18/09 o `vetoros-worker` da stack nova subiu e processou o acúmulo de uma vez, com uma `APP_KEY` em formato inválido. O compose só exige que a variável não esteja vazia, não que tenha o formato `base64:` de 32 bytes.
+3. O erro de chave inválida é `RuntimeException`, mas o código só captura `DecryptException`. Por isso cada job abortou, em vez de seguir sem senha.
+4. Desde 06/07 o código envia de forma síncrona e não despacha mais esses jobs. As duas classes continuam existindo só para que as linhas de `failed_jobs` possam ser lidas.
+
+**Recomendação:** **não reenviar**. São avisos de OS de 3 a 5 meses atrás, e reenviá-los mandaria até 20 e-mails para o mesmo cliente. Também **não excluir agora**. Depois da aprovação, arquivar ou remover com backup (§6, fase 4).
+
+**Diferença 860 × 957:** confirmar em produção, somente leitura:
+```sql
+SELECT DATE(failed_at) dia, COUNT(*) FROM failed_jobs GROUP BY dia;
+```
+
+## 3. Problemas encontrados
+
+| # | Gravidade | Problema | Evidência |
+|---|---|---|---|
+| A1 | **Alta** | Em produção, o SMTP do sistema vem do `.env.example`: `MAIL_HOST=127.0.0.1`, `MAIL_PORT=1025`, remetente `hello@example.com`, `APP_NAME=TechOs` | `docker-compose.yml` usa `env_file: ./gateway/vetoros/.env.example` e não sobrescreve `MAIL_*`; o `.dockerignore` exclui `.env`. Bate com a pendência "`artisan about` mostra `TechOs` e `local`". Se não houver outra fonte, todos os e-mails institucionais (cadastro, senha, assinatura, NFS-e do SaaS, ajustes) falham na conexão. **Confirmar em produção (§5).** |
+| A2 | **Alta** | Senha SMTP do tenant que não decifra (chave trocada) vira `null` sem aviso, e o envio tenta autenticar sem senha. Chave em formato inválido derruba o envio inteiro (`RuntimeException` não tratada) | `TenantMailConfig::applyForTenantId`, linhas 86–91; as 957 falhas. A verificação `security:audit-app-key --verify-hash` em produção continua pendente |
+| A3 | **Média** | A troca de SMTP é global ao processo (`Config::set` + `purge`) e o resultado depende da ordem das chamadas. Os mailables chamam `applyTenantMailConfig`/`applySystemDefault` dentro de `envelope()`, mas nessa hora o `Mailer` já foi resolvido em `Mail::to()`. O transporte e o remetente usados são os que estavam ativos antes, e a troca só vale para o envio seguinte | Laravel 12.69.2: `Mailer::sendMailable()` passa a própria instância para `Mailable::send()`, que hidrata o envelope depois. Os envios de OS funcionam porque `OrderNotificationService` aplica a configuração **antes** de `Mail::to()`. Um e-mail do SaaS enviado no mesmo processo logo depois de um e-mail de tenant sairia pelo SMTP e com o remetente daquele tenant, e um tenant sem SMTP deixa `mail.default = log` (envio descartado em silêncio) |
+| A4 | Média | `AppServiceProvider::boot` aplica a configuração de e-mail a cada boot. Nessa hora ainda não há usuário nem sessão, então sempre cai no padrão do sistema: estado global sem efeito útil | `AppServiceProvider.php:80-81` |
+| A5 | Média | O cadastro registra no log o e-mail do usuário e a mensagem bruta do SMTP, que pode conter host e usuário | `RegisteredUserController.php:98-104` |
+| A6 | Média | Não há confirmação de cadastro, comunicados administrativos nem configuração de SMTP no RootAdmin | §1 |
+| A7 | Baixa | Envios manuais (cobrança, acompanhamento) não têm chave de idempotência; dois cliques enviam dois e-mails. Não há timeout SMTP explícito. Os jobs antigos usavam `--tries=3` com `retry_after` igual ao `--timeout` (90 s) | `docker-compose.yml:121`, `config/queue.php:42` |
+| A8 | Baixa | OS sem tenant cai no SMTP do sistema com a marca do tenant | `TenantMailConfig::hasConfiguredForTenantId(null)` |
+
+Pontos que já estão corretos: a configuração do tenant é lida por `tenant_id` explícito; a senha nunca volta para a interface; a falha de envio de OS é gravada em `order_messages` sem detalhes do servidor ("Falha no envio do e-mail."); o teste SMTP envia só para o e-mail da própria empresa e exige configuração completa.
+
+## 4. Arquitetura proposta
+
+**Princípio:** nenhum envio depende da configuração global de e-mail. Cada envio constrói o próprio mailer a partir de uma fonte explícita: plataforma ou tenant.
+
+1. **`PlatformMailConfig`** (mesmo padrão de `SpedyPlatformConfig`): tabela singleton `platform_mail_settings` com host, porta, criptografia, usuário, senha (cast `encrypted`, somente escrita), remetente e reply-to. Precedência: banco > variáveis de ambiente.
+   - **RootAdmin → Configurações → E-mail:** formulário com senha "Configurado — preencha para trocar", envio de teste para o e-mail do root autenticado e auditoria da alteração (sem valores).
+   - Middleware `RootAdminOnly`, como no fiscal.
+   - No boot, registrar o mailer nomeado `platform` e torná-lo o `mail.default`, para que recuperação de senha e futuras notificações usem a plataforma.
+2. **`TenantMailerFactory::for(int $tenantId): ?Mailer`:** lê `others` por `tenant_id` e devolve `Mail::build([...])` com remetente fixo (`alwaysFrom`). Nunca altera `config()`.
+   - Devolve `null` com motivo tipado (`not_configured`, `credentials_unreadable`) quando falta configuração ou a senha não decifra, capturando **`DecryptException` e `RuntimeException`**.
+   - O motivo vai para `order_messages` e para um aviso no painel do tenant ("Revise a senha SMTP").
+3. **`MailDispatcher`:** ponto único de envio, `platform()->send(...)` e `tenant($id)->send(...)`.
+   - Remover `AppliesTenantMailConfig`, as chamadas em `envelope()` e o `applyForTenantId` do `AppServiceProvider`.
+   - Logs só com classe da exceção, código e ids, nunca host, usuário, senha ou endereço.
+4. **Confiabilidade:**
+   - Envio de OS volta para a fila, mas **idempotente**: a linha de `order_messages` é criada `pending` com chave única (OS + modelo + versão do orçamento ou evento de status) antes do despacho. O job sai sem fazer nada se ela já estiver `sent`.
+   - `tries=3`, `backoff=[60, 300, 900]`, `timeout` menor que `retry_after`, timeout SMTP de 15 s.
+   - Limite por tenant (`RateLimiter::for('tenant-mail')`) e trava de reenvio manual para o mesmo modelo em poucos minutos.
+5. **Funções novas da plataforma:** confirmação de cadastro (`MustVerifyEmail`, decisão de produto: bloquear ou só lembrar) e comunicado administrativo do RootAdmin para os responsáveis dos tenants, com fila, limite e registro de entregas (reaproveitando o padrão de `AdminFiscalDocumentDelivery`).
+6. **Compatibilidade:** o formato de `others.mail_*` não muda e as configurações dos tenants são preservadas. Os templates continuam iguais.
+
+## 5. Verificações em produção (somente leitura, quando autorizadas)
+
+```bash
+cd /opt/infra-abrasil
+docker compose exec vetoros php artisan tinker --execute="echo config('mail.system.host').':'.config('mail.system.port').' '.config('mail.system.from_address');"
+docker compose exec vetoros php artisan security:audit-app-key --verify-hash
+docker compose logs --since 720h vetoros | grep -c "Connection could not be established"
+```
+Também a contagem de `failed_jobs` da §2. Nenhum desses comandos imprime senhas.
+
+## 6. Plano de execução (cada fase só depois de aprovação)
+
+| Fase | Escopo | Migrations | Risco |
+|---|---|---|---|
+| MAIL-01.1 | Infra: passar `VETOROS_MAIL_*`, `APP_NAME=VetorOS` e `APP_ENV=production` pelo compose; validar o formato da `APP_KEY`; teste de envio | não | baixo, só recria os 3 containers do VetorOS |
+| MAIL-01.2 | `PlatformMailConfig`, tela do RootAdmin, mailer `platform`, recuperação de senha pela plataforma, logs sem dados sensíveis | sim (aditiva) | baixo |
+| MAIL-01.3 | `TenantMailerFactory` + `MailDispatcher`, fim do estado global, tratamento de chave ilegível, fila idempotente com limites | sim (índice único em `order_messages`) | médio |
+| MAIL-01.4 | Confirmação de cadastro e comunicados; arquivamento dos 957 `failed_jobs` com backup e remoção das duas classes de job antigas | opcional | baixo |
+
+**Testes previstos:**
+- dois tenants enviando em sequência no mesmo processo, conferindo host e remetente de cada transporte;
+- e-mail do SaaS enviado depois de um e-mail de tenant usando a plataforma;
+- senha ilegível e chave inválida sem exceção, com motivo registrado;
+- recuperação de senha pela plataforma;
+- logs sem senha, usuário ou endereço;
+- idempotência do envio (mesma chave, um só e-mail);
+- teste SMTP autorizado só para o e-mail da empresa ou do root.
+
+## Pendências e decisões
+
+1. Aprovar o plano (ou ajustar fases) antes de qualquer migration, commit ou deploy.
+2. Rodar as verificações da §5 em produção, principalmente o host SMTP do sistema (A1) e o `--verify-hash` (A2).
+3. Decidir se a confirmação de cadastro bloqueia o acesso ou só lembra.
+4. Decidir o destino dos 957 `failed_jobs`: arquivar em tabela/arquivo ou apenas remover após backup.
+
+---
+
 # Execução manual: pull, migrations e build do VetorOS + correção de permissões. Resultado: **IMPLANTADO E VALIDADO**
 
 **Data:** 2026-10-08

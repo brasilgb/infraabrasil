@@ -6,5 +6,6 @@ volumes/vetorpet/*
 volumes/abrasilsistema/*
 volumes/certbot/*
 volumes/n8n/*
+volumes/desgarrados/*
 backups/
 !volumes/*/.gitkeep

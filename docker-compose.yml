@@ -262,6 +262,7 @@ services:
       - ./gateway/abrasilsistemas/public:/var/www/abrasilsistema/public:ro
       - /opt/infra-ab-prospect/public:/var/www/ab-prospect/public:ro
       - ./gateway/desgarrados/public:/var/www/desgarrados/public:ro
+      - ./volumes/desgarrados:/var/www/desgarrados/storage:ro
       - vetoros-build:/var/www/vetoros/build:ro
       - vetorpet-build:/var/www/vetorpet/build:ro
       - abrasilsistema-build:/var/www/abrasilsistema/build:ro

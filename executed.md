@@ -1,3 +1,57 @@
+# Execução manual: pull, build, up e migrations do VetorOS (VETOR-FISCAL-01/02 e VETOR-PERF). Resultado: **IMPLANTADO E VALIDADO**
+
+**Data:** 2026-10-15
+**Host:** `srv1990862` (`/opt/infra-abrasil`)
+**Código em produção:** VetorOS `423195d9`
+
+> Solicitado diretamente pelo operador, fora de um `correio.md`.
+
+## 1. Pull
+
+- O `infra-abrasil` já estava atualizado (`6cc65ba`).
+- O submódulo `gateway/vetoros` (branch `deploy/vetor-intel-20261008`, que acompanha `origin/main`) avançou com `--ff-only` de `832906cf` para `423195d9`:
+
+```
+423195d9 Reduz o tempo de leitura das telas: PDF sob demanda, props enxutas e cache de execução (VETOR-PERF)
+7faa1d69 Push
+42554086 Registra o correio e o relatório de execução do VETOR-FISCAL-02
+36ea985c Registra o correio e o relatório de execução do VETOR-FISCAL-01
+3ffec982 Conclui o cadastro automático do emitente na Spedy e a liberação do certificado A1 (VETOR-FISCAL-01)
+```
+
+- Mudanças de infraestrutura no VetorOS: o Dockerfile passa a copiar `deploy/php/conf.d/zz-vetoros-performance.ini` e `deploy/php/php-fpm.d/zz-vetoros-pool.conf`, e o entrypoint passa a rodar `php artisan optimize` na subida do container.
+- `umask` do operador: `0022`. Nenhum arquivo do `gateway/vetoros` ficou com `600`/`700`.
+
+## 2. Build e up
+
+- Imagens `vetoros`, `vetoros-worker` e `vetoros-scheduler` reconstruídas.
+- Só esses três serviços foram recriados (`up -d --no-deps`). O nginx e os demais serviços não foram tocados.
+
+## 3. Backup
+
+- `backups/vetoros_pre_migrate_20261015_160646.sql` (15 MB, `mysqldump --single-transaction --routines --triggers --events`), termina em `Dump completed`, com 80 de 80 tabelas do banco `vetoros`.
+
+## 4. Migrations
+
+- Executadas com `migrate --force`, cerca de 2 minutos depois de o código novo subir:
+  - `2026_10_15_100000_add_spedy_link_environment_to_fiscal_settings`: adiciona `spedy_environment` e `last_synced_at` em `fiscal_settings` e preenche os vínculos Spedy existentes;
+  - `2026_10_15_110000_add_action_created_index_to_order_logs`: cria o índice de ação e data em `order_logs`.
+- Ambas são aditivas e têm `down()`. Depois delas, `migrate:status --pending` resultou em *No pending migrations*.
+- Em seguida foram executados `php artisan optimize` e o restart de `vetoros-worker` e `vetoros-scheduler`.
+
+## 5. Validação
+
+- `https://vetoros.com.br`: `/`, `/login` e `/up` responderam **200**, e `/admin` respondeu **302**.
+- `vetoros`, `vetoros-worker` e `vetoros-scheduler` estão **healthy**.
+- Nenhum erro ou exceção nos logs dos três serviços depois do deploy.
+
+## Pendências
+
+1. Homologação funcional do VETOR-FISCAL-01/02 (cadastro do emitente na Spedy e certificado A1) e do VETOR-PERF em produção.
+2. Alterações locais do desgarrados (`docker-compose.yml`, `nginx/conf.d/apps.conf`, `gateway/desgarrados` e `volumes/`) não são desta execução e não foram tocadas nem commitadas.
+
+---
+
 # Execução de `correio.md`: VETOR-MAIL-01 (auditoria e centralização dos e-mails). Resultado: **AUDITORIA SOMENTE LEITURA CONCLUÍDA, ARQUITETURA PROPOSTA, AGUARDANDO APROVAÇÃO**
 
 - **Data:** 2026-10-09 (America/Sao_Paulo).

@@ -1,63 +1,52 @@
-# VETOR-MAIL-01 — Auditoria e centralização dos e-mails
+# DESGARRADOS-NEXT-29 — Localização regional global
 
-**Projeto:** VetorOS  
-**Infraestrutura:** `infra-abrasil`  
-**Prioridade:** após estabilização do VETOR-INTEL em produção
+**Projeto:** `apps/desgarrados-next/`
+
+Implementar localização opcional como funcionalidade global do portal público.
 
 ## Objetivo
 
-Auditar e organizar toda a comunicação por e-mail do VetorOS, separando os envios institucionais do SaaS dos envios operacionais dos tenants.
+Na primeira visita, exibir um modal de boas-vindas com a pergunta:
 
-## 1. SMTP central do RootAdmin
+**"De que canto tu és?"**
 
-Criar ou reaproveitar uma configuração administrativa para:
+Explicar brevemente que a região permite personalizar informações e serviços.
 
-- Confirmação de cadastro;
-- Boas-vindas;
-- Recuperação de senha;
-- Avisos de assinatura;
-- Cobranças e vencimentos;
-- Envio de notas fiscais do SaaS;
-- Comunicados administrativos.
+Oferecer três opções:
 
-Permitir configurar servidor, porta, criptografia, usuário, senha e remetente pelo RootAdmin.
+1. Usar minha localização.
+2. Escolher meu município.
+3. Agora não.
 
-Armazenar segredos de forma criptografada. Nunca exibir senhas recuperáveis na interface ou nos logs.
+## Requisitos
 
-## 2. SMTP individual dos tenants
+- Solicitar permissão de geolocalização somente após clique explícito.
+- Reutilizar a estrutura existente de municípios/UF do IBGE e a preferência regional já implementada.
+- Reutilizar o serviço de geocodificação reversa quando configurado, sem inventar provedor ou credenciais.
+- Oferecer seleção manual por município e UF, com busca acessível.
+- Persistir apenas código IBGE/UF e preferência de exibição no armazenamento local, sem persistir coordenadas.
+- Não repetir o modal a cada visita ou navegação; permitir redefinir a escolha nas preferências.
+- Exibir localização atual e ação para alterar município no cabeçalho público, inclusive no mobile.
+- Compartilhar o contexto regional com Nossa Terra, Calendário Rural e demais páginas que realmente utilizam município, respeitando filtros explícitos da URL.
+- Não filtrar ou esconder o acervo cultural geral.
+- Tratar permissão negada, geolocalização indisponível, timeout e falha do geocodificador.
+- Preservar privacidade, acessibilidade e experiência sem cadastro.
+- Não criar duplicação de estados, APIs ou componentes de localização existentes.
 
-Preservar as configurações de e-mail de cada empresa.
+## Interface
 
-Utilizar essas configurações para notificações de ordens de serviço, orçamentos e mensagens operacionais.
+Manter a identidade visual atual do Desgarrados.
 
-Garantir isolamento entre tenants.
+Modal compacto, responsivo, sem aparência artificial ou excesso de elementos. Uso natural de linguagem regional.
 
-## 3. Auditoria dos jobs
+Não bloquear a navegação caso o visitante recuse a localização.
 
-Analisar especificamente:
+## Validação
 
-- `SendOrderCreatedNotification`;
-- `SendOrderStatusUpdatedNotification`.
+Testar primeira visita, retorno ao site, troca de município, preferência manual, GPS negado, falhas do provedor, navegação por teclado e funcionamento das ferramentas regionais.
 
-Investigar as 860 falhas históricas registradas em 20/09/2026.
+Executar testes Laravel, PHPStan, TypeScript e build SSR.
 
-Verificar qual configuração de envio cada job utiliza e se existe tratamento apropriado quando o SMTP está ausente ou indisponível.
+Registrar o resultado em `executed.md`.
 
-Não reenviar nem excluir as notificações antigas automaticamente.
-
-## 4. Segurança e confiabilidade
-
-- Não permitir que credenciais SMTP de um tenant sejam utilizadas por outro.
-- Proteger senhas e tokens.
-- Implementar testes de envio autorizados.
-- Registrar falhas sem expor informações sensíveis.
-- Garantir tratamento de tentativas e limites para evitar envios duplicados.
-- Manter compatibilidade com o sistema atual.
-
-## 5. Execução
-
-**Nesta etapa, realizar primeiro uma auditoria somente leitura e apresentar a arquitetura proposta.**
-
-Não executar migrations, commits, push ou deploy sem aprovação posterior.
-
-Documentar os resultados em `executed.md`.
+**Não executar push ou deploy nesta tarefa.**

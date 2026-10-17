@@ -52,6 +52,73 @@
 
 ---
 
+# Execução de `correio.md`: DESGARRADOS-NEXT-28 — Simplificação do ZARC. Resultado: **CONCLUÍDO — CÓDIGO E DADOS ZARC REMOVIDOS**
+
+- **Data:** 2026-10-12 (America/Sao_Paulo). Execução local em `gateway/apps/desgarrados-next`; sem commit, push ou deploy.
+- **SHA-256 do `correio.md` executado:** `288a7d5b51682e9b40046973811db99c1dadff94ca41b7e5941ee0d9855b3f54`.
+- **SHA-256 registrado na execução anterior:** `13844532c6d5adf13cf9061bc63d749ca797d8a702de165386dd2cccdd1ec4d3` (DESGARRADOS-NEXT-27). O conteúdo mudou para DESGARRADOS-NEXT-28.
+- **Observação:** o `correio.md` recebido termina truncado no item 7.5 ("Sit"); o relatório segue os itens 1–4 e registra a situação geral abaixo.
+
+## 1. Componentes removidos
+
+- **Interface pública:** a seção "Tábua de Risco ZARC" do Calendário Rural (lista paginada, modal de detalhes com decêndios e códigos do MAPA), os filtros próprios de safra ZARC, solo, ciclo e risco, e o cartão "Culturas com dados ZARC" de Minha Região.
+- **Acesso substituto:** cartão "Consultar ZARC — Safras e Plantio" em Nossa Terra e em Minha Região, informando que a consulta é feita no site oficial do Ministério da Agricultura e Pecuária, com link externo para o painel oficial (`target="_blank"`, `rel="noopener noreferrer"`, aviso "abre em nova aba" para leitores de tela). Sem iframe nem réplica do painel. URL e título centralizados em `resources/js/lib/official-links.ts`.
+- **Controllers:** consulta, cache, filtros (`season`, `zarc_soil`, `zarc_cycle`, `zarc_risk`) e props ZARC de `RuralCalendarController`; culturas ZARC e status de sincronização em `MyRegionController`; agendamento `mapa_zarc` em `Admin\RegionalIntegrationController`.
+- **Services/importação/download:** `syncZarc()` e `importZarcCsv()` (download do CSV do CKAN do MAPA para arquivo temporário e importação) em `RegionalIntegrationSync`; fonte `mapa_zarc` em `IntegrationCatalog`.
+- **Model:** `App\Models\ZarcRecord`.
+- **Agendamento:** `campeira:sync mapa_zarc` semanal em `bootstrap/app.php`; descrição do comando `campeira:sync` ajustada.
+- **Navegação e busca global:** item "Calendário rural e ZARC / Atividades e zoneamento" passou a "Calendário rural / Atividades sazonais" (mesma lista alimenta menu e busca).
+- **Textos:** Política de Privacidade deixou de citar sincronização de "dados ZARC do MAPA". Link do painel no Calendário Rural atualizado para o endereço oficial informado.
+- Não havia rotas de API, jobs, seeders, downloads ou arquivos ZARC próprios em `storage/`.
+
+## 2. Componentes preservados
+
+Calendário Rural (entradas, referências sazonais, filtros de localidade/região/cultura/tipo, geolocalização), informações regionais de plantio, calculadoras rurais, IBGE (`ibge_locations`), feriados (`brasilapi_holidays`), Nossa Terra, administração editorial, painel de integrações (agora com 5 fontes), busca global e SEO das demais páginas. Menções informativas ao ZARC oficial (guias de produção, formulário admin do calendário, fontes oficiais) foram mantidas por se referirem ao serviço do MAPA, não a consulta interna.
+
+## 3. Espaço ocupado antes e depois
+
+| Local | Antes | Depois |
+|---|---|---|
+| MySQL `desgarrados.zarc_records` (banco do `.env`) | 249.078 registros · ~332 MB | tabela removida (0 MB) |
+| `database/database.sqlite` (local, ignorado pelo Git, não usado pelo `.env`) | ~372 MB, dos quais ~370 MB são `zarc_records` e índices | 1,2 MB (tabela removida e `VACUUM`) |
+| `storage/` | ~21 MB (17 MB `inertia-devtools`, 3,7 MB logs; nada ZARC) | ~21 MB |
+| `public/build` / `bootstrap/ssr` | 1,5 MB / 2,0 MB | 1,5 MB / 2,0 MB |
+| Código | — | 17 arquivos alterados, +51/−310 linhas, 2 arquivos novos, 1 removido |
+| Disco `/home` | 64% usado | 63% usado (~370 MB liberados) |
+
+Nenhum arquivo ZARC volumoso no repositório nem no histórico Git (maiores blobs: PNGs de marca de ~2,5 MB). Nenhum histórico foi reescrito. `.gitignore` passou a bloquear `*zarc*.csv`, `*ZARC*.csv` e `/storage/app/zarc/`.
+
+## 4. Tabelas identificadas para limpeza
+
+- `zarc_records` (exclusiva do ZARC) com índices `zarc_lookup_idx`, `zarc_records_dataset_key_row_hash_unique`, `zarc_records_municipality_code_index`, `zarc_records_season_start_index`, `zarc_records_state_code_index`.
+- Linha `mapa_zarc` em `regional_integrations` (tabela compartilhada; só a linha é removida).
+- 3 chaves de cache `rural-calendar:zarc:*` / `my-region:zarc-cultures:*` na tabela `cache` (expiram sozinhas).
+- **Impacto da remoção:** nenhum para o código atual, que não lê mais essas estruturas; libera ~332 MB no MySQL.
+
+Migration preparada: `database/migrations/2026_10_19_100000_drop_zarc_records_table.php`. Em bancos novos (tabela vazia) remove a tabela automaticamente, mantendo o histórico de migrations consistente. **Em bancos com dados, a migration recusa a execução** e interrompe o `migrate` até que, após backup, seja definido `DB_ZARC_CLEANUP_AUTHORIZED=true` (`config/database.php`). O `down()` recria apenas a estrutura vazia.
+
+### Limpeza executada (autorizada pelo responsável)
+
+1. Backup prévio com `mysqldump --single-transaction`: `zarc_records-backup.sql.gz` (18 MB, 306 blocos INSERT, dump concluído) e `mapa_zarc-row-backup.sql.gz`, gravados no scratchpad temporário da sessão Claude Code (`/tmp/claude-1000/.../scratchpad/`); mover para local permanente se quiser mantê-los.
+2. `DB_ZARC_CLEANUP_AUTHORIZED=true php artisan migrate --force`: migration `2026_10_19_100000_drop_zarc_records_table` executada em 23 ms. Verificado no MySQL: 0 tabelas `zarc*`, 0 linhas `mapa_zarc`, 0 chaves de cache ZARC. Nenhuma migration pendente.
+3. O banco `desgarrados` é compartilhado com `gateway/desgarrados`; confirmado que essa aplicação não referencia ZARC.
+4. SQLite local: `DROP TABLE zarc_records`, remoção da linha `mapa_zarc` e do cache ZARC, `VACUUM`; `integrity_check` = ok.
+5. Nenhum arquivo ZARC restante em `/tmp`, `storage/` ou no diretório do usuário.
+
+## 5. Situação e verificações
+
+- `php artisan test --compact`: aprovado — 175 testes (173 aprovados, 2 ignorados), 2.399 assertions. Testes ZARC antigos foram substituídos por verificações de ausência de armazenamento/sincronização local e do link oficial.
+- PHPStan: aprovado, 0 erros. `npm run types:check`: aprovado. Pint: aprovado.
+- `npm run build:ssr` (cliente e SSR): aprovado. `npm run test:calculators`: aprovado.
+- Navegação local (`php artisan serve`, somente GET): `/`, `/nossa-terra`, `/calendario-rural` (inclusive com parâmetros ZARC antigos), `/minha-regiao`, `/nossa-terra/producao`, `/agenda-regional` → 200; `/privacidade` → 301. Nenhuma prop ZARC nas respostas.
+- Link oficial do MAPA verificado: HTTP 200.
+
+- Após a limpeza: suíte Laravel novamente aprovada (175 testes, 173 aprovados, 2 ignorados).
+
+Sem commit, push ou deploy.
+
+---
+
 # Execução de `correio.md`: VETOR-MAIL-01 (auditoria e centralização dos e-mails). Resultado: **AUDITORIA SOMENTE LEITURA CONCLUÍDA, ARQUITETURA PROPOSTA, AGUARDANDO APROVAÇÃO**
 
 - **Data:** 2026-10-09 (America/Sao_Paulo).

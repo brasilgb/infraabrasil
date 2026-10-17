@@ -111,6 +111,15 @@ services:
       MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN:-}
       MP_PUBLIC_KEY: ${MP_PUBLIC_KEY:-}
       MP_WEBHOOK_TOKEN: ${MP_WEBHOOK_TOKEN:-}
+      # SMTP institucional da plataforma (VETOR-STABILIZE-03): vem do .env da VPS, não do .env.example
+      # do VetorOS. A senha fica só em ABRASIL_MAIL_PASSWORD. O SMTP de cada empresa continua no banco.
+      MAIL_MAILER: smtp
+      ABRASIL_MAIL_HOST: ${ABRASIL_MAIL_HOST:-smtp.hostinger.com}
+      ABRASIL_MAIL_PORT: ${ABRASIL_MAIL_PORT:-465}
+      ABRASIL_MAIL_ENCRYPTION: ${ABRASIL_MAIL_ENCRYPTION:-ssl}
+      ABRASIL_MAIL_USERNAME: ${ABRASIL_MAIL_USERNAME:-contato@abrasilsistemas.com.br}
+      ABRASIL_MAIL_FROM_ADDRESS: ${ABRASIL_MAIL_FROM_ADDRESS:-contato@abrasilsistemas.com.br}
+      ABRASIL_MAIL_PASSWORD: ${ABRASIL_MAIL_PASSWORD:-}
     volumes: [./volumes/vetoros:/var/www/html/storage/app/public, vetoros-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]

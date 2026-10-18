@@ -14,3 +14,6 @@
 	path = gateway/vetorpet
 	url = https://github.com/brasilgb/vetorpet.git
 	branch = main
+[submodule "gateway/vetorleads"]
+	path = gateway/vetorleads
+	url = https://github.com/brasilgb/vetorleads.git

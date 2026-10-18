@@ -28,8 +28,8 @@ services:
       VETOROS_DB_PASSWORD: ${VETOROS_DB_PASSWORD:?configure VETOROS_DB_PASSWORD in .env}
       VETORPET_DB_PASSWORD: ${VETORPET_DB_PASSWORD:?configure VETORPET_DB_PASSWORD in .env}
       ABRASILSISTEMA_DB_PASSWORD: ${ABRASILSISTEMA_DB_PASSWORD:?configure ABRASILSISTEMA_DB_PASSWORD in .env}
-      AB_PROSPECT_DB_PASSWORD: ${AB_PROSPECT_DB_PASSWORD:?configure AB_PROSPECT_DB_PASSWORD in .env}
       DESGARRADOS_DB_PASSWORD: ${DESGARRADOS_DB_PASSWORD:?configure DESGARRADOS_DB_PASSWORD in .env}
+      VETORLEADS_DB_PASSWORD: ${VETORLEADS_DB_PASSWORD:?configure VETORLEADS_DB_PASSWORD in .env}
     volumes:
       - ./volumes/mysql:/var/lib/mysql
       - ./mysql-init:/docker-entrypoint-initdb.d:ro
@@ -106,6 +106,7 @@ services:
     env_file: ./gateway/vetoros/.env.example
     environment:
       <<: *laravel-environment
+      APP_ENV: production
       # Token do CRM ABrasil para /api/integrations/registration-check (só no VetorOS; vazio = endpoint nega tudo)
       CRM_REGISTRATION_CHECK_TOKEN: ${VETOROS_CRM_REGISTRATION_CHECK_TOKEN:-}
       MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN:-}
@@ -214,50 +215,45 @@ services:
   desgarrados-scheduler:
     extends: {service: desgarrados}
     command: php artisan schedule:work
-  ab-prospect:
-    build:
-      context: /opt/infra-ab-prospect
-      dockerfile: Dockerfile
+  vetorleads:
+    build: {context: ./gateway/vetorleads, dockerfile: Dockerfile}
     restart: unless-stopped
-    env_file: /opt/infra-ab-prospect/.env.example
+    env_file: ./gateway/vetorleads/.env.example
     environment:
       <<: *laravel-environment
-      APP_NAME: "AB Prospect"
-      APP_URL: ${AB_PROSPECT_APP_URL:-http://ab-prospect.localhost}
-      APP_KEY: ${AB_PROSPECT_APP_KEY:?configure AB_PROSPECT_APP_KEY in .env}
-      DB_DATABASE: ab_prospect
-      DB_USERNAME: ab_prospect_user
-      DB_PASSWORD: ${AB_PROSPECT_DB_PASSWORD:?configure AB_PROSPECT_DB_PASSWORD in .env}
-      REDIS_PREFIX: ab_prospect_
-      WAHA_BASE_URL: http://waha:3000
-      WAHA_API_KEY: ${WAHA_API_KEY:-}
-      N8N_WHATSAPP_WEBHOOK_URL: ${AB_PROSPECT_N8N_WHATSAPP_WEBHOOK_URL:-}
-      N8N_WHATSAPP_WEBHOOK_HEADER: ${AB_PROSPECT_N8N_WHATSAPP_WEBHOOK_HEADER:-X-CRM-Token}
-      N8N_WHATSAPP_WEBHOOK_TOKEN: ${AB_PROSPECT_N8N_WHATSAPP_WEBHOOK_TOKEN:-}
-    volumes:
-      - ./volumes/ab-prospect:/var/www/html/storage/app/public
-      - ab-prospect-build:/var/www/html/public/build
-    depends_on:
-      mysql:
-        condition: service_healthy
-      waha:
-        condition: service_healthy
+      APP_NAME: VetorLeads
+      APP_ENV: production
+      APP_URL: ${VETORLEADS_APP_URL:-http://vetorleads.localhost}
+      APP_KEY: ${VETORLEADS_APP_KEY:?configure VETORLEADS_APP_KEY in .env}
+      DB_CONNECTION: mysql
+      DB_DATABASE: vetorleads
+      DB_USERNAME: vetorleads_user
+      DB_PASSWORD: ${VETORLEADS_DB_PASSWORD:?configure VETORLEADS_DB_PASSWORD in .env}
+      REDIS_PREFIX: vetorleads_
+      LOG_LEVEL: ${VETORLEADS_LOG_LEVEL:-warning}
+      WAHA_TENANT_ENABLED: ${VETORLEADS_WAHA_TENANT_ENABLED:-false}
+      SAAS_COMMERCIAL_ENABLED: ${VETORLEADS_SAAS_COMMERCIAL_ENABLED:-false}
+      WEB_CHAT_SERVICE_TOKEN: ${VETORLEADS_WEB_CHAT_SERVICE_TOKEN:-}
+      WEB_CHAT_TENANT_ID: ${VETORLEADS_WEB_CHAT_TENANT_ID:-}
+      # Mesmo SMTP institucional do VetorOS (senha só em ABRASIL_MAIL_PASSWORD no .env da VPS).
+      MAIL_MAILER: smtp
+      MAIL_HOST: ${ABRASIL_MAIL_HOST:-smtp.hostinger.com}
+      MAIL_PORT: ${ABRASIL_MAIL_PORT:-465}
+      MAIL_USERNAME: ${ABRASIL_MAIL_USERNAME:-contato@abrasilsistemas.com.br}
+      MAIL_PASSWORD: ${ABRASIL_MAIL_PASSWORD:-}
+      MAIL_FROM_ADDRESS: ${ABRASIL_MAIL_FROM_ADDRESS:-contato@abrasilsistemas.com.br}
+      MAIL_FROM_NAME: VetorLeads
+    volumes: [./volumes/vetorleads:/var/www/html/storage/app/public, vetorleads-build:/var/www/html/public/build]
+    depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]
-    healthcheck:
-      test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"]
-      interval: 15s
-      timeout: 5s
-      retries: 5
+    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
     logging: *default-logging
-
-  ab-prospect-worker:
-    extends: {service: ab-prospect}
+  vetorleads-worker:
+    extends: {service: vetorleads}
     command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
-
-  ab-prospect-scheduler:
-    extends: {service: ab-prospect}
+  vetorleads-scheduler:
+    extends: {service: vetorleads}
     command: php artisan schedule:work
-
   nginx:
     image: nginx:1.27-alpine
     restart: unless-stopped
@@ -270,17 +266,17 @@ services:
       - ./gateway/vetoros/public:/var/www/vetoros/public:ro
       - ./gateway/vetorpet/public:/var/www/vetorpet/public:ro
       - ./gateway/abrasilsistemas/public:/var/www/abrasilsistema/public:ro
-      - /opt/infra-ab-prospect/public:/var/www/ab-prospect/public:ro
       - ./gateway/desgarrados/public:/var/www/desgarrados/public:ro
       - ./volumes/desgarrados:/var/www/desgarrados/storage:ro
+      - ./gateway/vetorleads/public:/var/www/vetorleads/public:ro
       - vetoros-build:/var/www/vetoros/build:ro
       - vetorpet-build:/var/www/vetorpet/build:ro
       - abrasilsistema-build:/var/www/abrasilsistema/build:ro
-      - ab-prospect-build:/var/www/ab-prospect/build:ro
       - desgarrados-build:/var/www/desgarrados/build:ro
+      - vetorleads-build:/var/www/vetorleads/build:ro
       - ./volumes/certbot/conf:/etc/letsencrypt:ro
       - ./volumes/certbot/www:/var/www/certbot:ro
-    depends_on: [vetoros, vetorpet, abrasilsistema, desgarrados, n8n]
+    depends_on: [vetoros, vetorpet, abrasilsistema, desgarrados, vetorleads, n8n]
     networks: [infra-abrasil-network]
     healthcheck: {test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz"], interval: 15s, timeout: 5s, retries: 5}
     logging: *default-logging
@@ -297,5 +293,5 @@ volumes:
   vetoros-build:
   vetorpet-build:
   abrasilsistema-build:
-  ab-prospect-build:
   desgarrados-build:
+  vetorleads-build:

@@ -1,0 +1,44 @@
+[
+  {
+    "service": "vetorleads",
+    "image": "sha256:2469df8808be3a946b2fa3641f8bad7aa030f138a33314d63f0fdc00550a4d37",
+    "reference": "vetorleads:prospect09-00282e4",
+    "started": "2026-10-19T16:26:10.450057313Z",
+    "health": "healthy"
+  },
+  {
+    "service": "vetorleads-worker",
+    "image": "sha256:2469df8808be3a946b2fa3641f8bad7aa030f138a33314d63f0fdc00550a4d37",
+    "reference": "vetorleads:prospect09-00282e4",
+    "started": "2026-10-19T16:26:10.191723809Z",
+    "health": "healthy"
+  },
+  {
+    "service": "vetorleads-scheduler",
+    "image": "sha256:2469df8808be3a946b2fa3641f8bad7aa030f138a33314d63f0fdc00550a4d37",
+    "reference": "vetorleads:prospect09-00282e4",
+    "started": "2026-10-19T16:26:09.995188156Z",
+    "health": "healthy"
+  },
+  {
+    "service": "vetoros",
+    "image": "sha256:5f17c3fef2fee54c5bfe9fbf337560c7e3c31e636682f20ff7fdd9077502af16",
+    "reference": "infra-abrasil-vetoros",
+    "started": "2026-10-19T15:56:56.308042683Z",
+    "health": "healthy"
+  },
+  {
+    "service": "vetoros-worker",
+    "image": "sha256:a81958f8a0e125a9f2b5c6c832c99ee9e2464e2bea293190872ac9e1bdca1253",
+    "reference": "infra-abrasil-vetoros-worker",
+    "started": "2026-10-19T12:31:15.585019729Z",
+    "health": "healthy"
+  },
+  {
+    "service": "vetoros-scheduler",
+    "image": "sha256:a7ec4874482137c2032d2cd6ca5f233bf286abf933fb8389e0f7b798afb83081",
+    "reference": "infra-abrasil-vetoros-scheduler",
+    "started": "2026-10-19T12:31:05.249911298Z",
+    "health": "healthy"
+  }
+]

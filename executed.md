@@ -1,89 +1,112 @@
-# VETORLEADS-COMERCIAL-01 — Ciclo comercial B2B
+# VETOR-CHAT-12.9 — Laboratório publicado e sandbox homologado na VPS
 
-Executado em **19/10/2026 UTC**.
+## Comparação com a solicitação anterior
 
-**Estado final: IMPLEMENTADO E VALIDADO LOCALMENTE. PUBLICAÇÃO NÃO EXECUTADA.** Um operador sintético concluiu Prospect → Qualificação → CRM → Contato → Oportunidade → Proposta → Negociação → Fechamento → Indicadores. As melhorias foram implementadas no VetorLeads, reutilizando os módulos existentes. Não houve push, deploy, migration operacional, alteração de registros comerciais reais ou envio de mensagens reais.
+`correio.md` mudou de CHAT-12.8 para CHAT-12.9. SHA-256 atual: `e127c709c8b10562a24c3c1d206bb40c6f616746389941f9313f35638277e20f`; solicitação anterior: `c63f75d5a0805c3c10e89858adf71559138832cdf2bbadc1e084fc2b5d79c6f8`. A nova etapa autoriza publicação coordenada, backup/ensaio e homologação do sandbox na infraestrutura real. Solicitação atual arquivada em `docs/vetor-chat-12/chat129-correio.md` e `docs/vetor-chat-12/chat129/correio.md`; relatório anterior preservado em `chat129/previous-executed.md`. Os relatórios CHAT-12.7 e CHAT-12.8 também foram consultados.
 
-## Comparação do correio
+## Resultado
 
-O arquivo mudou de PROSPECT-11 para COMERCIAL-01:
+**Laboratório publicado e jornada sandbox aprovada na VPS. Atendimento automático público não foi ativado.**
 
-- SHA-256 anterior: `3a69a95cc535bfbb25e7f310471426fb7790cda78596eefbaff83e2483230283`.
-- SHA-256 executado: `d9bd19925dfc575f9850453d48ac6e124517b786fd187b9db0b338f7793e545f`.
-- [Relatório anterior preservado](docs/vetorleads-commercial-01/prospect11-executed.md) e [metadados desta execução](docs/vetorleads-commercial-01/execution.json).
+O administrador autorizado pode abrir `https://vetorleads.com.br/settings/support-automation/lab`, selecionar regras inativas e emitir o código temporário para o widget de `https://vetoros.com.br`. A homologação assistida no navegador conferiu os 14 passos, incluindo contexto, prévia de oportunidade, operador, retomada do automático, encerramento, revogação e expiração. O navegador registrou **zero chamadas a endpoints operacionais e zero erros JavaScript**. Seleção de regra de outro tenant retornou **422**; código expirado/usado também retornou **422**. Após expiração/revogação e recarga, o widget continuou bloqueado no modo de homologação, sem fallback.
 
-A nova autorização foi respeitada: desenvolvimento e testes locais, com MariaDB nativo, sem introduzir Docker no desenvolvimento desta etapa. A publicação autorizada no correio anterior não foi reutilizada como autorização para publicar estas mudanças.
+As 14 regras operacionais continuam inativas e sem alterações; WhatsApp automático global e por tenant continuam desligados. Nenhuma mensagem real, campanha, contato comercial ou oportunidade real foi usado no ensaio. Não houve push.
 
-## Inventário funcional e reaproveitamento
+## Versões efetivamente publicadas
 
-O [inventário detalhado](docs/vetorleads-commercial-01/inventario.md) classifica as funcionalidades anteriores e relaciona arquivos concretos de evidência.
+| Produto/processos | Revisão Git | Imagem local |
+|---|---|---|
+| vetorleads (API, worker e scheduler) | `29a8504af355878eedd47337df72d06e0ebbd407` | `vetorleads:chat129-29a8504af355` |
+| Digest vetorleads | `sha256:3c7ab706546aac5ccbd12812b19a46be8262260ee06b59e8bb8d32b2ac9be22a` | Mesmo artefato nos três processos |
+| vetoros (API, worker e scheduler) | `1700256f53fda990ed2f812af966c86cc50399ee` | `vetoros:chat129-1700256f53fd` |
+| Digest vetoros | `sha256:eb6b85c0d694b4e30a6436ab0906ffc5fd4a9e868d60c0267872a289ed25dbfc` | Mesmo artefato nos três processos |
 
-| Área | Estado encontrado | Entrega desta etapa |
-| --- | --- | --- |
-| Captura, deduplicação e prospects | Implementada | Reutilizada e validada com entrada sintética. |
-| Qualificação, score e produtos | Implementada | Prévia e confirmação por produto preservadas e exercitadas. |
-| Conversão para CRM | Implementada | Repetição comprovadamente idempotente, sem nova oportunidade. |
-| Funil e oportunidades por tenant | Implementada | Preservadas as seis chaves existentes, rótulos/ordem configuráveis e quadro do CRM. |
-| Atividades e abordagem comercial | Implementada | Reutilizados chamada, WhatsApp manual, e-mail, reunião, observação, status, vendedor e próximo contato. Registro agora atômico com alterações do lead. |
-| WhatsApp, WebChat e histórico técnico | Implementada | Preservados. Atividade manual continua distinta de mensagem técnica enviada/recebida. |
-| Follow-ups | Implementada | Reutilizados pendentes, vencidos, hoje/futuros, tarefas e histórico. |
-| Propostas comerciais B2B | Ausente | Implementadas propostas, itens, descontos, snapshots, versões, estados e PDF. Recursos de e-books não foram confundidos com propostas B2B. |
-| Fechamento / reabertura | Parcial | Implementados valor negociado, data/autor do fechamento, idempotência e reabertura com motivo e auditoria. |
-| Dashboard e relatórios | Parcial | Corrigida a soma indevida de estimativas como valor vendido; acrescentados indicadores de propostas e resultados por vendedor/produto/segmento/origem. |
-| Recebimentos financeiros | Ausente no B2B | Não foi criado recebimento fictício; a interface informa que não é registrado, e a métrica retorna `null`. |
+Configuração coordenada e gitlinks registrados no commit local de infraestrutura `066c3baf200399f059283e8c74d26e7cac41f406`. `docker-compose.override.yml` fixa as duas imagens por revisão e explicita `SUPPORT_AUTOMATION_WHATSAPP_DELIVERY_ENABLED=false` nos três processos VetorLeads. Credenciais, chaves, demais variáveis e volumes foram comparados com os containers anteriores e preservados. As imagens possuem rótulo `org.opencontainers.image.revision`; IDs/digests e saúde efetivamente observados estão em `chat129/published-images.json`.
 
-As oito etapas do funil eram **sugeridas** no correio. Foram preservadas as seis chaves compatíveis, a personalização por tenant e os status existentes; o acompanhamento de proposta enviada/aceita pertence ao novo módulo de propostas, sem reescrever funis configurados.
+API, worker e scheduler dos dois produtos foram atualizados. O Nginx foi validado com `nginx -t` e recarregado após cada grupo. **21 containers saudáveis** na conferência final; containers não relacionados conservaram seus IDs. Nenhuma sessão WAHA foi reiniciada.
 
-## Implementação
+## Backup e ensaio do banco
 
-**Propostas:** associação à oportunidade; seleção de produtos/serviços do catálogo do tenant; quantidade, valor unitário e desconto total; condições, validade e observações; totais calculados no servidor em centavos inteiros. Valores de totais e tenant enviados pelo cliente não definem os registros persistidos. Nome de produto, itens, empresa e valores ficam preservados na versão. Revisão cria nova versão sem sobrescrever conteúdo anterior. Há estados rascunho, enviada, aceita, recusada e expirada; expiração é derivada da validade, sem jobs ou gravação ao consultar. Revisões antigas não podem ser enviadas/aceitas como se fossem a versão atual. Aceite não fecha automaticamente a oportunidade.
+Backup: `/opt/infra-abrasil/backups/chat129/vetorleads-before.sql`, **522509 bytes**, permissões **0600** em diretório privado. SHA-256: `f046bf7a025f752409d91dd94366cfacfdab88fa5c81cf1f1bb8aa78d208fbfd`. O SQL e os arquivos privados de ambiente não foram adicionados ao Git. O arquivo temporário que transportou o ambiente produtivo para a migration já foi removido.
 
-**PDF:** documento A4 real, com texto selecionável, acentos, escape de conteúdo e paginação automática, produzido localmente sem nova dependência PHP ou serviço externo. Visualização da proposta e download são manuais. Registrar como enviada apenas grava o estado e o histórico; não transmite mensagem.
+O backup foi restaurado em **chat129_rehearsal**, com usuário próprio restrito a esse banco. Foram conferidas **47 tabelas**. A primeira comparação exata com o banco vivo divergiu somente em `cache`, alterado normalmente pelo scheduler; as demais tabelas coincidiram. Isso foi diagnosticado antes de publicar. O ensaio aplicou somente as duas migrations pendentes; entre as tabelas existentes, apenas `migrations` mudou. As três novas tabelas nasceram vazias, sem perda comercial ou histórica.
 
-**Fechamento:** ganho/perda, motivo da perda, valor negociado explícito, data e autor do fechamento; vendedor e produto permanecem na oportunidade e no registro de histórico. O fechamento exige responsável/produto e impede substituição silenciosa de um fechamento existente. Repetição equivalente não duplica o histórico. Reabertura exige motivo, preserva os dados anteriores no histórico e retira a oportunidade das vendas atualmente fechadas. Vendedor/produto de uma venda com valor negociado só mudam após reabertura. Caminhos antigos de edição, status, atividade e lote foram protegidos para não contornar a reabertura; transações e locks serializam alterações concorrentes.
+Na operação foram aplicadas, nessa ordem:
 
-**Indicadores:** prospects capturados/qualificados, conversão para CRM, oportunidades abertas, ganhos/perdas, contatos e follow-ups existentes foram mantidos. Novos indicadores separam pipeline estimado, valor negociado fechado, propostas emitidas/aceitas e recebimentos não registrados. Propostas emitidas são contadas por série, evitando inflar o indicador por versões. Relatórios agrupam oportunidades, ganhos, perdas, valores e conversão por vendedor, produto, segmento e origem. Vendas antigas sem valor negociado ficam sinalizadas; não houve backfill nem conversão de estimativa em receita real.
+1. `2026_10_19_200000_create_support_sandbox_tables` — conversas e mensagens sandbox.
+2. `2026_10_19_210000_create_support_sandbox_accesses_table` — credenciais temporárias.
 
-**Navegação:** Dashboard, Capturar empresas, Prospects, CRM / Oportunidades, Propostas, Atividades e follow-ups, Produtos e serviços e Relatórios. O quadro permanece na aba do CRM, e configurações ficam no rodapé. A edição do lead reúne histórico, propostas e fechamento.
+As migrations de automação `180000` e multicanal `190000` já estavam aplicadas. Não houve `migrate:fresh`, rollback de migrations ou suíte automatizada usando o banco operacional. Pest/PHPUnit continuou usando SQLite em memória com as proteções da CHAT-12.5; a infraestrutura real recebeu somente a homologação assistida dos endpoints sandbox, com identidade e dados sintéticos.
 
-## Arquivos e migration
+## Homologação publicada e isolamento
 
-Commit local da aplicação: **`f072ba01e1206ac876b806ddfeb9aecfabe890c8`** — `Completa ciclo comercial B2B com propostas versionadas e fechamento auditado`.
+Foi criada uma identidade técnica temporária com papel owner **somente no tenant sintético**, sem root, sem acesso ao tenant operacional, sem convite ou envio de e-mail. As 14 regras de referência foram copiadas como inativas apenas para esse escopo. A sessão normal de login permitiu conferir o Laboratório e o widget publicados, em 1440 e 390 px.
 
-Foram registrados **27 arquivos**, com lista e hashes em [changed-files.json](docs/vetorleads-commercial-01/changed-files.json). Principais alterações:
+O ensaio percorreu: seleção WebChat/regra inativa; emissão e resgate; intenção e resposta; conversa multimensagem; qualificação comercial simulada; prévia de contato/oportunidade; transferência; resposta humana interna; retomada com resposta automática; encerramento e bloqueio; revogação explícita; expiração e recarga sem fallback. Para observar a expiração sem esperar 30 minutos, antecipou-se somente `expires_at` de uma credencial pertencente ao tenant sintético, sem mudar relógio, TTL global ou acessos produtivos.
 
-- `app/Models/CommercialProposal.php`, `app/Services/CommercialMoney.php`, `ProposalPdf.php`, `CommercialMetrics.php`.
-- `CommercialProposalController`, `CommercialClosureController`, `CommercialReportController`; ajustes em `LeadController`, `LeadActivityController`, `DashboardController` e `Lead`.
-- Novas telas `resources/js/pages/proposals/*`, relatório comercial, componentes de indicadores e fechamento; integração ao dashboard, edição do lead e menu.
-- Rotas comerciais e `tests/Feature/CommercialCycleTest.php`; testes anteriores de dashboard passaram a distinguir estimativa de valor negociado.
-- Migration **`2026_10_19_130000_add_commercial_proposals_and_closure.php`**: cria `commercial_proposals` e acrescenta `negotiated_value`, `closed_at`, `closed_by_user_id` nullable em `leads`. Sem backfill automático.
+O histórico sintético foi exportado sem hashes de credenciais em `chat129/synthetic-sandbox-history.json`. Ao concluir, os acessos foram revogados e somente o tenant, o administrador e a sessão técnica dessa identidade foram removidos. Nenhum histórico real foi apagado. Todas as contagens abaixo voltaram ao estado anterior à homologação:
 
-A migration foi aplicada **somente no MariaDB sintético**. O schema local ficou com 49 migrations; o schema operacional não foi alterado. A configuração/imagem operacional continuou na versão anteriormente publicada. Nenhum serviço pago, API nova ou dependência de produto foi acrescentado.
+| Tabela | Antes | Depois |
+|---|---:|---:|
+| tenants | 1 | 1 |
+| users | 2 | 2 |
+| leads | 1 | 1 |
+| lead_activities | 4 | 4 |
+| web_conversations | 3 | 3 |
+| web_chat_messages | 8 | 8 |
+| web_chat_events | 5 | 5 |
+| support_thread_states | 4 | 4 |
+| support_automation_rules | 14 | 14 |
+| support_automation_decisions | 2 | 2 |
+| support_automation_outbox | 0 | 0 |
+| support_whatsapp_receipts | 1 | 1 |
+| jobs | 0 | 0 |
+| failed_jobs | 0 | 0 |
 
-## Testes e isolamento
+Os checksums das tabelas originais comerciais, de histórico, regras e integrações foram preservados. As únicas diferenças globais ficaram em `migrations` (duas inclusões), `cache` e `sessions`. Em sessões, a coleta normal do Laravel removeu **48 registros já expirados**; a duração permaneceu em **120 minutos**, e **nenhuma sessão anterior ainda válida está ausente**. Também foram criadas sessões HTTP anônimas da navegação, que não são conversas ou mensagens operacionais. Não houve limpeza global de sessões ou alteração de APP_KEY. Evidências: `chat129/final-isolation.json` e `chat129/sessions-preservation.json`.
 
-- **Regressão completa: 1.280 testes aprovados, 13.630 assertions, 75,731 s**, em PHP **8.4.26** e MariaDB nativo **11.8.6**. [Resultado](docs/vetorleads-commercial-01/all-tests.log).
-- Após os locks finais dos caminhos antigos, **62 testes / 479 assertions** aprovados, cobrindo ciclo novo, gerenciamento de leads, atribuição e atividades/follow-ups. [Resultado](docs/vetorleads-commercial-01/final-lock-tests.log).
-- **PHPStan nível 7 sem erros**, TypeScript, ESLint dos arquivos alterados e build Vite aprovados; PHP formatado com Pint e interfaces com Prettier. [PHPStan](docs/vetorleads-commercial-01/phpstan.log), [TypeScript](docs/vetorleads-commercial-01/typescript.log), [ESLint](docs/vetorleads-commercial-01/eslint.log) e [build](docs/vetorleads-commercial-01/build.log).
-- **Isolamento:** testes negam leitura/alteração/PDF de proposta de outro tenant; recusam lead, produto e revisão estrangeiros; negam fechamento/reabertura de lead de outro tenant; listagem e relatório permanecem no escopo correto. Novos endpoints reutilizam `EnsureCommercialAccess`, `TenantContext` e `BelongsToTenant`. Também foram testados valores inválidos, desconto excessivo, expiração, transições inválidas, revisão preservada, idempotência e rollback de atividade que tenta reabrir indevidamente.
-- **Navegador Chromium nativo:** jornada comercial integral e 12 verificações de telas em **1440 e 390 px**, com HTTP 200, sem erros JavaScript e sem transbordamento horizontal do documento. Tabelas usam rolagem interna. Amostras de proposta desktop e relatório celular foram inspecionadas visualmente. [Resultado](docs/vetorleads-commercial-01/interface/results.json), [proposta desktop](docs/vetorleads-commercial-01/interface/1440-_proposals_3.png) e [relatório celular](docs/vetorleads-commercial-01/interface/390-_commercial_reports.png).
-- **PDF:** validado com `pdfinfo` e `pdftotext`: A4, PDF 1.4, texto extraível com valores/acentos, sem JavaScript. [PDF sintético](docs/vetorleads-commercial-01/interface/proposta-sintetica.pdf), [validação](docs/vetorleads-commercial-01/pdfinfo.txt) e [texto extraído](docs/vetorleads-commercial-01/pdf-text.txt).
-- Os **27 arquivos** alterados coincidiram entre a árvore entregue e a cópia nativa utilizada nas verificações finais. [Paridade](docs/vetorleads-commercial-01/source-parity.json).
+Capturas incluem Laboratório publicado, qualificação, operador nos dois lados, encerramento, revogação e expiração. A observação detalhada está em `chat129/published-sandbox-observations.json`; imagens estão no mesmo diretório.
 
-O ambiente local foi criado em `backups/commercial01/`, ignorado pelo Git: MariaDB com datadir/socket próprios, `--skip-networking`, buffer pool de 128 MiB, schemas `commercial01_test` e `commercial01_ui`. A aplicação de homologação usou apenas `127.0.0.1:8012`, mailer de teste e identidades sintéticas. PHP CLI, binários MariaDB/Node e bibliotecas de navegador/leitura PDF foram instalados como ferramentas de desenvolvimento, sem criar serviço global MariaDB. Não foi introduzido Docker para esta etapa. Os processos locais foram encerrados ao concluir; arquivos e evidências foram preservados.
+## Regras e proposta de prioridade
 
-## Resultado da jornada sintética
+As **14 regras do tenant operacional permaneceram inativas, com conteúdo, prioridades e agenda preservados**. Nenhum horário foi configurado.
 
-Um tenant, um operador, um produto e uma empresa sintéticos. O prospect foi qualificado, convertido para um único lead, recebeu registro manual de chamada/interesse/objeção e follow-up; teve proposta emitida, revista, aceita e negociada; a oportunidade foi ganha com **R$ 345,55 negociados**, refletidos nos indicadores sem informar recebimento financeiro.
+Em cópias inativas do tenant sintético foram reproduzidos os conflitos e conferida esta proposta:
 
-Estado final da homologação: **1 tenant, 1 usuário, 1 prospect, 1 lead, 3 snapshots de propostas, 12 atividades, 0 jobs e 0 jobs falhos**. Há um rascunho preservado de uma passagem inicial do harness e versões 1/2 da série concluída; o indicador corretamente mostra **1 proposta emitida e 1 aceita**, sem multiplicar versões. Ajustes do harness trataram a navegação Inertia; não foram correções de dados operacionais. Todos os valores deste parágrafo são sintéticos. [Contagens e indicadores](docs/vetorleads-commercial-01/synthetic-final-state.json).
+| Frase | Resultado atual | Proposta ensaiada | Resultado no Laboratório |
+|---|---|---|---|
+| “Como o sistema controla estoque?” | Apresentação do VetorOS | Apresentação geral: prioridade 10 → **200** | Peças e estoque |
+| “Como funciona o financeiro e a nota fiscal?” | Vendas, caixa e financeiro | Notas fiscais: prioridade 80 → **65** | Notas fiscais |
 
-## Preparação e limites da próxima publicação
+A proposta ficou registrada para revisão, **sem aplicação ao tenant operacional ou ativação pública**. Evidência: `chat129/priority-proposal.json`. As condições de pagamento continuam sujeitas à confirmação comercial nos modelos revisados da CHAT-12.8; não houve atualização automática do conteúdo das regras produtivas já gravadas.
 
-O [roteiro de preparação](docs/vetorleads-commercial-01/preparacao-publicacao.md) identifica o commit, a migration aditiva, a ordem de upgrade, backup, imagem única e recuperação sem remover os dados novos.
+## WAHA e travas
 
-Antes da publicação será necessário ensaiar o upgrade em MySQL 8.4 isolado, gerar/verificar a nova imagem, atualizar backup e validar capacidade do host. Nesta etapa, os testes de banco foram feitos no **MariaDB nativo**, conforme solicitado; não se declara ensaio desta migration no MySQL operacional. A versão nova depende da migration e não deve ser publicada isoladamente sobre o schema antigo.
+A sessão do VetorLeads `vl-5f8726f2-5230-4e6c-b13b-69678d4ea517` permaneceu **WORKING**. `vetoros1-1` também permaneceu WORKING. `vetoros1-9` já estava **FAILED antes da publicação** e continuou assim; não foi modificada nem incluída artificialmente no resultado de homologação. As consultas WAHA foram somente GET de estado, sem envio ou reconexão. Detalhes antes/depois em `chat129/runtime-details-*.json`.
 
-A receita recebida continua fora do módulo: não há integração de pagamentos nem baixa financeira automática. A amostra real em produção, qualquer preenchimento histórico, mensagens, push, deploy e migrations operacionais dependem de uma próxima autorização. O ponteiro VetorOS preexistente e as evidências anteriores foram preservados.
+Trava global: **false**. Tenant operacional: `whatsapp_automation_enabled=0`, `whatsapp_automation_homologated_at=null`. Regras ativas: **0/14**. Outbox: **0** antes/depois. Leads, mensagens, eventos e decisões operacionais ficaram iguais. A publicação do Laboratório não habilitou atendimento automático público.
 
-**Critério de aceite local atendido com dados sintéticos. A publicação desta evolução permanece pendente e não foi executada.**
+## Validações e correções de empacotamento
+
+- Testes focados novamente executados fora da operação: **8 testes / 102 asserções** do laboratório e ponte; **9 testes / 29 asserções** do proxy, incluindo rejeições sem fallback.
+- Evidências da CHAT-12.8 preservadas: regressões completas com **1.318 testes PHP VetorLeads e 820 VetorOS**, PHPStan sem erros e verificações de segurança/isolamento. Não foram repetidas no banco real.
+- Snapshot da revisão VetorOS: **TypeScript aprovado**, **4 testes JavaScript aprovados**, lint dos arquivos alterados — incluindo `vite.config.ts` — aprovado.
+- Lint completo mantido visível: **442 erros e 11 avisos preexistentes**, sem problemas nos arquivos alterados. Não houve desativação global de regras ou correção indiscriminada de arquivos. Artefatos `chat129/full-eslint.json` e `chat129/eslint-summary.json`.
+- Builds Docker dos dois commits concluídos, incluindo os builds frontend de produção. Imagens finais sem `.env`, `.env.testing`, `node_modules`, Pest ou PHPUnit; dependências de desenvolvimento ficaram nos estágios de build.
+- O primeiro build limpo falhou por falta dos diretórios vazios de cache. A publicação ficou suspensa, os Dockerfiles foram corrigidos e os builds passaram antes da atualização dos containers. O build VetorOS também passou a resolver Ziggy pela dependência já fixada no lockfile, sem depender do vendor local. Nenhuma funcionalidade de negócio nova foi criada.
+- `.dockerignore` passou a excluir ambientes privados, sessões/cache locais e assets gerados; `.env.example` foi preservado. Contextos de build foram extraídos de `git archive HEAD`, sem backups, arquivos temporários ou alterações não versionadas.
+
+## Git, comandos e reversão
+
+Os commits locais foram separados em alterações anteriores de manutenção, migrations, código funcional/ponte, correções de empacotamento e configuração de infraestrutura. Lista exata de commits e arquivos adicionados: `chat129/commits.json`. Foram usados `git add -- <arquivos explícitos>` e `git commit -m <mensagem>`, sem `git add .`, descarte de alterações anteriores ou push. Os dois submódulos estão limpos e seus gitlinks correspondem às revisões publicadas. Evidências e este relatório são versionados separadamente da aplicação. Pastas históricas não rastreadas das etapas anteriores foram preservadas e não foram incluídas indiscriminadamente nesta publicação.
+
+A construção usou os contextos de `git archive` e `docker build --label org.opencontainers.image.revision=<hash> -t <produto>:chat129-<hash> <contexto>`. Depois do ensaio, a migration foi executada por container efêmero da imagem nova; os grupos foram atualizados por `docker compose up -d --no-build --no-deps <api> <worker> <scheduler>`. Não foi utilizado `up` indiscriminado de toda a infraestrutura.
+
+Reversão preparada em **`chat129/rollback.md`**, com overlay **`chat129/rollback-images.json`** e os IDs efetivamente anteriores. Ela revoga acessos sandbox, restaura primeiro o widget/proxy e depois a API anterior compatível, mantém as tabelas aditivas, preserva chaves/volumes e recarrega Nginx. Nenhum rollback foi executado.
+
+## Pendências reais
+
+1. Passivo de ESLint do VetorOS: 442 erros e 11 avisos, separado desta entrega.
+2. Sessão WAHA `vetoros1-9` em FAILED: situação anterior, fora do escopo e preservada.
+3. Propostas de prioridade aguardam revisão antes de qualquer alteração operacional.
+4. Atendimento automático público e WhatsApp real continuam desabilitados; qualquer ativação futura exige etapa própria. Esta execução homologa somente o **sandbox publicado**.

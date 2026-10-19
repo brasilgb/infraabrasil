@@ -1,0 +1,27 @@
+{
+  "approved": true,
+  "environment_keys_changed": {
+    "vetorleads": [
+      "SUPPORT_AUTOMATION_WHATSAPP_DELIVERY_ENABLED"
+    ],
+    "vetorleads-worker": [
+      "SUPPORT_AUTOMATION_WHATSAPP_DELIVERY_ENABLED"
+    ],
+    "vetorleads-scheduler": [
+      "SUPPORT_AUTOMATION_WHATSAPP_DELIVERY_ENABLED"
+    ],
+    "vetoros": [],
+    "vetoros-worker": [],
+    "vetoros-scheduler": []
+  },
+  "services": {
+    "vetorleads": "vetorleads:chat129-29a8504af355",
+    "vetorleads-worker": "vetorleads:chat129-29a8504af355",
+    "vetorleads-scheduler": "vetorleads:chat129-29a8504af355",
+    "vetoros": "vetoros:chat129-1700256f53fd",
+    "vetoros-worker": "vetoros:chat129-1700256f53fd",
+    "vetoros-scheduler": "vetoros:chat129-1700256f53fd"
+  },
+  "preserve_existing_mounts": true,
+  "no_unrelated_services": true
+}

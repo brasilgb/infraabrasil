@@ -1,0 +1,942 @@
+diff --git a/.dockerignore b/.dockerignore
+index 911d5cc4..940b5be7 100644
+--- a/.dockerignore
++++ b/.dockerignore
+@@ -2,4 +2,9 @@ vendor/
+ node_modules/
+ .git/
+ storage/logs/*
+-.env
+\ No newline at end of file
++.env
++.env.*
++!.env.example
++storage/framework/
++public/build/
++bootstrap/cache/*.php
+diff --git a/app/Http/Controllers/Site/WebChatProxyController.php b/app/Http/Controllers/Site/WebChatProxyController.php
+index 24b1ecd1..6d237744 100644
+--- a/app/Http/Controllers/Site/WebChatProxyController.php
++++ b/app/Http/Controllers/Site/WebChatProxyController.php
+@@ -80,6 +80,23 @@ public function close(Request $request, string $conversation): JsonResponse
+         return $this->forward('post', "/api/web-chat/conversations/{$conversation}/close", [], $this->visitorToken($request, $conversation));
+     }
+ 
++    public function redeemSandbox(Request $request): JsonResponse
++    {
++        $data = $request->validate(['code' => ['required', 'string', 'size:64', 'regex:/^[a-f0-9]{64}$/']]);
++        return $this->forward('post', '/api/web-chat/sandbox/redeem', $data)->header('Cache-Control', 'no-store');
++    }
++
++    public function showSandbox(Request $request, string $conversation): JsonResponse
++    {
++        return $this->forwardSandbox('get', "/api/web-chat/sandbox/{$conversation}", [], (string) $request->header('X-Sandbox-Session'));
++    }
++
++    public function sendSandbox(Request $request, string $conversation): JsonResponse
++    {
++        $data = $request->validate(['body' => ['required', 'string', 'min:1', 'max:4000']]);
++        return $this->forwardSandbox('post', "/api/web-chat/sandbox/{$conversation}/messages", $data, (string) $request->header('X-Sandbox-Session'));
++    }
++
+     private function visitorToken(Request $request, string $conversation): ?string
+     {
+         try {
+@@ -113,4 +130,20 @@ private function forward(string $method, string $path, array $payload = [], ?str
+             return response()->json(['message' => 'Chat indisponível no momento.'], 503);
+         }
+     }
++
++    private function forwardSandbox(string $method, string $path, array $payload, string $sandboxSession): JsonResponse
++    {
++        if (! preg_match('/^[a-f0-9]{64}$/', $sandboxSession)) {
++            return response()->json(['message' => 'Sessão de homologação inválida.'], 401);
++        }
++        $base = rtrim((string) config('services.web_chat.url'), '/');
++        $serviceToken = (string) config('services.web_chat.token');
++        if ($base === '' || $serviceToken === '') return response()->json(['message' => 'Chat indisponível no momento.'], 503);
++        try {
++            $response = Http::acceptJson()->withToken($serviceToken)->withHeaders(['X-Sandbox-Session' => $sandboxSession])->timeout(5)->{$method}($base.$path, $payload);
++            return response()->json($response->json() ?? ['message' => 'Falha na integração.'], $response->status())->header('Cache-Control', 'no-store');
++        } catch (ConnectionException) {
++            return response()->json(['message' => 'Chat indisponível no momento.'], 503);
++        }
++    }
+ }
+diff --git a/package-lock.json b/package-lock.json
+index 6e7e6dd4..7033031a 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -71,6 +71,7 @@
+                 "typescript": "^5.7.2",
+                 "vaul": "^1.1.2",
+                 "vite": "^6.0",
++                "ziggy-js": "2.6.4",
+                 "zod": "^3.25.42"
+             },
+             "devDependencies": {
+@@ -84,6 +85,7 @@
+                 "prettier": "^3.4.2",
+                 "prettier-plugin-organize-imports": "^4.1.0",
+                 "prettier-plugin-tailwindcss": "^0.6.11",
++                "tsx": "^4.23.15",
+                 "tw-animate-css": "^1.3.4",
+                 "typescript-eslint": "^8.23.0"
+             },
+@@ -7968,6 +7970,17 @@
+                 "url": "https://github.com/sponsors/ljharb"
+             }
+         },
++        "node_modules/qs-esm": {
++            "version": "7.0.3",
++            "resolved": "https://registry.npmjs.org/qs-esm/-/qs-esm-7.0.3.tgz",
++            "integrity": "sha512-8jbjCR0PPbqoQcv83C2K/zvVeytRPwPpt3WPDbq51qyLAxcWGtXVRjSe6GHtLCoVbg9+NEFkv7GyUxqjcDIJzw==",
++            "engines": {
++                "node": ">=18"
++            },
++            "funding": {
++                "url": "https://github.com/sponsors/ljharb"
++            }
++        },
+         "node_modules/queue": {
+             "version": "6.0.2",
+             "resolved": "https://registry.npmjs.org/queue/-/queue-6.0.2.tgz",
+@@ -8980,6 +8993,481 @@
+             "integrity": "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==",
+             "license": "0BSD"
+         },
++        "node_modules/tsx": {
++            "version": "4.23.15",
++            "resolved": "https://registry.npmjs.org/tsx/-/tsx-4.23.15.tgz",
++            "integrity": "sha512-Yiex1Ovn8z2xPpOWckIiysV1SSyRMY9BkLF++q0yKiDxCqRhosKfMg3janKkiLBwZ5c/YryloKwGZcrEmtwxKw==",
++            "devOptional": true,
++            "dependencies": {
++                "esbuild": "~0.28.0"
++            },
++            "bin": {
++                "tsx": "dist/cli.mjs"
++            },
++            "engines": {
++                "node": ">=18.0.0"
++            },
++            "optionalDependencies": {
++                "fsevents": "~2.3.3"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/aix-ppc64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.28.2.tgz",
++            "integrity": "sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==",
++            "cpu": [
++                "ppc64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "aix"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/android-arm": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/android-arm/-/android-arm-0.28.2.tgz",
++            "integrity": "sha512-kXXoiPVVGQcnIYGOeaovwOURpniDBpSq4A03qkQ+BMQqtGG6HYap3xne9C1O1yo4TR3qxlCX5IqqmX6fFo2Lqg==",
++            "cpu": [
++                "arm"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "android"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/android-arm64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/android-arm64/-/android-arm64-0.28.2.tgz",
++            "integrity": "sha512-5YfKeeI8qWfBZIX+u2xZC3Zlb3Os/gLS2sbEKM+I4ZOcsWmHS2WLysCcQZDAFRslDUU5Oiq44gf6PYN1vGwG5A==",
++            "cpu": [
++                "arm64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "android"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/android-x64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/android-x64/-/android-x64-0.28.2.tgz",
++            "integrity": "sha512-O387ite7SzUyCcy3JQX4P4bLtEA7bLLkx+esve5JHnyYfNTxcVpXZo9jhdB0lTKN44gztELTdU7nS8Nr16Fs1Q==",
++            "cpu": [
++                "x64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "android"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/darwin-arm64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.28.2.tgz",
++            "integrity": "sha512-n4KqkOQrraxHJcgjM1RvwbigfQKIKJVpM7xp+KsxiyUSrRdIXnt73VhrPAx0fV44hgfmIVKjxMN9J1t5jySVkw==",
++            "cpu": [
++                "arm64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "darwin"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/darwin-x64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.28.2.tgz",
++            "integrity": "sha512-uq6suIWYP37qzGddBKPw5QEQPi6HiLGsO7UmkpfyaYNQ3D+rN6w6WfwH+nuqcGXWvawGwxOEroO4YGnFh95azw==",
++            "cpu": [
++                "x64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "darwin"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/freebsd-arm64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/freebsd-arm64/-/freebsd-arm64-0.28.2.tgz",
++            "integrity": "sha512-n+I0BTSRIoy+d6RPKnEVwql5UwBJolytvY4mAOIEJorKlqgPII8ix6slVVrfZ5Tnj7glIZvloylbB/EJPMWEXw==",
++            "cpu": [
++                "arm64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "freebsd"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/freebsd-x64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/freebsd-x64/-/freebsd-x64-0.28.2.tgz",
++            "integrity": "sha512-78XJTJkvPs0kz2w61301PJjXl4g7q3JqiYMZ/M/yVI73EHBrCRTgkhu9oqG7vPqq+a/yadEW8aD+agKlk5xrmg==",
++            "cpu": [
++                "x64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "freebsd"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-arm": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-arm/-/linux-arm-0.28.2.tgz",
++            "integrity": "sha512-XlDnu2q5yoqems+xay6wSAcg9DDD7K9RLKZEBOMZm3ckNpJBvOX20tSfby8KfrrhINDyv9V2YVZKY/SpoGJI8w==",
++            "cpu": [
++                "arm"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-arm64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-0.28.2.tgz",
++            "integrity": "sha512-pW4AC0P3it8c7do9MVM4p51FzHzdM/TZrerurgRcHJ2WTa1VQ1CIq18xncfpBJw4ojkiZZrKW2yIBWBP92j6Ug==",
++            "cpu": [
++                "arm64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-ia32": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-ia32/-/linux-ia32-0.28.2.tgz",
++            "integrity": "sha512-CYbnj78HsIeA+DhgUKgFCfvNsTHFhMMrinUrMZpDXJXKN8T3XViTZ/+wtHeVxEWY8ewSzTFN+nRmSwO2tZaLUQ==",
++            "cpu": [
++                "ia32"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-loong64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-loong64/-/linux-loong64-0.28.2.tgz",
++            "integrity": "sha512-buwkd8nsph4R+ajRvw0qM5Hja/TXQow3ptzWO2EbG/cqcIkHloRrdlBtQlshyYGTNFvfkfJ5tpPLVkY4DtsPfQ==",
++            "cpu": [
++                "loong64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-mips64el": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-mips64el/-/linux-mips64el-0.28.2.tgz",
++            "integrity": "sha512-ZVykbDyk7519VwiNb9Lcj9m8XM6v5V9uKPvrEMkkEedVewf+0itkhahp4HDpgERXhwLRpWFypsGbG/J8s0QjJA==",
++            "cpu": [
++                "mips64el"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-ppc64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-0.28.2.tgz",
++            "integrity": "sha512-CAXl+Dtd9UUuJd8pKKdwh6MLm3MUMiqMPmhZ3tTSXPqfyQ3vDl6R5hZdZ/kYojK4ofXtdfSv1tFq8XzWx3heNQ==",
++            "cpu": [
++                "ppc64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-riscv64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-riscv64/-/linux-riscv64-0.28.2.tgz",
++            "integrity": "sha512-GeXCej4IQtU1B+QlDV8W/RRvbzI3O/Stss+/bCXv4lZls5WGRtu2a+3JkA3i4qIUlMXpcHebWpF8AkJhATowuA==",
++            "cpu": [
++                "riscv64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-s390x": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-s390x/-/linux-s390x-0.28.2.tgz",
++            "integrity": "sha512-3H1weTYZPxt/WOhByszQZybS9w5lKzUn1FDMsgEChbHWQwHYQQRfBxgCcZvPhjHfKyJjIievvMmEUawJrdY9Dg==",
++            "cpu": [
++                "s390x"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/linux-x64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz",
++            "integrity": "sha512-4xTZr1FUmSoQW4XIWmit3tzQrUTZM+N3P0XV8xROKYF50XfI7xeO90+1bZvNwxIufQ9hDQVRJH5YhgPVF8A/HQ==",
++            "cpu": [
++                "x64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "linux"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/netbsd-arm64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/netbsd-arm64/-/netbsd-arm64-0.28.2.tgz",
++            "integrity": "sha512-sSATRjPeDBg3pdgHoQfoYBob11Kk1FGa9lui5RIHZCoCkJa9QKlvl3/vKz2usCmYYjs7ymJR/2Nnsqe+Hjt5nw==",
++            "cpu": [
++                "arm64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "netbsd"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/netbsd-x64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/netbsd-x64/-/netbsd-x64-0.28.2.tgz",
++            "integrity": "sha512-lqnzCV+mM0gIADaKihiCg6ifgfU2L3h5E33rNQBN1Y4MaVGnzryzmvvf7UHxprpQdE8hpqLolJ9Rl+SkIRDpyw==",
++            "cpu": [
++                "x64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "netbsd"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/openbsd-arm64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/openbsd-arm64/-/openbsd-arm64-0.28.2.tgz",
++            "integrity": "sha512-AL2qJILH7lNjrDmCQDvdxMfAUIv8KMNZOvrwAQ8i8//ntL9FflhOyMJ8OZSMBb8/AWXe3/5v5S20y3zCoZWKoQ==",
++            "cpu": [
++                "arm64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "openbsd"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/openbsd-x64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/openbsd-x64/-/openbsd-x64-0.28.2.tgz",
++            "integrity": "sha512-QtiuPytchRyC4rwUKhexJdQKvDuZ6hWloi3igqPQNUJCS1/v9EiO3UTOXR6A3FoMo4fnAKbWJdqaIwhOzh8qEw==",
++            "cpu": [
++                "x64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "openbsd"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/openharmony-arm64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/openharmony-arm64/-/openharmony-arm64-0.28.2.tgz",
++            "integrity": "sha512-WkhYDmpTjLvGlScA1rwjRUmhl4k8oXR3cIbtqWmELgU/dFeHHlEllxDvdWcNJV9rbzCexB5vz8gtNewWLgCT7Q==",
++            "cpu": [
++                "arm64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "openharmony"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/sunos-x64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/sunos-x64/-/sunos-x64-0.28.2.tgz",
++            "integrity": "sha512-GPMSkTOtMnv2U2F8gxe4Io6qmVs+YKyp832Etqqxr0hFngmXQ3rzwytelm3GIn7T4VviRUlf3sOgBOiTdvaf7g==",
++            "cpu": [
++                "x64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "sunos"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/win32-arm64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/win32-arm64/-/win32-arm64-0.28.2.tgz",
++            "integrity": "sha512-PIhhEkE9uPBleRBrQEJpUn7MBnibZzbGzYWPmY3x+YoVg/95zbjB4CxPPOQ8l5tYYM4mMaCthF8/1DIfBQQyWQ==",
++            "cpu": [
++                "arm64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "win32"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/win32-ia32": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.28.2.tgz",
++            "integrity": "sha512-YmJbfTlvU7Sdn9BB+4PRES4oB6pxgS37MAONj+hBr/cpXS1aBPKXxNnDbu+QCWPj0o9dgyxeq79g6c5P8KeuYA==",
++            "cpu": [
++                "ia32"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "win32"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/@esbuild/win32-x64": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.28.2.tgz",
++            "integrity": "sha512-5ebpxr3nWMzrL/rnUI755Jkuee0bHL/Gq0WTF9lvcpv73wAp5eu8MfBUgWK9bhWvZjj7yX8etf/8tI8Ney695g==",
++            "cpu": [
++                "x64"
++            ],
++            "dev": true,
++            "optional": true,
++            "os": [
++                "win32"
++            ],
++            "engines": {
++                "node": ">=18"
++            }
++        },
++        "node_modules/tsx/node_modules/esbuild": {
++            "version": "0.28.2",
++            "resolved": "https://registry.npmjs.org/esbuild/-/esbuild-0.28.2.tgz",
++            "integrity": "sha512-HKVLS8dvII+xoKW9kmqxbRKrnWEXfJJr/FZhhJmiqIB0e053QNYFqOBouTMO/k5sID4MvCiUCvv8b9M4h32wIA==",
++            "devOptional": true,
++            "hasInstallScript": true,
++            "bin": {
++                "esbuild": "bin/esbuild"
++            },
++            "engines": {
++                "node": ">=18"
++            },
++            "optionalDependencies": {
++                "@esbuild/aix-ppc64": "0.28.2",
++                "@esbuild/android-arm": "0.28.2",
++                "@esbuild/android-arm64": "0.28.2",
++                "@esbuild/android-x64": "0.28.2",
++                "@esbuild/darwin-arm64": "0.28.2",
++                "@esbuild/darwin-x64": "0.28.2",
++                "@esbuild/freebsd-arm64": "0.28.2",
++                "@esbuild/freebsd-x64": "0.28.2",
++                "@esbuild/linux-arm": "0.28.2",
++                "@esbuild/linux-arm64": "0.28.2",
++                "@esbuild/linux-ia32": "0.28.2",
++                "@esbuild/linux-loong64": "0.28.2",
++                "@esbuild/linux-mips64el": "0.28.2",
++                "@esbuild/linux-ppc64": "0.28.2",
++                "@esbuild/linux-riscv64": "0.28.2",
++                "@esbuild/linux-s390x": "0.28.2",
++                "@esbuild/linux-x64": "0.28.2",
++                "@esbuild/netbsd-arm64": "0.28.2",
++                "@esbuild/netbsd-x64": "0.28.2",
++                "@esbuild/openbsd-arm64": "0.28.2",
++                "@esbuild/openbsd-x64": "0.28.2",
++                "@esbuild/openharmony-arm64": "0.28.2",
++                "@esbuild/sunos-x64": "0.28.2",
++                "@esbuild/win32-arm64": "0.28.2",
++                "@esbuild/win32-ia32": "0.28.2",
++                "@esbuild/win32-x64": "0.28.2"
++            }
++        },
+         "node_modules/tw-animate-css": {
+             "version": "1.4.0",
+             "resolved": "https://registry.npmjs.org/tw-animate-css/-/tw-animate-css-1.4.0.tgz",
+@@ -9620,6 +10108,14 @@
+             "integrity": "sha512-0LPOt3AxKqMdFBZA3HBAt/t/8vIKq7VaQYbuA8WxCgung+p9TVyKRYdpvCb80HcdTN2NkbIKbhNwKUfm3tQywQ==",
+             "license": "MIT"
+         },
++        "node_modules/ziggy-js": {
++            "version": "2.6.4",
++            "resolved": "https://registry.npmjs.org/ziggy-js/-/ziggy-js-2.6.4.tgz",
++            "integrity": "sha512-JIOpCCo0kA2f6cQa5F8cMBKsuFTc3MNrLtaf0RyYywQ30hRR6mq6F51h71woCs3O6MukzpeEpBVRfnlbmwfBNQ==",
++            "dependencies": {
++                "qs-esm": "^7.0.3"
++            }
++        },
+         "node_modules/zod": {
+             "version": "3.25.76",
+             "resolved": "https://registry.npmjs.org/zod/-/zod-3.25.76.tgz",
+diff --git a/package.json b/package.json
+index 50f0f609..0a7d6c21 100644
+--- a/package.json
++++ b/package.json
+@@ -10,7 +10,7 @@
+         "format": "prettier --write resources/",
+         "format:check": "prettier --check resources/",
+         "lint": "eslint . --fix",
+-        "test:js": "node --test tests/js/*.test.ts",
++        "test:js": "node --import tsx --test tests/js/*.test.ts",
+         "types": "tsc --noEmit"
+     },
+     "devDependencies": {
+@@ -24,6 +24,7 @@
+         "prettier": "^3.4.2",
+         "prettier-plugin-organize-imports": "^4.1.0",
+         "prettier-plugin-tailwindcss": "^0.6.11",
++        "tsx": "^4.23.15",
+         "tw-animate-css": "^1.3.4",
+         "typescript-eslint": "^8.23.0"
+     },
+@@ -91,6 +92,7 @@
+         "typescript": "^5.7.2",
+         "vaul": "^1.1.2",
+         "vite": "^6.0",
++        "ziggy-js": "2.6.4",
+         "zod": "^3.25.42"
+     },
+     "optionalDependencies": {
+diff --git a/resources/js/pages/site/components/faq.tsx b/resources/js/pages/site/components/faq.tsx
+index 97e9dd03..76bc8ffd 100644
+--- a/resources/js/pages/site/components/faq.tsx
++++ b/resources/js/pages/site/components/faq.tsx
+@@ -3,11 +3,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
+ export const faqItems = [
+     {
+         question: 'Preciso de cartão de crédito para testar?',
+-        answer: 'Não. O cadastro libera 14 dias de acesso completo sem pedir cartão. Depois do teste, o pagamento é feito via Pix, só quando você decidir continuar.',
++        answer: 'Não. O cadastro libera 14 dias de acesso completo sem pedir cartão. Depois do teste, consulte as formas de pagamento e as condições vigentes antes de decidir continuar.',
+     },
+     {
+         question: 'Posso cancelar quando quiser?',
+-        answer: 'Sim. Não há fidelidade nem multa de cancelamento — você paga via Pix apenas quando for renovar o plano mensal ou anual.',
++        answer: 'Sim. Não há fidelidade nem multa de cancelamento. Consulte as condições vigentes do plano antes de renovar.',
+     },
+     {
+         question: 'O VetorOS emite nota fiscal?',
+diff --git a/resources/js/pages/site/components/web-chat.tsx b/resources/js/pages/site/components/web-chat.tsx
+index 28f6b28e..97ed2a20 100644
+--- a/resources/js/pages/site/components/web-chat.tsx
++++ b/resources/js/pages/site/components/web-chat.tsx
+@@ -7,6 +7,7 @@ import { contactLink, formatWhatsappNumber, useContactChannel } from './site-con
+ 
+ type Message = { id: number | string; sender: string; body: string; created_at?: string };
+ type Session = { id: string; expires: number; identified?: boolean; dismissed?: boolean };
++type SandboxSession = { id: string; token: string; expires_at: string };
+ type ContactForm = { name: string; whatsapp: string; subject: string; email: string; company_name: string; whatsapp_consent: boolean };
+ 
+ // Assuntos aceitos pelo VetorLeads (VETOR-CHAT-11). Só "comercial" pode virar oportunidade.
+@@ -35,6 +36,7 @@ type ChatSettings = {
+     chat_open?: boolean;
+ };
+ const STORAGE_KEY = 'vetoros-web-chat-v1';
++const SANDBOX_MODE_KEY = 'vetoros-web-chat-sandbox-mode';
+ 
+ export function WebChat() {
+     const { webChatSettings } = usePage<{ webChatSettings?: ChatSettings }>().props;
+@@ -42,6 +44,9 @@ export function WebChat() {
+     const [text, setText] = useState('');
+     const [messages, setMessages] = useState<Message[]>([]);
+     const [session, setSession] = useState<Session | null>(null);
++    const [sandboxSession, setSandboxSession] = useState<SandboxSession | null>(null);
++    const [sandboxLocked, setSandboxLocked] = useState(false);
++    const [sandboxCode, setSandboxCode] = useState('');
+     const [busy, setBusy] = useState(false);
+     const [error, setError] = useState('');
+     const [unread, setUnread] = useState(0);
+@@ -57,6 +62,10 @@ export function WebChat() {
+         if (webChatSettings?.web_chat_enabled === false) return;
+ 
+         try {
++            if (sessionStorage.getItem(SANDBOX_MODE_KEY) === '1') {
++                setSandboxLocked(true);
++                return;
++            }
+             const saved = localStorage.getItem(STORAGE_KEY);
+             if (saved) {
+                 const parsed = JSON.parse(saved) as Session;
+@@ -69,7 +78,7 @@ export function WebChat() {
+     }, [webChatSettings?.web_chat_enabled]);
+ 
+     useEffect(() => {
+-        if (!session || webChatSettings?.web_chat_enabled === false) return;
++        if (!session || sandboxLocked || webChatSettings?.web_chat_enabled === false) return;
+         let active = true;
+         const poll = async () => {
+             try {
+@@ -79,7 +88,7 @@ export function WebChat() {
+                 if (response.data.identified === true && !session.identified) saveSession({ ...session, identified: true });
+                 setMessages((current) => {
+                     const known = new Set(current.map((item) => String(item.id)));
+-                    const fresh = incoming.filter((item) => !known.has(String(item.id)) && item.sender === 'attendant');
++                    const fresh = incoming.filter((item) => !known.has(String(item.id)) && item.sender !== 'visitor');
+                     if (!open && fresh.length) setUnread((count) => count + fresh.length);
+                     return incoming;
+                 });
+@@ -100,7 +109,30 @@ export function WebChat() {
+             active = false;
+             window.clearInterval(timer);
+         };
+-    }, [session, open, webChatSettings?.web_chat_enabled]);
++    }, [session, sandboxLocked, open, webChatSettings?.web_chat_enabled]);
++
++    useEffect(() => {
++        if (!sandboxSession || !sandboxLocked) return;
++        let active = true;
++        const poll = async () => {
++            try {
++                const response = await axios.get(`/chat/sandbox/${sandboxSession.id}`, { headers: { 'X-Sandbox-Session': sandboxSession.token } });
++                if (active) {
++                    setMessages(response.data.conversation.messages as Message[]);
++                    setError('');
++                }
++            } catch (reason) {
++                if (!active) return;
++                if (axios.isAxiosError(reason) && [401, 403, 404].includes(reason.response?.status ?? 0)) {
++                    setSandboxSession(null);
++                    setError('A sessão de homologação expirou ou foi revogada. Informe um novo código para continuar.');
++                } else setError('Não foi possível atualizar a sessão de homologação.');
++            }
++        };
++        void poll();
++        const timer = window.setInterval(poll, 3000);
++        return () => { active = false; window.clearInterval(timer); };
++    }, [sandboxSession, sandboxLocked]);
+ 
+     useEffect(() => {
+         bottom.current?.scrollIntoView({ behavior: 'smooth' });
+@@ -112,7 +144,45 @@ export function WebChat() {
+     };
+ 
+     // Pede a identificação depois da primeira mensagem, sem bloquear a conversa.
+-    const askIdentification = Boolean(session && !session.identified && (identifyOpen || !session.dismissed));
++    const askIdentification = Boolean(!sandboxLocked && session && !session.identified && (identifyOpen || !session.dismissed));
++
++    const leaveSandbox = () => {
++        sessionStorage.removeItem(SANDBOX_MODE_KEY);
++        setSandboxSession(null);
++        setMessages([]);
++        setError('');
++        try {
++            const saved = localStorage.getItem(STORAGE_KEY);
++            const previous = saved ? JSON.parse(saved) as Session : null;
++            setSession(previous && previous.expires > Date.now() ? previous : null);
++        } catch {
++            setSession(null);
++        }
++        setSandboxLocked(false);
++    };
++
++    const redeemSandbox = async (event: FormEvent) => {
++        event.preventDefault();
++        if (busy || !sandboxCode.trim()) return;
++        setBusy(true);
++        setError('');
++        setSandboxLocked(true);
++        sessionStorage.setItem(SANDBOX_MODE_KEY, '1');
++        try {
++            const response = await axios.post('/chat/sandbox/access', { code: sandboxCode.trim() });
++            setSandboxSession({ id: response.data.conversation.id, token: response.data.session, expires_at: response.data.expires_at });
++            setMessages(response.data.conversation.messages as Message[]);
++            setSandboxCode('');
++        } catch (reason) {
++            if (axios.isAxiosError(reason) && [401, 403, 422].includes(reason.response?.status ?? 0)) {
++                setError('Código inválido, utilizado ou expirado. O atendimento operacional não foi iniciado.');
++            } else {
++                setError('Não foi possível validar o código. O atendimento operacional não foi iniciado; tente novamente mais tarde.');
++            }
++        } finally {
++            setBusy(false);
++        }
++    };
+ 
+     const send = async (event: FormEvent) => {
+         event.preventDefault();
+@@ -121,6 +191,13 @@ export function WebChat() {
+         setBusy(true);
+         setError('');
+         try {
++            if (sandboxLocked) {
++                if (!sandboxSession) throw new Error('Informe um código de homologação válido.');
++                const response = await axios.post(`/chat/sandbox/${sandboxSession.id}/messages`, { body }, { headers: { 'X-Sandbox-Session': sandboxSession.token } });
++                setMessages(response.data.conversation.messages as Message[]);
++                setText('');
++                return;
++            }
+             const client_message_id = crypto.randomUUID();
+             if (!session) {
+                 const response = await axios.post('/chat/conversations', { message: body, client_message_id, page_url: window.location.href });
+@@ -140,7 +217,7 @@ export function WebChat() {
+ 
+     const identify = async (event: FormEvent) => {
+         event.preventDefault();
+-        if (!session || savingContact) return;
++        if (sandboxLocked || !session || savingContact) return;
+         const errors = contactErrors(contact);
+         setFieldErrors(errors);
+         if (Object.keys(errors).length) return;
+@@ -189,22 +266,26 @@ export function WebChat() {
+                 >
+                     <header className="flex items-center justify-between bg-slate-900 px-4 py-3 text-white">
+                         <div>
+-                            <p className="font-semibold">Atendimento VetorOS</p>
+-                            <p className="text-xs text-slate-300">Vendas e suporte, aqui pelo site</p>
++                            <p className="font-semibold">{sandboxLocked ? 'Homologação VetorOS' : 'Atendimento VetorOS'}</p>
++                            <p className="text-xs text-slate-300">{sandboxLocked ? 'Sessão isolada de teste' : 'Vendas e suporte, aqui pelo site'}</p>
++                        </div>
++                        <div className="flex items-center gap-1">
++                            {!sandboxLocked && <button type="button" onClick={() => { sessionStorage.setItem(SANDBOX_MODE_KEY, '1'); setMessages([]); setText(''); setError(''); setSandboxLocked(true); }} className="rounded p-2 text-xs text-slate-300 hover:bg-white/10">Tenho código de homologação</button>}
++                            {sandboxLocked && <button type="button" onClick={leaveSandbox} className="rounded p-2 text-xs hover:bg-white/10">Sair do teste</button>}
++                            <button type="button" onClick={() => setOpen(false)} aria-label="Fechar chat" className="rounded p-2 hover:bg-white/10"><X size={18} /></button>
+                         </div>
+-                        <button type="button" onClick={() => setOpen(false)} aria-label="Fechar chat" className="rounded p-2 hover:bg-white/10">
+-                            <X size={18} />
+-                        </button>
+                     </header>
+                     <div className="flex-1 space-y-3 overflow-y-auto bg-slate-50 p-4" aria-live="polite">
+-                        <p className="max-w-[90%] rounded-2xl rounded-tl-sm bg-white p-3 text-sm text-slate-700 shadow-sm">
++                        {!sandboxLocked && <p className="max-w-[90%] rounded-2xl rounded-tl-sm bg-white p-3 text-sm text-slate-700 shadow-sm">
+                             {webChatSettings?.web_chat_welcome_message ||
+                                 'Olá! Envie sua mensagem e nossa equipe responderá por aqui. Não precisa se cadastrar para começar.'}
+-                        </p>
+-                        {webChatSettings?.web_chat_business_hours && (
++                        </p>}
++                        {sandboxLocked && !sandboxSession && <form onSubmit={redeemSandbox} className="space-y-2 rounded-xl border bg-white p-3 text-sm"><p className="font-medium">Acesso de homologação autorizado</p><label className="block text-xs" htmlFor="sandbox-code">Código temporário</label><input id="sandbox-code" value={sandboxCode} onChange={(event) => setSandboxCode(event.target.value)} autoComplete="off" spellCheck={false} maxLength={64} className="w-full rounded border p-2 font-mono" placeholder="Cole o código emitido pelo administrador" /><button disabled={busy || sandboxCode.length !== 64} className="w-full rounded bg-slate-900 p-2 text-white disabled:opacity-50">Validar código</button></form>}
++                        {sandboxSession && <p className="rounded bg-amber-50 p-2 text-xs text-amber-900">Sandbox isolado · expira em {new Date(sandboxSession.expires_at).toLocaleTimeString()}</p>}
++                        {!sandboxLocked && webChatSettings?.web_chat_business_hours && (
+                             <p className="text-xs text-slate-500">Horário de atendimento: {webChatSettings.web_chat_business_hours}</p>
+                         )}
+-                        {webChatSettings?.chat_open === false && webChatSettings.web_chat_offline_message && (
++                        {!sandboxLocked && webChatSettings?.chat_open === false && webChatSettings.web_chat_offline_message && (
+                             <p className="max-w-[90%] rounded-2xl rounded-tl-sm bg-white p-3 text-sm text-slate-700 shadow-sm">
+                                 {webChatSettings.web_chat_offline_message}
+                             </p>
+@@ -214,7 +295,7 @@ export function WebChat() {
+                                 <p
+                                     className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap ${message.sender === 'visitor' ? 'rounded-br-sm bg-blue-700 text-white' : 'rounded-bl-sm bg-white text-slate-700 shadow-sm'}`}
+                                 >
+-                                    {message.body}
++                                    {message.sender === 'bot' && <span className="mb-1 block text-xs font-semibold">Assistente automático</span>}{message.body}
+                                 </p>
+                             </div>
+                         ))}
+@@ -343,7 +424,7 @@ export function WebChat() {
+                         )}
+                         <div ref={bottom} />
+                     </div>
+-                    {session && !session.identified && !askIdentification && (
++                    {!sandboxLocked && session && !session.identified && !askIdentification && (
+                         <div className="border-t px-3 py-2">
+                             <button type="button" onClick={() => setIdentifyOpen(true)} className="text-xs text-blue-700 underline">
+                                 Informar meus dados para retorno
+@@ -364,11 +445,12 @@ export function WebChat() {
+                             value={text}
+                             onChange={(event) => setText(event.target.value)}
+                             maxLength={4000}
+-                            placeholder="Digite sua mensagem..."
++                            disabled={sandboxLocked && !sandboxSession}
++                            placeholder={sandboxLocked ? (sandboxSession ? 'Mensagem para o laboratório...' : 'Informe um código de homologação') : 'Digite sua mensagem...'}
+                             className="min-w-0 flex-1 rounded-lg border px-3 text-sm"
+                         />
+                         <button
+-                            disabled={busy || !text.trim()}
++                            disabled={busy || !text.trim() || (sandboxLocked && !sandboxSession)}
+                             aria-label="Enviar mensagem"
+                             className="rounded-lg bg-blue-700 p-3 text-white disabled:opacity-50"
+                         >
+@@ -381,7 +463,7 @@ export function WebChat() {
+                             Política de Privacidade
+                         </a>
+                         .{' '}
+-                        {contactLink(channel) && (
++                        {!sandboxLocked && contactLink(channel) && (
+                             <a className="ml-1 underline" href={contactLink(channel)!} target="_blank" rel="noreferrer">
+                                 Continuar no WhatsApp
+                             </a>
+diff --git a/routes/web.php b/routes/web.php
+index 85efee27..90197c68 100644
+--- a/routes/web.php
++++ b/routes/web.php
+@@ -15,6 +15,11 @@
+ use Inertia\Inertia;
+ 
+ Route::get('/', [HomeController::class, 'index'])->name('home');
++Route::prefix('chat')->name('chat.')->group(function (): void {
++    Route::post('sandbox/access', [WebChatProxyController::class, 'redeemSandbox'])->middleware('throttle:10,1,sandbox-redeem:')->name('sandbox.redeem');
++    Route::get('sandbox/{conversation}', [WebChatProxyController::class, 'showSandbox'])->whereUuid('conversation')->middleware('throttle:60,1,sandbox-poll:')->name('sandbox.show');
++    Route::post('sandbox/{conversation}/messages', [WebChatProxyController::class, 'sendSandbox'])->whereUuid('conversation')->middleware('throttle:30,1,sandbox-messages:')->name('sandbox.messages');
++});
+ Route::prefix('chat')->middleware('throttle:30,1')->name('chat.')->group(function (): void {
+     Route::post('conversations', [WebChatProxyController::class, 'start'])->name('start');
+     Route::get('conversations/{conversation}', [WebChatProxyController::class, 'show'])->whereUuid('conversation')->name('show');
+diff --git a/tests/Feature/Site/WebChatProxyTest.php b/tests/Feature/Site/WebChatProxyTest.php
+index 949c126d..ef75691b 100644
+--- a/tests/Feature/Site/WebChatProxyTest.php
++++ b/tests/Feature/Site/WebChatProxyTest.php
+@@ -74,3 +74,35 @@
+         ->assertUnprocessable()->assertJsonValidationErrors(['whatsapp', 'subject']);
+     Http::assertNothingSent();
+ });
++
++test('sandbox widget proxy keeps its temporary session in a header and uses only sandbox api paths', function () {
++    config(['services.web_chat.url' => 'https://leads.example.test', 'services.web_chat.token' => 'service-secret']);
++    $conversation = 'e5bb3a70-f718-46c8-a100-8c9d85a6f69d';
++    Http::fake([
++        'https://leads.example.test/api/web-chat/sandbox/redeem' => Http::response(['session' => str_repeat('a', 64), 'conversation' => ['id' => $conversation, 'messages' => []]], 200),
++        "https://leads.example.test/api/web-chat/sandbox/{$conversation}*" => Http::response(['conversation' => ['id' => $conversation, 'messages' => []]], 200),
++    ]);
++    $this->postJson('/chat/sandbox/access', ['code' => str_repeat('b', 64)])->assertOk();
++    $this->withHeader('X-Sandbox-Session', str_repeat('a', 64))->getJson("/chat/sandbox/{$conversation}")->assertOk();
++    $this->withHeader('X-Sandbox-Session', str_repeat('a', 64))->postJson("/chat/sandbox/{$conversation}/messages", ['body' => 'Olá'])->assertOk();
++    Http::assertSent(fn (Request $request) => str_ends_with($request->url(), "/api/web-chat/sandbox/{$conversation}/messages")
++        && $request->hasHeader('X-Sandbox-Session', str_repeat('a', 64))
++        && $request->hasHeader('Authorization', 'Bearer service-secret'));
++});
++
++test('invalid sandbox session never falls through to operational web chat', function () {
++    config(['services.web_chat.url' => 'https://leads.example.test', 'services.web_chat.token' => 'service-secret']);
++    Http::fake();
++    $this->getJson('/chat/sandbox/e5bb3a70-f718-46c8-a100-8c9d85a6f69d')->assertUnauthorized();
++    Http::assertNothingSent();
++});
++
++test('a rejected sandbox credential never triggers an operational proxy request', function (int $status) {
++    config(['services.web_chat.url' => 'https://leads.example.test', 'services.web_chat.token' => 'service-secret']);
++    Http::preventStrayRequests();
++    $url = 'https://leads.example.test/api/web-chat/sandbox/e5bb3a70-f718-46c8-a100-8c9d85a6f69d';
++    Http::fake([$url => Http::response(['message' => 'Sessão inválida.'], $status)]);
++    $this->withHeader('X-Sandbox-Session', str_repeat('a', 64))->getJson('/chat/sandbox/e5bb3a70-f718-46c8-a100-8c9d85a6f69d')->assertStatus($status);
++    Http::assertSentCount(1);
++    Http::assertSent(fn (Request $request) => $request->url() === $url);
++})->with([401, 403, 404]);

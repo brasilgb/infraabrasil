@@ -1,0 +1,15 @@
+{
+  "before": {
+    "general": "Apresentação do VetorOS",
+    "fiscal": "Vendas, caixa e financeiro"
+  },
+  "proposal": {
+    "generalPriority": 200,
+    "fiscalPriority": 65
+  },
+  "after": {
+    "general": "Peças e estoque",
+    "fiscal": "Notas fiscais"
+  },
+  "scope": "Somente cópias inativas do tenant sintético; regras produtivas preservadas"
+}

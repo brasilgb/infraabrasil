@@ -1,0 +1,117 @@
+{
+  "mode": "Homologação assistida no navegador publicado; sem Pest/PHPUnit no banco operacional",
+  "laboratoryUrl": "https://vetorleads.com.br/settings/support-automation/lab",
+  "widgetUrl": "https://vetoros.com.br",
+  "syntheticTenant": 30,
+  "journey": {
+    "authenticatedLab": true,
+    "inactiveWebChatRules": true,
+    "temporaryCode": true,
+    "widgetRedemption": true,
+    "intentAndResponse": true,
+    "multiturnContext": true,
+    "qualificationPreviewOnly": true,
+    "humanHandoff": true,
+    "humanReply": true,
+    "automaticReturn": true,
+    "closedConversation": true,
+    "explicitRevocation": true,
+    "expiredCredential": true,
+    "blockedAfterReload": true
+  },
+  "foreignTenantRuleSelectionStatus": 422,
+  "operationalRequests": [],
+  "javascriptErrors": [],
+  "adminRequests": [
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155a2-3437-7123-a857-efb155c6c1b1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155a2-3437-7123-a857-efb155c6c1b1",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab",
+      "status": 422
+    },
+    {
+      "method": "PUT",
+      "path": "/settings/support-automation/53",
+      "status": 405
+    },
+    {
+      "method": "PUT",
+      "path": "/settings/support-automation/60",
+      "status": 405
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155a2-3437-7123-a857-efb155c6c1b1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155a2-3437-7123-a857-efb155c6c1b1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155a2-3437-7123-a857-efb155c6c1b1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155a2-3437-7123-a857-efb155c6c1b1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155a2-3437-7123-a857-efb155c6c1b1",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155a5-4662-73de-9213-9ed8564b0051/widget-code",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/settings/support-automation/lab/widget-code/2",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155a5-4662-73de-9213-9ed8564b0051/widget-code",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155a2-3437-7123-a857-efb155c6c1b1",
+      "status": 200
+    }
+  ],
+  "priorityProposal": {
+    "before": {
+      "general": "Apresentação do VetorOS",
+      "fiscal": "Vendas, caixa e financeiro"
+    },
+    "proposal": {
+      "generalPriority": 200,
+      "fiscalPriority": 65
+    },
+    "after": {
+      "general": "Peças e estoque",
+      "fiscal": "Notas fiscais"
+    },
+    "scope": "Somente cópias inativas do tenant sintético; regras produtivas preservadas"
+  }
+}

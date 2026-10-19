@@ -1,0 +1,443 @@
+[
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-19 16:26:09 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "bef8a6968874",
+    "Image": "vetorleads:prospect09-00282e4",
+    "Labels": "com.docker.compose.config-hash=6b4cc2a25d15d4e0186736874670b26d5a97b33f2ee2c7350d05b1f35f94c4a3,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:7c4d8c9db5c0e64330646abcc9f88b21fbf9d9dd1c8c1622a97b978a9de1c683,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,/opt/infra-abrasil/docker-compose.override.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetorleads-scheduler-1,com.docker.compose.service=vetorleads-scheduler,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "/opt/infra-abr\u2026,infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetorleads-scheduler-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "3 hours ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 3 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-19 16:26:09 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "c9313f814d56",
+    "Image": "vetorleads:prospect09-00282e4",
+    "Labels": "com.docker.compose.config-hash=3852eb1cdbcbb24f6a0374709e7a5cac1e3670154a29f92ec1bbe930e244dcfb,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:7c4d8c9db5c0e64330646abcc9f88b21fbf9d9dd1c8c1622a97b978a9de1c683,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,/opt/infra-abrasil/docker-compose.override.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetorleads-worker-1,com.docker.compose.service=vetorleads-worker,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "/opt/infra-abr\u2026,infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetorleads-worker-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "3 hours ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 3 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-19 16:26:09 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "eb21eb595b5a",
+    "Image": "vetorleads:prospect09-00282e4",
+    "Labels": "com.docker.compose.config-hash=94260105eb81785d6999f0946aa76f3551cf72f225469c980bfac2d7218d1b65,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:7c4d8c9db5c0e64330646abcc9f88b21fbf9d9dd1c8c1622a97b978a9de1c683,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,/opt/infra-abrasil/docker-compose.override.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetorleads-1,com.docker.compose.service=vetorleads,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetorleads-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "3 hours ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 3 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-19 15:56:55 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "69ad8f3f4d2c",
+    "Image": "infra-abrasil-vetoros",
+    "Labels": "com.docker.compose.config-hash=a600d938829d447d6909c02a98851349c4bcd3f8bd81195ce546396a20d76e76,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:d68100523d27893c2011edd9fa004011a5c78fc3ac8da6c917a3c9809916dc28,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,/opt/infra-abrasil/docker-compose.override.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetoros-1,com.docker.compose.service=vetoros,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetoros-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "3 hours ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 3 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-19 10:43:49 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "9f3b0b12979c",
+    "Image": "infra-abrasil-vetoros-scheduler",
+    "Labels": "com.docker.compose.config-hash=194ea50975c40f75018ebde1f1b9b9972d87034e9295eacc8488563dc49ccb5b,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:fb955cd6da35b23eb3f588dfac3479043509e5036939ea3830315dbb0fce648a,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetoros-scheduler-1,com.docker.compose.service=vetoros-scheduler,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetoros-scheduler-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "9 hours ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-19 10:43:49 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "b0652cdbfa88",
+    "Image": "infra-abrasil-vetoros-worker",
+    "Labels": "com.docker.compose.config-hash=5f919b28187c15e41c150cd8fb137c40872b30e669444d58b89129748bf4edc2,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:39cc91c50cfe6d55a74bb614afd711672d5959c538b7fca62e6df92da22ec9ab,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetoros-worker-1,com.docker.compose.service=vetoros-worker,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetoros-worker-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "9 hours ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"/docker-entrypoint.\u2026\"",
+    "CreatedAt": "2026-10-18 16:48:13 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "9f7f6bd6e822",
+    "Image": "nginx:1.27-alpine",
+    "Labels": "com.docker.compose.config-hash=af516fff29a71c9ca6283be4d28c5e12b6394f9f64ea05364ab4fe49773d9172,com.docker.compose.container-number=1,com.docker.compose.depends_on=n8n:service_started:false,vetoros:service_started:false,vetorpet:service_started:false,abrasilsistema:service_started:false,desgarrados:service_started:false,vetorleads:service_started:false,com.docker.compose.image=sha256:62223d644fa234c3a1cc785ee14242ec47a77364226f1c811d2f669f96dc2ac8,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=nginx-1,com.docker.compose.service=nginx,com.docker.compose.version=5.5.1,maintainer=NGINX Docker Maintainers <docker-maint@nginx.com>",
+    "LocalVolumes": "5",
+    "Mounts": "/opt/infra-abr\u2026,/opt/infra-abr\u2026,/opt/infra-abr\u2026,/opt/infra-abr\u2026,infra-abrasil_\u2026,/opt/infra-abr\u2026,infra-abrasil_\u2026,/opt/infra-abr\u2026,/opt/infra-abr\u2026,infra-abrasil_\u2026,/opt/infra-abr\u2026,infra-abrasil_\u2026,/opt/infra-abr\u2026,infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-nginx-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp",
+    "RunningFor": "27 hours ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"docker-entrypoint.s\u2026\"",
+    "CreatedAt": "2026-10-18 16:48:12 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "28f4f55b745b",
+    "Image": "mysql:8.4",
+    "Labels": "com.docker.compose.config-hash=462a3d5571b3fe85f2f909f872de436ec6124fa7f470f4d19f94dce0e7957547,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:8c19b656bb381f163750b238852bd377ba5764e1ec30cdd3f02e55cf8e2f89b7,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=mysql-1,com.docker.compose.service=mysql,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "0",
+    "Mounts": "/opt/infra-abr\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-mysql-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "3306/tcp, 33060/tcp",
+    "RunningFor": "27 hours ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-16 13:36:18 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "f137c6ce9a76",
+    "Image": "infra-abrasil-abrasilsistema",
+    "Labels": "com.docker.compose.config-hash=19a593ad94e7d743bc82fc62c3bad11d3dee1800437b366c069de34cf40a3f2a,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:b259e8d8c8464c521f4a35b948cb481345d66112d3f9a080971c52a9417778ef,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=abrasilsistema-1,com.docker.compose.service=abrasilsistema,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-abrasilsistema-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "3 days ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-16 13:36:18 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "acbe73105511",
+    "Image": "infra-abrasil-abrasilsistema-scheduler",
+    "Labels": "com.docker.compose.config-hash=efa48a4b2de984f21139da1a79960ace7fc92dd9b9009a8a7b4a2e60426a6455,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:5c754ee0bac6e2747decfe6b08b03198e6c8b34433e61b6d5d6f23c721c8b8dd,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=abrasilsistema-scheduler-1,com.docker.compose.service=abrasilsistema-scheduler,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-abrasilsistema-scheduler-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "3 days ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-16 13:36:18 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "d124b019b7b0",
+    "Image": "infra-abrasil-abrasilsistema-worker",
+    "Labels": "com.docker.compose.config-hash=aad7845f957d7363915ad0280c892e1c95e7454393f7384bb46a61f0e74a56b3,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:a1017029c798472852f27ec75076b4957eb97754fda3c4efd75f3a8fa942e248,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=abrasilsistema-worker-1,com.docker.compose.service=abrasilsistema-worker,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-abrasilsistema-worker-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "3 days ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-14 17:58:30 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "223452af7400",
+    "Image": "infra-abrasil-desgarrados",
+    "Labels": "com.docker.compose.config-hash=6600484b131b5e2c5c8fcbf5943fc5ea3f6c5c9cd0c02211899f1e9f62fff160,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:83772ce50a71ff725752f3a782cbc975cb913086913aa11a12debc38ef6fb744,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=desgarrados-1,com.docker.compose.service=desgarrados,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-desgarrados-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "5 days ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-14 17:58:30 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "cfd6bd9885b5",
+    "Image": "infra-abrasil-desgarrados-scheduler",
+    "Labels": "com.docker.compose.config-hash=99fe9f4ba841649f641d6c4932941a4c2d95b2a07a46f3a049565ce28f8f7f4c,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:5e57a31f8a8ef7631a971141a763d74bfa37c412295875bd3bedd1637102b2f8,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=desgarrados-scheduler-1,com.docker.compose.service=desgarrados-scheduler,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-desgarrados-scheduler-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "5 days ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-14 17:58:30 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "becb3bb46009",
+    "Image": "infra-abrasil-desgarrados-worker",
+    "Labels": "com.docker.compose.config-hash=1579a48ef6408a631399328ef5cf88206601b70435b754a8fdec235305f7ea66,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:b0eaa729700fa104eb02aaae11539287d6555a08328e8065d321784032bbf013,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=desgarrados-worker-1,com.docker.compose.service=desgarrados-worker,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-desgarrados-worker-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "5 days ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-01 19:42:35 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "3eea0899b7ec",
+    "Image": "infra-abrasil-vetorpet",
+    "Labels": "com.docker.compose.config-hash=5e8c636548e8f8ee2f5e5e8b618c9786640053d7cacf8dfd6701adef66e058c2,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:9df2ddbe5607aa36c5956adcf1be2f9bf6fc5dc3884152280cc7f5758dcc15b2,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetorpet-1,com.docker.compose.service=vetorpet,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetorpet-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "2 weeks ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-01 19:42:35 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "8ad282e327b6",
+    "Image": "infra-abrasil-vetorpet-worker",
+    "Labels": "com.docker.compose.config-hash=506d7bc990c35d6405fe1f264f1e72b16db90cd513aa289166737938e4a178f6,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:c36f1eaa3a1179e3bc03315ecebbc8a9791266b86ca26329f71fe47c61f857a1,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetorpet-worker-1,com.docker.compose.service=vetorpet-worker,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetorpet-worker-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "2 weeks ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"infra-entrypoint ph\u2026\"",
+    "CreatedAt": "2026-10-01 19:42:35 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "928fcc612be4",
+    "Image": "infra-abrasil-vetorpet-scheduler",
+    "Labels": "com.docker.compose.config-hash=5d9ff0cc66976481506d6d2ff40f445db78b72b50b6c12c8b9dcd7b8113f657b,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:6738dd09efb5dca9b45a9a6f5d7a4e20f62bc827be06d75fa7dddcdcfd7b54e8,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=vetorpet-scheduler-1,com.docker.compose.service=vetorpet-scheduler,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "infra-abrasil_\u2026,/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-vetorpet-scheduler-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "9000/tcp",
+    "RunningFor": "2 weeks ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"/usr/bin/tini -- /e\u2026\"",
+    "CreatedAt": "2026-09-23 18:14:39 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "b4cdcb152109",
+    "Image": "devlikeapro/waha:latest",
+    "Labels": "com.docker.compose.config-hash=eca30ddcfda4df1ed1f78edde8948c881fe601aa01c9800f25e6cd553cbebccb,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:dcc55f079b1d2c15ad0dc35a1b08c983c203f843bf1260df01441af0f84309b0,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=waha-1,com.docker.compose.service=waha,com.docker.compose.version=5.5.1,org.opencontainers.image.created=2026-09-01T08:42:31.273Z,org.opencontainers.image.description=WAHA - WhatsApp HTTP API (REST API) that you can configure in a click! 3 engines: WEBJS (browser based), NOWEB (websocket nodejs), GOWS (websocket go),org.opencontainers.image.licenses=Apache-2.0,org.opencontainers.image.revision=8ab642b20d7c2f0dd8589d8b56b09a428ef1c1cd,org.opencontainers.image.source=https://github.com/devlikeapro/waha,org.opencontainers.image.title=waha,org.opencontainers.image.url=https://github.com/devlikeapro/waha,org.opencontainers.image.version=latest",
+    "LocalVolumes": "0",
+    "Mounts": "/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-waha-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "3000/tcp",
+    "RunningFor": "3 weeks ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"/docker-entrypoint.\u2026\"",
+    "CreatedAt": "2026-09-23 18:14:39 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "281568e56931",
+    "Image": "phpmyadmin:latest",
+    "Labels": "com.docker.compose.config-hash=038cb9aaecaeaaeebe44e98ceffaf57401bb5bc9ea9aebe31cd436603f7afcb7,com.docker.compose.container-number=1,com.docker.compose.depends_on=mysql:service_healthy:false,com.docker.compose.image=sha256:5fbaec73169b2cf06a9023738a50ea62beeadd950784b9a19f3360993011b628,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=phpmyadmin-1,com.docker.compose.service=phpmyadmin,com.docker.compose.version=5.5.1,org.opencontainers.image.authors=The phpMyAdmin Team <developers@phpmyadmin.net>,org.opencontainers.image.description=Run phpMyAdmin with Alpine, Apache and PHP FPM.,org.opencontainers.image.documentation=https://github.com/phpmyadmin/docker#readme,org.opencontainers.image.licenses=GPL-2.0-only,org.opencontainers.image.source=https://github.com/phpmyadmin/docker.git,org.opencontainers.image.title=Official phpMyAdmin Docker image,org.opencontainers.image.url=https://github.com/phpmyadmin/docker#readme,org.opencontainers.image.vendor=phpMyAdmin,org.opencontainers.image.version=5.2.3",
+    "LocalVolumes": "0",
+    "Mounts": "",
+    "Names": "infra-abrasil-phpmyadmin-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "80/tcp",
+    "RunningFor": "3 weeks ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"tini -- /docker-ent\u2026\"",
+    "CreatedAt": "2026-09-22 18:52:35 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "f28679f9b0ee",
+    "Image": "n8nio/n8n:latest",
+    "Labels": "com.docker.compose.config-hash=90ab0930d89145cc62a838c78c4d31d1a8211e0b37e27a5cb99f1b294581d8fe,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:eb5a97010489c32d0a14df4b618828d8cd0b09ecd477c5ab8449f92eef9f8639,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/opt/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/opt/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.replace=n8n-1,com.docker.compose.service=n8n,com.docker.compose.version=5.5.1,com.docker.dhi.chain-id=sha256:345b12b168ca26df4099ff68ad878a18c02d80e187dd91f8406f505bda2c04ce,com.docker.dhi.compliance=cis,com.docker.dhi.created=2026-08-10T17:01:42Z,com.docker.dhi.date.release=2026-05-05,com.docker.dhi.definition=image/node/alpine-3.24/26-dev,com.docker.dhi.distro=alpine-3.24,com.docker.dhi.entitlement=public,com.docker.dhi.flavor=,com.docker.dhi.name=dhi/node,com.docker.dhi.package-manager=apk,com.docker.dhi.shell=busybox,com.docker.dhi.title=Node.js 26.x (dev),com.docker.dhi.url=https://dhi.io/catalog/node,com.docker.dhi.variant=dev,com.docker.dhi.version=26.7.0-alpine3.24-dev,org.opencontainers.image.description=Workflow Automation Tool,org.opencontainers.image.source=https://github.com/n8n-io/n8n,org.opencontainers.image.title=n8n,org.opencontainers.image.url=https://n8n.io,org.opencontainers.image.version=2.40.5",
+    "LocalVolumes": "0",
+    "Mounts": "/opt/infra-abr\u2026",
+    "Names": "infra-abrasil-n8n-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "5678/tcp",
+    "RunningFor": "3 weeks ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  },
+  {
+    "Command": "\"docker-entrypoint.s\u2026\"",
+    "CreatedAt": "2026-09-18 17:37:46 +0000 UTC",
+    "HealthStatus": "healthy",
+    "ID": "1772422225ae",
+    "Image": "redis:7-alpine",
+    "Labels": "com.docker.compose.config-hash=80b8367caa9857e33a514f1f5e9000db7297ba85b2e3dfabbbef622742812033,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:ca0acbb137c1dc3339c8b147a58fd6f42775d4599327b50e7b116c23de501af2,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/root/infra-abrasil/docker-compose.yml,com.docker.compose.project.working_dir=/root/infra-abrasil,com.docker.compose.project=infra-abrasil,com.docker.compose.service=redis,com.docker.compose.version=5.5.1",
+    "LocalVolumes": "1",
+    "Mounts": "60c78f517c10ff\u2026",
+    "Names": "infra-abrasil-redis-1",
+    "Networks": "infra-abrasil-network",
+    "Platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "Ports": "6379/tcp",
+    "RunningFor": "4 weeks ago",
+    "Size": "0B",
+    "State": "running",
+    "Status": "Up 7 hours (healthy)"
+  }
+]

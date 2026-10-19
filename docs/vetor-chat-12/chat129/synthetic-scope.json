@@ -1,0 +1,90 @@
+{
+  "tenant_id": 30,
+  "user_id": 24,
+  "rules": [
+    {
+      "id": 52,
+      "name": "Boas-vindas e identifica\u00e7\u00e3o",
+      "priority": 5,
+      "active": false
+    },
+    {
+      "id": 53,
+      "name": "Apresenta\u00e7\u00e3o do VetorOS",
+      "priority": 10,
+      "active": false
+    },
+    {
+      "id": 54,
+      "name": "Assist\u00eancias t\u00e9cnicas",
+      "priority": 20,
+      "active": false
+    },
+    {
+      "id": 55,
+      "name": "Clientes e equipamentos",
+      "priority": 30,
+      "active": false
+    },
+    {
+      "id": 56,
+      "name": "Ordens de servi\u00e7o",
+      "priority": 40,
+      "active": false
+    },
+    {
+      "id": 57,
+      "name": "Or\u00e7amentos e aprova\u00e7\u00e3o",
+      "priority": 50,
+      "active": false
+    },
+    {
+      "id": 58,
+      "name": "Pe\u00e7as e estoque",
+      "priority": 60,
+      "active": false
+    },
+    {
+      "id": 59,
+      "name": "Vendas, caixa e financeiro",
+      "priority": 70,
+      "active": false
+    },
+    {
+      "id": 60,
+      "name": "Notas fiscais",
+      "priority": 80,
+      "active": false
+    },
+    {
+      "id": 61,
+      "name": "Planos e contrata\u00e7\u00e3o",
+      "priority": 90,
+      "active": false
+    },
+    {
+      "id": 62,
+      "name": "Agendamento de demonstra\u00e7\u00e3o",
+      "priority": 100,
+      "active": false
+    },
+    {
+      "id": 63,
+      "name": "Suporte t\u00e9cnico",
+      "priority": 110,
+      "active": false
+    },
+    {
+      "id": 64,
+      "name": "Atendimento fora do expediente",
+      "priority": 1000,
+      "active": false
+    },
+    {
+      "id": 65,
+      "name": "Transfer\u00eancia para atendente humano",
+      "priority": 1,
+      "active": false
+    }
+  ]
+}

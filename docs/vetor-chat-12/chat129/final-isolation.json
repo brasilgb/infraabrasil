@@ -1,0 +1,26 @@
+{
+  "approved": true,
+  "counts_unchanged": true,
+  "all_original_table_checksums_preserved_except": [
+    "cache",
+    "migrations",
+    "sessions"
+  ],
+  "operational_rules_unchanged": true,
+  "inactive_operational_rules": 14,
+  "whatsapp_global_enabled": false,
+  "tenant_flags": [
+    {
+      "id": 1,
+      "whatsapp_automation_enabled": 0,
+      "whatsapp_automation_homologated_at": null
+    }
+  ],
+  "original_waha_database_state_unchanged": true,
+  "synthetic_admin_and_tenant_removed": true,
+  "synthetic_history_exported": true,
+  "unexpired_original_sessions_preserved": true,
+  "unrelated_containers_unchanged": true,
+  "healthy_containers": 21,
+  "published_services": 6
+}

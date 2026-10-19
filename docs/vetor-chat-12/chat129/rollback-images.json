@@ -1,0 +1,28 @@
+{
+  "services": {
+    "vetorleads": {
+      "image": "sha256:2469df8808be3a946b2fa3641f8bad7aa030f138a33314d63f0fdc00550a4d37",
+      "pull_policy": "never"
+    },
+    "vetorleads-worker": {
+      "image": "sha256:2469df8808be3a946b2fa3641f8bad7aa030f138a33314d63f0fdc00550a4d37",
+      "pull_policy": "never"
+    },
+    "vetorleads-scheduler": {
+      "image": "sha256:2469df8808be3a946b2fa3641f8bad7aa030f138a33314d63f0fdc00550a4d37",
+      "pull_policy": "never"
+    },
+    "vetoros": {
+      "image": "sha256:5f17c3fef2fee54c5bfe9fbf337560c7e3c31e636682f20ff7fdd9077502af16",
+      "pull_policy": "never"
+    },
+    "vetoros-worker": {
+      "image": "sha256:a81958f8a0e125a9f2b5c6c832c99ee9e2464e2bea293190872ac9e1bdca1253",
+      "pull_policy": "never"
+    },
+    "vetoros-scheduler": {
+      "image": "sha256:a7ec4874482137c2032d2cd6ca5f233bf286abf933fb8389e0f7b798afb83081",
+      "pull_policy": "never"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "approved": true,
+  "image": "vetorleads:chat129-29a8504af355",
+  "applied_migrations": [
+    "2026_10_19_200000_create_support_sandbox_tables",
+    "2026_10_19_210000_create_support_sandbox_accesses_table"
+  ],
+  "original_tables_changed": [
+    "migrations"
+  ],
+  "commercial_and_history_integrity": true,
+  "sandbox_tables": {
+    "support_sandbox_conversations": 0,
+    "support_sandbox_messages": 0,
+    "support_sandbox_accesses": 0
+  },
+  "automated_tests_on_operational_database": false
+}

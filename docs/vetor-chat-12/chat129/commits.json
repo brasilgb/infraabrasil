@@ -1,0 +1,103 @@
+[
+  {
+    "repository": "vetorleads",
+    "commit": "1ba555e161c340de0b1ccf967e5202619c71fd3b",
+    "message": "chore: preserve local lockfile and extension test formatting",
+    "files": [
+      "extension/ab-prospect-firefox/tests/extension.test.mjs",
+      "yarn.lock"
+    ]
+  },
+  {
+    "repository": "vetorleads",
+    "commit": "83b531d770a2148519be80a28f76be76d4d817ea",
+    "message": "feat: version support automation and isolated sandbox schema",
+    "files": [
+      "database/migrations/2026_10_19_180000_create_support_automation_tables.php",
+      "database/migrations/2026_10_19_190000_extend_support_automation_multichannel.php",
+      "database/migrations/2026_10_19_200000_create_support_sandbox_tables.php",
+      "database/migrations/2026_10_19_210000_create_support_sandbox_accesses_table.php"
+    ]
+  },
+  {
+    "repository": "vetorleads",
+    "commit": "caf738e9aa798437a92d7c212cada2a2821ae579",
+    "message": "feat: release isolated support laboratory and widget credentials",
+    "files": [
+      ".dockerignore",
+      "app/Http/Controllers/Api/TenantWhatsappEventController.php",
+      "app/Http/Controllers/Api/WebChatController.php",
+      "app/Http/Controllers/ReceivedContactsController.php",
+      "app/Http/Controllers/SupportInboxController.php",
+      "app/Http/Controllers/WebChatInboxController.php",
+      "app/Models/Tenant.php",
+      "app/Models/WebChatMessage.php",
+      "app/Models/WebConversation.php",
+      "app/Providers/AppServiceProvider.php",
+      "app/Services/TenantWhatsapp.php",
+      "phpunit.xml",
+      "resources/js/components/app-sidebar.tsx",
+      "resources/js/pages/support-inbox/index.tsx",
+      "resources/js/pages/web-chat/index.tsx",
+      "routes/api.php",
+      "routes/console.php",
+      "routes/settings.php",
+      "app/Console/Commands/DeliverSupportAutomation.php",
+      "app/Http/Controllers/Api/SupportSandboxWidgetController.php",
+      "app/Http/Controllers/SupportAutomationController.php",
+      "app/Http/Controllers/SupportSandboxController.php",
+      "app/Http/Middleware/ResolveSupportSandboxSession.php",
+      "app/Models/SupportAutomationOutbox.php",
+      "app/Models/SupportAutomationRule.php",
+      "app/Models/SupportSandboxAccess.php",
+      "app/Models/SupportSandboxConversation.php",
+      "app/Models/SupportSandboxMessage.php",
+      "app/Services/SupportAutomation.php",
+      "app/Services/SupportAutomationDelivery.php",
+      "app/Services/SupportWhatsappConversation.php",
+      "app/Support/TestDatabaseSafety.php",
+      "config/support_automation.php",
+      "resources/js/lib/request-json.ts",
+      "resources/js/pages/support-automation/index.tsx",
+      "resources/js/pages/support-automation/lab.tsx",
+      "tests/Feature/SupportAutomationTest.php",
+      "tests/Feature/SupportMultichannelTest.php",
+      "tests/Feature/SupportSandboxTest.php",
+      "tests/Support/safe-test-bootstrap.php",
+      "tests/Unit/TestDatabaseSafetyPhpUnitTest.php",
+      "tests/Unit/TestDatabaseSafetyTest.php"
+    ]
+  },
+  {
+    "repository": "vetoros",
+    "commit": "a17b32b7c87d212b5191bd0a0c0a0490afaa89fe",
+    "message": "feat: release sandbox widget proxy with temporary credentials",
+    "files": [
+      ".dockerignore",
+      "app/Http/Controllers/Site/WebChatProxyController.php",
+      "package-lock.json",
+      "package.json",
+      "resources/js/pages/site/components/faq.tsx",
+      "resources/js/pages/site/components/web-chat.tsx",
+      "routes/web.php",
+      "tests/Feature/Site/WebChatProxyTest.php",
+      "vite.config.ts"
+    ]
+  },
+  {
+    "repository": "vetorleads",
+    "commit": "29a8504af355878eedd47337df72d06e0ebbd407",
+    "message": "fix: create runtime cache directories in clean image builds",
+    "files": [
+      "Dockerfile"
+    ]
+  },
+  {
+    "repository": "vetoros",
+    "commit": "1700256f53fda990ed2f812af966c86cc50399ee",
+    "message": "fix: create runtime cache directories in clean image builds",
+    "files": [
+      "Dockerfile"
+    ]
+  }
+]

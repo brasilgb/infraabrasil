@@ -1,0 +1,22 @@
+{
+  "original_sessions": 53,
+  "current_sessions": 6,
+  "missing_original_sessions": 48,
+  "missing_unexpired_original_sessions": 0,
+  "expired_original_sessions_collected": [
+    {
+      "type": "anonymous",
+      "count": 47,
+      "minimum_age_seconds": 8750,
+      "maximum_age_seconds": 30420
+    },
+    {
+      "type": "authenticated",
+      "count": 1,
+      "minimum_age_seconds": 19591,
+      "maximum_age_seconds": 19591
+    }
+  ],
+  "session_lifetime_minutes": 120,
+  "note": "Sess\u00f5es expiradas coletadas pelo mecanismo normal do Laravel; nenhuma sess\u00e3o anterior ainda v\u00e1lida ausente. Sess\u00f5es HTTP an\u00f4nimas da navega\u00e7\u00e3o foram preservadas; a sess\u00e3o do administrador sint\u00e9tico foi removida."
+}

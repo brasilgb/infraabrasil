@@ -1,0 +1,21 @@
+{
+  "config": {
+    "driver": "database",
+    "lifetime_minutes": 120
+  },
+  "missing_original_groups": [
+    {
+      "type": "anonymous",
+      "count": 47,
+      "minimum_age_seconds": 8750,
+      "maximum_age_seconds": 30420
+    },
+    {
+      "type": "authenticated",
+      "count": 1,
+      "minimum_age_seconds": 19591,
+      "maximum_age_seconds": 19591
+    }
+  ],
+  "missing_unexpired_original_sessions": 0
+}

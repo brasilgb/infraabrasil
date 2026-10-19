@@ -1,0 +1,6 @@
+
+   INFO  Running migrations.  
+
+  2026_10_19_200000_create_support_sandbox_tables .............. 211.54ms DONE
+  2026_10_19_210000_create_support_sandbox_accesses_table ...... 120.58ms DONE
+

@@ -1,0 +1,52 @@
+{
+  "vetorleads": {
+    "compose_files": "/opt/infra-abrasil/docker-compose.yml,/opt/infra-abrasil/docker-compose.override.yml",
+    "mounts": [
+      {
+        "type": "volume",
+        "source": "/var/lib/docker/volumes/infra-abrasil_vetorleads-build/_data",
+        "destination": "/var/www/html/public/build"
+      },
+      {
+        "type": "bind",
+        "source": "/opt/infra-abrasil/volumes/vetorleads",
+        "destination": "/var/www/html/storage/app/public"
+      }
+    ],
+    "network_names": [
+      "infra-abrasil-network"
+    ]
+  },
+  "vetoros": {
+    "compose_files": "/opt/infra-abrasil/docker-compose.yml,/opt/infra-abrasil/docker-compose.override.yml",
+    "mounts": [
+      {
+        "type": "volume",
+        "source": "/var/lib/docker/volumes/infra-abrasil_vetoros-build/_data",
+        "destination": "/var/www/html/public/build"
+      },
+      {
+        "type": "bind",
+        "source": "/opt/infra-abrasil/volumes/vetoros",
+        "destination": "/var/www/html/storage/app/public"
+      }
+    ],
+    "network_names": [
+      "infra-abrasil-network"
+    ]
+  },
+  "waha_sessions": [
+    {
+      "name": "vetoros1-1",
+      "status": "WORKING"
+    },
+    {
+      "name": "vetoros1-9",
+      "status": "FAILED"
+    },
+    {
+      "name": "vl-5f8726f2-5230-4e6c-b13b-69678d4ea517",
+      "status": "WORKING"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "service": "vetorleads",
+    "revision": "29a8504af355878eedd47337df72d06e0ebbd407",
+    "tag": "vetorleads:chat129-29a8504af355",
+    "image_id": "sha256:3c7ab706546aac5ccbd12812b19a46be8262260ee06b59e8bb8d32b2ac9be22a",
+    "repo_digests": [
+      "vetorleads@sha256:3c7ab706546aac5ccbd12812b19a46be8262260ee06b59e8bb8d32b2ac9be22a"
+    ],
+    "created": "2026-10-19T19:22:15.333296416Z"
+  },
+  {
+    "service": "vetoros",
+    "revision": "1700256f53fda990ed2f812af966c86cc50399ee",
+    "tag": "vetoros:chat129-1700256f53fd",
+    "image_id": "sha256:eb6b85c0d694b4e30a6436ab0906ffc5fd4a9e868d60c0267872a289ed25dbfc",
+    "repo_digests": [
+      "vetoros@sha256:eb6b85c0d694b4e30a6436ab0906ffc5fd4a9e868d60c0267872a289ed25dbfc"
+    ],
+    "created": "2026-10-19T19:22:59.927510992Z"
+  }
+]

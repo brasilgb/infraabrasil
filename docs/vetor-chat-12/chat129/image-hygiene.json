@@ -1,0 +1,20 @@
+[
+  {
+    "service": "vetorleads",
+    "revision": "29a8504af355878eedd47337df72d06e0ebbd407",
+    "env_testing_present": false,
+    "env_present": false,
+    "node_modules_present": false,
+    "phpunit_present": false,
+    "pest_present": false
+  },
+  {
+    "service": "vetoros",
+    "revision": "1700256f53fda990ed2f812af966c86cc50399ee",
+    "env_testing_present": false,
+    "env_present": false,
+    "node_modules_present": false,
+    "phpunit_present": false,
+    "pest_present": false
+  }
+]

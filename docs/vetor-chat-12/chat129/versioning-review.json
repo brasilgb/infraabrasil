@@ -1,0 +1,5 @@
+{
+  "credentials_scan": "passed",
+  "staged_paths": 64,
+  "excluded": "Backups, .env, arquivos privados, contextos de build, depend\u00eancias e tempor\u00e1rios; pastas hist\u00f3ricas n\u00e3o rastreadas preservadas."
+}

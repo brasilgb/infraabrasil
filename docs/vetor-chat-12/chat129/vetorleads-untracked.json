@@ -1,0 +1,142 @@
+[
+  {
+    "path": "app/Console/Commands/DeliverSupportAutomation.php",
+    "bytes": 1498,
+    "sha256": "cad9f96a78f0f4cb452047cf538ed3dec815851ee8712d601a7542b297099fc0"
+  },
+  {
+    "path": "app/Http/Controllers/Api/SupportSandboxWidgetController.php",
+    "bytes": 2674,
+    "sha256": "e393825a4eeced41141cc325ffcdae6bf707137f6aca265024d2aacd67f3f296"
+  },
+  {
+    "path": "app/Http/Controllers/SupportAutomationController.php",
+    "bytes": 16646,
+    "sha256": "cc3c5f3bd290f64fa1c1e701826a6a4bee42a2931f0a8aac09f67147ff312e95"
+  },
+  {
+    "path": "app/Http/Controllers/SupportSandboxController.php",
+    "bytes": 9703,
+    "sha256": "56cc2857f7643fca600bbc70d6985153f984ad4a2b30223718088a15d73e7404"
+  },
+  {
+    "path": "app/Http/Middleware/ResolveSupportSandboxSession.php",
+    "bytes": 1371,
+    "sha256": "76b60aaf96ffa85de248bd771a100f8dfa06da98773fa0ba144cc5ceb8adb3d7"
+  },
+  {
+    "path": "app/Models/SupportAutomationOutbox.php",
+    "bytes": 510,
+    "sha256": "981bfc2744c634a28a96de91f51d477a633b0ae4e86e5048b554fc439a0b94b7"
+  },
+  {
+    "path": "app/Models/SupportAutomationRule.php",
+    "bytes": 618,
+    "sha256": "56fd4abdd013be6877d06c6c2ce17754ba351e09f84f2cef15eb4c989e205660"
+  },
+  {
+    "path": "app/Models/SupportSandboxAccess.php",
+    "bytes": 984,
+    "sha256": "9d82ef6482257d29215070972467da3cb405d725e049489c4d3068a852b14005"
+  },
+  {
+    "path": "app/Models/SupportSandboxConversation.php",
+    "bytes": 1044,
+    "sha256": "405b052fa831cf600ecff4b815c8644438f767de61891bd9671c4826b50b8b64"
+  },
+  {
+    "path": "app/Models/SupportSandboxMessage.php",
+    "bytes": 321,
+    "sha256": "6025999697705be0af0615f798b549a164f7d245eb4d092e1431776d6c35d0a4"
+  },
+  {
+    "path": "app/Services/SupportAutomation.php",
+    "bytes": 14105,
+    "sha256": "997d67d20e851baffa088fa6319050b34975aa874f6559389127e576c2eeddce"
+  },
+  {
+    "path": "app/Services/SupportAutomationDelivery.php",
+    "bytes": 8018,
+    "sha256": "ae30d09d8d08164f0c66e2611e1307f075e9c9772807b85225e52b8cff15ea24"
+  },
+  {
+    "path": "app/Services/SupportWhatsappConversation.php",
+    "bytes": 4508,
+    "sha256": "f671e8327219fae97a6281efa281034090af175e45b9eee9b6191dae1696702c"
+  },
+  {
+    "path": "app/Support/TestDatabaseSafety.php",
+    "bytes": 2387,
+    "sha256": "dd21df91ebfa6a9d0ee5bb4f9efca0fa98987b71749b8099401f666888a96ffa"
+  },
+  {
+    "path": "config/support_automation.php",
+    "bytes": 9314,
+    "sha256": "1698b6011d40002fdfabfaff2d97fb69d1d8ac595cfc1d8de11b635f840fa291"
+  },
+  {
+    "path": "database/migrations/2026_10_19_180000_create_support_automation_tables.php",
+    "bytes": 2895,
+    "sha256": "663abca90fafca9ef5acd0d47987638dbb90714f635d3cbbb310b2591a8a5b8c"
+  },
+  {
+    "path": "database/migrations/2026_10_19_190000_extend_support_automation_multichannel.php",
+    "bytes": 5997,
+    "sha256": "8c3419f7194fefc5c17afe7e57bd729e36a9250ac088778704a4278aee6bfc85"
+  },
+  {
+    "path": "database/migrations/2026_10_19_200000_create_support_sandbox_tables.php",
+    "bytes": 1776,
+    "sha256": "6d2d73b139cb60d2ed327e4f939db60a1032c8210fdeecd6a3e3a2e4463b80c9"
+  },
+  {
+    "path": "database/migrations/2026_10_19_210000_create_support_sandbox_accesses_table.php",
+    "bytes": 1167,
+    "sha256": "f87c664bd15844bab121df2b6cc536b4dffa2be1cab88028b677597c41bdcaa4"
+  },
+  {
+    "path": "resources/js/lib/request-json.ts",
+    "bytes": 766,
+    "sha256": "34cbbd2757d871f45c16fd5285ab00cfb67c6a3d8f1ac8b8209ec66808d9ff3e"
+  },
+  {
+    "path": "resources/js/pages/support-automation/index.tsx",
+    "bytes": 43629,
+    "sha256": "e540b49393220a982aa1ef61b96daf089f3145e2e2c674d09a46e53ee8935c38"
+  },
+  {
+    "path": "resources/js/pages/support-automation/lab.tsx",
+    "bytes": 20309,
+    "sha256": "caad42d1da195e7d5876d8e0f0fcfbb86920739c2e97a9877a115a73f2c47c86"
+  },
+  {
+    "path": "tests/Feature/SupportAutomationTest.php",
+    "bytes": 13119,
+    "sha256": "564f18e8763a4be5ab067bd7a6bab229a796bdab62050c1fc97d2fe97b597f45"
+  },
+  {
+    "path": "tests/Feature/SupportMultichannelTest.php",
+    "bytes": 16491,
+    "sha256": "44dccc0071fa5c50e382f7daf87437d0683a6d4a306f14397348a37fbbde886d"
+  },
+  {
+    "path": "tests/Feature/SupportSandboxTest.php",
+    "bytes": 14837,
+    "sha256": "1d9e4c0a7f36845382428e610b21e59eb633fd75df1394bd72a09b5b8fac19b4"
+  },
+  {
+    "path": "tests/Support/safe-test-bootstrap.php",
+    "bytes": 929,
+    "sha256": "a9cfa2a9a6986e90c04d8a3f988f820757ebcae453d6bff0c7711f71a1e5f8ea"
+  },
+  {
+    "path": "tests/Unit/TestDatabaseSafetyPhpUnitTest.php",
+    "bytes": 878,
+    "sha256": "acb8808796a72981424a7262821797b61d86284b4e6f73ba0e15cf4d9eb6b968"
+  },
+  {
+    "path": "tests/Unit/TestDatabaseSafetyTest.php",
+    "bytes": 2341,
+    "sha256": "fe6e61ef64859ae8cd92faf9ba02790b36c9141fd2cf3de69aae4d5542d27cbb"
+  }
+]

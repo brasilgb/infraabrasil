@@ -1,104 +1,74 @@
-# VETORLEADS-PROSPECT-08 — consolidação técnica e preparação da homologação comercial
+# VETORLEADS-PROSPECT-11 — Publicação controlada na VPS
 
-Execução concluída em **19/10/2026 UTC**. O relatório anterior foi integralmente substituído.
+Executado em **19/10/2026 UTC**, com observação final às **12:46:52 UTC**.
+
+**Estado final: PUBLICADO COM RESSALVAS.** App, worker e scheduler publicados e saudáveis, com a mesma imagem verificada. MySQL estável na janela observada, dados comerciais preservados e demais containers inalterados. A jornada autenticada em produção com registros reais permanece pendente; a revisão funcional completa utilizou dados sintéticos em ambiente isolado. A estabilidade observada após o reboot não comprova capacidade sob picos futuros.
 
 ## Comparação do correio
 
-- Anterior, PROSPECT-07: `c19fa57a8fe88ab79638870db61467e9a73283a15604b37a34ef22d02f149a41`.
-- Executado, PROSPECT-08: `00c7f00a20abb3be555f249a18bc801834e378ab00327a62d4e2d16f9b3c19af`.
+O `correio.md` mudou de PROSPECT-10 para PROSPECT-11, passando a autorizar publicação condicionada às verificações operacionais. A comparação utilizou o hash do último correio executado registrado no relatório anterior; o HEAD Git ainda continha PROSPECT-08 e não era a última instrução efetivamente executada.
 
-**Resultado:** trabalho anterior preservado, alterações organizadas em commits locais, testes completos aprovados e roteiro de implantação/homologação preparado. **Sem push, deploy, migrations operacionais, reinicialização de serviços operacionais, requalificação em massa ou escrita de registros comerciais reais. A homologação operacional real permanece pendente.**
+- SHA-256 anterior: `2ea929dd2c80f3c6f2eaafbb3513abb2d32c3142f76e436d351bb9787d6cbabc`.
+- SHA-256 executado: `3a69a95cc535bfbb25e7f310471426fb7790cda78596eefbaff83e2483230283`.
+- [Relatório anterior preservado](docs/vetorleads-prospect-11/prospect10-executed.md) e [identificação da execução](docs/vetorleads-prospect-11/execution.json).
 
-## Correções locais desta etapa
+## Memória e estabilidade após reinicialização
 
-1. **Recaptura conserva a qualificação:** a extensão atualiza lacunas e o histórico de captura, mas não recalcula mais o score existente sem prévia/confirmação. A primeira captura continua recebendo sua qualificação inicial. Um teste demonstra a preservação inclusive de score v2 após recebimento de dados adicionais.
-2. **Selo comercial coerente com v3:** `Qualificado` agora exige prioridade comercial alta, com aderência e contato suficientes. Tier numérico alto isolado não torna um produto incorreto ou segmento excluído favorável. Casos com contato forte e produto/segmento incompatível foram testados. Pesos e critérios v3 preservados.
-3. **Verificação de site/CNPJ conserva o score:** a ação opcional continua verificando/preenchendo os campos permitidos, mas a atualização da qualificação existente fica para uma prévia confirmada. Mensagem de sucesso orienta esse passo; um teste verifica a preservação. Consultas externas foram simuladas na validação.
-4. **Contrato da extensão verificado:** teste adicional do transporte valida bearer token, sucesso, erros HTTP 401/422/500 e falha de rede sem chamar serviço real.
+Na primeira leitura, o host tinha cerca de 3 minutos de uptime, **7,8 GiB de RAM**, **4,8 GiB disponíveis**, aproximadamente **2,9 GiB usados** e **nenhum swap**. `/tmp` ocupava aproximadamente 28 KiB. Na etapa anterior, havia aproximadamente 3,2 GiB em `/tmp` e três OOM globais encerrando o MySQL.
 
-A prévia/confirmação individual continua vinculada a tenant, usuário, prospect, produto e hash dos dados/critérios, com expiração e rejeição de contexto alterado. Nenhum campo ausente foi inventado; telefone não foi tratado como WhatsApp ativo. Não foram adicionados menus, indicadores ou arquitetura paralelos nesta etapa.
+Na leitura final, com 15 minutos de uptime e cerca de 7 minutos após a publicação, havia **5.212.553.216 bytes disponíveis (4,85 GiB)** e **3.119.271.936 bytes usados (2,91 GiB)**. `/tmp` ocupava 20 KiB; `/run`, 2,4 MiB. A raiz tinha **57 GiB livres**, com 41% ocupado. Não foi encontrado evento OOM no journal do kernel do boot atual. Não houve limpeza de `/tmp`, criação de swap nem alteração de limites ou serviços compartilhados nesta execução.
 
-## Repositórios e commits
+O MySQL **8.4.11** iniciou às 12:31:05 UTC, concluiu a recuperação XA e ficou pronto às 12:31:16, sem novos reinícios. Os três reinícios do worker antigo ocorreram na subida inicial, com erros de conexão recusada enquanto o banco inicializava; seu contador permaneceu estável antes da troca. Os novos consumidores terminaram com zero reinícios. Os logs pós-publicação não apresentaram SQLSTATE, fatal, exception ou erro de produção na amostra examinada; também não foram encontrados ERROR/CRITICAL/EMERGENCY posteriores à publicação no log Laravel.
 
-As referências remotas foram conferidas com `git ls-remote`, sem fetch/pull/push. Os onze commits anteriores do VetorLeads foram preservados: senha, eventos n8n, WAHA por tenant, UX-01/02/03, identificação WebChat, menu da conta, landing e GD JPEG/WebP. Inventário completo: [onze-commits-anteriores.txt](docs/vetorleads-prospect-08/onze-commits-anteriores.txt).
+Evidências: [memória antes](docs/vetorleads-prospect-11/memory-before-publication.json), [memória final](docs/vetorleads-prospect-11/memory-final.json), [serviços anteriores](docs/vetorleads-prospect-11/services-before.json), [serviços finais](docs/vetorleads-prospect-11/services-final.json), [logs dos processos](docs/vetorleads-prospect-11/logs-summary.json) e [log Laravel](docs/vetorleads-prospect-11/application-log-check.json). Logs brutos ficaram no diretório privado de backup.
 
-| Repositório | Estado consolidado local | Relação com remoto conferido |
+## Imagens, configuração e commits
+
+- Aplicação: commit **`00282e4ab046b4fc0f7bd0a5f33766255104df3e`**, árvore Git limpa, reutilizado sem rebuild.
+- Infraestrutura: commit local **`3bd412a1f1673da58afcd7af4088d17f94f58c77`**, contendo somente `.gitignore`, ponteiro VetorLeads, override e probe.
+- Imagem dos três processos: **`vetorleads:prospect09-00282e4`**.
+- ID verificado: **`sha256:4d9deab99bb7ab4d2ffbe660983cb668ca34a931ae34cd4e982d957d8181a733`**; o RepoDigest local informado pelo Docker corresponde ao mesmo SHA-256. [Conferência](docs/vetorleads-prospect-11/candidate.json).
+
+O [override persistente](docker-compose.override.yml) foi validado com o Compose base. Os consumidores foram parados para a troca, e a publicação usou `up -d --no-deps --no-build --pull never`, delimitada a `vetorleads`, `vetorleads-worker` e `vetorleads-scheduler`. Nenhuma migration foi executada. O app manteve o healthcheck PHP-FPM; worker e scheduler receberam o [probe específico](scripts/vetorleads-process-health.php), montado somente para leitura, que confere o processo e a conexão MySQL por SELECT em transação READ ONLY.
+
+Os três processos ficaram `healthy`, na mesma imagem e com zero reinícios. Os oito casos do probe passaram antes da publicação; os probes dos dois consumidores também passaram dentro dos containers publicados. A fila e os jobs falhos permaneceram zerados. Isso comprova processo/conexão, sem disparar tarefas comerciais para demonstrar consumo.
+
+A alteração preexistente do ponteiro VetorOS foi excluída do commit e preservada na árvore de trabalho. Não houve deploy do VetorOS, push ou reinício de MySQL, Redis, Nginx, WAHA, n8n ou outros produtos. IDs, datas de início e contadores de reinício dos demais containers coincidiram com a leitura anterior à publicação.
+
+## Backup e recuperação
+
+Backup novo via `mysqldump --single-transaction --quick`, limitado ao banco VetorLeads, após conferir que as tabelas eram InnoDB. Inclui routines, events, triggers e dados binários. Armazenamento privado: **`backups/prospect11/`**, fora do Git e com diretório de acesso restrito.
+
+- Snapshot: **471.080 bytes**, SHA-256 **`b0f803522ebda0df6a4c53a080c2562ee7e834f118f9cdca90040c8430c5df9a`**.
+- Restaurado em MySQL 8.4 isolado, sem rede e limitado a 768 MiB: **41 tabelas**, contagens integralmente iguais e `CHECK TABLE ... QUICK` aprovado em todas.
+- Assets servidos preservados em `backups/prospect11/assets/`; SHA-256 do manifest: **`257b66d4360420d17e961c10dcc4ad5aabb604127cdd1b10c93b44708576e37b`**.
+- [Metadados](docs/vetorleads-prospect-11/backup.json) e [resultado da restauração](docs/vetorleads-prospect-11/restore.json).
+
+| Processo | Imagem anterior | Tag de recuperação |
 | --- | --- | --- |
-| VetorLeads, `main` | HEAD `adcc6e4`, árvore limpa | **14 commits à frente / 0 atrás** de `origin/main` `a274619` |
-| VetorOS, `deploy/vetor-intel-20261008` | HEAD `24716ef8`, árvore limpa, sem alteração de código nesta etapa | **1 commit à frente / 0 atrás** do upstream `origin/main` `438178b0` |
-| Infra, `main` | Configuração e ponteiros consolidados; relatório/evidências em commit próprio | **3 commits locais desta etapa**, sem publicação; remoto continua `a4b8bd4` |
+| App | `sha256:fba2f79c606c94196015432706c772ec07c296d35f84d2c975836c8253c50c52` | `vetorleads:prospect11-recovery-vetorleads` |
+| Worker | `sha256:8f836c54ab0c797ba820bc0233a2f9fa85f5a25b3e705b0c4e32548e4094b3b8` | `vetorleads:prospect11-recovery-vetorleads-worker` |
+| Scheduler | `sha256:669822b906e6bc5c8258f37b0f4085b57d0a158b36f0c21a1c034d80293cbc30` | `vetorleads:prospect11-recovery-vetorleads-scheduler` |
 
-Commits novos do VetorLeads:
+O override de recuperação foi salvo em `backups/prospect11/recovery.json`. Pode ser aplicado com o Compose base e esse arquivo explicitamente, delimitado aos três serviços, sem dependências e sem rebuild. A cópia preservada permite recuperar os assets. Não foi necessário executar recuperação operacional. O teste de restauração não sobrepôs produção; nenhuma coluna, tabela ou dado comercial foi removido. Os containers isolados foram parados ao concluir os testes.
 
-- `6c614bb` — landing e preferências de privacidade, incluindo retirada dos assets antigos não referenciados.
-- `a9ba459` — captura, critérios v3, prévia/auditoria, conversão, UX comercial e testes consolidados.
-- `adcc6e4` — preservação da qualificação após verificação até confirmação da prévia.
+## Homologação e preservação dos dados
 
-Na infraestrutura: `7a0c9f8` consolida as variáveis já existentes de WebChat/n8n e os ponteiros; `8aaa1f3` registra a proteção final do VetorLeads. O terceiro commit contém este relatório, `correio.md` e as evidências/documentação preservadas das etapas anteriores. Seu identificador consta no histórico Git, evitando autorreferência no próprio relatório.
+**Produção:** acesso HTTPS pelo Nginx local, usando o domínio real e validação de certificado: landing e login **200**; dashboard, captura, configurações, prospects, produtos e CRM **302**, exigindo autenticação. CSS e JavaScript de entrada do manifest responderam **200**. O teste foi feito pela própria VPS, sem comprovar acesso a partir de uma rede externa. [Resultados HTTP](docs/vetorleads-prospect-11/http.json).
 
-Nenhum commit anterior foi reescrito ou descartado. VetorOS e demais produtos foram preservados. Os snapshots da pasta de evidências identificam expressamente quando foram gerados antes do commit final de documentação.
+**Regressão isolada:** **1.270 testes aprovados, 13.492 assertions, 48,96 segundos**, em PHP 8.4/SQLite, com fixtures sintéticas e sem rede externa. Abrange isolamento de tenants, filtros, score, critérios por produto, conversão, deduplicação, histórico e dashboard. [Log](docs/vetorleads-prospect-11/functional-tests.log).
 
-## Captura e fluxo efetivamente auditados
+**Navegador isolado:** login com operador sintético e revisão de dashboard, captura exclusiva, configuração da extensão, prospects, produtos, CRM e funil em **1440 e 390 px**. Todas as páginas responderam 200, sem erros JavaScript e sem transbordamento horizontal do documento. A região específica do funil foi confirmada. Capturas foram geradas; amostras desktop/celular foram inspecionadas visualmente. [Resultado](docs/vetorleads-prospect-11/interface/browser.json), [prospects no celular](docs/vetorleads-prospect-11/interface/390-_prospecting_prospects.png) e [funil desktop](docs/vetorleads-prospect-11/interface/1440-_leads_tab_kanban.png).
 
-A extensão envia o bearer token do tenant; o servidor resolve somente token válido/não revogado/não expirado e tenant ativo, ignorando tenant forjado no payload. A captura usa as tabelas existentes, mantém origem/lote/identidade Maps e não cria lead automaticamente. Recaptura preenche lacunas conservadoramente; não altera oposição, seleção ou vínculo CRM.
+As fontes usadas nesses testes foram comparadas com a imagem publicada: **404 arquivos**, incluindo app, config, routes, resources, migrations e lockfiles, sem diferenças. [Paridade](docs/vetorleads-prospect-11/source-parity.json). Os ajustes necessários ao ambiente visual recuperaram o navegador perdido no reboot e corrigiram o roteamento de assets do servidor PHP de teste; não alteraram o produto.
 
-Cobertos: nome público e atividade, telefones/celular/WhatsApp informado ou provável/possível, website, endereço/cidade/UF fornecidos, origem e lote, identidade Place ID/FTID, deduplicação, recaptura, validação e falhas de transporte. A API aceita razão social/nome fantasia opcionais, mas a extensão Maps não garante razão social cadastral.
+As contagens comerciais antes/depois permaneceram iguais: **48 migrations, 61 prospects, 61 qualificações, 1 lead, 4 atividades, 2 conversas, 0 jobs e 0 jobs falhos**. Também foi comparada a lista nominal das 48 migrations. Sessões/cache técnicos não foram usados como critério de igualdade comercial. [Antes](docs/vetorleads-prospect-11/counts-before.json), [depois](docs/vetorleads-prospect-11/counts-after.json) e [migrations](docs/vetorleads-prospect-11/migrations-after.json).
 
-Jornada demonstrada em Chromium e testes funcionais:
+## Ressalvas e pendências
 
-**Captura autenticada → lista de prospects → produto/segmentos → prévia → confirmação → seleção → conversão/vínculo CRM → dashboard.**
+1. Não houve login com identidade real nem alteração comercial em produção. Conversão, associação de produto, qualificação persistente e histórico foram validados pela regressão sintética; a inspeção visual utilizou a base sintética já existente. A homologação real depende de tenant, operador e registros previamente autorizados.
+2. A ausência de OOM e a folga atual aprovaram a janela, mas o host continua sem swap. A observação curta não substitui acompanhamento sob carga. Não foi aplicada mitigação global de capacidade.
+3. O probe verifica processo e conectividade, não progresso de fila; Docker não reinicia automaticamente um processo apenas por ficar unhealthy.
+4. Commits locais foram preparados, sem push. Evidências anteriores PROSPECT-09/10 e a alteração preexistente VetorOS foram preservadas. Nenhuma mensagem real, contato externo ou automação comercial foi acionada pelos testes.
 
-- Captura permanece em `/prospecting`; administração da extensão em `/settings/integrations/ab-prospect`.
-- `/prospecting/prospects`: filtros por origem, contato, produto, prioridade, situação, localização e lote; detalhes explicáveis.
-- `/prospect-products`: critérios comerciais por produto/tenant, sem cadastro paralelo.
-- Conversão explícita e idempotente: não duplica lead ou nota; vínculo a lead existente conserva seus dados e registra origem/produto/score/versão.
-- `/leads` e `/dashboard`: vínculo e histórico verificáveis; contagens vêm do banco e distinguem inclusão no CRM de venda ganha.
-- Captura, prospects, produtos, CRM e dashboard revisados em desktop; lista e prévia também em 390/320 px. Tabela com rolagem interna no celular, sem transbordamento horizontal do documento nem erros JavaScript.
-
-Detalhes: [auditoria-captura.md](docs/vetorleads-prospect-08/auditoria-captura.md). Evidências: [critérios](docs/vetorleads-prospect-08/interface/1440-commercial-criteria.png), [lista celular](docs/vetorleads-prospect-08/interface/320-leads.png), [prévia celular](docs/vetorleads-prospect-08/interface/390-preview.png), [CRM](docs/vetorleads-prospect-08/interface/1440-crm.png), [dashboard sintético](docs/vetorleads-prospect-08/interface/1440-dashboard.png).
-
-## Testes executados
-
-Primeiro foi executada a suíte completa isolada sem alterações novas: **1.268 testes / 13.460 assertions**. Após as correções:
-
-| Validação | Resultado final |
-| --- | --- |
-| VetorLeads, regressão completa PHP 8.4/SQLite sintético | **1.270 testes aprovados / 13.475 assertions** |
-| PHPStan | Sem erros |
-| Pint | Aprovado, 321 arquivos |
-| Frontend | ESLint, Prettier, TypeScript e build aprovados |
-| Consentimento da landing, JavaScript | 3 testes aprovados |
-| Extensão, parsers/recaptura/contrato/transporte | 18 testes aprovados |
-| VetorOS, proxy/disponibilidade WebChat | 5 testes aprovados / 17 assertions |
-| Navegador Chromium | Jornada completa aprovada, 1440/390/320 px |
-| Compose | Configuração validada, sem aplicação |
-| Git | Verificação de whitespace aprovada |
-
-Os testes funcionais cobrem multitenancy, permissões, token, oposição, prévia e confirmação inválida/expirada/desatualizada, deduplicação e histórico. O container PHP de testes não tinha rede; integrações externas foram simuladas. Build e screenshots usam ambiente sintético separado. Logs e resultados: [docs/vetorleads-prospect-08/README.md](docs/vetorleads-prospect-08/README.md).
-
-## Runtime, migrations e conflitos identificados
-
-Leitura operacional por PDO, em transação **READ ONLY** com snapshot consistente, sem bootstrap do Laravel operacional: MySQL **8.4.11**, schema `vetorleads`, PHP **8.4.26**, **46 migrations aplicadas**. Consultas agregadas observaram **61 prospects, 0 prospects vinculados ao CRM, 0 leads provenientes da prospecção e 0 leads ganhos**. Esses dados não foram confundidos com os números das telas sintéticas.
-
-Duas migrations locais pendentes, nenhuma aplicada em produção:
-
-| Migration | Dependências e risco |
-| --- | --- |
-| `2026_10_18_210000_add_identification_to_web_conversations` | Depende de `web_conversations`; adiciona `subject`, `identified_at`, `whatsapp_consent_at`. As três colunas estão ausentes. **O controller de identificação WebChat no runtime tem o mesmo hash do código local**, portanto existe incompatibilidade de schema no caminho de identificação. Esse caminho não foi invocado em produção. |
-| `2026_10_19_000000_add_commercial_criteria_to_prospect_products` | Depende de `prospect_products`; adiciona segmentos desejados/excluídos e preferência de site com default `any`. Campos ausentes em produção. O código comercial local difere do runtime; publicar o cadastro novo antes da migration faria gravações falharem. |
-
-As duas são aditivas e independentes entre si, mas não se pode executar todas as pendências sem revisão. Passaram nas migrations dos testes SQLite; **DDL, locks e reversão em MySQL ainda precisam de ensaio em clone isolado**. O healthcheck atual de PHP-FPM não verifica essa compatibilidade de schema.
-
-Os 21 serviços Compose estavam running/healthy na leitura. Nenhum serviço operacional foi reiniciado, reconstruído ou alterado. O Dockerfile já contém PHP 8.4/GD JPEG-WebP; o entrypoint copia assets para volume compartilhado. O `public/build` histórico versionado não deve ser publicado como se fosse o build recém-validado; a imagem futura precisa recompilar as fontes.
-
-## Publicação e homologação real: pendências e roteiro
-
-Roteiro detalhado, com critérios de interrupção e reversão: [publicacao-e-homologacao.md](docs/vetorleads-prospect-08/publicacao-e-homologacao.md).
-
-Antes de publicar: revisar commits/referências, aprovar janela e backup com restauração testada, ensaiar as duas migrations no MySQL isolado, reconstruir imagem/assets, aprovar mudanças delimitadas e colocar o schema compatível antes dos consumidores. Coordenar VetorLeads/app/worker/scheduler e, em etapa própria, o proxy/widget VetorOS. Preservar versões anteriores e assets para reversão; não executar rollback destrutivo de colunas automaticamente.
-
-O teste real proposto limita-se a **até três empresas e um tenant**, com empresas/URLs, operador, produto e operações expressamente autorizados antes de qualquer escrita. Inclui captura/recaptura, comparação de produtos na prévia, uma confirmação, seleção/conversão, histórico e métricas; não inclui mensagens ou contato comercial. Verificar automações antes de criar leads; não modificar configurações operacionais implicitamente. Não foram escolhidas empresas reais nesta execução.
-
-VetorOS depende da API WebChat do VetorLeads; incompatibilidade ou indisponibilidade pode afetar o widget. MySQL, WAHA, Redis, n8n, nginx e outros produtos compartilham infraestrutura: não reiniciá-los como parte genérica de uma publicação comercial. A leitura de saúde não substitui homologação funcional. A segmentação continua lexical/explicável; compatibilidade não comprova intenção, telefone não comprova WhatsApp ativo e ausência de site não é verificação universal.
-
-**Conclusão:** consolidação técnica concluída sem regressões conhecidas nos testes executados. Implantação, ensaio MySQL e homologação operacional com amostra real continuam pendentes das autorizações específicas descritas no roteiro.
+**Publicação operacional concluída com ressalvas de homologação real e observação de capacidade.** Evidências e scripts desta execução estão em `docs/vetorleads-prospect-11/`; backup, credenciais de clone e logs privados permanecem fora do Git.

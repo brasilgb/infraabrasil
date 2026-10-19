@@ -1,0 +1,174 @@
+{
+  "observed_at": "2026-10-19T12:46:52.534863+00:00",
+  "services": [
+    {
+      "name": "/infra-abrasil-vetorleads-1",
+      "id": "0ba205567091e4345197d083b6e1e9d6a8546d82980951256260767c98e95b40",
+      "image": "sha256:4d9deab99bb7ab4d2ffbe660983cb668ca34a931ae34cd4e982d957d8181a733",
+      "restart": 0,
+      "started": "2026-10-19T12:39:39.853998263Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-vetorleads-scheduler-1",
+      "id": "ca8898514905ca8c9824083aeb7b326c979fd3f7c954fbae1dfd14d3881db48c",
+      "image": "sha256:4d9deab99bb7ab4d2ffbe660983cb668ca34a931ae34cd4e982d957d8181a733",
+      "restart": 0,
+      "started": "2026-10-19T12:39:40.022582594Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-vetorleads-worker-1",
+      "id": "8234afcc9bc32d841db217548e10af644873282306d9670486132553aaecb6c4",
+      "image": "sha256:4d9deab99bb7ab4d2ffbe660983cb668ca34a931ae34cd4e982d957d8181a733",
+      "restart": 0,
+      "started": "2026-10-19T12:39:40.231643404Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-vetoros-scheduler-1",
+      "id": "9f3b0b12979ce750a4d3fe08b71296e49cc180845949fb7af0ce5e46cfd647ea",
+      "image": "sha256:a7ec4874482137c2032d2cd6ca5f233bf286abf933fb8389e0f7b798afb83081",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.249911298Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-vetoros-worker-1",
+      "id": "b0652cdbfa888e710543d50caf5096ac6fbf99dafd60178b09f441ac98952442",
+      "image": "sha256:a81958f8a0e125a9f2b5c6c832c99ee9e2464e2bea293190872ac9e1bdca1253",
+      "restart": 2,
+      "started": "2026-10-19T12:31:15.585019729Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-vetoros-1",
+      "id": "964ea14ff9098dab6d59901f323c36f448e152c9a06809b495e8d25371381ada",
+      "image": "sha256:509701c7178be856e5e1d1dc8aac674b36bf56c777bfa65f288c4e03b647e513",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.015200746Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-nginx-1",
+      "id": "9f7f6bd6e822027306fd535fb5919db6cfabc09e438d8203eeda3c802156a876",
+      "image": "sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10",
+      "restart": 0,
+      "started": "2026-10-19T12:31:04.998997931Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-mysql-1",
+      "id": "28f4f55b745b4d21b323724def6bdbf93dc9e20fb0a84afe67e6b0314b991879",
+      "image": "sha256:85b9bf2e29cf836ecb8c2a15a935d4ba0c606631dff1dd79531a11983c638f2a",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.017505129Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-abrasilsistema-1",
+      "id": "f137c6ce9a7622a75f3ade2564d008cbbd9a308b452778f4d8c7c394488bfcd8",
+      "image": "sha256:5de8a7107297d84b3077413a4b715e6ca8e473a72bf090c36cb5e82ef873b039",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.007416Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-abrasilsistema-scheduler-1",
+      "id": "acbe731055110dd862f9911ede29f6d37389a21f9f60323374c85e0c55ea60b7",
+      "image": "sha256:603cec5ced30aa57e9742f06b15dbd60bfed39809421126012e77a22987ada5a",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.188354058Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-abrasilsistema-worker-1",
+      "id": "d124b019b7b0b42b9a90843a9b610268cc6231f9e8dcdd2fda1c25e57381348c",
+      "image": "sha256:d3c4111aab84dd718f3500b41ae65b601e826cf0f2baa8c8644c40f0b4226915",
+      "restart": 3,
+      "started": "2026-10-19T12:31:16.392237838Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-desgarrados-1",
+      "id": "223452af7400c2845eddb97d07ca6b75fa5ecd676c48caeb379fdd71d2d7a52c",
+      "image": "sha256:328c0b6554cadd81e0427177569e4c26ef25ef2ba4a2d9f68c025763d1a8acef",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.192395362Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-desgarrados-scheduler-1",
+      "id": "cfd6bd9885b5193c788f022a5816ba1021fa75679e94c6a318085772c4fab2b9",
+      "image": "sha256:d888f6a2a51cee8b76cc309e757537cf2e04960d683b93b54589a69d834642d8",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.155318605Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-desgarrados-worker-1",
+      "id": "becb3bb46009149b23b9682953b36bebd2918491b200ddbe96db3d29784cef89",
+      "image": "sha256:e04c1707a487e844a12a13062235af60a1d214ccfb08ae75da84389511e37cd7",
+      "restart": 2,
+      "started": "2026-10-19T12:31:14.127568339Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-vetorpet-1",
+      "id": "3eea0899b7ecf08c6f2e08b0179dc311e2f145fa69a47b29fd9f77d9272b3c7e",
+      "image": "sha256:c4eea4836f57b41ab321437a56c504f94e51683d846b0b47a1c2176f1687fb70",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.151538903Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-vetorpet-worker-1",
+      "id": "8ad282e327b6f41c260e1da0a53e0559822029267cf772190c513a35d741b50f",
+      "image": "sha256:74540af7039dd6262b22b0dd4ffd6f9b2c6d5adce4b57c289a6b583477dc0dde",
+      "restart": 3,
+      "started": "2026-10-19T12:31:17.174378751Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-vetorpet-scheduler-1",
+      "id": "928fcc612be454216ce51b542486884a2170b323da65fa123a2676bf864120a3",
+      "image": "sha256:a7584f9d21026dfd1d7835949f21cd42bbbcad55762f81d8831b126a45fd4d84",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.138503816Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-waha-1",
+      "id": "b4cdcb152109eccbfa424de86bd10a90a4772e98c5c4b0410610d860ca6a3457",
+      "image": "sha256:527ff3d634925adb26d596883d7b3ca502c080f737af3c2af2be0c973c511533",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.011113392Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-phpmyadmin-1",
+      "id": "281568e5693186fb09a0cf7b306a4afa75db0f4b0fbac6cefca95fbdf30baf94",
+      "image": "sha256:5f4b9a1f5aa30020003969e62387ee15e011e626514b4e1751e8976d49854617",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.250432341Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-n8n-1",
+      "id": "f28679f9b0eecf94cef89495293183427959a8a68941257e57f905a3cda1da69",
+      "image": "sha256:9f693fd5565539efd5e75ad168526c8041a6af516d9e50bc4d9cb1c9c5031523",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.215174745Z",
+      "health": "healthy"
+    },
+    {
+      "name": "/infra-abrasil-redis-1",
+      "id": "1772422225ae7bb94a8a9cf6bc0d3b0adfd1eae8d3ef10834f4de43249029414",
+      "image": "sha256:520775a41a63e77e06c73e35d2fd9cc15921a609516818796b4ecbb813078bc7",
+      "restart": 0,
+      "started": "2026-10-19T12:31:05.2469504Z",
+      "health": "healthy"
+    }
+  ],
+  "other_containers_unchanged": true
+}

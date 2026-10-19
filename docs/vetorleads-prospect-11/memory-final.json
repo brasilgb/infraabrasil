@@ -1,0 +1,7 @@
+{
+  "observed_at": "2026-10-19T12:46:52.545351+00:00",
+  "memory": "               total        used        free      shared  buff/cache   available\nMem:      8331825152  3119271936  2666090496    96792576  2955882496  5212553216\nSwap:              0           0           0\n",
+  "uptime": " 12:46:52 up 15 min,  1 user,  load average: 0.80, 1.14, 0.93\n",
+  "oom_current_boot": "-- No entries --\n",
+  "disk": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        99G   38G   57G  41% /\ntmpfs           3.9G   20K  3.9G   1% /tmp\ntmpfs           795M  2.4M  793M   1% /run\n"
+}

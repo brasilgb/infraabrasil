@@ -1,0 +1,7 @@
+{
+  "previous_mail_sha256": "2ea929dd2c80f3c6f2eaafbb3513abb2d32c3142f76e436d351bb9787d6cbabc",
+  "executed_mail_sha256": "3a69a95cc535bfbb25e7f310471426fb7790cda78596eefbaff83e2483230283",
+  "changed": true,
+  "infrastructure_commit": "3bd412a1f1673da58afcd7af4088d17f94f58c77",
+  "application_commit": "00282e4ab046b4fc0f7bd0a5f33766255104df3e"
+}

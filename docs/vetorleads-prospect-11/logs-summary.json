@@ -1,0 +1,18 @@
+{
+  "vetorleads": {
+    "bytes": 7676,
+    "error_lines": 0
+  },
+  "vetorleads-worker": {
+    "bytes": 0,
+    "error_lines": 0
+  },
+  "vetorleads-scheduler": {
+    "bytes": 364,
+    "error_lines": 0
+  },
+  "mysql": {
+    "bytes": 0,
+    "error_lines": 0
+  }
+}

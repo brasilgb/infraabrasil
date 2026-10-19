@@ -1,0 +1,42 @@
+[
+  {
+    "path": "/",
+    "status": 200
+  },
+  {
+    "path": "/login",
+    "status": 200
+  },
+  {
+    "path": "/dashboard",
+    "status": 302
+  },
+  {
+    "path": "/prospecting",
+    "status": 302
+  },
+  {
+    "path": "/settings/integrations/ab-prospect",
+    "status": 302
+  },
+  {
+    "path": "/prospecting/prospects",
+    "status": 302
+  },
+  {
+    "path": "/prospect-products",
+    "status": 302
+  },
+  {
+    "path": "/leads",
+    "status": 302
+  },
+  {
+    "path": "/build/assets/app-D3PIXDnq.css",
+    "status": 200
+  },
+  {
+    "path": "/build/assets/app-DwUgGzt6.js",
+    "status": 200
+  }
+]

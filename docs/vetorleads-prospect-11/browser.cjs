@@ -1,0 +1,7 @@
+const {chromium}=require('/node_modules/playwright');
+const fs=require('fs');const assert=require('assert/strict');
+(async()=>{const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto('http://127.0.0.1:8000/login');await page.locator('#email').fill('ux@example.test');await page.locator('#password').fill('Local-ux02-only!');await page.locator('button[type=submit]').click();await page.waitForURL('**/dashboard');
+const results=[];
+for(const width of [1440,390]){await page.setViewportSize({width,height:1000});for(const path of ['/dashboard','/prospecting','/settings/integrations/ab-prospect','/prospecting/prospects','/prospect-products','/leads','/leads?tab=kanban']){const response=await page.goto('http://127.0.0.1:8000'+path);assert.equal(response.status(),200);if(path.includes('kanban'))await page.getByRole('region',{name:'Funil de oportunidades'}).waitFor();await page.waitForLoadState('networkidle');const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);assert.equal(overflow,false,path+' overflow');await page.screenshot({path:'/evidence/'+width+'-'+path.replace(/[^a-z]/g,'_')+'.png',fullPage:true});results.push({width,path,status:response.status(),overflow});}}
+assert.deepEqual(errors,[]);fs.writeFileSync('/evidence/browser.json',JSON.stringify({login:'PASS',results,errors},null,2));await browser.close();})().catch(e=>{console.error(e);process.exit(1)});

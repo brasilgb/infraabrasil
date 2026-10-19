@@ -1,0 +1,90 @@
+{
+  "login": "PASS",
+  "results": [
+    {
+      "width": 1440,
+      "path": "/dashboard",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/prospecting",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/settings/integrations/ab-prospect",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/prospecting/prospects",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/prospect-products",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/leads",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/leads?tab=kanban",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/dashboard",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/prospecting",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/settings/integrations/ab-prospect",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/prospecting/prospects",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/prospect-products",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/leads",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/leads?tab=kanban",
+      "status": 200,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

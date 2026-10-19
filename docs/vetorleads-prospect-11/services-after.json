@@ -1,0 +1,1085 @@
+[
+  {
+    "name": "/infra-abrasil-vetorleads-1",
+    "id": "0ba205567091e4345197d083b6e1e9d6a8546d82980951256260767c98e95b40",
+    "image": "sha256:4d9deab99bb7ab4d2ffbe660983cb668ca34a931ae34cd4e982d957d8181a733",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 23035,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:39:39.853998263Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:39:55.011531941Z",
+            "End": "2026-10-19T12:39:55.153212097Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-vetorleads-scheduler-1",
+    "id": "ca8898514905ca8c9824083aeb7b326c979fd3f7c954fbae1dfd14d3881db48c",
+    "image": "sha256:4d9deab99bb7ab4d2ffbe660983cb668ca34a931ae34cd4e982d957d8181a733",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 23116,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:39:40.022582594Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:39:45.214853096Z",
+            "End": "2026-10-19T12:39:45.288178242Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-vetorleads-worker-1",
+    "id": "8234afcc9bc32d841db217548e10af644873282306d9670486132553aaecb6c4",
+    "image": "sha256:4d9deab99bb7ab4d2ffbe660983cb668ca34a931ae34cd4e982d957d8181a733",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 23178,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:39:40.231643404Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:39:45.425039486Z",
+            "End": "2026-10-19T12:39:45.506386866Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-vetoros-scheduler-1",
+    "id": "9f3b0b12979ce750a4d3fe08b71296e49cc180845949fb7af0ce5e46cfd647ea",
+    "image": "sha256:a7ec4874482137c2032d2cd6ca5f233bf286abf933fb8389e0f7b798afb83081",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2476,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.249911298Z",
+      "FinishedAt": "2026-10-19T12:31:03.322077288Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:43.208358701Z",
+            "End": "2026-10-19T12:38:43.308163855Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:38:58.309049444Z",
+            "End": "2026-10-19T12:38:58.423569474Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:13.423944764Z",
+            "End": "2026-10-19T12:39:13.526456628Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:28.527213156Z",
+            "End": "2026-10-19T12:39:28.618910835Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:43.620148358Z",
+            "End": "2026-10-19T12:39:43.718905824Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-vetoros-worker-1",
+    "id": "b0652cdbfa888e710543d50caf5096ac6fbf99dafd60178b09f441ac98952442",
+    "image": "sha256:a81958f8a0e125a9f2b5c6c832c99ee9e2464e2bea293190872ac9e1bdca1253",
+    "restart": 2,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 3940,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:15.585019729Z",
+      "FinishedAt": "2026-10-19T12:31:14.951027913Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:49.855899899Z",
+            "End": "2026-10-19T12:38:49.964730725Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:04.965963117Z",
+            "End": "2026-10-19T12:39:05.064780154Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:20.066267848Z",
+            "End": "2026-10-19T12:39:20.159645263Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:35.160873294Z",
+            "End": "2026-10-19T12:39:35.2601264Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:50.261343455Z",
+            "End": "2026-10-19T12:39:50.362514647Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-vetoros-1",
+    "id": "964ea14ff9098dab6d59901f323c36f448e152c9a06809b495e8d25371381ada",
+    "image": "sha256:509701c7178be856e5e1d1dc8aac674b36bf56c777bfa65f288c4e03b647e513",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1929,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.015200746Z",
+      "FinishedAt": "2026-10-19T12:31:03.321856516Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:55.861599003Z",
+            "End": "2026-10-19T12:38:55.962495654Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:10.964182474Z",
+            "End": "2026-10-19T12:39:11.061915272Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:26.06340937Z",
+            "End": "2026-10-19T12:39:26.166472596Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:41.167262516Z",
+            "End": "2026-10-19T12:39:41.264510994Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:56.265019118Z",
+            "End": "2026-10-19T12:39:56.379460443Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-nginx-1",
+    "id": "9f7f6bd6e822027306fd535fb5919db6cfabc09e438d8203eeda3c802156a876",
+    "image": "sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1898,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:04.998997931Z",
+      "FinishedAt": "2026-10-19T12:31:03.321207632Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:53.643439404Z",
+            "End": "2026-10-19T12:38:53.681347696Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:08.682535107Z",
+            "End": "2026-10-19T12:39:08.72072817Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:23.722434189Z",
+            "End": "2026-10-19T12:39:23.765990279Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:38.767079792Z",
+            "End": "2026-10-19T12:39:38.81686887Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:53.818377138Z",
+            "End": "2026-10-19T12:39:53.866342194Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-mysql-1",
+    "id": "28f4f55b745b4d21b323724def6bdbf93dc9e20fb0a84afe67e6b0314b991879",
+    "image": "sha256:85b9bf2e29cf836ecb8c2a15a935d4ba0c606631dff1dd79531a11983c638f2a",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1773,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.017505129Z",
+      "FinishedAt": "2026-10-19T12:31:03.322040058Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:39:11.143896806Z",
+            "End": "2026-10-19T12:39:11.199001714Z",
+            "ExitCode": 0,
+            "Output": "mysqladmin: [Warning] Using a password on the command line interface can be insecure.\nmysqld is alive\n"
+          },
+          {
+            "Start": "2026-10-19T12:39:21.200339596Z",
+            "End": "2026-10-19T12:39:21.253581126Z",
+            "ExitCode": 0,
+            "Output": "mysqladmin: [Warning] Using a password on the command line interface can be insecure.\nmysqld is alive\n"
+          },
+          {
+            "Start": "2026-10-19T12:39:31.25542926Z",
+            "End": "2026-10-19T12:39:31.345240501Z",
+            "ExitCode": 0,
+            "Output": "mysqladmin: [Warning] Using a password on the command line interface can be insecure.\nmysqld is alive\n"
+          },
+          {
+            "Start": "2026-10-19T12:39:41.346121802Z",
+            "End": "2026-10-19T12:39:41.404790727Z",
+            "ExitCode": 0,
+            "Output": "mysqladmin: [Warning] Using a password on the command line interface can be insecure.\nmysqld is alive\n"
+          },
+          {
+            "Start": "2026-10-19T12:39:51.405994367Z",
+            "End": "2026-10-19T12:39:51.459882452Z",
+            "ExitCode": 0,
+            "Output": "mysqladmin: [Warning] Using a password on the command line interface can be insecure.\nmysqld is alive\n"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-abrasilsistema-1",
+    "id": "f137c6ce9a7622a75f3ade2564d008cbbd9a308b452778f4d8c7c394488bfcd8",
+    "image": "sha256:5de8a7107297d84b3077413a4b715e6ca8e473a72bf090c36cb5e82ef873b039",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1820,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.007416Z",
+      "FinishedAt": "2026-10-19T12:31:03.321876377Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:55.39584459Z",
+            "End": "2026-10-19T12:38:55.48976539Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:10.490341347Z",
+            "End": "2026-10-19T12:39:10.583749469Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:25.585121154Z",
+            "End": "2026-10-19T12:39:25.679236869Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:40.680448796Z",
+            "End": "2026-10-19T12:39:40.811896623Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:55.812867546Z",
+            "End": "2026-10-19T12:39:55.937190242Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-abrasilsistema-scheduler-1",
+    "id": "acbe731055110dd862f9911ede29f6d37389a21f9f60323374c85e0c55ea60b7",
+    "image": "sha256:603cec5ced30aa57e9742f06b15dbd60bfed39809421126012e77a22987ada5a",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2393,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.188354058Z",
+      "FinishedAt": "2026-10-19T12:31:03.323117374Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:42.714855795Z",
+            "End": "2026-10-19T12:38:42.831819359Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:38:57.832697248Z",
+            "End": "2026-10-19T12:38:57.920093209Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:12.920981419Z",
+            "End": "2026-10-19T12:39:13.075826119Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:28.076210717Z",
+            "End": "2026-10-19T12:39:28.176126192Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:43.177267855Z",
+            "End": "2026-10-19T12:39:43.277847611Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-abrasilsistema-worker-1",
+    "id": "d124b019b7b0b42b9a90843a9b610268cc6231f9e8dcdd2fda1c25e57381348c",
+    "image": "sha256:d3c4111aab84dd718f3500b41ae65b601e826cf0f2baa8c8644c40f0b4226915",
+    "restart": 3,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 4043,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:16.392237838Z",
+      "FinishedAt": "2026-10-19T12:31:15.490695638Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:50.131882342Z",
+            "End": "2026-10-19T12:38:50.227732743Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:05.229304296Z",
+            "End": "2026-10-19T12:39:05.322082738Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:20.323569962Z",
+            "End": "2026-10-19T12:39:20.415498247Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:35.416626596Z",
+            "End": "2026-10-19T12:39:35.506787173Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:50.507605109Z",
+            "End": "2026-10-19T12:39:50.595407447Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-desgarrados-1",
+    "id": "223452af7400c2845eddb97d07ca6b75fa5ecd676c48caeb379fdd71d2d7a52c",
+    "image": "sha256:328c0b6554cadd81e0427177569e4c26ef25ef2ba4a2d9f68c025763d1a8acef",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1846,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.192395362Z",
+      "FinishedAt": "2026-10-19T12:31:03.322737182Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:54.608525777Z",
+            "End": "2026-10-19T12:38:54.711449658Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:09.713164633Z",
+            "End": "2026-10-19T12:39:09.804687178Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:24.805711223Z",
+            "End": "2026-10-19T12:39:24.90598741Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:39.907917603Z",
+            "End": "2026-10-19T12:39:40.030482265Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:55.031209304Z",
+            "End": "2026-10-19T12:39:55.143820012Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-desgarrados-scheduler-1",
+    "id": "cfd6bd9885b5193c788f022a5816ba1021fa75679e94c6a318085772c4fab2b9",
+    "image": "sha256:d888f6a2a51cee8b76cc309e757537cf2e04960d683b93b54589a69d834642d8",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2318,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.155318605Z",
+      "FinishedAt": "2026-10-19T12:31:03.321787816Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:42.427893837Z",
+            "End": "2026-10-19T12:38:42.639744806Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:38:57.640454574Z",
+            "End": "2026-10-19T12:38:57.750624318Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:12.751194979Z",
+            "End": "2026-10-19T12:39:12.882781434Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:27.883190038Z",
+            "End": "2026-10-19T12:39:27.983746569Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:42.985128914Z",
+            "End": "2026-10-19T12:39:43.081680429Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-desgarrados-worker-1",
+    "id": "becb3bb46009149b23b9682953b36bebd2918491b200ddbe96db3d29784cef89",
+    "image": "sha256:e04c1707a487e844a12a13062235af60a1d214ccfb08ae75da84389511e37cd7",
+    "restart": 2,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 3772,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:14.127568339Z",
+      "FinishedAt": "2026-10-19T12:31:13.318878971Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:49.02489844Z",
+            "End": "2026-10-19T12:38:49.123772157Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:04.12507813Z",
+            "End": "2026-10-19T12:39:04.221497803Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:19.222095691Z",
+            "End": "2026-10-19T12:39:19.32961331Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:34.330825828Z",
+            "End": "2026-10-19T12:39:34.433246799Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:49.434419253Z",
+            "End": "2026-10-19T12:39:49.558794182Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-vetorpet-1",
+    "id": "3eea0899b7ecf08c6f2e08b0179dc311e2f145fa69a47b29fd9f77d9272b3c7e",
+    "image": "sha256:c4eea4836f57b41ab321437a56c504f94e51683d846b0b47a1c2176f1687fb70",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2277,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.151538903Z",
+      "FinishedAt": "2026-10-19T12:31:03.321829576Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:41.045121053Z",
+            "End": "2026-10-19T12:38:41.146690687Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:38:56.148039599Z",
+            "End": "2026-10-19T12:38:56.234616315Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:11.235927666Z",
+            "End": "2026-10-19T12:39:11.337480703Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:26.338864073Z",
+            "End": "2026-10-19T12:39:26.448267044Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:41.449318281Z",
+            "End": "2026-10-19T12:39:41.54673672Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-vetorpet-worker-1",
+    "id": "8ad282e327b6f41c260e1da0a53e0559822029267cf772190c513a35d741b50f",
+    "image": "sha256:74540af7039dd6262b22b0dd4ffd6f9b2c6d5adce4b57c289a6b583477dc0dde",
+    "restart": 3,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 4210,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:17.174378751Z",
+      "FinishedAt": "2026-10-19T12:31:16.41812142Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:50.91792442Z",
+            "End": "2026-10-19T12:38:51.01202913Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:06.013071199Z",
+            "End": "2026-10-19T12:39:06.102535362Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:21.103345841Z",
+            "End": "2026-10-19T12:39:21.188654115Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:36.189614097Z",
+            "End": "2026-10-19T12:39:36.280679657Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:51.28139752Z",
+            "End": "2026-10-19T12:39:51.387312218Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-vetorpet-scheduler-1",
+    "id": "928fcc612be454216ce51b542486884a2170b323da65fa123a2676bf864120a3",
+    "image": "sha256:a7584f9d21026dfd1d7835949f21cd42bbbcad55762f81d8831b126a45fd4d84",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2315,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.138503816Z",
+      "FinishedAt": "2026-10-19T12:31:03.321987977Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:42.460555169Z",
+            "End": "2026-10-19T12:38:42.666425252Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:38:57.666885669Z",
+            "End": "2026-10-19T12:38:57.811950007Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:12.812294977Z",
+            "End": "2026-10-19T12:39:12.970171531Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:27.971502795Z",
+            "End": "2026-10-19T12:39:28.071708009Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:43.072832177Z",
+            "End": "2026-10-19T12:39:43.162439382Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-waha-1",
+    "id": "b4cdcb152109eccbfa424de86bd10a90a4772e98c5c4b0410610d860ca6a3457",
+    "image": "sha256:527ff3d634925adb26d596883d7b3ca502c080f737af3c2af2be0c973c511533",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1914,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.011113392Z",
+      "FinishedAt": "2026-10-19T12:31:03.321627455Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:42.374903718Z",
+            "End": "2026-10-19T12:38:42.617574216Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:38:57.618962228Z",
+            "End": "2026-10-19T12:38:57.798697989Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:12.799899291Z",
+            "End": "2026-10-19T12:39:13.03106542Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:28.032217337Z",
+            "End": "2026-10-19T12:39:28.198362893Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:43.200114488Z",
+            "End": "2026-10-19T12:39:43.362486436Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-phpmyadmin-1",
+    "id": "281568e5693186fb09a0cf7b306a4afa75db0f4b0fbac6cefca95fbdf30baf94",
+    "image": "sha256:5f4b9a1f5aa30020003969e62387ee15e011e626514b4e1751e8976d49854617",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2464,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.250432341Z",
+      "FinishedAt": "2026-10-19T12:31:03.322095668Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:41.203255107Z",
+            "End": "2026-10-19T12:38:41.244305667Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:38:56.245610339Z",
+            "End": "2026-10-19T12:38:56.282100042Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:11.283004884Z",
+            "End": "2026-10-19T12:39:11.338640751Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:26.338938293Z",
+            "End": "2026-10-19T12:39:26.398541901Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:41.399316806Z",
+            "End": "2026-10-19T12:39:41.44118789Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-n8n-1",
+    "id": "f28679f9b0eecf94cef89495293183427959a8a68941257e57f905a3cda1da69",
+    "image": "sha256:9f693fd5565539efd5e75ad168526c8041a6af516d9e50bc4d9cb1c9c5031523",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2443,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.215174745Z",
+      "FinishedAt": "2026-10-19T12:31:03.322562341Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:38:41.637090883Z",
+            "End": "2026-10-19T12:38:41.677803051Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:38:56.679394626Z",
+            "End": "2026-10-19T12:38:56.716211911Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:11.717284415Z",
+            "End": "2026-10-19T12:39:11.760475642Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:26.761405878Z",
+            "End": "2026-10-19T12:39:26.811407751Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-19T12:39:41.812729562Z",
+            "End": "2026-10-19T12:39:41.855146547Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "/infra-abrasil-redis-1",
+    "id": "1772422225ae7bb94a8a9cf6bc0d3b0adfd1eae8d3ef10834f4de43249029414",
+    "image": "sha256:520775a41a63e77e06c73e35d2fd9cc15921a609516818796b4ecbb813078bc7",
+    "restart": 0,
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2458,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-19T12:31:05.2469504Z",
+      "FinishedAt": "2026-10-19T12:31:03.322715241Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-19T12:39:12.764241233Z",
+            "End": "2026-10-19T12:39:12.845569218Z",
+            "ExitCode": 0,
+            "Output": "PONG\n"
+          },
+          {
+            "Start": "2026-10-19T12:39:22.846610249Z",
+            "End": "2026-10-19T12:39:22.885825961Z",
+            "ExitCode": 0,
+            "Output": "PONG\n"
+          },
+          {
+            "Start": "2026-10-19T12:39:32.887098838Z",
+            "End": "2026-10-19T12:39:32.944923062Z",
+            "ExitCode": 0,
+            "Output": "PONG\n"
+          },
+          {
+            "Start": "2026-10-19T12:39:42.946014499Z",
+            "End": "2026-10-19T12:39:42.992522595Z",
+            "ExitCode": 0,
+            "Output": "PONG\n"
+          },
+          {
+            "Start": "2026-10-19T12:39:52.993759418Z",
+            "End": "2026-10-19T12:39:53.049179127Z",
+            "ExitCode": 0,
+            "Output": "PONG\n"
+          }
+        ]
+      }
+    }
+  }
+]

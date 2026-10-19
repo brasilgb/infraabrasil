@@ -1,0 +1,7 @@
+{
+  "available_kib": 5181128,
+  "free": "               total        used        free      shared  buff/cache   available\nMem:      8331825152  3026350080  3258937344    72638464  2422628352  5305475072\nSwap:              0           0           0\n",
+  "uptime": " 12:39:38 up 8 min,  1 user,  load average: 1.27, 1.25, 0.74\n",
+  "oom": "-- No entries --\n",
+  "disk": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        99G   38G   57G  40% /\ntmpfs           3.9G  8.0K  3.9G   1% /tmp\ntmpfs           795M  2.4M  793M   1% /run\n"
+}

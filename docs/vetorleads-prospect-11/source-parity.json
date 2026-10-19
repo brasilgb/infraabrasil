@@ -1,0 +1,16 @@
+{
+  "files_compared": 404,
+  "directories": [
+    "app",
+    "config",
+    "routes",
+    "resources",
+    "database/migrations"
+  ],
+  "lockfiles": [
+    "composer.lock",
+    "package-lock.json"
+  ],
+  "different_files": [],
+  "scope": "imagem publicada versus fontes usadas no teste isolado"
+}

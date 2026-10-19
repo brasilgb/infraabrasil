@@ -121,6 +121,9 @@ services:
       ABRASIL_MAIL_USERNAME: ${ABRASIL_MAIL_USERNAME:-contato@abrasilsistemas.com.br}
       ABRASIL_MAIL_FROM_ADDRESS: ${ABRASIL_MAIL_FROM_ADDRESS:-contato@abrasilsistemas.com.br}
       ABRASIL_MAIL_PASSWORD: ${ABRASIL_MAIL_PASSWORD:-}
+      # WebChat do site (VETOR-CHAT-10.2): proxy para a API do VetorLeads, pelo Nginx
+      VETORLEADS_WEB_CHAT_URL: ${VETORLEADS_WEB_CHAT_URL:-https://vetorleads.com.br}
+      VETORLEADS_WEB_CHAT_TOKEN: ${VETORLEADS_WEB_CHAT_SERVICE_TOKEN:-}
     volumes: [./volumes/vetoros:/var/www/html/storage/app/public, vetoros-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]
@@ -235,6 +238,9 @@ services:
       SAAS_COMMERCIAL_ENABLED: ${VETORLEADS_SAAS_COMMERCIAL_ENABLED:-false}
       WEB_CHAT_SERVICE_TOKEN: ${VETORLEADS_WEB_CHAT_SERVICE_TOKEN:-}
       WEB_CHAT_TENANT_ID: ${VETORLEADS_WEB_CHAT_TENANT_ID:-}
+      # Eventos internos para o n8n (VETOR-CHAT-10.2): só rede Docker, assinados por HMAC
+      N8N_EVENTS_URL: ${VETORLEADS_N8N_EVENTS_URL:-http://n8n:5678/webhook/vetorleads-events}
+      N8N_EVENTS_SECRET: ${VETORLEADS_N8N_EVENTS_SECRET:-}
       # Mesmo SMTP institucional do VetorOS (senha só em ABRASIL_MAIL_PASSWORD no .env da VPS).
       MAIL_MAILER: smtp
       MAIL_HOST: ${ABRASIL_MAIL_HOST:-smtp.hostinger.com}

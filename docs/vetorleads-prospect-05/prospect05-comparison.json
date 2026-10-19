@@ -1,0 +1,46 @@
+[
+    {
+        "example": "fixo com atividade",
+        "before_v2": 25,
+        "after_v3": 61,
+        "dimensions": {
+            "data": 75,
+            "contact": 63,
+            "fit": 50
+        },
+        "priority": "medium"
+    },
+    {
+        "example": "sem site com produto digital",
+        "before_v2": 25,
+        "after_v3": 78,
+        "dimensions": {
+            "data": 75,
+            "contact": 63,
+            "fit": 100
+        },
+        "priority": "high"
+    },
+    {
+        "example": "avaliações elevadas sem contato",
+        "before_v2": 13,
+        "after_v3": 27,
+        "dimensions": {
+            "data": 20,
+            "contact": 10,
+            "fit": 50
+        },
+        "priority": "insufficient"
+    },
+    {
+        "example": "albumina para suplementos",
+        "before_v2": 26,
+        "after_v3": 81,
+        "dimensions": {
+            "data": 75,
+            "contact": 68,
+            "fit": 100
+        },
+        "priority": "high"
+    }
+]

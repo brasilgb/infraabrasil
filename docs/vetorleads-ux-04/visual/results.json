@@ -1,0 +1,54 @@
+{
+  "checks": [
+    {
+      "width": 1440,
+      "path": "/prospecting",
+      "result": "PASS"
+    },
+    {
+      "width": 1440,
+      "path": "/prospecting/prospects",
+      "result": "PASS"
+    },
+    {
+      "width": 1440,
+      "path": "/settings/integrations/ab-prospect",
+      "result": "PASS"
+    },
+    {
+      "width": 390,
+      "path": "/prospecting",
+      "result": "PASS"
+    },
+    {
+      "width": 390,
+      "path": "/prospecting/prospects",
+      "result": "PASS"
+    },
+    {
+      "width": 390,
+      "path": "/settings/integrations/ab-prospect",
+      "result": "PASS"
+    },
+    {
+      "width": 320,
+      "path": "/prospecting",
+      "result": "PASS"
+    },
+    {
+      "width": 320,
+      "path": "/prospecting/prospects",
+      "result": "PASS"
+    },
+    {
+      "width": 320,
+      "path": "/settings/integrations/ab-prospect",
+      "result": "PASS"
+    }
+  ],
+  "tokenIssueRevoke": "PASS",
+  "secretNotRecovered": "PASS",
+  "searchAndBatch": "PASS",
+  "mobileMenu": "PASS",
+  "consoleErrors": []
+}

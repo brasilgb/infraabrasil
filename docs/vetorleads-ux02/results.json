@@ -1,0 +1,365 @@
+{
+  "results": [
+    {
+      "mode": "desktop",
+      "path": "/dashboard",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Dashboard",
+        "Prospecção · últimos 30 dias",
+        "Atendimento",
+        "Comercial"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/prospecting",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Buscar empresas"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/prospecting/prospects",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Leads captados"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/prospecting/searches",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Listas de prospecção"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/atendimento",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Central de atendimento",
+        "Visitante de teste"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/atendimento/contatos",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Contatos recebidos"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/leads",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "CRM / Leads qualificados"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/leads?tab=kanban",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Oportunidades"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/leads?tab=tasks",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Follow-ups"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/leads?tab=metrics",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Relatórios"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/automacoes",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Automações"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/settings/profile",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Configurações do perfil",
+        "Perfil",
+        "Excluir conta"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/settings/security",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Configurações de segurança",
+        "Alterar senha"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/settings/appearance",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Configurações de aparência",
+        "Aparência"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/settings/pipeline",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Funil comercial",
+        "Etapas do funil"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/settings/whatsapp",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "WhatsApp da empresa"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/settings/ai-assistant",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Assistente de IA"
+      ]
+    },
+    {
+      "mode": "desktop",
+      "path": "/prospect-products",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Produtos/Serviços"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/dashboard",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Dashboard",
+        "Prospecção · últimos 30 dias",
+        "Atendimento",
+        "Comercial"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/prospecting",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Buscar empresas"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/prospecting/prospects",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Leads captados"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/prospecting/searches",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Listas de prospecção"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/atendimento",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Central de atendimento",
+        "Visitante de teste"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/atendimento/contatos",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Contatos recebidos"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/leads",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "CRM / Leads qualificados"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/leads?tab=kanban",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Oportunidades"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/leads?tab=tasks",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Follow-ups"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/leads?tab=metrics",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Relatórios"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/automacoes",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Automações"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/settings/profile",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Configurações do perfil",
+        "Perfil",
+        "Excluir conta"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/settings/security",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Configurações de segurança",
+        "Alterar senha"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/settings/appearance",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Configurações de aparência",
+        "Aparência"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/settings/pipeline",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Funil comercial",
+        "Etapas do funil"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/settings/whatsapp",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "WhatsApp da empresa"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/settings/ai-assistant",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Assistente de IA"
+      ]
+    },
+    {
+      "mode": "mobile",
+      "path": "/prospect-products",
+      "status": 200,
+      "overflow": false,
+      "heading": [
+        "Sidebar",
+        "Produtos/Serviços"
+      ]
+    }
+  ],
+  "errors": []
+}

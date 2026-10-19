@@ -1,0 +1,32 @@
+{
+  "app/Services/Prospecting/ProspectQualifier.php": {
+    "runtime_sha256": "8639cbf258db4ae2d68a67de3e3fdce7e3ac504f1776334ac72576e7710fe15c",
+    "local_sha256": "21d3ba7450fb19ef671dda06e32a9b1406d21b658fbdf64f14c51aedb85ea0a8",
+    "equal": false
+  },
+  "app/Services/Prospecting/ExtensionProspectImporter.php": {
+    "runtime_sha256": "076837da848a43baa3f1bcd1a38cc5b1e464c7071a49ab4457c8c7042f7c30cc",
+    "local_sha256": "155b5b3797b4e3c103617f73b2929a876c83f3e940d5beb2b147934a46759cd0",
+    "equal": false
+  },
+  "app/Http/Controllers/Api/WebChatController.php": {
+    "runtime_sha256": "ea64ffca7ec96dc6b8336ac5e1df6ca468e113da143b80a0bb367e20546b9c65",
+    "local_sha256": "ea64ffca7ec96dc6b8336ac5e1df6ca468e113da143b80a0bb367e20546b9c65",
+    "equal": true
+  },
+  "app/Http/Controllers/ProspectingController.php": {
+    "runtime_sha256": "61245980c996009c70e241b1212dd29b9b2341cbee6967e038d3c41f051d9588",
+    "local_sha256": "53879501366b38d6a05bdc8405f8fe0c3bbf618e2bce66859be9825b66473ff3",
+    "equal": false
+  },
+  "app/Models/ProspectProduct.php": {
+    "runtime_sha256": "5ae1ec361708cf4bbb189f7f4c1d60829d2ecd5806a1039f8173736811046902",
+    "local_sha256": "1f6339351906d5264714cd581be08704b8290d093c3b9679a5d7474a3976493b",
+    "equal": false
+  },
+  "Dockerfile": {
+    "runtime_sha256": "dc03efbc873b634b553e6121ce08334a3b826f677423a252ea8a2622964cae9e",
+    "local_sha256": "dc03efbc873b634b553e6121ce08334a3b826f677423a252ea8a2622964cae9e",
+    "equal": true
+  }
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "repository": "gateway/vetorleads",
+    "commit": "94e452bf5e124dbb955c33c2c0864291af60a3d9",
+    "subject": "Implementa identifica\u00e7\u00e3o progressiva e consentimento no WebChat (VETOR-CHAT-11)"
+  },
+  {
+    "repository": "gateway/vetorleads",
+    "commit": "a455e747dfba5ed3fc4c0514bb776e0c4eebed1e",
+    "subject": "Refina configura\u00e7\u00f5es, dashboard e navega\u00e7\u00e3o do CRM (UX-02)"
+  },
+  {
+    "repository": "gateway/vetorleads",
+    "commit": "78314c93e5dcabc2e1998debc0fe57a0cd94a35d",
+    "subject": "Move o menu da conta para o topo direito do painel"
+  },
+  {
+    "repository": "gateway/vetorleads",
+    "commit": "89ab1ba32df20205282b6933eab7be69f01113ef",
+    "subject": "Moderniza landing do VetorLeads com imagens WebP e SEO"
+  },
+  {
+    "repository": "gateway/vetorleads",
+    "commit": "e5a85fc7b20c9469b44558bbb3d121432f861d08",
+    "subject": "Adapta landing \u00e0 refer\u00eancia visual verde fornecida"
+  },
+  {
+    "repository": "gateway/vetorleads",
+    "commit": "015f35b414a46e8d99ae8c626588ea6569fe7c02",
+    "subject": "Habilita JPEG e WebP no GD da imagem PHP"
+  },
+  {
+    "repository": "gateway/vetorleads",
+    "commit": "fe480c8e9064f34f3cc8504e674c7f91d7080211",
+    "subject": "Consolida troca de conversas e atalhos coerentes de m\u00e9tricas (UX-03)"
+  },
+  {
+    "repository": "gateway/vetoros",
+    "commit": "24716ef878ead2cb5954952bfa28b3777f173d3f",
+    "subject": "Integra identifica\u00e7\u00e3o opcional e consentimento ao widget (VETOR-CHAT-11)"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "qualification": "PASS",
+  "productContext": "PASS",
+  "priorityFilter": "PASS",
+  "potentialSort": "PASS",
+  "columns": 7,
+  "checks": [
+    {
+      "width": 1440,
+      "result": "PASS"
+    },
+    {
+      "width": 390,
+      "result": "PASS"
+    },
+    {
+      "width": 320,
+      "result": "PASS"
+    }
+  ],
+  "errors": []
+}

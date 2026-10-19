@@ -1,0 +1,11 @@
+fe480c8 Consolida troca de conversas e atalhos coerentes de métricas (UX-03)
+015f35b Habilita JPEG e WebP no GD da imagem PHP
+e5a85fc Adapta landing à referência visual verde fornecida
+89ab1ba Moderniza landing do VetorLeads com imagens WebP e SEO
+78314c9 Move o menu da conta para o topo direito do painel
+a455e74 Refina configurações, dashboard e navegação do CRM (UX-02)
+94e452b Implementa identificação progressiva e consentimento no WebChat (VETOR-CHAT-11)
+6536fe4 Reorganiza a navegação e a experiência do SaaS VetorLeads (VETORLEADS-UX-01)
+b45a6bc Corrige o WhatsApp por tenant com WAHA NOWEB: id do envio e contatos por LID
+f97ffe4 Entrega os eventos de atendimento ao n8n com HMAC, idempotência e retries (VETOR-CHAT-10.2)
+1d27de1 Reduz o mínimo da senha em produção para 8 caracteres

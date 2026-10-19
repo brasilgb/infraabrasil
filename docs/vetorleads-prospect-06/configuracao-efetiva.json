@@ -1,0 +1,8 @@
+{
+    "configuration_cached": false,
+    "app_env": "production",
+    "app_host": "vetorleads.com.br",
+    "database_driver": "mysql",
+    "database_host": "mysql",
+    "database_name": "vetorleads"
+}

@@ -1,0 +1,19 @@
+{
+  "accountTopRight": true,
+  "sidebarNameRemoved": true,
+  "draftClearedOnSwitch": true,
+  "lateResponseIsolated": true,
+  "delayedResponses": 1,
+  "dashboardShortcuts": true,
+  "widths": [
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

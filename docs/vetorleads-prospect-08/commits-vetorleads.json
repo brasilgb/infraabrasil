@@ -1,0 +1,14 @@
+[
+  {
+    "commit": "6c614bbbf82b6c524bec369b06aff2cfffa30477",
+    "subject": "Consolida landing e preferências de privacidade (LANDING-02)"
+  },
+  {
+    "commit": "a9ba459b75b1c76435f4d3bd17f24b7f7dc7d511",
+    "subject": "Consolida captura, critérios v3 e conversão comercial com prévia (PROSPECT-08)"
+  },
+  {
+    "commit": "adcc6e40f8025161882c95631f29cb69eab0bdba",
+    "subject": "Preserva qualificação após verificação até confirmação da prévia"
+  }
+]

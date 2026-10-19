@@ -1,0 +1,9 @@
+{
+  "applied": 46,
+  "pending_local": [
+    "2026_10_18_210000_add_identification_to_web_conversations",
+    "2026_10_19_000000_add_commercial_criteria_to_prospect_products"
+  ],
+  "relevant_columns_present": [],
+  "operational_migrations_executed": false
+}

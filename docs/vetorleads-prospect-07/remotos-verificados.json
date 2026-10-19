@@ -1,0 +1,6 @@
+{
+  "method": "git ls-remote --heads origin main; no fetch/pull/push",
+  "infra": "a4b8bd45631b7f854d315ccfc525e56020bff826",
+  "vetorleads": "a27461910eab7ebcc3c83113ee9c29ba48c454f3",
+  "vetoros": "438178b0961e227bd6137e9ac5436ac74c4a8724"
+}

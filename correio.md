@@ -1,52 +1,99 @@
-# DESGARRADOS-NEXT-29 — Localização regional global
-
-**Projeto:** `apps/desgarrados-next/`
-
-Implementar localização opcional como funcionalidade global do portal público.
+# VETORLEADS-PROSPECT-08 — Preparação e homologação comercial
 
 ## Objetivo
 
-Na primeira visita, exibir um modal de boas-vindas com a pergunta:
+Consolidar o trabalho das etapas anteriores e preparar o VetorLeads para operação comercial real, verificando o fluxo completo de prospecção.
 
-**"De que canto tu és?"**
+Não ampliar o escopo com funcionalidades desnecessárias.
 
-Explicar brevemente que a região permite personalizar informações e serviços.
+## 1. Consolidação dos repositórios
 
-Oferecer três opções:
+- Auditar alterações locais e os 11 commits à frente do remoto no VetorLeads.
+- Verificar as alterações do VetorOS e da infraestrutura compartilhada.
+- Preservar as implementações anteriores, inclusive landing page, CRM, atendimento, WebChat e funcionalidades dos demais produtos.
+- Examinar as duas migrations pendentes e suas dependências.
+- Identificar possíveis conflitos entre código local, runtime de produção e infraestrutura.
+- Organizar alterações em commits coerentes, sem descartar trabalho.
+- Não executar push nem deploy sem autorização.
 
-1. Usar minha localização.
-2. Escolher meu município.
-3. Agora não.
+## 2. Verificação da captura
 
-## Requisitos
+Auditar a integração atual da extensão de prospecção com o VetorLeads.
 
-- Solicitar permissão de geolocalização somente após clique explícito.
-- Reutilizar a estrutura existente de municípios/UF do IBGE e a preferência regional já implementada.
-- Reutilizar o serviço de geocodificação reversa quando configurado, sem inventar provedor ou credenciais.
-- Oferecer seleção manual por município e UF, com busca acessível.
-- Persistir apenas código IBGE/UF e preferência de exibição no armazenamento local, sem persistir coordenadas.
-- Não repetir o modal a cada visita ou navegação; permitir redefinir a escolha nas preferências.
-- Exibir localização atual e ação para alterar município no cabeçalho público, inclusive no mobile.
-- Compartilhar o contexto regional com Nossa Terra, Calendário Rural e demais páginas que realmente utilizam município, respeitando filtros explícitos da URL.
-- Não filtrar ou esconder o acervo cultural geral.
-- Tratar permissão negada, geolocalização indisponível, timeout e falha do geocodificador.
-- Preservar privacidade, acessibilidade e experiência sem cadastro.
-- Não criar duplicação de estados, APIs ou componentes de localização existentes.
+Validar:
+- Identificação e autenticação do tenant.
+- Importação de empresas.
+- Nome empresarial e atividade.
+- Telefone, celular e possível WhatsApp.
+- Website.
+- Endereço, cidade e UF quando fornecidos.
+- Origem e lote da captura.
+- Tratamento de duplicidades.
+- Recaptura e atualização conservadora.
+- Tratamento de erros.
 
-## Interface
+Não presumir que um telefone possui WhatsApp ativo.
 
-Manter a identidade visual atual do Desgarrados.
+Não inventar dados ausentes.
 
-Modal compacto, responsivo, sem aparência artificial ou excesso de elementos. Uso natural de linguagem regional.
+## 3. Fluxo comercial
 
-Não bloquear a navegação caso o visitante recuse a localização.
+Validar a jornada:
 
-## Validação
+Captura → Lista de prospects → Qualificação → Seleção → Conversão para CRM → Acompanhamento no dashboard.
 
-Testar primeira visita, retorno ao site, troca de município, preferência manual, GPS negado, falhas do provedor, navegação por teclado e funcionamento das ferramentas regionais.
+Verificar:
+- Navegação intuitiva.
+- Mensagens claras de sucesso e erro.
+- Preservação de dados existentes.
+- Deduplicação na conversão.
+- Isolamento entre tenants.
+- Histórico comercial.
+- Indicadores calculados com dados reais, sem confundir conversão para CRM com vendas realizadas.
 
-Executar testes Laravel, PHPStan, TypeScript e build SSR.
+## 4. Qualificação
 
-Registrar o resultado em `executed.md`.
+- Preservar score v3 e critérios por produto.
+- Não executar requalificação em massa.
+- Manter prévia e confirmação antes de persistir alterações.
+- Verificar que produto ou segmento incorreto não produz uma oportunidade artificialmente favorável.
+- Apresentar justificativas legíveis para a classificação.
 
-**Não executar push ou deploy nesta tarefa.**
+## 5. Interface
+
+Revisar as telas de captura, prospects, produtos, CRM e dashboard.
+
+Manter padrão visual profissional, uniforme e responsivo.
+
+A captura deve continuar totalmente independente das configurações administrativas da extensão.
+
+Não duplicar menus, indicadores nem funcionalidades.
+
+## 6. Homologação e segurança
+
+Primeiro executar os testes completos em ambiente isolado.
+
+Preparar um roteiro de teste real com uma pequena amostra autorizada de empresas, preservando todos os dados existentes.
+
+Não realizar contatos ou disparos comerciais.
+
+Nenhuma alteração persistente de registros reais deve ocorrer sem autorização específica.
+
+Não executar migrations operacionais, push, deploy ou reinicialização de serviços nesta execução.
+
+## 7. Relatório
+
+Substituir integralmente `executed.md` com o relatório PROSPECT-08.
+
+Documentar:
+
+- Estado dos repositórios.
+- Migrations e dependências.
+- Fluxos efetivamente testados.
+- Evidências de funcionamento.
+- Problemas identificados e correções locais.
+- Roteiro para publicação segura.
+- Pendências para homologação real.
+- Riscos e possíveis impactos sobre VetorOS, WebChat e infraestrutura.
+
+**Critério de conclusão:** sistema tecnicamente consolidado, sem regressões conhecidas nos testes executados, com roteiro seguro de implantação e homologação operacional real claramente definido.

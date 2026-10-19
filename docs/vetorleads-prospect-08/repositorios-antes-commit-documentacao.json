@@ -1,0 +1,23 @@
+{
+  ".": {
+    "head": "8aaa1f3d1d2cfc07c3d50e94a68061f86187e4c9",
+    "branch": "main",
+    "upstream": "origin/main",
+    "ahead_behind": "2\t0",
+    "working_tree_before_documentation_commit": "M correio.md\n M executed.md\n?? docs/"
+  },
+  "gateway/vetorleads": {
+    "head": "adcc6e40f8025161882c95631f29cb69eab0bdba",
+    "branch": "main",
+    "upstream": "origin/main",
+    "ahead_behind": "14\t0",
+    "working_tree_before_documentation_commit": ""
+  },
+  "gateway/vetoros": {
+    "head": "24716ef878ead2cb5954952bfa28b3777f173d3f",
+    "branch": "deploy/vetor-intel-20261008",
+    "upstream": "origin/main",
+    "ahead_behind": "1\t0",
+    "working_tree_before_documentation_commit": ""
+  }
+}

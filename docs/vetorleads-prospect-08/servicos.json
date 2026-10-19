@@ -1,0 +1,128 @@
+[
+  {
+    "service": "abrasilsistema",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-abrasilsistema"
+  },
+  {
+    "service": "abrasilsistema-scheduler",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-abrasilsistema-scheduler"
+  },
+  {
+    "service": "abrasilsistema-worker",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-abrasilsistema-worker"
+  },
+  {
+    "service": "desgarrados",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-desgarrados"
+  },
+  {
+    "service": "desgarrados-scheduler",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-desgarrados-scheduler"
+  },
+  {
+    "service": "desgarrados-worker",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-desgarrados-worker"
+  },
+  {
+    "service": "mysql",
+    "state": "running",
+    "health": "healthy",
+    "image": "mysql:8.4"
+  },
+  {
+    "service": "n8n",
+    "state": "running",
+    "health": "healthy",
+    "image": "n8nio/n8n:latest"
+  },
+  {
+    "service": "nginx",
+    "state": "running",
+    "health": "healthy",
+    "image": "nginx:1.27-alpine"
+  },
+  {
+    "service": "phpmyadmin",
+    "state": "running",
+    "health": "healthy",
+    "image": "phpmyadmin:latest"
+  },
+  {
+    "service": "redis",
+    "state": "running",
+    "health": "healthy",
+    "image": "redis:7-alpine"
+  },
+  {
+    "service": "vetorleads",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetorleads"
+  },
+  {
+    "service": "vetorleads-scheduler",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetorleads-scheduler"
+  },
+  {
+    "service": "vetorleads-worker",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetorleads-worker"
+  },
+  {
+    "service": "vetoros",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetoros"
+  },
+  {
+    "service": "vetoros-scheduler",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetoros-scheduler"
+  },
+  {
+    "service": "vetoros-worker",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetoros-worker"
+  },
+  {
+    "service": "vetorpet",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetorpet"
+  },
+  {
+    "service": "vetorpet-scheduler",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetorpet-scheduler"
+  },
+  {
+    "service": "vetorpet-worker",
+    "state": "running",
+    "health": "healthy",
+    "image": "infra-abrasil-vetorpet-worker"
+  },
+  {
+    "service": "waha",
+    "state": "running",
+    "health": "healthy",
+    "image": "devlikeapro/waha:latest"
+  }
+]

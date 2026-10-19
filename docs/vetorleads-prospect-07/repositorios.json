@@ -1,0 +1,23 @@
+{
+  ".": {
+    "branch": "main",
+    "head": "a4b8bd45631b7f854d315ccfc525e56020bff826",
+    "upstream": "origin/main",
+    "divergence": "0\t0",
+    "status": "M correio.md\n M docker-compose.yml\n M executed.md\n M gateway/vetorleads\n M gateway/vetoros\n?? docs/"
+  },
+  "gateway/vetorleads": {
+    "branch": "main",
+    "head": "fe480c8e9064f34f3cc8504e674c7f91d7080211",
+    "upstream": "origin/main",
+    "divergence": "11\t0",
+    "status": "M app/Http/Controllers/Api/ProspectImportController.php\n M app/Http/Controllers/DashboardController.php\n M app/Http/Controllers/ProspectProductController.php\n M app/Http/Controllers/ProspectingController.php\n M app/Http/Requests/ProspectProducts/ProspectProductRequest.php\n M app/Models/ProspectProduct.php\n M app/Services/Prospecting/ExtensionProspectImporter.php\n M app/Services/Prospecting/ProspectConverter.php\n M app/Services/Prospecting/ProspectEnricher.php\n M app/Services/Prospecting/ProspectNormalizer.php\n M app/Services/Prospecting/ProspectQualifier.php\n M extension/ab-prospect-firefox/README.md\n D public/images/vetorleads-brand.webp\n D public/images/vetorleads-hero-1280.webp\n D public/images/vetorleads-hero-640.webp\n M resources/js/components/app-sidebar.tsx\n M resources/js/components/cookie-consent.tsx\n M resources/js/components/prospecting-results.tsx\n M resources/js/components/public-footer.tsx\n M resources/js/layouts/settings/layout.tsx\n M resources/js/pages/dashboard.tsx\n M resources/js/pages/legal/cookies.tsx\n M resources/js/pages/legal/privacidade.tsx\n M resources/js/pages/legal/termos.tsx\n M resources/js/pages/prospect-products/index.tsx\n M resources/js/pages/prospecting/prospects.tsx\n M resources/js/pages/prospecting/search.tsx\n M resources/js/pages/prospecting/searches.tsx\n M resources/js/pages/welcome.tsx\n M routes/settings.php\n M routes/web.php\n M tests/Feature/CommercialCrmConsolidationTest.php\n M tests/Feature/ExtensionProspectingTest.php\n M tests/Feature/ProspectingTest.php\n?? app/Console/Commands/PreviewProspectQualification.php\n?? app/Services/Prospecting/ProspectQualificationPreview.php\n?? app/Services/Prospecting/ReadOnlyProspectAudit.php\n?? database/migrations/2026_10_19_000000_add_commercial_criteria_to_prospect_products.php\n?? resources/js/components/vetorleads-public.tsx\n?? resources/js/lib/cookie-consent.ts\n?? resources/js/pages/settings/integrations/\n?? tests/Feature/ProspectAuditPreviewTest.php\n?? tests/Feature/ProspectCommercialFlowTest.php\n?? tests/Feature/ProspectQualificationTest.php\n?? tests/js/"
+  },
+  "gateway/vetoros": {
+    "branch": "deploy/vetor-intel-20261008",
+    "head": "24716ef878ead2cb5954952bfa28b3777f173d3f",
+    "upstream": "origin/main",
+    "divergence": "1\t0",
+    "status": ""
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "infra": {
+    "branch": "main",
+    "head": "a4b8bd45631b7f854d315ccfc525e56020bff826",
+    "upstream": "origin/main",
+    "remote_tracking_head": "a4b8bd45631b7f854d315ccfc525e56020bff826",
+    "ahead": 0,
+    "behind": 0,
+    "status": [
+      "M correio.md",
+      " M docker-compose.yml",
+      " M executed.md",
+      " M gateway/vetorleads",
+      " M gateway/vetoros",
+      "?? docs/"
+    ]
+  },
+  "vetorleads": {
+    "branch": "main",
+    "head": "fe480c8e9064f34f3cc8504e674c7f91d7080211",
+    "upstream": "origin/main",
+    "remote_tracking_head": "a27461910eab7ebcc3c83113ee9c29ba48c454f3",
+    "ahead": 11,
+    "behind": 0,
+    "status": [
+      "M app/Http/Controllers/Api/ProspectImportController.php",
+      " M app/Http/Controllers/ProspectingController.php",
+      " M app/Services/Prospecting/ExtensionProspectImporter.php",
+      " M app/Services/Prospecting/ProspectEnricher.php",
+      " M app/Services/Prospecting/ProspectNormalizer.php",
+      " M app/Services/Prospecting/ProspectQualifier.php",
+      " M extension/ab-prospect-firefox/README.md",
+      " D public/images/vetorleads-brand.webp",
+      " D public/images/vetorleads-hero-1280.webp",
+      " D public/images/vetorleads-hero-640.webp",
+      " M resources/js/components/app-sidebar.tsx",
+      " M resources/js/components/cookie-consent.tsx",
+      " M resources/js/components/prospecting-results.tsx",
+      " M resources/js/components/public-footer.tsx",
+      " M resources/js/layouts/settings/layout.tsx",
+      " M resources/js/pages/dashboard.tsx",
+      " M resources/js/pages/legal/cookies.tsx",
+      " M resources/js/pages/legal/privacidade.tsx",
+      " M resources/js/pages/legal/termos.tsx",
+      " M resources/js/pages/prospecting/prospects.tsx",
+      " M resources/js/pages/prospecting/search.tsx",
+      " M resources/js/pages/prospecting/searches.tsx",
+      " M resources/js/pages/welcome.tsx",
+      " M routes/settings.php",
+      " M routes/web.php",
+      " M tests/Feature/ExtensionProspectingTest.php",
+      " M tests/Feature/ProspectingTest.php",
+      "?? app/Console/Commands/PreviewProspectQualification.php",
+      "?? app/Services/Prospecting/ProspectQualificationPreview.php",
+      "?? app/Services/Prospecting/ReadOnlyProspectAudit.php",
+      "?? resources/js/components/vetorleads-public.tsx",
+      "?? resources/js/lib/cookie-consent.ts",
+      "?? resources/js/pages/settings/integrations/",
+      "?? tests/Feature/ProspectAuditPreviewTest.php",
+      "?? tests/Feature/ProspectQualificationTest.php",
+      "?? tests/js/"
+    ]
+  },
+  "vetoros": {
+    "branch": "deploy/vetor-intel-20261008",
+    "head": "24716ef878ead2cb5954952bfa28b3777f173d3f",
+    "upstream": "origin/main",
+    "remote_tracking_head": "438178b0961e227bd6137e9ac5436ac74c4a8724",
+    "ahead": 1,
+    "behind": 0,
+    "status": []
+  }
+}

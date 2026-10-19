@@ -1,0 +1,104 @@
+{
+  "results": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "status": 200,
+      "overflow": false,
+      "image": {
+        "complete": true,
+        "width": 550,
+        "height": 366,
+        "currentSrc": "http://127.0.0.1:8000/images/vetorleads-hero-green-640.webp"
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:8000/images/vetorleads-hero-green-640.webp",
+          "bytes": 29906,
+          "duration": 11.400000005960464
+        }
+      ],
+      "accessibilityViolations": []
+    },
+    {
+      "name": "tablet",
+      "width": 768,
+      "height": 1024,
+      "status": 200,
+      "overflow": false,
+      "image": {
+        "complete": true,
+        "width": 614,
+        "height": 408,
+        "currentSrc": "http://127.0.0.1:8000/images/vetorleads-hero-green-640.webp"
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:8000/images/vetorleads-hero-green-640.webp",
+          "bytes": 29906,
+          "duration": 13.300000011920929
+        }
+      ],
+      "accessibilityViolations": []
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "overflow": false,
+      "image": {
+        "complete": true,
+        "width": 390,
+        "height": 259,
+        "currentSrc": "http://127.0.0.1:8000/images/vetorleads-hero-green-640.webp"
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:8000/images/vetorleads-hero-green-640.webp",
+          "bytes": 29906,
+          "duration": 6.899999976158142
+        }
+      ],
+      "accessibilityViolations": []
+    },
+    {
+      "name": "compact",
+      "width": 320,
+      "height": 740,
+      "status": 200,
+      "overflow": false,
+      "image": {
+        "complete": true,
+        "width": 320,
+        "height": 213,
+        "currentSrc": "http://127.0.0.1:8000/images/vetorleads-hero-green-640.webp"
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:8000/images/vetorleads-hero-green-640.webp",
+          "bytes": 29906,
+          "duration": 4.0999999940395355
+        }
+      ],
+      "accessibilityViolations": []
+    }
+  ],
+  "registerStatus": 200,
+  "links": [
+    {
+      "path": "/politica-de-privacidade",
+      "status": 200
+    },
+    {
+      "path": "/termos-de-uso",
+      "status": 200
+    },
+    {
+      "path": "/politica-de-cookies",
+      "status": 200
+    }
+  ],
+  "errors": []
+}

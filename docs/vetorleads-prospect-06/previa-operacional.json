@@ -1,0 +1,229 @@
+{
+    "mode": "READ_ONLY_OPERATIONAL_DATA",
+    "context": "general_product_key_0",
+    "rules_version": "v3",
+    "qualifier_sha256": "8639cbf258db4ae2d68a67de3e3fdce7e3ac504f1776334ac72576e7710fe15c",
+    "analyzed": 61,
+    "failed": 0,
+    "priorities": {
+        "high": 0,
+        "medium": 61,
+        "low": 0,
+        "insufficient": 0
+    },
+    "inventory": {
+        "phone": 61,
+        "mobile": 28,
+        "landline": 33,
+        "whatsapp_origin": 0,
+        "whatsapp_probable": 28,
+        "whatsapp_possible": 33,
+        "website": 45,
+        "no_website": 16,
+        "invalid_website": 0,
+        "website_checked": 0,
+        "complete_location": 0,
+        "incomplete_location": 61,
+        "recoverable_location": 0,
+        "cnpj": 0,
+        "valid_cnpj": 0,
+        "crm_linked": 0,
+        "do_not_contact": 0,
+        "qualified": 61,
+        "pending_v3": 61,
+        "contact_available": 61,
+        "invalid_phone_format": 0,
+        "multiple_phone_values": 0,
+        "capture_phone_not_stored": 0,
+        "generic_capture_context": 0,
+        "no_search_context": 61,
+        "recoverable_city": 0,
+        "recoverable_state": 0,
+        "source_city_present": 0,
+        "source_uf_valid": 0,
+        "address_has_uf_token": 0,
+        "source_website_analysis": 0,
+        "source_product_hint_present": 61
+    },
+    "previous_versions": {
+        "v2": 61
+    },
+    "score_changes": {
+        "higher": 61,
+        "equal": 0,
+        "lower": 0,
+        "no_previous": 0
+    },
+    "samples": [
+        {
+            "reference": "6ac594c0ea1a",
+            "previous": {
+                "score": 34,
+                "version": "v2"
+            },
+            "proposed": {
+                "score": 63,
+                "version": "v3",
+                "priority": "medium",
+                "dimensions": {
+                    "data": 60,
+                    "contact": 73,
+                    "fit": 50
+                },
+                "reasons": [
+                    "Sem produto ou segmento comercial explícito: aderência neutra de 50, pendente de contexto",
+                    "Pontuação de contato: 73/100; sem validação de atendimento."
+                ]
+            }
+        },
+        {
+            "reference": "16fb99b47da5",
+            "previous": {
+                "score": 33,
+                "version": "v2"
+            },
+            "proposed": {
+                "score": 63,
+                "version": "v3",
+                "priority": "medium",
+                "dimensions": {
+                    "data": 70,
+                    "contact": 68,
+                    "fit": 50
+                },
+                "reasons": [
+                    "Sem produto ou segmento comercial explícito: aderência neutra de 50, pendente de contexto",
+                    "Pontuação de contato: 68/100; sem validação de atendimento."
+                ]
+            }
+        },
+        {
+            "reference": "80b962d5657b",
+            "previous": {
+                "score": 30,
+                "version": "v2"
+            },
+            "proposed": {
+                "score": 59,
+                "version": "v3",
+                "priority": "medium",
+                "dimensions": {
+                    "data": 65,
+                    "contact": 63,
+                    "fit": 50
+                },
+                "reasons": [
+                    "Sem produto ou segmento comercial explícito: aderência neutra de 50, pendente de contexto",
+                    "Pontuação de contato: 63/100; sem validação de atendimento."
+                ]
+            }
+        },
+        {
+            "reference": "fdcbd0f88556",
+            "previous": {
+                "score": 34,
+                "version": "v2"
+            },
+            "proposed": {
+                "score": 65,
+                "version": "v3",
+                "priority": "medium",
+                "dimensions": {
+                    "data": 70,
+                    "contact": 73,
+                    "fit": 50
+                },
+                "reasons": [
+                    "Sem produto ou segmento comercial explícito: aderência neutra de 50, pendente de contexto",
+                    "Pontuação de contato: 73/100; sem validação de atendimento."
+                ]
+            }
+        },
+        {
+            "reference": "30a5707ad307",
+            "previous": {
+                "score": 34,
+                "version": "v2"
+            },
+            "proposed": {
+                "score": 62,
+                "version": "v3",
+                "priority": "medium",
+                "dimensions": {
+                    "data": 55,
+                    "contact": 73,
+                    "fit": 50
+                },
+                "reasons": [
+                    "Sem produto ou segmento comercial explícito: aderência neutra de 50, pendente de contexto",
+                    "Pontuação de contato: 73/100; sem validação de atendimento."
+                ]
+            }
+        },
+        {
+            "reference": "0b8aa81b44c0",
+            "previous": {
+                "score": 34,
+                "version": "v2"
+            },
+            "proposed": {
+                "score": 60,
+                "version": "v3",
+                "priority": "medium",
+                "dimensions": {
+                    "data": 45,
+                    "contact": 73,
+                    "fit": 50
+                },
+                "reasons": [
+                    "Sem produto ou segmento comercial explícito: aderência neutra de 50, pendente de contexto",
+                    "Pontuação de contato: 73/100; sem validação de atendimento."
+                ]
+            }
+        }
+    ],
+    "scope": {
+        "tenant_id": 1,
+        "product_key": 0,
+        "captured_at": "2026-10-18T23:22:06+00:00",
+        "limit": 500,
+        "chunk": 100,
+        "before": {
+            "sha256": "cf0c0894eefe2453fffcb3d75c09ffff6bc850b4667446005f84efc5630f110b",
+            "counts": {
+                "prospecting_results": 61,
+                "prospecting_result_sources": 61,
+                "prospecting_qualifications": 61,
+                "prospecting_searches": 2,
+                "prospecting_search_results": 61,
+                "prospect_products": 0,
+                "leads": 1
+            }
+        }
+    },
+    "evidence": {
+        "type": "end",
+        "after": {
+            "sha256": "cf0c0894eefe2453fffcb3d75c09ffff6bc850b4667446005f84efc5630f110b",
+            "counts": {
+                "prospecting_results": 61,
+                "prospecting_result_sources": 61,
+                "prospecting_qualifications": 61,
+                "prospecting_searches": 2,
+                "prospecting_search_results": 61,
+                "prospect_products": 0,
+                "leads": 1
+            }
+        },
+        "exported": 61,
+        "unchanged": true
+    },
+    "percentages": {
+        "high": 0,
+        "medium": 100,
+        "low": 0,
+        "insufficient": 0
+    },
+    "complete": true,
+    "peak_memory_bytes": 27262976
+}

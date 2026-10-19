@@ -1,478 +1,104 @@
-# Execução manual: pull, build, up e migrations do VetorOS (VETOR-FISCAL-01/02 e VETOR-PERF). Resultado: **IMPLANTADO E VALIDADO**
+# VETORLEADS-PROSPECT-08 — consolidação técnica e preparação da homologação comercial
 
-**Data:** 2026-10-15
-**Host:** `srv1990862` (`/opt/infra-abrasil`)
-**Código em produção:** VetorOS `423195d9`
+Execução concluída em **19/10/2026 UTC**. O relatório anterior foi integralmente substituído.
 
-> Solicitado diretamente pelo operador, fora de um `correio.md`.
+## Comparação do correio
 
-## 1. Pull
+- Anterior, PROSPECT-07: `c19fa57a8fe88ab79638870db61467e9a73283a15604b37a34ef22d02f149a41`.
+- Executado, PROSPECT-08: `00c7f00a20abb3be555f249a18bc801834e378ab00327a62d4e2d16f9b3c19af`.
 
-- O `infra-abrasil` já estava atualizado (`6cc65ba`).
-- O submódulo `gateway/vetoros` (branch `deploy/vetor-intel-20261008`, que acompanha `origin/main`) avançou com `--ff-only` de `832906cf` para `423195d9`:
+**Resultado:** trabalho anterior preservado, alterações organizadas em commits locais, testes completos aprovados e roteiro de implantação/homologação preparado. **Sem push, deploy, migrations operacionais, reinicialização de serviços operacionais, requalificação em massa ou escrita de registros comerciais reais. A homologação operacional real permanece pendente.**
 
-```
-423195d9 Reduz o tempo de leitura das telas: PDF sob demanda, props enxutas e cache de execução (VETOR-PERF)
-7faa1d69 Push
-42554086 Registra o correio e o relatório de execução do VETOR-FISCAL-02
-36ea985c Registra o correio e o relatório de execução do VETOR-FISCAL-01
-3ffec982 Conclui o cadastro automático do emitente na Spedy e a liberação do certificado A1 (VETOR-FISCAL-01)
-```
+## Correções locais desta etapa
 
-- Mudanças de infraestrutura no VetorOS: o Dockerfile passa a copiar `deploy/php/conf.d/zz-vetoros-performance.ini` e `deploy/php/php-fpm.d/zz-vetoros-pool.conf`, e o entrypoint passa a rodar `php artisan optimize` na subida do container.
-- `umask` do operador: `0022`. Nenhum arquivo do `gateway/vetoros` ficou com `600`/`700`.
+1. **Recaptura conserva a qualificação:** a extensão atualiza lacunas e o histórico de captura, mas não recalcula mais o score existente sem prévia/confirmação. A primeira captura continua recebendo sua qualificação inicial. Um teste demonstra a preservação inclusive de score v2 após recebimento de dados adicionais.
+2. **Selo comercial coerente com v3:** `Qualificado` agora exige prioridade comercial alta, com aderência e contato suficientes. Tier numérico alto isolado não torna um produto incorreto ou segmento excluído favorável. Casos com contato forte e produto/segmento incompatível foram testados. Pesos e critérios v3 preservados.
+3. **Verificação de site/CNPJ conserva o score:** a ação opcional continua verificando/preenchendo os campos permitidos, mas a atualização da qualificação existente fica para uma prévia confirmada. Mensagem de sucesso orienta esse passo; um teste verifica a preservação. Consultas externas foram simuladas na validação.
+4. **Contrato da extensão verificado:** teste adicional do transporte valida bearer token, sucesso, erros HTTP 401/422/500 e falha de rede sem chamar serviço real.
 
-## 2. Build e up
+A prévia/confirmação individual continua vinculada a tenant, usuário, prospect, produto e hash dos dados/critérios, com expiração e rejeição de contexto alterado. Nenhum campo ausente foi inventado; telefone não foi tratado como WhatsApp ativo. Não foram adicionados menus, indicadores ou arquitetura paralelos nesta etapa.
 
-- Imagens `vetoros`, `vetoros-worker` e `vetoros-scheduler` reconstruídas.
-- Só esses três serviços foram recriados (`up -d --no-deps`). O nginx e os demais serviços não foram tocados.
+## Repositórios e commits
 
-## 3. Backup
+As referências remotas foram conferidas com `git ls-remote`, sem fetch/pull/push. Os onze commits anteriores do VetorLeads foram preservados: senha, eventos n8n, WAHA por tenant, UX-01/02/03, identificação WebChat, menu da conta, landing e GD JPEG/WebP. Inventário completo: [onze-commits-anteriores.txt](docs/vetorleads-prospect-08/onze-commits-anteriores.txt).
 
-- `backups/vetoros_pre_migrate_20261015_160646.sql` (15 MB, `mysqldump --single-transaction --routines --triggers --events`), termina em `Dump completed`, com 80 de 80 tabelas do banco `vetoros`.
+| Repositório | Estado consolidado local | Relação com remoto conferido |
+| --- | --- | --- |
+| VetorLeads, `main` | HEAD `adcc6e4`, árvore limpa | **14 commits à frente / 0 atrás** de `origin/main` `a274619` |
+| VetorOS, `deploy/vetor-intel-20261008` | HEAD `24716ef8`, árvore limpa, sem alteração de código nesta etapa | **1 commit à frente / 0 atrás** do upstream `origin/main` `438178b0` |
+| Infra, `main` | Configuração e ponteiros consolidados; relatório/evidências em commit próprio | **3 commits locais desta etapa**, sem publicação; remoto continua `a4b8bd4` |
 
-## 4. Migrations
+Commits novos do VetorLeads:
 
-- Executadas com `migrate --force`, cerca de 2 minutos depois de o código novo subir:
-  - `2026_10_15_100000_add_spedy_link_environment_to_fiscal_settings`: adiciona `spedy_environment` e `last_synced_at` em `fiscal_settings` e preenche os vínculos Spedy existentes;
-  - `2026_10_15_110000_add_action_created_index_to_order_logs`: cria o índice de ação e data em `order_logs`.
-- Ambas são aditivas e têm `down()`. Depois delas, `migrate:status --pending` resultou em *No pending migrations*.
-- Em seguida foram executados `php artisan optimize` e o restart de `vetoros-worker` e `vetoros-scheduler`.
+- `6c614bb` — landing e preferências de privacidade, incluindo retirada dos assets antigos não referenciados.
+- `a9ba459` — captura, critérios v3, prévia/auditoria, conversão, UX comercial e testes consolidados.
+- `adcc6e4` — preservação da qualificação após verificação até confirmação da prévia.
 
-## 5. Validação
+Na infraestrutura: `7a0c9f8` consolida as variáveis já existentes de WebChat/n8n e os ponteiros; `8aaa1f3` registra a proteção final do VetorLeads. O terceiro commit contém este relatório, `correio.md` e as evidências/documentação preservadas das etapas anteriores. Seu identificador consta no histórico Git, evitando autorreferência no próprio relatório.
 
-- `https://vetoros.com.br`: `/`, `/login` e `/up` responderam **200**, e `/admin` respondeu **302**.
-- `vetoros`, `vetoros-worker` e `vetoros-scheduler` estão **healthy**.
-- Nenhum erro ou exceção nos logs dos três serviços depois do deploy.
+Nenhum commit anterior foi reescrito ou descartado. VetorOS e demais produtos foram preservados. Os snapshots da pasta de evidências identificam expressamente quando foram gerados antes do commit final de documentação.
 
-## Pendências
+## Captura e fluxo efetivamente auditados
 
-1. Homologação funcional do VETOR-FISCAL-01/02 (cadastro do emitente na Spedy e certificado A1) e do VETOR-PERF em produção.
-2. Alterações locais do desgarrados (`docker-compose.yml`, `nginx/conf.d/apps.conf`, `gateway/desgarrados` e `volumes/`) não são desta execução e não foram tocadas nem commitadas.
+A extensão envia o bearer token do tenant; o servidor resolve somente token válido/não revogado/não expirado e tenant ativo, ignorando tenant forjado no payload. A captura usa as tabelas existentes, mantém origem/lote/identidade Maps e não cria lead automaticamente. Recaptura preenche lacunas conservadoramente; não altera oposição, seleção ou vínculo CRM.
 
----
+Cobertos: nome público e atividade, telefones/celular/WhatsApp informado ou provável/possível, website, endereço/cidade/UF fornecidos, origem e lote, identidade Place ID/FTID, deduplicação, recaptura, validação e falhas de transporte. A API aceita razão social/nome fantasia opcionais, mas a extensão Maps não garante razão social cadastral.
 
-# Execução de `correio.md`: DESGARRADOS-NEXT-28 — Simplificação do ZARC. Resultado: **CONCLUÍDO — CÓDIGO E DADOS ZARC REMOVIDOS**
+Jornada demonstrada em Chromium e testes funcionais:
 
-- **Data:** 2026-10-12 (America/Sao_Paulo). Execução local em `gateway/apps/desgarrados-next`; sem commit, push ou deploy.
-- **SHA-256 do `correio.md` executado:** `288a7d5b51682e9b40046973811db99c1dadff94ca41b7e5941ee0d9855b3f54`.
-- **SHA-256 registrado na execução anterior:** `13844532c6d5adf13cf9061bc63d749ca797d8a702de165386dd2cccdd1ec4d3` (DESGARRADOS-NEXT-27). O conteúdo mudou para DESGARRADOS-NEXT-28.
-- **Observação:** o `correio.md` recebido termina truncado no item 7.5 ("Sit"); o relatório segue os itens 1–4 e registra a situação geral abaixo.
+**Captura autenticada → lista de prospects → produto/segmentos → prévia → confirmação → seleção → conversão/vínculo CRM → dashboard.**
 
-## 1. Componentes removidos
+- Captura permanece em `/prospecting`; administração da extensão em `/settings/integrations/ab-prospect`.
+- `/prospecting/prospects`: filtros por origem, contato, produto, prioridade, situação, localização e lote; detalhes explicáveis.
+- `/prospect-products`: critérios comerciais por produto/tenant, sem cadastro paralelo.
+- Conversão explícita e idempotente: não duplica lead ou nota; vínculo a lead existente conserva seus dados e registra origem/produto/score/versão.
+- `/leads` e `/dashboard`: vínculo e histórico verificáveis; contagens vêm do banco e distinguem inclusão no CRM de venda ganha.
+- Captura, prospects, produtos, CRM e dashboard revisados em desktop; lista e prévia também em 390/320 px. Tabela com rolagem interna no celular, sem transbordamento horizontal do documento nem erros JavaScript.
 
-- **Interface pública:** a seção "Tábua de Risco ZARC" do Calendário Rural (lista paginada, modal de detalhes com decêndios e códigos do MAPA), os filtros próprios de safra ZARC, solo, ciclo e risco, e o cartão "Culturas com dados ZARC" de Minha Região.
-- **Acesso substituto:** cartão "Consultar ZARC — Safras e Plantio" em Nossa Terra e em Minha Região, informando que a consulta é feita no site oficial do Ministério da Agricultura e Pecuária, com link externo para o painel oficial (`target="_blank"`, `rel="noopener noreferrer"`, aviso "abre em nova aba" para leitores de tela). Sem iframe nem réplica do painel. URL e título centralizados em `resources/js/lib/official-links.ts`.
-- **Controllers:** consulta, cache, filtros (`season`, `zarc_soil`, `zarc_cycle`, `zarc_risk`) e props ZARC de `RuralCalendarController`; culturas ZARC e status de sincronização em `MyRegionController`; agendamento `mapa_zarc` em `Admin\RegionalIntegrationController`.
-- **Services/importação/download:** `syncZarc()` e `importZarcCsv()` (download do CSV do CKAN do MAPA para arquivo temporário e importação) em `RegionalIntegrationSync`; fonte `mapa_zarc` em `IntegrationCatalog`.
-- **Model:** `App\Models\ZarcRecord`.
-- **Agendamento:** `campeira:sync mapa_zarc` semanal em `bootstrap/app.php`; descrição do comando `campeira:sync` ajustada.
-- **Navegação e busca global:** item "Calendário rural e ZARC / Atividades e zoneamento" passou a "Calendário rural / Atividades sazonais" (mesma lista alimenta menu e busca).
-- **Textos:** Política de Privacidade deixou de citar sincronização de "dados ZARC do MAPA". Link do painel no Calendário Rural atualizado para o endereço oficial informado.
-- Não havia rotas de API, jobs, seeders, downloads ou arquivos ZARC próprios em `storage/`.
+Detalhes: [auditoria-captura.md](docs/vetorleads-prospect-08/auditoria-captura.md). Evidências: [critérios](docs/vetorleads-prospect-08/interface/1440-commercial-criteria.png), [lista celular](docs/vetorleads-prospect-08/interface/320-leads.png), [prévia celular](docs/vetorleads-prospect-08/interface/390-preview.png), [CRM](docs/vetorleads-prospect-08/interface/1440-crm.png), [dashboard sintético](docs/vetorleads-prospect-08/interface/1440-dashboard.png).
 
-## 2. Componentes preservados
+## Testes executados
 
-Calendário Rural (entradas, referências sazonais, filtros de localidade/região/cultura/tipo, geolocalização), informações regionais de plantio, calculadoras rurais, IBGE (`ibge_locations`), feriados (`brasilapi_holidays`), Nossa Terra, administração editorial, painel de integrações (agora com 5 fontes), busca global e SEO das demais páginas. Menções informativas ao ZARC oficial (guias de produção, formulário admin do calendário, fontes oficiais) foram mantidas por se referirem ao serviço do MAPA, não a consulta interna.
+Primeiro foi executada a suíte completa isolada sem alterações novas: **1.268 testes / 13.460 assertions**. Após as correções:
 
-## 3. Espaço ocupado antes e depois
+| Validação | Resultado final |
+| --- | --- |
+| VetorLeads, regressão completa PHP 8.4/SQLite sintético | **1.270 testes aprovados / 13.475 assertions** |
+| PHPStan | Sem erros |
+| Pint | Aprovado, 321 arquivos |
+| Frontend | ESLint, Prettier, TypeScript e build aprovados |
+| Consentimento da landing, JavaScript | 3 testes aprovados |
+| Extensão, parsers/recaptura/contrato/transporte | 18 testes aprovados |
+| VetorOS, proxy/disponibilidade WebChat | 5 testes aprovados / 17 assertions |
+| Navegador Chromium | Jornada completa aprovada, 1440/390/320 px |
+| Compose | Configuração validada, sem aplicação |
+| Git | Verificação de whitespace aprovada |
 
-| Local | Antes | Depois |
-|---|---|---|
-| MySQL `desgarrados.zarc_records` (banco do `.env`) | 249.078 registros · ~332 MB | tabela removida (0 MB) |
-| `database/database.sqlite` (local, ignorado pelo Git, não usado pelo `.env`) | ~372 MB, dos quais ~370 MB são `zarc_records` e índices | 1,2 MB (tabela removida e `VACUUM`) |
-| `storage/` | ~21 MB (17 MB `inertia-devtools`, 3,7 MB logs; nada ZARC) | ~21 MB |
-| `public/build` / `bootstrap/ssr` | 1,5 MB / 2,0 MB | 1,5 MB / 2,0 MB |
-| Código | — | 17 arquivos alterados, +51/−310 linhas, 2 arquivos novos, 1 removido |
-| Disco `/home` | 64% usado | 63% usado (~370 MB liberados) |
+Os testes funcionais cobrem multitenancy, permissões, token, oposição, prévia e confirmação inválida/expirada/desatualizada, deduplicação e histórico. O container PHP de testes não tinha rede; integrações externas foram simuladas. Build e screenshots usam ambiente sintético separado. Logs e resultados: [docs/vetorleads-prospect-08/README.md](docs/vetorleads-prospect-08/README.md).
 
-Nenhum arquivo ZARC volumoso no repositório nem no histórico Git (maiores blobs: PNGs de marca de ~2,5 MB). Nenhum histórico foi reescrito. `.gitignore` passou a bloquear `*zarc*.csv`, `*ZARC*.csv` e `/storage/app/zarc/`.
+## Runtime, migrations e conflitos identificados
 
-## 4. Tabelas identificadas para limpeza
+Leitura operacional por PDO, em transação **READ ONLY** com snapshot consistente, sem bootstrap do Laravel operacional: MySQL **8.4.11**, schema `vetorleads`, PHP **8.4.26**, **46 migrations aplicadas**. Consultas agregadas observaram **61 prospects, 0 prospects vinculados ao CRM, 0 leads provenientes da prospecção e 0 leads ganhos**. Esses dados não foram confundidos com os números das telas sintéticas.
 
-- `zarc_records` (exclusiva do ZARC) com índices `zarc_lookup_idx`, `zarc_records_dataset_key_row_hash_unique`, `zarc_records_municipality_code_index`, `zarc_records_season_start_index`, `zarc_records_state_code_index`.
-- Linha `mapa_zarc` em `regional_integrations` (tabela compartilhada; só a linha é removida).
-- 3 chaves de cache `rural-calendar:zarc:*` / `my-region:zarc-cultures:*` na tabela `cache` (expiram sozinhas).
-- **Impacto da remoção:** nenhum para o código atual, que não lê mais essas estruturas; libera ~332 MB no MySQL.
+Duas migrations locais pendentes, nenhuma aplicada em produção:
 
-Migration preparada: `database/migrations/2026_10_19_100000_drop_zarc_records_table.php`. Em bancos novos (tabela vazia) remove a tabela automaticamente, mantendo o histórico de migrations consistente. **Em bancos com dados, a migration recusa a execução** e interrompe o `migrate` até que, após backup, seja definido `DB_ZARC_CLEANUP_AUTHORIZED=true` (`config/database.php`). O `down()` recria apenas a estrutura vazia.
+| Migration | Dependências e risco |
+| --- | --- |
+| `2026_10_18_210000_add_identification_to_web_conversations` | Depende de `web_conversations`; adiciona `subject`, `identified_at`, `whatsapp_consent_at`. As três colunas estão ausentes. **O controller de identificação WebChat no runtime tem o mesmo hash do código local**, portanto existe incompatibilidade de schema no caminho de identificação. Esse caminho não foi invocado em produção. |
+| `2026_10_19_000000_add_commercial_criteria_to_prospect_products` | Depende de `prospect_products`; adiciona segmentos desejados/excluídos e preferência de site com default `any`. Campos ausentes em produção. O código comercial local difere do runtime; publicar o cadastro novo antes da migration faria gravações falharem. |
 
-### Limpeza executada (autorizada pelo responsável)
+As duas são aditivas e independentes entre si, mas não se pode executar todas as pendências sem revisão. Passaram nas migrations dos testes SQLite; **DDL, locks e reversão em MySQL ainda precisam de ensaio em clone isolado**. O healthcheck atual de PHP-FPM não verifica essa compatibilidade de schema.
 
-1. Backup prévio com `mysqldump --single-transaction`: `zarc_records-backup.sql.gz` (18 MB, 306 blocos INSERT, dump concluído) e `mapa_zarc-row-backup.sql.gz`, gravados no scratchpad temporário da sessão Claude Code (`/tmp/claude-1000/.../scratchpad/`); mover para local permanente se quiser mantê-los.
-2. `DB_ZARC_CLEANUP_AUTHORIZED=true php artisan migrate --force`: migration `2026_10_19_100000_drop_zarc_records_table` executada em 23 ms. Verificado no MySQL: 0 tabelas `zarc*`, 0 linhas `mapa_zarc`, 0 chaves de cache ZARC. Nenhuma migration pendente.
-3. O banco `desgarrados` é compartilhado com `gateway/desgarrados`; confirmado que essa aplicação não referencia ZARC.
-4. SQLite local: `DROP TABLE zarc_records`, remoção da linha `mapa_zarc` e do cache ZARC, `VACUUM`; `integrity_check` = ok.
-5. Nenhum arquivo ZARC restante em `/tmp`, `storage/` ou no diretório do usuário.
-
-## 5. Situação e verificações
-
-- `php artisan test --compact`: aprovado — 175 testes (173 aprovados, 2 ignorados), 2.399 assertions. Testes ZARC antigos foram substituídos por verificações de ausência de armazenamento/sincronização local e do link oficial.
-- PHPStan: aprovado, 0 erros. `npm run types:check`: aprovado. Pint: aprovado.
-- `npm run build:ssr` (cliente e SSR): aprovado. `npm run test:calculators`: aprovado.
-- Navegação local (`php artisan serve`, somente GET): `/`, `/nossa-terra`, `/calendario-rural` (inclusive com parâmetros ZARC antigos), `/minha-regiao`, `/nossa-terra/producao`, `/agenda-regional` → 200; `/privacidade` → 301. Nenhuma prop ZARC nas respostas.
-- Link oficial do MAPA verificado: HTTP 200.
-
-- Após a limpeza: suíte Laravel novamente aprovada (175 testes, 173 aprovados, 2 ignorados).
-
-Sem commit, push ou deploy.
-
----
-
-# Execução de `correio.md`: VETOR-MAIL-01 (auditoria e centralização dos e-mails). Resultado: **AUDITORIA SOMENTE LEITURA CONCLUÍDA, ARQUITETURA PROPOSTA, AGUARDANDO APROVAÇÃO**
-
-- **Data:** 2026-10-09 (America/Sao_Paulo).
-- **SHA-256 do `correio.md` executado:** `ff3d02a2a1a4269bb12f11320613209173467edc62d35b6e39f9f7c0eb161ebd`.
-- **SHA-256 do último correio registrado:** `340281df6ed3f1520d3adfb7f05c160ed0b234bc419fb824b6d4cd703cac6788` (VETOR-DEPLOY-01). O conteúdo mudou e o VETOR-MAIL-01 não tinha execução anterior, então foi executado.
-- **Código auditado:** VetorOS `439edbf0` (`main`). Laravel 12.69.2.
-- **Dados:** dump de produção `vetoros-new.sql` (phpMyAdmin, MySQL 8.4.11, gerado em 20/09/2026 21:38), lido só de forma agregada. Nenhum payload, e-mail, host ou usuário SMTP foi exibido ou copiado.
-- **Nada foi alterado:** nenhuma migration, commit, push, deploy, reenvio ou exclusão de jobs. Produção não foi acessada.
-
-## 1. Mapa dos envios atuais
-
-| E-mail | Classe | SMTP usado hoje | Como é enviado |
-|---|---|---|---|
-| OS criada | `OrderCreatedMail` | do tenant | síncrono (`OrderNotificationService::deliverCreated`) |
-| Status da OS / orçamento gerado | `OrderStatusUpdatedMail` | do tenant | síncrono |
-| Lembrete de cobrança | `OrderPaymentReminderMail` | do tenant | síncrono |
-| Acompanhamento de orçamento | `OrderBudgetFollowUpMail` | do tenant | síncrono |
-| Lembrete de avaliação | `OrderFeedbackReminderMail` | do tenant | síncrono |
-| Teste SMTP do tenant | `Mail::raw` (`OtherController`) | do tenant | síncrono |
-| Boas-vindas no cadastro | `UserRegisteredMail` | do sistema | síncrono, falha só registrada em log |
-| Avisos de assinatura | `SubscriptionStatusMail` | do sistema | comando agendado e RootAdmin |
-| Fatura paga | `SubscriptionInvoicePaidMail` | do sistema | síncrono |
-| NFS-e do SaaS | `SaasFiscalDocumentMail` | do sistema | síncrono |
-| Pedido de avaliação da plataforma | `TenantFeedbackRequestMail` | do sistema | comando agendado |
-| Ajustes e melhorias (criado/atualizado) | `TenantImprovementRequest*Mail` | do sistema | síncrono |
-| Recuperação de senha | notificação padrão do Laravel | `mail.default` do processo | síncrono |
-| Confirmação de cadastro | **não existe**: `User` não implementa `MustVerifyEmail` | — | — |
-| Comunicados administrativos | **não existe** | — | — |
-
-- O "SMTP do sistema" é `config('mail.system')`, lido de `MAIL_*` do ambiente. **Não existe tela de SMTP no RootAdmin.**
-- O SMTP do tenant fica em `others.mail_*`. A senha é gravada com `Crypt::encryptString` e não volta para a tela (`mail_password_set`). As duas linhas configuradas no dump estão nesse formato.
-
-## 2. As falhas históricas de `SendOrderCreatedNotification` e `SendOrderStatusUpdatedNotification`
-
-**Contagem no dump de 20/09:** 957 linhas em `failed_jobs`, e não 860. Todas estão na conexão `database`, fila `default`.
-
-| Item | Resultado |
-|---|---|
-| Jobs | 748 `SendOrderStatusUpdatedNotification` e 209 `SendOrderCreatedNotification` |
-| `failed_at` | todas entre **2026-09-18 18:57:42 e 18:58:14 UTC** (32 segundos), cerca de uma hora depois do primeiro commit da stack consolidada (`f11d50c`, 18/09 17:00 UTC) |
-| Despacho original (`createdAt`) | maio/2026: 257, junho: 594, julho: 106 |
-| Exceção | **as 957** são `RuntimeException: Unsupported cipher or incorrect key length` |
-| Ponto da falha | `TenantMailConfig.php:89` (`Crypt::decryptString` da senha SMTP do tenant), chamado por `OrderNotificationService::deliverCreated`/`deliverStatusUpdated` |
-| OS afetadas | 111 OS distintas (até 20 jobs por OS), todas ainda existentes, de **2 tenants**: os únicos com SMTP completo no dump |
-| Fila pendente | `jobs` vazia no dump |
-
-**Diagnóstico:**
-1. Até 06/07/2026 (`4b4fd6f7`), o envio era enfileirado (`::dispatch()->afterCommit()`). No ambiente antigo nenhum worker processava a fila, então os jobs foram se acumulando entre maio e julho.
-2. Em 18/09 o `vetoros-worker` da stack nova subiu e processou o acúmulo de uma vez, com uma `APP_KEY` em formato inválido. O compose só exige que a variável não esteja vazia, não que tenha o formato `base64:` de 32 bytes.
-3. O erro de chave inválida é `RuntimeException`, mas o código só captura `DecryptException`. Por isso cada job abortou, em vez de seguir sem senha.
-4. Desde 06/07 o código envia de forma síncrona e não despacha mais esses jobs. As duas classes continuam existindo só para que as linhas de `failed_jobs` possam ser lidas.
-
-**Recomendação:** **não reenviar**. São avisos de OS de 3 a 5 meses atrás, e reenviá-los mandaria até 20 e-mails para o mesmo cliente. Também **não excluir agora**. Depois da aprovação, arquivar ou remover com backup (§6, fase 4).
-
-**Diferença 860 × 957:** confirmar em produção, somente leitura:
-```sql
-SELECT DATE(failed_at) dia, COUNT(*) FROM failed_jobs GROUP BY dia;
-```
-
-## 3. Problemas encontrados
-
-| # | Gravidade | Problema | Evidência |
-|---|---|---|---|
-| A1 | **Alta** | Em produção, o SMTP do sistema vem do `.env.example`: `MAIL_HOST=127.0.0.1`, `MAIL_PORT=1025`, remetente `hello@example.com`, `APP_NAME=TechOs` | `docker-compose.yml` usa `env_file: ./gateway/vetoros/.env.example` e não sobrescreve `MAIL_*`; o `.dockerignore` exclui `.env`. Bate com a pendência "`artisan about` mostra `TechOs` e `local`". Se não houver outra fonte, todos os e-mails institucionais (cadastro, senha, assinatura, NFS-e do SaaS, ajustes) falham na conexão. **Confirmar em produção (§5).** |
-| A2 | **Alta** | Senha SMTP do tenant que não decifra (chave trocada) vira `null` sem aviso, e o envio tenta autenticar sem senha. Chave em formato inválido derruba o envio inteiro (`RuntimeException` não tratada) | `TenantMailConfig::applyForTenantId`, linhas 86–91; as 957 falhas. A verificação `security:audit-app-key --verify-hash` em produção continua pendente |
-| A3 | **Média** | A troca de SMTP é global ao processo (`Config::set` + `purge`) e o resultado depende da ordem das chamadas. Os mailables chamam `applyTenantMailConfig`/`applySystemDefault` dentro de `envelope()`, mas nessa hora o `Mailer` já foi resolvido em `Mail::to()`. O transporte e o remetente usados são os que estavam ativos antes, e a troca só vale para o envio seguinte | Laravel 12.69.2: `Mailer::sendMailable()` passa a própria instância para `Mailable::send()`, que hidrata o envelope depois. Os envios de OS funcionam porque `OrderNotificationService` aplica a configuração **antes** de `Mail::to()`. Um e-mail do SaaS enviado no mesmo processo logo depois de um e-mail de tenant sairia pelo SMTP e com o remetente daquele tenant, e um tenant sem SMTP deixa `mail.default = log` (envio descartado em silêncio) |
-| A4 | Média | `AppServiceProvider::boot` aplica a configuração de e-mail a cada boot. Nessa hora ainda não há usuário nem sessão, então sempre cai no padrão do sistema: estado global sem efeito útil | `AppServiceProvider.php:80-81` |
-| A5 | Média | O cadastro registra no log o e-mail do usuário e a mensagem bruta do SMTP, que pode conter host e usuário | `RegisteredUserController.php:98-104` |
-| A6 | Média | Não há confirmação de cadastro, comunicados administrativos nem configuração de SMTP no RootAdmin | §1 |
-| A7 | Baixa | Envios manuais (cobrança, acompanhamento) não têm chave de idempotência; dois cliques enviam dois e-mails. Não há timeout SMTP explícito. Os jobs antigos usavam `--tries=3` com `retry_after` igual ao `--timeout` (90 s) | `docker-compose.yml:121`, `config/queue.php:42` |
-| A8 | Baixa | OS sem tenant cai no SMTP do sistema com a marca do tenant | `TenantMailConfig::hasConfiguredForTenantId(null)` |
-
-Pontos que já estão corretos: a configuração do tenant é lida por `tenant_id` explícito; a senha nunca volta para a interface; a falha de envio de OS é gravada em `order_messages` sem detalhes do servidor ("Falha no envio do e-mail."); o teste SMTP envia só para o e-mail da própria empresa e exige configuração completa.
-
-## 4. Arquitetura proposta
-
-**Princípio:** nenhum envio depende da configuração global de e-mail. Cada envio constrói o próprio mailer a partir de uma fonte explícita: plataforma ou tenant.
-
-1. **`PlatformMailConfig`** (mesmo padrão de `SpedyPlatformConfig`): tabela singleton `platform_mail_settings` com host, porta, criptografia, usuário, senha (cast `encrypted`, somente escrita), remetente e reply-to. Precedência: banco > variáveis de ambiente.
-   - **RootAdmin → Configurações → E-mail:** formulário com senha "Configurado — preencha para trocar", envio de teste para o e-mail do root autenticado e auditoria da alteração (sem valores).
-   - Middleware `RootAdminOnly`, como no fiscal.
-   - No boot, registrar o mailer nomeado `platform` e torná-lo o `mail.default`, para que recuperação de senha e futuras notificações usem a plataforma.
-2. **`TenantMailerFactory::for(int $tenantId): ?Mailer`:** lê `others` por `tenant_id` e devolve `Mail::build([...])` com remetente fixo (`alwaysFrom`). Nunca altera `config()`.
-   - Devolve `null` com motivo tipado (`not_configured`, `credentials_unreadable`) quando falta configuração ou a senha não decifra, capturando **`DecryptException` e `RuntimeException`**.
-   - O motivo vai para `order_messages` e para um aviso no painel do tenant ("Revise a senha SMTP").
-3. **`MailDispatcher`:** ponto único de envio, `platform()->send(...)` e `tenant($id)->send(...)`.
-   - Remover `AppliesTenantMailConfig`, as chamadas em `envelope()` e o `applyForTenantId` do `AppServiceProvider`.
-   - Logs só com classe da exceção, código e ids, nunca host, usuário, senha ou endereço.
-4. **Confiabilidade:**
-   - Envio de OS volta para a fila, mas **idempotente**: a linha de `order_messages` é criada `pending` com chave única (OS + modelo + versão do orçamento ou evento de status) antes do despacho. O job sai sem fazer nada se ela já estiver `sent`.
-   - `tries=3`, `backoff=[60, 300, 900]`, `timeout` menor que `retry_after`, timeout SMTP de 15 s.
-   - Limite por tenant (`RateLimiter::for('tenant-mail')`) e trava de reenvio manual para o mesmo modelo em poucos minutos.
-5. **Funções novas da plataforma:** confirmação de cadastro (`MustVerifyEmail`, decisão de produto: bloquear ou só lembrar) e comunicado administrativo do RootAdmin para os responsáveis dos tenants, com fila, limite e registro de entregas (reaproveitando o padrão de `AdminFiscalDocumentDelivery`).
-6. **Compatibilidade:** o formato de `others.mail_*` não muda e as configurações dos tenants são preservadas. Os templates continuam iguais.
-
-## 5. Verificações em produção (somente leitura, quando autorizadas)
-
-```bash
-cd /opt/infra-abrasil
-docker compose exec vetoros php artisan tinker --execute="echo config('mail.system.host').':'.config('mail.system.port').' '.config('mail.system.from_address');"
-docker compose exec vetoros php artisan security:audit-app-key --verify-hash
-docker compose logs --since 720h vetoros | grep -c "Connection could not be established"
-```
-Também a contagem de `failed_jobs` da §2. Nenhum desses comandos imprime senhas.
-
-## 6. Plano de execução (cada fase só depois de aprovação)
-
-| Fase | Escopo | Migrations | Risco |
-|---|---|---|---|
-| MAIL-01.1 | Infra: passar `VETOROS_MAIL_*`, `APP_NAME=VetorOS` e `APP_ENV=production` pelo compose; validar o formato da `APP_KEY`; teste de envio | não | baixo, só recria os 3 containers do VetorOS |
-| MAIL-01.2 | `PlatformMailConfig`, tela do RootAdmin, mailer `platform`, recuperação de senha pela plataforma, logs sem dados sensíveis | sim (aditiva) | baixo |
-| MAIL-01.3 | `TenantMailerFactory` + `MailDispatcher`, fim do estado global, tratamento de chave ilegível, fila idempotente com limites | sim (índice único em `order_messages`) | médio |
-| MAIL-01.4 | Confirmação de cadastro e comunicados; arquivamento dos 957 `failed_jobs` com backup e remoção das duas classes de job antigas | opcional | baixo |
-
-**Testes previstos:**
-- dois tenants enviando em sequência no mesmo processo, conferindo host e remetente de cada transporte;
-- e-mail do SaaS enviado depois de um e-mail de tenant usando a plataforma;
-- senha ilegível e chave inválida sem exceção, com motivo registrado;
-- recuperação de senha pela plataforma;
-- logs sem senha, usuário ou endereço;
-- idempotência do envio (mesma chave, um só e-mail);
-- teste SMTP autorizado só para o e-mail da empresa ou do root.
-
-## Pendências e decisões
-
-1. Aprovar o plano (ou ajustar fases) antes de qualquer migration, commit ou deploy.
-2. Rodar as verificações da §5 em produção, principalmente o host SMTP do sistema (A1) e o `--verify-hash` (A2).
-3. Decidir se a confirmação de cadastro bloqueia o acesso ou só lembra.
-4. Decidir o destino dos 957 `failed_jobs`: arquivar em tabela/arquivo ou apenas remover após backup.
-
----
-
-# Execução manual: pull, migrations e build do VetorOS + correção de permissões. Resultado: **IMPLANTADO E VALIDADO**
-
-**Data:** 2026-10-08
-**Host:** `srv1990862` (`/opt/infra-abrasil`)
-**Código em produção:** VetorOS `4c4ce74c`, infra `96db499`
-
-> Solicitado diretamente pelo operador, fora de um `correio.md`. Durante a validação, foi encontrado e corrigido um erro que deixava o VetorOS fora do ar (`Permission denied` em `bootstrap/app.php`).
-
-## 1. Pull
-
-- O `infra-abrasil` estava 2 commits atrás e foi atualizado com `--ff-only` até `96db499`.
-- O `correio.md` local (VETOR-DEPLOY-01.1) era diferente do remoto. Ele foi preservado no stash `correio.md local antes do pull 2026-10-08`.
-- O submódulo `gateway/vetoros` já estava em `4c4ce74c`, igual ao `origin/main`.
-- O merge `96db499` trouxe para o `executed.md` marcadores de conflito já commitados (`<<<<<<<`/`>>>>>>>`). Os marcadores foram removidos e os dois relatórios foram mantidos, que era a intenção do merge.
-
-## 2. Backup
-
-- `backups/vetoros-deploy-01/vetoros_pre_migrate_20261008_211911.sql` (15 MB, `mysqldump --single-transaction --routines --triggers`, termina em `Dump completed`).
-
-## 3. Migrations
-
-- Executadas com a imagem nova: `migrate:status --pending` resultou em *No pending migrations*, e `migrate --force` respondeu *Nothing to migrate*.
-- O banco não foi alterado.
-
-## 4. Erro corrigido: `Permission denied` em `bootstrap/app.php`
-
-- **Sintoma:** `require_once(/var/www/html/bootstrap/app.php): Failed to open stream: Permission denied`, com erro fatal em todas as requisições ao VetorOS.
-- **Causa:** no checkout das 16:55, feito com umask restritivo, 189 arquivos versionados e 10 diretórios do `gateway/vetoros` ficaram com permissão `600`/`700`. O `COPY` do Dockerfile copiou essas permissões para a imagem, e o php-fpm, que roda como `www-data`, não conseguia ler os arquivos. O defeito já existia no deploy anterior (o container de 4 horas antes tinha a mesma imagem).
-- **Correção:**
-  - Permissões normalizadas no host: arquivos `644`, executáveis `755`, diretórios `755`. Nenhuma alteração no git.
-  - Imagens `vetoros`, `vetoros-worker` e `vetoros-scheduler` reconstruídas.
-  - Só esses três serviços foram recriados, e o nginx foi recarregado. Os serviços compartilhados não foram tocados.
-- **Rollback:** a imagem anterior foi marcada como `infra-abrasil-vetoros:rollback-20261008`. Ela contém o mesmo defeito de permissão e só serve para uma emergência que não tenha a ver com isso.
-
-## 5. Validação
-
-- `https://vetoros.com.br`:
-  - `/`, `/login` e `/up` responderam **200**, e `/admin` respondeu **302**;
-  - nenhuma página mostrou "Fatal error".
-- `vetoros`, `vetoros-worker`, `vetoros-scheduler` e `nginx` estão **healthy**.
-- O scheduler está executando as tarefas (ex.: `fiscal:sync-spedy`).
-- Não houve nenhum erro ou exceção nos logs depois do redeploy.
-- Os assets do volume `vetoros-build` são sincronizados pelo entrypoint a partir de `/opt/public-build` e conferem com a imagem.
-
-## 6. Testes
-
-- Suíte Pest executada numa cópia isolada do código (`git archive`), num container sem rede, com SQLite em memória e dependências de dev. Produção não foi tocada.
-- Resultado: **532 testes passando (2966 asserções)**, 0 falhas.
-- As falhas das rodadas iniciais vinham só do ambiente de teste: faltavam as pastas `storage/framework` e o `public/build/manifest.json`. Não foi preciso alterar o código.
-
-## Pendências
-
-1. Configurar `umask 022` no usuário e no processo que fazem checkout em `/opt/infra-abrasil`. Sem isso, um próximo pull pode recriar arquivos com `600` e derrubar o VetorOS de novo.
-2. O `artisan about` mostra `Environment: local` e o nome `TechOs` em produção. O modo debug está desligado, mas o ideal é `APP_ENV=production`.
-3. `php artisan security:audit-app-key --verify-hash` (VETOR-DEPLOY-01.1, Etapa 4) ainda não foi executado.
-4. Homologação funcional dos módulos (VETOR-DEPLOY-01.1, Etapa 7) não realizada.
-
----
-
-# Execução de `correio.md`: VETOR-DEPLOY-01.1 (retomada da publicação na VPS). Resultado: **INTERROMPIDA NA ETAPA 1, IMPLANTAÇÃO NÃO REALIZADA**
-
-**Data:** 2026-10-08
-**Host:** `srv1990862`. O executor roda na própria VPS de produção, em `/opt/infra-abrasil`.
-
-> **Classificação: BLOQUEADA.** O commit `4c4ce74c` do VetorOS não existe localmente e não pode ser baixado, porque o GitHub recusa a deploy key do VetorOS (`Permission denied (publickey)`). Sem esse código, a Etapa 4 (comando `security:audit-app-key`), a Etapa 5 (migrations INTEL) e a Etapa 6 (build) não podem ser executadas. Nada foi alterado: nenhum container, imagem, banco, volume ou arquivo de código. Também não foi feito pull nem push.
-
-## Etapa 1: Verificação no remoto
-
-| Item | Esperado | Encontrado | Status |
-|---|---|---|---|
-| Infra-abrasil `origin/main` | `b7c7782` | `b7c7782` (o `git fetch` funcionou) | OK no remoto |
-| Ponteiro do submódulo em `b7c7782` | `4c4ce74c` | `4c4ce74c81d643b97811412c5abb5a85b91c73ec` | OK |
-| VetorOS `4c4ce74c` no remoto | presente | **não verificável**: `git fetch` em `gateway/vetoros` falha com `Permission denied (publickey)` (host `github-vetoros`, chave `vetoros_deploy`) | **BLOQUEIO** |
-| VetorOS `4c4ce74c` local | — | `fatal: Not a valid object name` | ausente |
-
-Estado local da infra (working tree da VPS):
-
-- HEAD local: `8b3b821`, **atrás** de `origin/main` por 6 commits (`a8b4564` … `b7c7782`).
-- `correio.md` modificado localmente. O conteúdo local difere do `correio.md` de `origin/main` (73+/50−).
-- `gateway/vetoros` aponta localmente para `237c4d18` (2026-10-07, "Remove valores da landing page…"), e não para `52ad0f3` (HEAD) nem para `4c4ce74c` (remoto).
-- O `executed.md` de `origin/main` também difere do local. Um pull futuro vai entrar em conflito com `correio.md` e `executed.md`.
-- O projeto Desgarrados não foi tocado.
-
-## Etapa 2: Estado da VPS (somente leitura)
-
-- **Containers:** os 18 estão `Up (healthy)`. Os do VetorOS (`vetoros`, `vetoros-worker`, `vetoros-scheduler`) estão no ar há cerca de 23h. Os serviços compartilhados (mysql 8.4, redis, nginx, waha, n8n, phpmyadmin) e os demais projetos estão no ar há cerca de 2 dias.
-- **Imagens VetorOS atuais:** `infra-abrasil-vetoros:latest` `7deb8d85869d`, `-worker:latest` `4004b42fffd8`, `-scheduler:latest` `1ed9203971c9` (criadas há cerca de 23h, 2.04 GB cada). Estão marcadas apenas como `latest`, sem tag de rollback.
-- **Código em execução:** Laravel 12.69.2. O container ativo **não** tem o comando `security:audit-app-key`.
-- **Banco:** MySQL com bind mount `/opt/infra-abrasil/volumes/mysql`. Migrations do VetorOS no container ativo: 163 `Ran`, 0 pendentes (no código atual).
-- **Volumes:** `infra-abrasil_vetoros-build` e outros `*-build`, além de 5 volumes anônimos.
-- **Disco:** `/` com 99G, 33G usados e **63G livres** (35%). Há espaço suficiente para backup e build.
-- **Rollback:** é viável, desde que as imagens atuais recebam uma tag antes do build (ver comandos abaixo).
-
-## Etapas 3 a 8: não executadas
-
-- **3 (Backup):** não foi feito. Como a implantação não pode prosseguir, não havia motivo para gerar um backup agora. Ele deve ser feito imediatamente antes da atualização.
-- **4 (APP_KEY):** não foi possível, porque o comando só existe no código `4c4ce74c`, que não está disponível.
-  - **Verificação manual parcial (2026-10-08, feita pelo operador):** no container ativo, `docker compose exec vetoros php artisan tinker --execute="echo config('app.key') ? 'APP_KEY CONFIGURADA' : 'APP_KEY AUSENTE';"` retornou **`APP_KEY CONFIGURADA`**, sem imprimir o valor. Isso confirma apenas que a chave existe. A compatibilidade com os dados já gravados (`--verify-hash`) continua pendente até o código `4c4ce74c` estar disponível.
-- **5 (Migrations INTEL):** não foi possível levantá-las sem o código novo.
-- **6 a 7:** não executadas por dependerem das etapas anteriores.
-- VETOR-INTEL-05 não foi iniciado.
-
-## Para destravar (ação manual)
-
-1. Corrigir o acesso ao repositório VetorOS. A chave pública `/root/.ssh/vetoros_deploy.pub` precisa estar cadastrada como deploy key em `brasilgb/vetoros`, ou outra chave válida deve ser configurada em `Host github-vetoros`. Teste com:
-   ```bash
-   ssh -T git@github-vetoros
-   ```
-2. Decidir o destino das alterações locais antes de sincronizar a infra. O `correio.md` local e o ponteiro `237c4d18` diferem do remoto. Uma forma de preservar tudo:
-   ```bash
-   cd /opt/infra-abrasil
-   git stash push -m "pre-deploy-01.1" correio.md executed.md gateway/vetoros
-   git pull --ff-only origin main
-   git submodule update --init gateway/vetoros   # deve resultar em 4c4ce74c
-   git -C gateway/vetoros log -1 --format='%H'
-   ```
-3. Marcar as imagens atuais para rollback:
-   ```bash
-   for s in vetoros vetoros-worker vetoros-scheduler; do
-     docker tag infra-abrasil-$s:latest infra-abrasil-$s:rollback-20261008
-   done
-   ```
-4. Fazer o backup verificável do banco (sem imprimir credenciais e usando as variáveis do próprio container):
-   ```bash
-   mkdir -p /opt/infra-abrasil/backups
-   docker exec infra-abrasil-mysql-1 sh -c 'exec mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" --single-transaction --routines --triggers --databases <db_vetoros>' \
-     | gzip > /opt/infra-abrasil/backups/vetoros-20261008.sql.gz
-   gunzip -t /opt/infra-abrasil/backups/vetoros-20261008.sql.gz && zcat /opt/infra-abrasil/backups/vetoros-20261008.sql.gz | tail -1   # deve mostrar "Dump completed"
-   ```
-5. Rodar a auditoria da APP_KEY sem substituir o container ativo, usando um container temporário da imagem nova:
-   ```bash
-   docker compose build vetoros
-   docker compose run --rm --no-deps vetoros php artisan security:audit-app-key --verify-hash
-   docker compose run --rm --no-deps vetoros php artisan migrate:status   # listar pendentes INTEL
-   docker compose run --rm --no-deps vetoros php artisan migrate --pretend # revisar SQL, sem aplicar
-   ```
-6. Com tudo aprovado, seguir para `docker compose up -d --no-deps vetoros vetoros-worker vetoros-scheduler` e para a homologação da Etapa 7.
-
-Depois do passo 1, basta reenviar o mesmo `correio.md` para a execução continuar a partir da Etapa 1.
-
----
-
-# Execução de `correio.md`: VETOR-DEPLOY-01 — Push, build e validação na VPS — **BLOQUEADO**
-
-- **Data:** 2026-10-08 (America/Sao_Paulo).
-- **SHA-256 do `correio.md` executado:** `340281df6ed3f1520d3adfb7f05c160ed0b234bc419fb824b6d4cd703cac6788`.
-- **SHA-256 da execução anterior:** `7a9e51278b89152316eaf6257621a3210ca1d85cafb795396c7ba0e85a214b98` (VETOR-HML-01.2). O arquivo mudou, então foi executado.
-
-## Classificação: **BLOQUEADO**
-
-O **push** (item 1) foi **negado pela política de permissões do ambiente** do Claude Code, classificado como publicação externa. As etapas seguintes dependem dele, porque a VPS precisa obter os commits aprovados do remoto. A tentativa seguinte, só de localizar o acesso SSH à VPS, foi negada pelo mesmo motivo.
-
-Conforme o correio e a própria política, **nada foi contornado**:
-- nenhum código enviado por outro meio;
-- nenhuma conexão com a VPS;
-- nenhum backup, build, migration ou troca de containers;
-- **produção não foi tocada**.
-
-## 1. Verificação de sincronização (feita, somente leitura)
-
-`git fetch` nos dois repositórios: os dois estão **apenas à frente** do remoto, **nada atrás**. O push seria um *fast-forward* simples, sem force e sem sobrescrever nada.
-
-| Repositório | Remoto | Branch | À frente | Atrás |
-|---|---|---|---|---|
-| `gateway/vetoros` | `github.com/brasilgb/vetoros` | `main` @ `4c4ce74c` | 9 | 0 |
-| `infra-abrasil` | `github.com/brasilgb/infraabrasil` | `main` @ `b7c7782` | 4 | 0 |
-
-**Atenção:** o push do `vetoros` publica **9 commits**, não só os 4 citados no correio. Os outros 5 são ancestrais de `4c4ce74c`, aprovados em etapas anteriores, mas nunca enviados:
-
-```
-4c4ce74c Ajusta layout das prioridades e permissões do técnico na OS (VETOR-HML-01.2)
-0f8ce438 Adiciona auditoria somente leitura da APP_KEY (security:audit-app-key)
-6ccff9af Corrige divergências da homologação VETOR-HML-01.1
-7b54fd70 Adiciona atalhos de Caixa, PDV e Calendário junto às prioridades do dashboard (VETOR-UX-DASH-01)
-7e9e005e Atualiza rodapé para ABrasil Sistemas — VetorOS e centraliza a versão em v2.0.0
-8f46d37d Finaliza painel de indicadores do VETOR-INTEL-04
-84355362 Implementa indicadores operacionais e comerciais do VETOR-INTEL-04
-4fda449a Adiciona modelo e importação CSV de produtos (VETOR-PROD-IMPORT-01)
-9c69101a Implanta o núcleo VETOR-INTEL: trilha da OS, integridade financeira, orçamento versionado e comunicação
-```
-
-Ou seja, o deploy leva para produção **todo o VETOR-INTEL** (trilha da OS, integridade financeira, orçamento versionado, comunicação, indicadores e importação CSV), com as **migrations** correspondentes.
-
-**CI:** o push dispara apenas `gateway/vetoros/.github/workflows/ci.yml` (instalação, tipos e testes). **Não há deploy automático**, então o push sozinho não altera produção.
-
-## 2–7. Não executados
-
-| Etapa | Situação |
-|---|---|
-| 2. Preparação da VPS (estado, containers, backup, rollback) | ⛔ não executada (bloqueio) |
-| 3. Auditoria da `APP_KEY` em produção | ⛔ não executada |
-| 4. Build | ⛔ não executado |
-| 5. Migrations | ⛔ não levantadas em produção |
-| 6. Atualização de `vetoros`, `vetoros-worker` e `vetoros-scheduler` | ⛔ não executada |
-| 7. Homologação (inclusive OS de serviço externo editada por técnico) | ⛔ não executada |
-
-## Como prosseguir
-
-**Opção A — você executa o push** (fast-forward, na ordem pedida):
-
-```bash
-cd ~/projects/laravel/infra-abrasil/gateway/vetoros && git push origin main
-git branch -r --contains 4c4ce74c          # deve listar origin/main
-cd .. && git push origin main               # infra-abrasil (ponteiro → 4c4ce74c)
-```
-
-Depois, para as etapas na VPS, é preciso **autorização explícita do acesso** (host e usuário SSH), ou que você as execute seguindo o correio.
-
-**Opção B — liberar a permissão** de push e de SSH à VPS para o Claude Code nesta sessão (regra nas configurações) e pedir a reexecução.
-
-**Ordem obrigatória na VPS, quando houver acesso**, conforme o correio:
-1. estado atual e containers;
-2. **backup verificável** do banco e dos dados persistentes;
-3. `security:audit-app-key --verify-hash` sem substituir a aplicação ativa. **Parar se houver ilegíveis.** No banco local, 664 de 664 chaves públicas e 4 de 4 senhas SMTP não decifram com a chave local;
-4. revisar as migrations INTEL pendentes **antes** de trocar containers;
-5. build;
-6. troca só dos 3 serviços VetorOS;
-7. homologação.
-
-## Pendências
-
-1. Push dos dois repositórios: por você ou com permissão liberada.
-2. Acesso autorizado à VPS para as etapas 2 a 7.
-3. **`gateway/desgarrados`** aparece com alterações locais no repositório principal. Não são desta execução e não foram tocadas.
-4. **VETOR-INTEL-05:** não iniciado.
+Os 21 serviços Compose estavam running/healthy na leitura. Nenhum serviço operacional foi reiniciado, reconstruído ou alterado. O Dockerfile já contém PHP 8.4/GD JPEG-WebP; o entrypoint copia assets para volume compartilhado. O `public/build` histórico versionado não deve ser publicado como se fosse o build recém-validado; a imagem futura precisa recompilar as fontes.
+
+## Publicação e homologação real: pendências e roteiro
+
+Roteiro detalhado, com critérios de interrupção e reversão: [publicacao-e-homologacao.md](docs/vetorleads-prospect-08/publicacao-e-homologacao.md).
+
+Antes de publicar: revisar commits/referências, aprovar janela e backup com restauração testada, ensaiar as duas migrations no MySQL isolado, reconstruir imagem/assets, aprovar mudanças delimitadas e colocar o schema compatível antes dos consumidores. Coordenar VetorLeads/app/worker/scheduler e, em etapa própria, o proxy/widget VetorOS. Preservar versões anteriores e assets para reversão; não executar rollback destrutivo de colunas automaticamente.
+
+O teste real proposto limita-se a **até três empresas e um tenant**, com empresas/URLs, operador, produto e operações expressamente autorizados antes de qualquer escrita. Inclui captura/recaptura, comparação de produtos na prévia, uma confirmação, seleção/conversão, histórico e métricas; não inclui mensagens ou contato comercial. Verificar automações antes de criar leads; não modificar configurações operacionais implicitamente. Não foram escolhidas empresas reais nesta execução.
+
+VetorOS depende da API WebChat do VetorLeads; incompatibilidade ou indisponibilidade pode afetar o widget. MySQL, WAHA, Redis, n8n, nginx e outros produtos compartilham infraestrutura: não reiniciá-los como parte genérica de uma publicação comercial. A leitura de saúde não substitui homologação funcional. A segmentação continua lexical/explicável; compatibilidade não comprova intenção, telefone não comprova WhatsApp ativo e ausência de site não é verificação universal.
+
+**Conclusão:** consolidação técnica concluída sem regressões conhecidas nos testes executados. Implantação, ensaio MySQL e homologação operacional com amostra real continuam pendentes das autorizações específicas descritas no roteiro.

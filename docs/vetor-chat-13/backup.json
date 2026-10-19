@@ -1,0 +1,7 @@
+{
+  "file": "/opt/infra-abrasil/backups/chat130/vetorleads-before-chat130.sql",
+  "bytes": 511284,
+  "sha256": "12328edef31175e002d8efa3c1949b850c71d7b9a20d83e839e264caf6d351e0",
+  "permissions": "0600",
+  "restored_database": "chat130_rehearsal"
+}

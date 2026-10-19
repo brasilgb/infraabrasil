@@ -1,0 +1,12 @@
+[
+  {
+    "service": "vetorleads",
+    "revision": "859241bd9bbc48bdd3353587f914d13f97237127",
+    "tag": "vetorleads:chat130-859241bd9bbc",
+    "image_id": "sha256:5ab2572d41cfc2f0ce4fc8377b62317109415256080da7e285c53f5c447aca93",
+    "repo_digests": [
+      "vetorleads@sha256:5ab2572d41cfc2f0ce4fc8377b62317109415256080da7e285c53f5c447aca93"
+    ],
+    "created": "2026-10-19T20:00:45.64839826Z"
+  }
+]

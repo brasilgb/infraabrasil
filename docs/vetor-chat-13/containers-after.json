@@ -1,0 +1,128 @@
+[
+  {
+    "Service": "abrasilsistema",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-abrasilsistema"
+  },
+  {
+    "Service": "abrasilsistema-scheduler",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-abrasilsistema-scheduler"
+  },
+  {
+    "Service": "abrasilsistema-worker",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-abrasilsistema-worker"
+  },
+  {
+    "Service": "desgarrados",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-desgarrados"
+  },
+  {
+    "Service": "desgarrados-scheduler",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-desgarrados-scheduler"
+  },
+  {
+    "Service": "desgarrados-worker",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-desgarrados-worker"
+  },
+  {
+    "Service": "mysql",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "mysql:8.4"
+  },
+  {
+    "Service": "n8n",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "n8nio/n8n:latest"
+  },
+  {
+    "Service": "nginx",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "nginx:1.27-alpine"
+  },
+  {
+    "Service": "phpmyadmin",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "phpmyadmin:latest"
+  },
+  {
+    "Service": "redis",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "redis:7-alpine"
+  },
+  {
+    "Service": "vetorleads",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "vetorleads:chat130-859241bd9bbc"
+  },
+  {
+    "Service": "vetorleads-scheduler",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "vetorleads:chat130-859241bd9bbc"
+  },
+  {
+    "Service": "vetorleads-worker",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "vetorleads:chat130-859241bd9bbc"
+  },
+  {
+    "Service": "vetoros",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "vetoros:chat129-1700256f53fd"
+  },
+  {
+    "Service": "vetoros-scheduler",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "vetoros:chat129-1700256f53fd"
+  },
+  {
+    "Service": "vetoros-worker",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "vetoros:chat129-1700256f53fd"
+  },
+  {
+    "Service": "vetorpet",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-vetorpet"
+  },
+  {
+    "Service": "vetorpet-scheduler",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-vetorpet-scheduler"
+  },
+  {
+    "Service": "vetorpet-worker",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "infra-abrasil-vetorpet-worker"
+  },
+  {
+    "Service": "waha",
+    "State": "running",
+    "Health": "healthy",
+    "Image": "devlikeapro/waha:latest"
+  }
+]

@@ -1,0 +1,175 @@
+{
+    "tenant": {
+        "id": 1,
+        "name": "Anderson Brasil",
+        "active": 1,
+        "whatsapp_automation_enabled": 0
+    },
+    "rules": [
+        {
+            "id": 1,
+            "name": "Boas-vindas e identificação",
+            "priority": 5,
+            "active": 0,
+            "action": "reply",
+            "subject": "outro",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 2,
+            "name": "Apresentação do VetorOS",
+            "priority": 200,
+            "active": 0,
+            "action": "reply",
+            "subject": "comercial",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 3,
+            "name": "Assistências técnicas",
+            "priority": 20,
+            "active": 0,
+            "action": "reply",
+            "subject": "comercial",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 4,
+            "name": "Clientes e equipamentos",
+            "priority": 30,
+            "active": 0,
+            "action": "reply",
+            "subject": "comercial",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 5,
+            "name": "Ordens de serviço",
+            "priority": 40,
+            "active": 0,
+            "action": "reply",
+            "subject": "comercial",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 6,
+            "name": "Orçamentos e aprovação",
+            "priority": 50,
+            "active": 0,
+            "action": "reply",
+            "subject": "comercial",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 7,
+            "name": "Peças e estoque",
+            "priority": 60,
+            "active": 0,
+            "action": "reply",
+            "subject": "comercial",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 8,
+            "name": "Vendas, caixa e financeiro",
+            "priority": 70,
+            "active": 0,
+            "action": "reply",
+            "subject": "financeiro",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 9,
+            "name": "Notas fiscais",
+            "priority": 65,
+            "active": 0,
+            "action": "reply",
+            "subject": "financeiro",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 10,
+            "name": "Planos e contratação",
+            "priority": 90,
+            "active": 0,
+            "action": "qualify",
+            "subject": "comercial",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 11,
+            "name": "Agendamento de demonstração",
+            "priority": 100,
+            "active": 0,
+            "action": "qualify",
+            "subject": "comercial",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 12,
+            "name": "Suporte técnico",
+            "priority": 110,
+            "active": 0,
+            "action": "handoff",
+            "subject": "suporte",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 13,
+            "name": "Atendimento fora do expediente",
+            "priority": 1000,
+            "active": 0,
+            "action": "reply",
+            "subject": "outro",
+            "channel": "both",
+            "schedule": null
+        },
+        {
+            "id": 14,
+            "name": "Transferência para atendente humano",
+            "priority": 1,
+            "active": 0,
+            "action": "handoff",
+            "subject": "outro",
+            "channel": "both",
+            "schedule": null
+        }
+    ],
+    "operators": [
+        {
+            "id": 1,
+            "name": "Anderson Brasil",
+            "active": 1,
+            "email_verified_at": null,
+            "role": "owner"
+        }
+    ],
+    "queue": [
+        {
+            "channel": "web_chat",
+            "status": "in_progress",
+            "automation_paused": 0,
+            "total": 2
+        },
+        {
+            "channel": "whatsapp",
+            "status": "pending",
+            "automation_paused": 0,
+            "total": 1
+        }
+    ],
+    "whatsapp_global": false,
+    "pending_migrations": []
+}

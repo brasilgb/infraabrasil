@@ -1,0 +1,171 @@
+{
+  "conflicts": [
+    {
+      "body": "sistema para controle de estoque e peças",
+      "rule": "Peças e estoque"
+    },
+    {
+      "body": "financeiro com emissão de nota fiscal",
+      "rule": "Notas fiscais"
+    }
+  ],
+  "qualification": {
+    "preview": {
+      "would_create_contact": {
+        "name": "Pessoa Sintética CHAT130",
+        "phone": "5511999990000",
+        "company": "Empresa Sintética CHAT130",
+        "subject": "comercial",
+        "interest": "Controle de estoque"
+      },
+      "would_create_opportunity": {
+        "interest": "Controle de estoque"
+      },
+      "simulated_only": true
+    },
+    "paused": true,
+    "step": null
+  },
+  "support": {
+    "rule": "Transferência para atendente humano",
+    "paused": true,
+    "preview": {
+      "would_create_contact": [],
+      "would_create_opportunity": null,
+      "simulated_only": true
+    }
+  },
+  "human": {
+    "assume": true,
+    "reply": true,
+    "silentWhenPaused": true,
+    "resumeRule": "Peças e estoque",
+    "closed": true
+  },
+  "widget": {
+    "authorized": true,
+    "noOperationalRequests": true,
+    "revokedAndLocked": true
+  },
+  "syntheticDashboard": true,
+  "activationTests": "Somente suíte isolada; nenhum pedido de ativação enviado ao publicado",
+  "operationalRequests": [],
+  "javascriptErrors": [],
+  "adminRequests": [
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-258c-7037-b60d-7a460160aabb/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-25f4-7140-aaa8-48200bee4682/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6962-7021-a8cd-774b10422eaa/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6962-7021-a8cd-774b10422eaa/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6962-7021-a8cd-774b10422eaa/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6962-7021-a8cd-774b10422eaa/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6962-7021-a8cd-774b10422eaa/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c/action",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c/action",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c/action",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c/messages",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c/action",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/settings/support-automation/lab/01a155c2-6a67-72bd-86f9-e54944153b8c",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/settings/support-automation/lab/01a155c2-ba51-7069-b939-66e21a2a6f3a/widget-code",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/settings/support-automation/lab/widget-code/4",
+      "status": 200
+    }
+  ]
+}

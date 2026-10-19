@@ -1,0 +1,9 @@
+{
+  "approved": true,
+  "image": "vetorleads:chat130-859241bd9bbc",
+  "backup_sha256": "12328edef31175e002d8efa3c1949b850c71d7b9a20d83e839e264caf6d351e0",
+  "all_original_row_signatures_preserved": true,
+  "tables_checked": 49,
+  "public_pilot_default": "disabled",
+  "automated_tests_on_production": false
+}

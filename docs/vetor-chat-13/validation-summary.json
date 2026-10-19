@@ -1,0 +1,31 @@
+{
+  "all-tests": {
+    "tool": "pest",
+    "result": "passed",
+    "tests": 1325,
+    "passed": 1325,
+    "assertions": 14046,
+    "duration_ms": 70125
+  },
+  "targeted-tests": {
+    "tool": "pest",
+    "result": "passed",
+    "tests": 40,
+    "passed": 40,
+    "assertions": 407,
+    "duration_ms": 2278
+  },
+  "phpstan": {
+    "tool": "phpstan",
+    "result": "passed",
+    "errors": 0
+  },
+  "typescript": "passed; exit 0",
+  "eslint": "passed; exit 0",
+  "pint": "passed; exit 0",
+  "production_image_build": "passed",
+  "published_laboratory": "passed; synthetic tenant only",
+  "real_operator_readiness": "blocked: email unverified and staffing unconfirmed",
+  "attendance_policy": "unset",
+  "public_activation": "not performed"
+}

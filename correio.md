@@ -1,156 +1,172 @@
-# VETOR-CHAT-12.9 — Publicação do Laboratório e Homologação na VPS
+# VETOR-CHAT-13.0 — Preparação da Ativação Comercial do WebChat VetorOS
 
 ## Objetivo
 
-Publicar com segurança o Laboratório de Atendimento VetorLeads e sua integração com o widget VetorOS.
+Preparar o WebChat do VetorOS para atender visitantes reais, qualificar interessados e encaminhar oportunidades comerciais ao VetorLeads.
 
-Concluir a homologação operacional do modo sandbox na infraestrutura real, sem ativar respostas automáticas públicas.
+Aproveitar integralmente o motor de automação, o Laboratório e a Central de Atendimento já existentes.
 
-Não criar funcionalidades novas nem reconstruir módulos existentes.
+Não implementar IA nesta etapa, não reconstruir módulos e não realizar nova auditoria geral.
 
-## 1. Auditoria direcionada
+## 1. Verificação da versão publicada
 
-Consultar `correio.md`, `executed.md` e os relatórios CHAT-12.7 e CHAT-12.8.
+- Confirmar os commits e imagens CHAT-12.9.
+- Verificar a saúde do VetorLeads, VetorOS, worker e scheduler.
+- Confirmar integridade das migrations e do Laboratório.
+- Preservar os mecanismos de sandbox e suas credenciais.
+- Garantir que o WhatsApp automático continue desligado.
 
-Verificar:
+## 2. Ajustar as regras comerciais
 
-- Código local e imagens atualmente publicadas.
-- Alterações acumuladas em VetorLeads e VetorOS.
-- Migrations existentes e pendentes.
-- Estado do banco e das sessões WAHA.
-- Travas de envio automático.
-- Testes e evidências da CHAT-12.8.
+Revisar as 14 regras do tenant Anderson Brasil.
 
-## 2. Versionamento reproduzível
+Aplicar os ajustes de prioridade já aprovados tecnicamente no Laboratório:
 
-Antes da publicação:
+- Apresentação geral: prioridade 10 para 200.
+- Notas fiscais: prioridade 80 para 65.
 
-- Revisar o diff completo.
-- Separar código funcional, migrations e evidências.
-- Excluir segredos, backups e arquivos temporários.
-- Garantir que os submódulos estejam consistentes.
-- Registrar hashes das versões.
-- Preparar os commits necessários para reproduzir as imagens.
+Antes de alterar, confirmar que os valores atuais ainda correspondem ao relatório e verificar conflitos com outras regras.
 
-Não usar `git add .` indiscriminadamente.
+Preservar conteúdos e registrar auditoria das alterações.
 
-Não descartar alterações anteriores.
+Não ativar automaticamente todas as regras.
 
-Preparar os commits e documentar os comandos, sem push automático.
+## 3. Organizar atendimento comercial
 
-## 3. Preparação do banco
+Separar claramente três intenções:
 
-- Realizar backup verificável.
-- Restaurar em banco isolado para ensaio.
-- Conferir migrations aplicadas.
-- Aplicar somente migrations pendentes, na ordem correta.
-- Verificar especialmente as tabelas `support_sandbox_conversations`, `support_sandbox_messages` e `support_sandbox_accesses`.
-- Garantir que nenhuma migration remova dados comerciais ou históricos.
+**Informações sobre o VetorOS**
+- Apresentação do produto.
+- Funcionalidades.
+- Segmentos atendidos.
+- Dúvidas frequentes.
 
-Não usar o banco operacional para executar testes automatizados.
+**Interesse comercial**
+- Contratação.
+- Planos.
+- Demonstração.
+- Solicitação de contato.
+- Qualificação e criação de oportunidade.
 
-## 4. Publicação coordenada
+**Suporte**
+- Cliente existente.
+- Dúvidas operacionais.
+- Problemas de acesso.
+- Solicitação de atendimento humano.
 
-Após aprovação do ensaio e das verificações:
+Suporte não deverá criar oportunidade comercial automaticamente.
 
-- Construir imagens identificáveis por revisão.
-- Atualizar VetorLeads API, worker e scheduler conforme necessário.
-- Atualizar o widget/proxy VetorOS.
-- Preservar sessões e serviços não relacionados.
-- Registrar digests das imagens efetivamente publicadas.
-- Confirmar saúde de todos os serviços.
+## 4. Identificação progressiva
 
-Não publicar versões incompatíveis de API e widget.
+O assistente deverá solicitar somente as informações necessárias, aproveitando dados fornecidos anteriormente.
 
-Não executar rollback destrutivo de migrations.
+Fluxo comercial:
 
-## 5. Homologação real do sandbox
+1. Identificar a intenção.
+2. Responder à dúvida inicial.
+3. Solicitar nome quando necessário.
+4. Solicitar empresa.
+5. Solicitar telefone ou WhatsApp com DDD.
+6. Registrar interesse comercial.
+7. Criar ou associar contato.
+8. Criar oportunidade quando aplicável.
+9. Encaminhar para acompanhamento do vendedor.
 
-Com administrador autorizado, testar no ambiente publicado:
+Não presumir consentimento para campanhas.
 
-1. Abrir o Laboratório.
-2. Selecionar regra inativa.
-3. Selecionar WebChat.
-4. Gerar código temporário.
-5. Abrir o widget VetorOS em homologação.
-6. Resgatar a credencial.
-7. Iniciar uma conversa.
-8. Receber resposta automática de teste.
-9. Simular qualificação comercial.
-10. Simular atendimento humano.
-11. Retornar ao automático.
-12. Encerrar a conversa.
-13. Revogar e expirar a credencial.
-14. Confirmar bloqueio após revogação.
+## 5. Atendimento humano
 
-Garantir ausência de fallback para atendimento operacional.
+Verificar operacionalmente:
 
-## 6. Validação de isolamento
+- Existência de operador autorizado e com e-mail verificado.
+- Permissões de acesso à Central.
+- Fila de conversas aguardando atendimento.
+- Notificação de nova conversa, quando disponível.
+- Assumir atendimento.
+- Responder ao visitante.
+- Suspender automação.
+- Encerrar atendimento.
 
-Confirmar que a homologação:
+Não declarar disponibilidade de atendimento imediato sem operador ou plantão confirmado.
 
-- Não cria leads comerciais reais.
-- Não gera oportunidades operacionais.
-- Não modifica histórico de visitantes públicos.
-- Não produz mensagens WAHA.
-- Não gera outbox operacional.
-- Não altera indicadores comerciais.
-- Não expõe regras de outro tenant.
+## 6. Horário comercial
 
-Utilizar somente identidades autorizadas e dados sintéticos.
+Disponibilizar uma configuração simples e obrigatória para:
 
-## 7. Revisão das regras
+- Fuso horário.
+- Dias da semana.
+- Início e término do expediente.
+- Resposta fora do expediente.
+- Encaminhamento ao responsável.
 
-Manter as 14 regras produtivas inativas.
+Não presumir horários.
 
-Revisar especialmente as precedências:
+Enquanto não forem definidos, manter a regra específica de fora do expediente inativa e não prometer atendimento humano imediato.
 
-- Apresentação geral versus funcionalidades específicas.
-- Financeiro versus emissão de notas fiscais.
+## 7. Preparação da ativação pública
 
-Propor ajustes de prioridade quando necessário e validá-los no Laboratório, sem ativação pública automática.
+Criar checklist de liberação na administração.
 
-Não configurar horários sem aprovação do responsável.
+Condições obrigatórias:
 
-## 8. ESLint VetorOS
+- Regras revisadas.
+- Conflitos corrigidos.
+- Operador confirmado.
+- Fila validada.
+- Horário definido ou política explícita de atendimento assíncrono.
+- WebChat funcionando.
+- CRM recebendo oportunidades corretamente.
+- Mecanismo de desligamento imediato testado.
+- Backup válido.
+- Ausência de regressão.
 
-Registrar os 442 erros e 11 avisos preexistentes como passivo técnico separado.
+A ativação pública deve exigir confirmação explícita do administrador.
 
-Manter a verificação completa visível.
+**Não executar a ativação pública nesta fase.**
 
-Garantir aprovação do lint dos arquivos alterados e ausência de novas violações relacionadas à publicação.
+## 8. Indicadores comerciais
 
-Não desativar globalmente regras de lint nem alterar centenas de arquivos não relacionados nesta fase.
+Verificar que o dashboard apresenta dados reais de:
 
-## 9. Segurança
+- Conversas iniciadas.
+- Conversas respondidas pelo assistente.
+- Contatos qualificados.
+- Oportunidades comerciais.
+- Transferências para humanos.
+- Atendimentos pendentes.
+- Conversões comerciais, quando houver dados suficientes.
 
-- Manter WhatsApp automático globalmente desligado.
-- Manter habilitação por tenant desligada.
-- Manter as 14 regras operacionais inativas.
-- Não enviar mensagens reais.
-- Não utilizar contatos comerciais para testes.
-- Preservar possibilidade de revogação imediata de acessos sandbox.
-- Não executar campanhas.
+Excluir permanentemente os dados sintéticos desses indicadores.
 
-## 10. Relatório de conclusão
+## 9. Testes
 
-Atualizar `executed.md` contendo:
+Executar testes direcionados e regressão dos fluxos afetados.
 
-- Versões publicadas.
-- Digests das imagens.
-- Migrations aplicadas.
-- Backup e ensaio.
-- Resultado do teste do Laboratório publicado.
-- Evidência da integração com o widget.
-- Testes de segurança e isolamento.
-- Estado das 14 regras.
-- Estado WAHA.
-- Pendências.
-- Procedimento de reversão.
-- Situação do Git.
+Utilizar o Laboratório publicado para verificar as respostas e os conflitos corrigidos, sem utilizar contatos comerciais reais.
 
-Distinguir claramente publicação do Laboratório e ativação do atendimento público.
+Confirmar que:
 
-**Critério de conclusão:** Laboratório acessível na VPS, widget de teste integrado, jornada sandbox aprovada, ausência comprovada de efeitos comerciais e todas as travas produtivas preservadas.
+- Regras inativas não respondem publicamente.
+- O modo sandbox continua isolado.
+- O WhatsApp permanece desligado.
+- O CRM não cria oportunidades duplicadas.
+- A transferência humana suspende o robô.
+- A retomada funciona corretamente.
 
-Se qualquer etapa crítica falhar, interromper a publicação e registrar o bloqueio, sem declarar homologação operacional concluída.
+## 10. Entrega
+
+Atualizar `executed.md` com:
+
+- Regras revisadas e prioridades aplicadas.
+- Estado do operador e da fila.
+- Situação dos horários.
+- Resultado dos testes.
+- Indicadores disponíveis.
+- Pendências para ativação pública.
+- Estado das travas.
+- Checklist de liberação.
+- Eventuais alterações de código e Git.
+
+**Critério de conclusão:** WebChat pronto para piloto comercial supervisionado, com regras corretas, atendimento humano operacional e integração CRM validada.
+
+Não ativar regras públicas nem enviar mensagens WhatsApp sem autorização específica.

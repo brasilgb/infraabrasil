@@ -1,0 +1,11 @@
+{
+  "approved": true,
+  "environment_changes": {
+    "vetorleads": [],
+    "vetorleads-worker": [],
+    "vetorleads-scheduler": []
+  },
+  "os_image_unchanged": true,
+  "whatsapp_global": false,
+  "public_activation": false
+}

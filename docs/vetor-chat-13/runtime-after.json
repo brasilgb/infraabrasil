@@ -1,0 +1,323 @@
+{
+    "database": "vetorleads",
+    "config": {
+        "commercial_enabled": true,
+        "whatsapp_delivery_enabled": false,
+        "service_token_configured": true,
+        "widget_tenant_id": "1"
+    },
+    "counts": {
+        "tenants": 1,
+        "users": 2,
+        "leads": 1,
+        "lead_activities": 4,
+        "web_conversations": 3,
+        "web_chat_messages": 8,
+        "web_chat_events": 5,
+        "support_thread_states": 4,
+        "support_automation_rules": 14,
+        "support_automation_decisions": 2,
+        "support_automation_outbox": 0,
+        "support_whatsapp_receipts": 1,
+        "support_sandbox_conversations": 0,
+        "support_sandbox_messages": 0,
+        "support_sandbox_accesses": 0,
+        "jobs": 0,
+        "failed_jobs": 0
+    },
+    "migrations": [
+        "0001_01_01_000000_create_users_table",
+        "0001_01_01_000001_create_cache_table",
+        "0001_01_01_000002_create_jobs_table",
+        "2024_01_01_000000_create_passkeys_table",
+        "2025_08_14_170933_add_two_factor_columns_to_users_table",
+        "2026_07_16_143900_create_leads_table",
+        "2026_07_16_145200_create_lead_activities_table",
+        "2026_07_17_131700_add_product_to_leads_table",
+        "2026_07_18_120000_add_lost_reason_to_leads_table",
+        "2026_07_18_130000_add_deduplication_indexes_to_leads_table",
+        "2026_07_19_180000_create_ebook_commerce_tables",
+        "2026_07_21_120000_create_blog_tables",
+        "2026_07_22_120000_add_google_maps_extraction_fields_to_leads_table",
+        "2026_07_22_130000_expand_leads_website_column",
+        "2026_07_22_180000_add_default_blog_categories",
+        "2026_08_01_142111_add_soft_deletes_to_leads_table",
+        "2026_08_27_120000_create_testimonials_table",
+        "2026_08_27_120001_create_portfolio_items_table",
+        "2026_08_29_165826_create_blog_tags_table",
+        "2026_09_22_120000_create_settings_table",
+        "2026_09_23_120000_add_whatsapp_provider_fields_to_lead_activities_table",
+        "2026_09_24_120000_add_direction_to_lead_activities_table",
+        "2026_09_24_130000_add_read_at_to_lead_activities_table",
+        "2026_09_25_120000_add_time_to_next_follow_up_at",
+        "2026_09_28_180000_add_trial_period_to_leads_table",
+        "2026_09_28_190000_create_lead_automation_executions_table",
+        "2026_09_28_200000_create_prospect_products_table",
+        "2026_09_28_210000_add_prospect_product_id_to_leads_table",
+        "2026_09_29_100000_change_trial_dates_to_datetime_on_leads_table",
+        "2026_09_29_180000_add_lead_activity_id_to_lead_automation_executions_table",
+        "2026_09_29_200000_add_registration_check_to_prospect_products_table",
+        "2026_09_29_200001_add_registration_check_to_leads_table",
+        "2026_09_30_100000_add_maps_place_identity_to_leads_table",
+        "2026_10_13_100000_create_saas_foundation",
+        "2026_10_13_110000_add_customer_access_fields",
+        "2026_10_13_120000_add_tenant_ownership_to_commercial_tables",
+        "2026_10_13_150000_create_prospecting_tables",
+        "2026_10_13_170000_add_queue_and_quality_to_prospecting",
+        "2026_10_14_190000_add_contact_opposition_to_leads",
+        "2026_10_15_120000_create_tenant_whatsapp_connections",
+        "2026_10_17_120000_add_estimated_value_to_leads_table",
+        "2026_10_18_120000_create_web_chat_tables",
+        "2026_10_18_150000_create_support_thread_states_table",
+        "2026_10_18_150100_add_user_id_to_web_chat_messages",
+        "2026_10_18_150200_create_automation_events_table",
+        "2026_10_18_180000_add_delivery_state_to_automation_events",
+        "2026_10_18_210000_add_identification_to_web_conversations",
+        "2026_10_19_000000_add_commercial_criteria_to_prospect_products",
+        "2026_10_19_130000_add_commercial_proposals_and_closure",
+        "2026_10_19_180000_create_support_automation_tables",
+        "2026_10_19_190000_extend_support_automation_multichannel",
+        "2026_10_19_200000_create_support_sandbox_tables",
+        "2026_10_19_210000_create_support_sandbox_accesses_table",
+        "2026_10_19_220000_prepare_web_chat_commercial_pilot"
+    ],
+    "tenant_flag_columns": [
+        "whatsapp_automation_enabled",
+        "whatsapp_automation_homologated_at"
+    ],
+    "tenant_flags": [
+        {
+            "id": 1,
+            "whatsapp_automation_enabled": 0,
+            "whatsapp_automation_homologated_at": null
+        }
+    ],
+    "rules": [
+        {
+            "id": 1,
+            "tenant_id": 1,
+            "name": "Boas-vindas e identificação",
+            "priority": 5,
+            "active": 0
+        },
+        {
+            "id": 2,
+            "tenant_id": 1,
+            "name": "Apresentação do VetorOS",
+            "priority": 200,
+            "active": 0
+        },
+        {
+            "id": 3,
+            "tenant_id": 1,
+            "name": "Assistências técnicas",
+            "priority": 20,
+            "active": 0
+        },
+        {
+            "id": 4,
+            "tenant_id": 1,
+            "name": "Clientes e equipamentos",
+            "priority": 30,
+            "active": 0
+        },
+        {
+            "id": 5,
+            "tenant_id": 1,
+            "name": "Ordens de serviço",
+            "priority": 40,
+            "active": 0
+        },
+        {
+            "id": 6,
+            "tenant_id": 1,
+            "name": "Orçamentos e aprovação",
+            "priority": 50,
+            "active": 0
+        },
+        {
+            "id": 7,
+            "tenant_id": 1,
+            "name": "Peças e estoque",
+            "priority": 60,
+            "active": 0
+        },
+        {
+            "id": 8,
+            "tenant_id": 1,
+            "name": "Vendas, caixa e financeiro",
+            "priority": 70,
+            "active": 0
+        },
+        {
+            "id": 9,
+            "tenant_id": 1,
+            "name": "Notas fiscais",
+            "priority": 65,
+            "active": 0
+        },
+        {
+            "id": 10,
+            "tenant_id": 1,
+            "name": "Planos e contratação",
+            "priority": 90,
+            "active": 0
+        },
+        {
+            "id": 11,
+            "tenant_id": 1,
+            "name": "Agendamento de demonstração",
+            "priority": 100,
+            "active": 0
+        },
+        {
+            "id": 12,
+            "tenant_id": 1,
+            "name": "Suporte técnico",
+            "priority": 110,
+            "active": 0
+        },
+        {
+            "id": 13,
+            "tenant_id": 1,
+            "name": "Atendimento fora do expediente",
+            "priority": 1000,
+            "active": 0
+        },
+        {
+            "id": 14,
+            "tenant_id": 1,
+            "name": "Transferência para atendente humano",
+            "priority": 1,
+            "active": 0
+        }
+    ],
+    "waha": [
+        {
+            "id": 1,
+            "tenant_id": 1,
+            "session": "vl-5f8726f2-5230-4e6c-b13b-69678d4ea517",
+            "state": "connected"
+        }
+    ],
+    "admin_memberships": [
+        {
+            "tenant_id": 1,
+            "user_id": 1,
+            "role": "owner"
+        }
+    ],
+    "operator_state": [
+        {
+            "id": 1,
+            "name": "Anderson Brasil",
+            "active": 1,
+            "email_verified_at": null,
+            "role": "owner"
+        }
+    ],
+    "pilot_storage": null,
+    "pilot": {
+        "enabled": false,
+        "settings": {
+            "enabled": false,
+            "operator_id": null,
+            "policy": "unset",
+            "async_message": "",
+            "schedule": null,
+            "outside_response": "",
+            "backup_reference": "",
+            "checks": {
+                "rules_reviewed": false,
+                "conflicts_resolved": false,
+                "operator_confirmed": false,
+                "queue_validated": false,
+                "widget_validated": false,
+                "crm_validated": false,
+                "kill_switch_tested": false,
+                "backup_valid": false,
+                "regression_passed": false
+            }
+        },
+        "checklist": [
+            {
+                "key": "rules_reviewed",
+                "label": "Regras revisadas",
+                "ready": false
+            },
+            {
+                "key": "conflicts_resolved",
+                "label": "Conflitos corrigidos no Laboratório",
+                "ready": false
+            },
+            {
+                "key": "operator_confirmed",
+                "label": "Operador responsável confirmado",
+                "ready": false
+            },
+            {
+                "key": "queue_validated",
+                "label": "Fila e atendimento humano validados",
+                "ready": false
+            },
+            {
+                "key": "widget_validated",
+                "label": "Widget e sandbox validados",
+                "ready": false
+            },
+            {
+                "key": "crm_validated",
+                "label": "CRM e deduplicação validados",
+                "ready": false
+            },
+            {
+                "key": "kill_switch_tested",
+                "label": "Desligamento imediato testado",
+                "ready": false
+            },
+            {
+                "key": "backup_valid",
+                "label": "Backup válido conferido",
+                "ready": false
+            },
+            {
+                "key": "regression_passed",
+                "label": "Regressão aprovada",
+                "ready": false
+            },
+            {
+                "key": "attendance_policy",
+                "label": "Horário definido ou política assíncrona explícita",
+                "ready": false
+            }
+        ],
+        "metrics": {
+            "Conversas iniciadas": 2,
+            "Conversas respondidas pelo assistente": 0,
+            "Contatos qualificados": 0,
+            "Oportunidades comerciais associadas": 0,
+            "Transferências para humanos": 0,
+            "Atendimentos pendentes": 0,
+            "Conversões comerciais": 0,
+            "Conversão (%)": null
+        }
+    },
+    "priority_audits": [
+        {
+            "id": 18,
+            "user_id": 1,
+            "rule_id": 9,
+            "action": "updated",
+            "snapshot": "{\"after\": {\"id\": 9, \"name\": \"Notas fiscais\", \"action\": \"reply\", \"active\": 0, \"channel\": \"both\", \"subject\": \"financeiro\", \"trigger\": \"keyword\", \"keywords\": \"[\\\"nota fiscal\\\", \\\"notas fiscais\\\", \\\"nfe\\\", \\\"nf-e\\\", \\\"nfce\\\", \\\"nfc-e\\\", \\\"nfse\\\", \\\"nfs-e\\\"]\", \"priority\": 65, \"response\": \"O VetorOS oferece emissão de NF-e em vendas com cliente identificado, NFC-e no PDV e NFS-e em serviços de ordens, conforme liberação e configuração fiscal. A ativação requer certificado digital A1 da empresa e revisão tributária com seu contador. Confirme os requisitos com a equipe.\", \"schedule\": null, \"tenant_id\": 1, \"created_at\": \"2026-10-19 16:23:34\", \"deleted_at\": null, \"updated_at\": \"2026-10-19 19:57:23\", \"interest_product_id\": null}, \"before\": {\"id\": 9, \"name\": \"Notas fiscais\", \"action\": \"reply\", \"active\": 0, \"channel\": \"both\", \"subject\": \"financeiro\", \"trigger\": \"keyword\", \"keywords\": \"[\\\"nota fiscal\\\", \\\"notas fiscais\\\", \\\"nfe\\\", \\\"nf-e\\\", \\\"nfce\\\", \\\"nfc-e\\\", \\\"nfse\\\", \\\"nfs-e\\\"]\", \"priority\": 80, \"response\": \"O VetorOS oferece emissão de NF-e em vendas com cliente identificado, NFC-e no PDV e NFS-e em serviços de ordens, conforme liberação e configuração fiscal. A ativação requer certificado digital A1 da empresa e revisão tributária com seu contador. Confirme os requisitos com a equipe.\", \"schedule\": null, \"tenant_id\": 1, \"created_at\": \"2026-10-19 16:23:34\", \"deleted_at\": null, \"updated_at\": \"2026-10-19 16:23:34\", \"interest_product_id\": null}, \"source\": \"CHAT-13.0: ajuste expressamente solicitado\"}",
+            "created_at": "2026-10-19 19:57:23"
+        },
+        {
+            "id": 17,
+            "user_id": 1,
+            "rule_id": 2,
+            "action": "updated",
+            "snapshot": "{\"after\": {\"id\": 2, \"name\": \"Apresentação do VetorOS\", \"action\": \"reply\", \"active\": 0, \"channel\": \"both\", \"subject\": \"comercial\", \"trigger\": \"keyword\", \"keywords\": \"[\\\"vetoros\\\", \\\"sistema\\\", \\\"software\\\"]\", \"priority\": 200, \"response\": \"O VetorOS conecta rotinas de assistência técnica, como ordens de serviço, clientes, equipamentos, estoque, vendas e financeiro. Qual parte da operação você quer conhecer?\", \"schedule\": null, \"tenant_id\": 1, \"created_at\": \"2026-10-19 16:23:34\", \"deleted_at\": null, \"updated_at\": \"2026-10-19 19:57:23\", \"interest_product_id\": null}, \"before\": {\"id\": 2, \"name\": \"Apresentação do VetorOS\", \"action\": \"reply\", \"active\": 0, \"channel\": \"both\", \"subject\": \"comercial\", \"trigger\": \"keyword\", \"keywords\": \"[\\\"vetoros\\\", \\\"sistema\\\", \\\"software\\\"]\", \"priority\": 10, \"response\": \"O VetorOS conecta rotinas de assistência técnica, como ordens de serviço, clientes, equipamentos, estoque, vendas e financeiro. Qual parte da operação você quer conhecer?\", \"schedule\": null, \"tenant_id\": 1, \"created_at\": \"2026-10-19 16:23:34\", \"deleted_at\": null, \"updated_at\": \"2026-10-19 16:23:34\", \"interest_product_id\": null}, \"source\": \"CHAT-13.0: ajuste expressamente solicitado\"}",
+            "created_at": "2026-10-19 19:57:23"
+        }
+    ]
+}

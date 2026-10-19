@@ -1,0 +1,309 @@
+{
+    "tenant_id": 31,
+    "user_id": 25,
+    "conversations": [
+        {
+            "id": "01a155c2-258c-7037-b60d-7a460160aabb",
+            "tenant_id": 31,
+            "created_by": 25,
+            "channel": "web_chat",
+            "rule_ids": "[66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]",
+            "qualification": "[]",
+            "qualification_step": null,
+            "status": "active",
+            "automation_paused": 0,
+            "assignee_label": null,
+            "created_at": "2026-10-19 20:02:29",
+            "updated_at": "2026-10-19 20:02:29"
+        },
+        {
+            "id": "01a155c2-25f4-7140-aaa8-48200bee4682",
+            "tenant_id": 31,
+            "created_by": 25,
+            "channel": "web_chat",
+            "rule_ids": "[66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]",
+            "qualification": "[]",
+            "qualification_step": null,
+            "status": "active",
+            "automation_paused": 0,
+            "assignee_label": null,
+            "created_at": "2026-10-19 20:02:29",
+            "updated_at": "2026-10-19 20:02:29"
+        },
+        {
+            "id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "tenant_id": 31,
+            "created_by": 25,
+            "channel": "web_chat",
+            "rule_ids": "[66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]",
+            "qualification": "{\"name\": \"Pessoa Sintética CHAT130\", \"phone\": \"5511999990000\", \"company\": \"Empresa Sintética CHAT130\", \"subject\": \"comercial\", \"interest\": \"Controle de estoque\"}",
+            "qualification_step": null,
+            "status": "active",
+            "automation_paused": 1,
+            "assignee_label": null,
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": "01a155c2-6a67-72bd-86f9-e54944153b8c",
+            "tenant_id": 31,
+            "created_by": 25,
+            "channel": "web_chat",
+            "rule_ids": "[66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]",
+            "qualification": "[]",
+            "qualification_step": null,
+            "status": "closed",
+            "automation_paused": 1,
+            "assignee_label": null,
+            "created_at": "2026-10-19 20:02:47",
+            "updated_at": "2026-10-19 20:02:47"
+        },
+        {
+            "id": "01a155c2-ba51-7069-b939-66e21a2a6f3a",
+            "tenant_id": 31,
+            "created_by": 25,
+            "channel": "web_chat",
+            "rule_ids": "[66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]",
+            "qualification": "[]",
+            "qualification_step": null,
+            "status": "active",
+            "automation_paused": 0,
+            "assignee_label": null,
+            "created_at": "2026-10-19 20:03:07",
+            "updated_at": "2026-10-19 20:03:07"
+        }
+    ],
+    "messages": [
+        {
+            "id": 24,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-258c-7037-b60d-7a460160aabb",
+            "sender": "visitor",
+            "body": "sistema para controle de estoque e peças",
+            "decision": "{\"rule\": \"Peças e estoque\", \"outcome\": \"reply\", \"rule_id\": 72, \"rule_snapshot\": {\"id\": 72, \"name\": \"Peças e estoque\", \"action\": \"reply\", \"active\": false, \"channel\": \"both\", \"subject\": \"comercial\", \"trigger\": \"keyword\", \"keywords\": [\"peças\", \"pecas\", \"estoque\", \"reposição\", \"reposicao\"], \"priority\": 60, \"response\": \"O sistema acompanha disponibilidade e movimentações de peças e estoque para apoiar o planejamento da operação.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:29",
+            "updated_at": "2026-10-19 20:02:29"
+        },
+        {
+            "id": 25,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-258c-7037-b60d-7a460160aabb",
+            "sender": "bot",
+            "body": "O sistema acompanha disponibilidade e movimentações de peças e estoque para apoiar o planejamento da operação.",
+            "decision": "{\"rule\": \"Peças e estoque\", \"outcome\": \"reply\", \"rule_id\": 72, \"rule_snapshot\": {\"id\": 72, \"name\": \"Peças e estoque\", \"action\": \"reply\", \"active\": false, \"channel\": \"both\", \"subject\": \"comercial\", \"trigger\": \"keyword\", \"keywords\": [\"peças\", \"pecas\", \"estoque\", \"reposição\", \"reposicao\"], \"priority\": 60, \"response\": \"O sistema acompanha disponibilidade e movimentações de peças e estoque para apoiar o planejamento da operação.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:29",
+            "updated_at": "2026-10-19 20:02:29"
+        },
+        {
+            "id": 26,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-25f4-7140-aaa8-48200bee4682",
+            "sender": "visitor",
+            "body": "financeiro com emissão de nota fiscal",
+            "decision": "{\"rule\": \"Notas fiscais\", \"outcome\": \"reply\", \"rule_id\": 74, \"rule_snapshot\": {\"id\": 74, \"name\": \"Notas fiscais\", \"action\": \"reply\", \"active\": false, \"channel\": \"both\", \"subject\": \"financeiro\", \"trigger\": \"keyword\", \"keywords\": [\"nota fiscal\", \"notas fiscais\", \"nfe\", \"nf-e\", \"nfce\", \"nfc-e\", \"nfse\", \"nfs-e\"], \"priority\": 65, \"response\": \"O VetorOS oferece emissão de NF-e em vendas com cliente identificado, NFC-e no PDV e NFS-e em serviços de ordens, conforme liberação e configuração fiscal. A ativação requer certificado digital A1 da empresa e revisão tributária com seu contador. Confirme os requisitos com a equipe.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:29",
+            "updated_at": "2026-10-19 20:02:29"
+        },
+        {
+            "id": 27,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-25f4-7140-aaa8-48200bee4682",
+            "sender": "bot",
+            "body": "O VetorOS oferece emissão de NF-e em vendas com cliente identificado, NFC-e no PDV e NFS-e em serviços de ordens, conforme liberação e configuração fiscal. A ativação requer certificado digital A1 da empresa e revisão tributária com seu contador. Confirme os requisitos com a equipe.",
+            "decision": "{\"rule\": \"Notas fiscais\", \"outcome\": \"reply\", \"rule_id\": 74, \"rule_snapshot\": {\"id\": 74, \"name\": \"Notas fiscais\", \"action\": \"reply\", \"active\": false, \"channel\": \"both\", \"subject\": \"financeiro\", \"trigger\": \"keyword\", \"keywords\": [\"nota fiscal\", \"notas fiscais\", \"nfe\", \"nf-e\", \"nfce\", \"nfc-e\", \"nfse\", \"nfs-e\"], \"priority\": 65, \"response\": \"O VetorOS oferece emissão de NF-e em vendas com cliente identificado, NFC-e no PDV e NFS-e em serviços de ordens, conforme liberação e configuração fiscal. A ativação requer certificado digital A1 da empresa e revisão tributária com seu contador. Confirme os requisitos com a equipe.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:29",
+            "updated_at": "2026-10-19 20:02:29"
+        },
+        {
+            "id": 28,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "visitor",
+            "body": "quero uma demonstração",
+            "decision": "{\"rule\": \"Agendamento de demonstração\", \"outcome\": \"qualify\", \"rule_id\": 76, \"rule_snapshot\": {\"id\": 76, \"name\": \"Agendamento de demonstração\", \"action\": \"qualify\", \"active\": false, \"channel\": \"both\", \"subject\": \"comercial\", \"trigger\": \"keyword\", \"keywords\": [\"demonstração\", \"demonstracao\", \"demonstrar\", \"apresentação\", \"apresentacao\"], \"priority\": 100, \"response\": \"Posso encaminhar seu pedido de demonstração para a equipe. Informe seu nome, empresa e alguns horários de preferência; a equipe confirmará a disponibilidade. Este pedido não reserva um horário automaticamente.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": \"name\"}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 29,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "bot",
+            "body": "Posso encaminhar seu pedido de demonstração para a equipe. Informe seu nome, empresa e alguns horários de preferência; a equipe confirmará a disponibilidade. Este pedido não reserva um horário automaticamente.\nComo você se chama?",
+            "decision": "{\"rule\": \"Agendamento de demonstração\", \"outcome\": \"qualify\", \"rule_id\": 76, \"rule_snapshot\": {\"id\": 76, \"name\": \"Agendamento de demonstração\", \"action\": \"qualify\", \"active\": false, \"channel\": \"both\", \"subject\": \"comercial\", \"trigger\": \"keyword\", \"keywords\": [\"demonstração\", \"demonstracao\", \"demonstrar\", \"apresentação\", \"apresentacao\"], \"priority\": 100, \"response\": \"Posso encaminhar seu pedido de demonstração para a equipe. Informe seu nome, empresa e alguns horários de preferência; a equipe confirmará a disponibilidade. Este pedido não reserva um horário automaticamente.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": \"name\"}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 30,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "visitor",
+            "body": "Pessoa Sintética CHAT130",
+            "decision": "{\"rule\": null, \"outcome\": \"qualification\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": \"company\"}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 31,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "bot",
+            "body": "Qual é o nome da sua empresa?",
+            "decision": "{\"rule\": null, \"outcome\": \"qualification\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": \"company\"}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 32,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "visitor",
+            "body": "Empresa Sintética CHAT130",
+            "decision": "{\"rule\": null, \"outcome\": \"qualification\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": \"phone\"}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 33,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "bot",
+            "body": "Qual telefone com DDD?",
+            "decision": "{\"rule\": null, \"outcome\": \"qualification\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": \"phone\"}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 34,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "visitor",
+            "body": "11999990000",
+            "decision": "{\"rule\": null, \"outcome\": \"qualification\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": \"interest\"}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 35,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "bot",
+            "body": "Qual é o seu interesse?",
+            "decision": "{\"rule\": null, \"outcome\": \"qualification\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": \"interest\"}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 36,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "visitor",
+            "body": "Controle de estoque",
+            "decision": "{\"rule\": null, \"outcome\": \"qualification\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 37,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6962-7021-a8cd-774b10422eaa",
+            "sender": "bot",
+            "body": "Simulação concluída. Prévia de contato\/oportunidade disponível; nenhum registro foi criado.",
+            "decision": "{\"rule\": null, \"outcome\": \"qualification\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:46",
+            "updated_at": "2026-10-19 20:02:46"
+        },
+        {
+            "id": 38,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6a67-72bd-86f9-e54944153b8c",
+            "sender": "visitor",
+            "body": "preciso de atendente humano",
+            "decision": "{\"rule\": \"Transferência para atendente humano\", \"outcome\": \"handoff\", \"rule_id\": 79, \"rule_snapshot\": {\"id\": 79, \"name\": \"Transferência para atendente humano\", \"action\": \"handoff\", \"active\": false, \"channel\": \"both\", \"subject\": \"outro\", \"trigger\": \"keyword\", \"keywords\": [\"atendente\", \"humano\", \"pessoa\", \"operador\"], \"priority\": 1, \"response\": \"Vou encaminhar esta conversa para uma pessoa da equipe. O retorno depende da disponibilidade dos atendentes.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:47",
+            "updated_at": "2026-10-19 20:02:47"
+        },
+        {
+            "id": 39,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6a67-72bd-86f9-e54944153b8c",
+            "sender": "bot",
+            "body": "Vou encaminhar esta conversa para uma pessoa da equipe. O retorno depende da disponibilidade dos atendentes.",
+            "decision": "{\"rule\": \"Transferência para atendente humano\", \"outcome\": \"handoff\", \"rule_id\": 79, \"rule_snapshot\": {\"id\": 79, \"name\": \"Transferência para atendente humano\", \"action\": \"handoff\", \"active\": false, \"channel\": \"both\", \"subject\": \"outro\", \"trigger\": \"keyword\", \"keywords\": [\"atendente\", \"humano\", \"pessoa\", \"operador\"], \"priority\": 1, \"response\": \"Vou encaminhar esta conversa para uma pessoa da equipe. O retorno depende da disponibilidade dos atendentes.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:47",
+            "updated_at": "2026-10-19 20:02:47"
+        },
+        {
+            "id": 40,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6a67-72bd-86f9-e54944153b8c",
+            "sender": "human",
+            "body": "Resposta humana sintética.",
+            "decision": null,
+            "created_at": "2026-10-19 20:02:47",
+            "updated_at": "2026-10-19 20:02:47"
+        },
+        {
+            "id": 41,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6a67-72bd-86f9-e54944153b8c",
+            "sender": "visitor",
+            "body": "sistema com estoque",
+            "decision": "{\"rule\": null, \"outcome\": \"no_rule\", \"rule_id\": null, \"rule_snapshot\": null, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:47",
+            "updated_at": "2026-10-19 20:02:47"
+        },
+        {
+            "id": 42,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6a67-72bd-86f9-e54944153b8c",
+            "sender": "visitor",
+            "body": "controle de estoque e peças",
+            "decision": "{\"rule\": \"Peças e estoque\", \"outcome\": \"reply\", \"rule_id\": 72, \"rule_snapshot\": {\"id\": 72, \"name\": \"Peças e estoque\", \"action\": \"reply\", \"active\": false, \"channel\": \"both\", \"subject\": \"comercial\", \"trigger\": \"keyword\", \"keywords\": [\"peças\", \"pecas\", \"estoque\", \"reposição\", \"reposicao\"], \"priority\": 60, \"response\": \"O sistema acompanha disponibilidade e movimentações de peças e estoque para apoiar o planejamento da operação.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:47",
+            "updated_at": "2026-10-19 20:02:47"
+        },
+        {
+            "id": 43,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-6a67-72bd-86f9-e54944153b8c",
+            "sender": "bot",
+            "body": "O sistema acompanha disponibilidade e movimentações de peças e estoque para apoiar o planejamento da operação.",
+            "decision": "{\"rule\": \"Peças e estoque\", \"outcome\": \"reply\", \"rule_id\": 72, \"rule_snapshot\": {\"id\": 72, \"name\": \"Peças e estoque\", \"action\": \"reply\", \"active\": false, \"channel\": \"both\", \"subject\": \"comercial\", \"trigger\": \"keyword\", \"keywords\": [\"peças\", \"pecas\", \"estoque\", \"reposição\", \"reposicao\"], \"priority\": 60, \"response\": \"O sistema acompanha disponibilidade e movimentações de peças e estoque para apoiar o planejamento da operação.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:02:47",
+            "updated_at": "2026-10-19 20:02:47"
+        },
+        {
+            "id": 44,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-ba51-7069-b939-66e21a2a6f3a",
+            "sender": "visitor",
+            "body": "financeiro e nota fiscal",
+            "decision": "{\"rule\": \"Notas fiscais\", \"outcome\": \"reply\", \"rule_id\": 74, \"rule_snapshot\": {\"id\": 74, \"name\": \"Notas fiscais\", \"action\": \"reply\", \"active\": false, \"channel\": \"both\", \"subject\": \"financeiro\", \"trigger\": \"keyword\", \"keywords\": [\"nota fiscal\", \"notas fiscais\", \"nfe\", \"nf-e\", \"nfce\", \"nfc-e\", \"nfse\", \"nfs-e\"], \"priority\": 65, \"response\": \"O VetorOS oferece emissão de NF-e em vendas com cliente identificado, NFC-e no PDV e NFS-e em serviços de ordens, conforme liberação e configuração fiscal. A ativação requer certificado digital A1 da empresa e revisão tributária com seu contador. Confirme os requisitos com a equipe.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:03:08",
+            "updated_at": "2026-10-19 20:03:08"
+        },
+        {
+            "id": 45,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-ba51-7069-b939-66e21a2a6f3a",
+            "sender": "bot",
+            "body": "O VetorOS oferece emissão de NF-e em vendas com cliente identificado, NFC-e no PDV e NFS-e em serviços de ordens, conforme liberação e configuração fiscal. A ativação requer certificado digital A1 da empresa e revisão tributária com seu contador. Confirme os requisitos com a equipe.",
+            "decision": "{\"rule\": \"Notas fiscais\", \"outcome\": \"reply\", \"rule_id\": 74, \"rule_snapshot\": {\"id\": 74, \"name\": \"Notas fiscais\", \"action\": \"reply\", \"active\": false, \"channel\": \"both\", \"subject\": \"financeiro\", \"trigger\": \"keyword\", \"keywords\": [\"nota fiscal\", \"notas fiscais\", \"nfe\", \"nf-e\", \"nfce\", \"nfc-e\", \"nfse\", \"nfs-e\"], \"priority\": 65, \"response\": \"O VetorOS oferece emissão de NF-e em vendas com cliente identificado, NFC-e no PDV e NFS-e em serviços de ordens, conforme liberação e configuração fiscal. A ativação requer certificado digital A1 da empresa e revisão tributária com seu contador. Confirme os requisitos com a equipe.\", \"schedule\": null, \"tenant_id\": 31, \"created_at\": \"2026-10-19T20:01:51.000000Z\", \"deleted_at\": null, \"updated_at\": \"2026-10-19T20:01:51.000000Z\", \"interest_product_id\": null}, \"qualification_step\": null}",
+            "created_at": "2026-10-19 20:03:08",
+            "updated_at": "2026-10-19 20:03:08"
+        }
+    ],
+    "accesses": [
+        {
+            "id": 4,
+            "tenant_id": 31,
+            "conversation_id": "01a155c2-ba51-7069-b939-66e21a2a6f3a",
+            "created_by": 25,
+            "expires_at": "2026-10-19 20:33:07",
+            "redeemed_at": "2026-10-19 20:03:08",
+            "revoked_at": "2026-10-19 20:04:10"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+[
+    {
+        "id": 2,
+        "name": "Apresentação do VetorOS",
+        "before": 10,
+        "after": 200,
+        "active": false,
+        "content_preserved": true
+    },
+    {
+        "id": 9,
+        "name": "Notas fiscais",
+        "before": 80,
+        "after": 65,
+        "active": false,
+        "content_preserved": true
+    }
+]

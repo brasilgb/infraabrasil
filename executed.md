@@ -1,112 +1,165 @@
-# VETOR-CHAT-12.9 — Laboratório publicado e sandbox homologado na VPS
+# Execução — VETOR-CHAT-13.0
 
-## Comparação com a solicitação anterior
+Preparação técnica entregue e publicada. **Piloto comercial supervisionado ainda bloqueado** por operador sem e-mail verificado, plantão/responsável não confirmado e política de atendimento não definida. Não houve ativação pública, ativação de regras ou envio de WhatsApp.
 
-`correio.md` mudou de CHAT-12.8 para CHAT-12.9. SHA-256 atual: `e127c709c8b10562a24c3c1d206bb40c6f616746389941f9313f35638277e20f`; solicitação anterior: `c63f75d5a0805c3c10e89858adf71559138832cdf2bbadc1e084fc2b5d79c6f8`. A nova etapa autoriza publicação coordenada, backup/ensaio e homologação do sandbox na infraestrutura real. Solicitação atual arquivada em `docs/vetor-chat-12/chat129-correio.md` e `docs/vetor-chat-12/chat129/correio.md`; relatório anterior preservado em `chat129/previous-executed.md`. Os relatórios CHAT-12.7 e CHAT-12.8 também foram consultados.
+## Comparação do correio
 
-## Resultado
+O `correio.md` mudou de CHAT-12.9 para CHAT-13.0. A solicitação atual está arquivada em [chat130-correio.md](docs/vetor-chat-13/chat130-correio.md), e o relatório anterior em [previous-executed.md](docs/vetor-chat-13/previous-executed.md).
 
-**Laboratório publicado e jornada sandbox aprovada na VPS. Atendimento automático público não foi ativado.**
+- SHA-256 atual: `483144ee31250b5a46773b4b1520ca49dc9d96319f3622ad0096a8e1a910e922`.
+- SHA-256 anterior CHAT-12.9: `e127c709c8b10562a24c3c1d206bb40c6f616746389941f9313f35638277e20f`.
+- Execução em 19/10/2026 UTC. Não foi realizada nova auditoria geral nem implementada IA.
 
-O administrador autorizado pode abrir `https://vetorleads.com.br/settings/support-automation/lab`, selecionar regras inativas e emitir o código temporário para o widget de `https://vetoros.com.br`. A homologação assistida no navegador conferiu os 14 passos, incluindo contexto, prévia de oportunidade, operador, retomada do automático, encerramento, revogação e expiração. O navegador registrou **zero chamadas a endpoints operacionais e zero erros JavaScript**. Seleção de regra de outro tenant retornou **422**; código expirado/usado também retornou **422**. Após expiração/revogação e recarga, o widget continuou bloqueado no modo de homologação, sem fallback.
+## Versão e publicação
 
-As 14 regras operacionais continuam inativas e sem alterações; WhatsApp automático global e por tenant continuam desligados. Nenhuma mensagem real, campanha, contato comercial ou oportunidade real foi usado no ensaio. Não houve push.
+Confirmado o estado publicado CHAT-12.9 antes da mudança:
 
-## Versões efetivamente publicadas
+- VetorLeads: commit `29a8504af355878eedd47337df72d06e0ebbd407`, imagem `vetorleads:chat129-29a8504af355`, ID `sha256:3c7ab706546aac5ccbd12812b19a46be8262260ee06b59e8bb8d32b2ac9be22a`.
+- VetorOS: commit `1700256f53fda990ed2f812af966c86cc50399ee`, imagem `vetoros:chat129-1700256f53fd`, ID `sha256:eb6b85c0d694b4e30a6436ab0906ffc5fd4a9e868d60c0267872a289ed25dbfc`.
 
-| Produto/processos | Revisão Git | Imagem local |
-|---|---|---|
-| vetorleads (API, worker e scheduler) | `29a8504af355878eedd47337df72d06e0ebbd407` | `vetorleads:chat129-29a8504af355` |
-| Digest vetorleads | `sha256:3c7ab706546aac5ccbd12812b19a46be8262260ee06b59e8bb8d32b2ac9be22a` | Mesmo artefato nos três processos |
-| vetoros (API, worker e scheduler) | `1700256f53fda990ed2f812af966c86cc50399ee` | `vetoros:chat129-1700256f53fd` |
-| Digest vetoros | `sha256:eb6b85c0d694b4e30a6436ab0906ffc5fd4a9e868d60c0267872a289ed25dbfc` | Mesmo artefato nos três processos |
+A preparação CHAT-13.0 foi publicada somente no VetorLeads/API, worker e scheduler:
 
-Configuração coordenada e gitlinks registrados no commit local de infraestrutura `066c3baf200399f059283e8c74d26e7cac41f406`. `docker-compose.override.yml` fixa as duas imagens por revisão e explicita `SUPPORT_AUTOMATION_WHATSAPP_DELIVERY_ENABLED=false` nos três processos VetorLeads. Credenciais, chaves, demais variáveis e volumes foram comparados com os containers anteriores e preservados. As imagens possuem rótulo `org.opencontainers.image.revision`; IDs/digests e saúde efetivamente observados estão em `chat129/published-images.json`.
+- Commit: `859241bd9bbc48bdd3353587f914d13f97237127`.
+- Imagem: `vetorleads:chat130-859241bd9bbc`.
+- ID local imutável: `sha256:5ab2572d41cfc2f0ce4fc8377b62317109415256080da7e285c53f5c447aca93`. Imagem construída localmente, sem push de registry.
+- Commit de infraestrutura: `5a25407ee1fba38cadc4f965a3587e924547dd82`.
+- VetorOS/API, worker e scheduler permaneceram na imagem CHAT-12.9 acima.
+- Os seis serviços estão saudáveis; 21 containers saudáveis no encerramento. Nenhuma migration pendente.
+- Variáveis de ambiente, credenciais, mounts e healthchecks preservados; nenhuma variável operacional alterada.
 
-API, worker e scheduler dos dois produtos foram atualizados. O Nginx foi validado com `nginx -t` e recarregado após cada grupo. **21 containers saudáveis** na conferência final; containers não relacionados conservaram seus IDs. Nenhuma sessão WAHA foi reiniciada.
+Evidências: [imagens publicadas](docs/vetor-chat-13/published-images.json), [preflight](docs/vetor-chat-13/release-preflight.json), [saúde final](docs/vetor-chat-13/containers-after.json).
 
-## Backup e ensaio do banco
+## Regras revisadas e conflitos
 
-Backup: `/opt/infra-abrasil/backups/chat129/vetorleads-before.sql`, **522509 bytes**, permissões **0600** em diretório privado. SHA-256: `f046bf7a025f752409d91dd94366cfacfdab88fa5c81cf1f1bb8aa78d208fbfd`. O SQL e os arquivos privados de ambiente não foram adicionados ao Git. O arquivo temporário que transportou o ambiente produtivo para a migration já foi removido.
+Tenant operacional: Anderson Brasil, ID 1. Antes da alteração, confirmados os valores 10 e 80, a existência das 14 regras e todas inativas. Aplicadas exclusivamente as prioridades aprovadas:
 
-O backup foi restaurado em **chat129_rehearsal**, com usuário próprio restrito a esse banco. Foram conferidas **47 tabelas**. A primeira comparação exata com o banco vivo divergiu somente em `cache`, alterado normalmente pelo scheduler; as demais tabelas coincidiram. Isso foi diagnosticado antes de publicar. O ensaio aplicou somente as duas migrations pendentes; entre as tabelas existentes, apenas `migrations` mudou. As três novas tabelas nasceram vazias, sem perda comercial ou histórica.
+- Regra 2, Apresentação do VetorOS: **10 → 200**.
+- Regra 9, Notas fiscais: **80 → 65**, antes de Vendas, caixa e financeiro (70).
 
-Na operação foram aplicadas, nessa ordem:
+Textos, palavras-chave, ações, assuntos, canais e horários preservados. Auditoria com snapshots antes/depois registrada nos IDs 17 e 18, com origem expressa CHAT-13.0. Nenhuma regra ativada. Defaults genéricos de novos tenants não foram alterados: o ajuste solicitado incidiu sobre as 14 regras do tenant Anderson Brasil.
 
-1. `2026_10_19_200000_create_support_sandbox_tables` — conversas e mensagens sandbox.
-2. `2026_10_19_210000_create_support_sandbox_accesses_table` — credenciais temporárias.
+| ID | Regra | Prioridade final | Intenção / comportamento | Estado |
+| --- | --- | --- | --- | --- |
+| 1 | Boas-vindas e identificação | 5 | Identificação inicial; sem oportunidade | Inativa |
+| 2 | Apresentação do VetorOS | 200 | Informação | Inativa |
+| 3 | Assistências técnicas | 20 | Informação | Inativa |
+| 4 | Clientes e equipamentos | 30 | Informação | Inativa |
+| 5 | Ordens de serviço | 40 | Informação | Inativa |
+| 6 | Orçamentos e aprovação | 50 | Informação | Inativa |
+| 7 | Peças e estoque | 60 | Informação | Inativa |
+| 8 | Vendas, caixa e financeiro | 70 | Informação | Inativa |
+| 9 | Notas fiscais | 65 | Informação fiscal | Inativa |
+| 10 | Planos e contratação | 90 | Comercial / qualificação | Inativa |
+| 11 | Agendamento de demonstração | 100 | Comercial / qualificação | Inativa |
+| 12 | Suporte técnico | 110 | Suporte / humano | Inativa |
+| 13 | Atendimento fora do expediente | 1000 | Fora do expediente; configuração pendente | Inativa |
+| 14 | Transferência para atendente humano | 1 | Atendimento humano | Inativa |
 
-As migrations de automação `180000` e multicanal `190000` já estavam aplicadas. Não houve `migrate:fresh`, rollback de migrations ou suíte automatizada usando o banco operacional. Pest/PHPUnit continuou usando SQLite em memória com as proteções da CHAT-12.5; a infraestrutura real recebeu somente a homologação assistida dos endpoints sandbox, com identidade e dados sintéticos.
+No Laboratório publicado, com cópias sintéticas dessas regras e prioridades finais:
 
-## Homologação publicada e isolamento
+- “sistema para controle de estoque e peças” → **Peças e estoque**, sem interceptação da apresentação geral.
+- “financeiro com emissão de nota fiscal” → **Notas fiscais**, antes da regra financeira genérica.
+- Interesse em demonstração → qualificação comercial; suporte/humano → transferência sem prévia de oportunidade.
 
-Foi criada uma identidade técnica temporária com papel owner **somente no tenant sintético**, sem root, sem acesso ao tenant operacional, sem convite ou envio de e-mail. As 14 regras de referência foram copiadas como inativas apenas para esse escopo. A sessão normal de login permitiu conferir o Laboratório e o widget publicados, em 1440 e 390 px.
+Evidências: [prioridades aplicadas](docs/vetor-chat-13/priorities-applied.json), [observações do Laboratório](docs/vetor-chat-13/published-lab.json), [auditoria final](docs/vetor-chat-13/runtime-after.json).
 
-O ensaio percorreu: seleção WebChat/regra inativa; emissão e resgate; intenção e resposta; conversa multimensagem; qualificação comercial simulada; prévia de contato/oportunidade; transferência; resposta humana interna; retomada com resposta automática; encerramento e bloqueio; revogação explícita; expiração e recarga sem fallback. Para observar a expiração sem esperar 30 minutos, antecipou-se somente `expires_at` de uma credencial pertencente ao tenant sintético, sem mudar relógio, TTL global ou acessos produtivos.
+## Identificação progressiva e CRM
 
-O histórico sintético foi exportado sem hashes de credenciais em `chat129/synthetic-sandbox-history.json`. Ao concluir, os acessos foram revogados e somente o tenant, o administrador e a sessão técnica dessa identidade foram removidos. Nenhum histórico real foi apagado. Todas as contagens abaixo voltaram ao estado anterior à homologação:
+Preservado o motor determinístico existente. A qualificação reaproveita nome, empresa, telefone e e-mail já informados; somente pede campos faltantes, chegando ao interesse. E-mail e empresa não são apagados quando omitidos em uma identificação posterior. A busca por telefone/e-mail associa o contato existente e evita duplicação.
 
-| Tabela | Antes | Depois |
-|---|---:|---:|
-| tenants | 1 | 1 |
-| users | 2 | 2 |
-| leads | 1 | 1 |
-| lead_activities | 4 | 4 |
-| web_conversations | 3 | 3 |
-| web_chat_messages | 8 | 8 |
-| web_chat_events | 5 | 5 |
-| support_thread_states | 4 | 4 |
-| support_automation_rules | 14 | 14 |
-| support_automation_decisions | 2 | 2 |
-| support_automation_outbox | 0 | 0 |
-| support_whatsapp_receipts | 1 | 1 |
-| jobs | 0 | 0 |
-| failed_jobs | 0 | 0 |
+A finalização comercial associa oportunidade, atribui responsável confirmado e mantém acompanhamento de vendedor. Suporte não cria oportunidade automaticamente. Não há inscrição implícita em campanhas: consentimento continua independente. Handoff e qualificação concluída encaminham para a fila do responsável configurado, sem promessa de resposta imediata.
 
-Os checksums das tabelas originais comerciais, de histórico, regras e integrações foram preservados. As únicas diferenças globais ficaram em `migrations` (duas inclusões), `cache` e `sessions`. Em sessões, a coleta normal do Laravel removeu **48 registros já expirados**; a duração permaneceu em **120 minutos**, e **nenhuma sessão anterior ainda válida está ausente**. Também foram criadas sessões HTTP anônimas da navegação, que não são conversas ou mensagens operacionais. Não houve limpeza global de sessões ou alteração de APP_KEY. Evidências: `chat129/final-isolation.json` e `chat129/sessions-preservation.json`.
+Comprovado em testes HTTP isolados: dois chats com o mesmo contato produzem um único lead, reaproveitam os dados, preservam e-mail/empresa e registram vendedor/follow-up sem consentimento de campanha. No publicado, somente prévias simuladas; nenhum lead ou oportunidade real foi criado para homologação.
 
-Capturas incluem Laboratório publicado, qualificação, operador nos dois lados, encerramento, revogação e expiração. A observação detalhada está em `chat129/published-sandbox-observations.json`; imagens estão no mesmo diretório.
+## Operador, Central e notificações
 
-## Regras e proposta de prioridade
+Estado real verificado:
 
-As **14 regras do tenant operacional permaneceram inativas, com conteúdo, prioridades e agenda preservados**. Nenhum horário foi configurado.
+- Anderson Brasil, usuário 1: ativo, vínculo `owner`, autorizado a administrar e acessar a Central.
+- **`email_verified_at` está nulo.** Não foi alterado, não foi enviada verificação por e-mail e não foi presumida verificação ou disponibilidade de plantão.
+- A fila existente contém 2 WebChats em andamento e 1 conversa WhatsApp pendente; não foram respondidos, assumidos ou encerrados durante esta execução.
+- A Central possui atualização periódica da fila e indicadores de não lidas; não foi acrescentado envio de e-mail/push.
+- Assumir, responder, suspender, retomar e encerrar foram validados com dados sintéticos no Laboratório; pausa após resposta humana e deduplicação também estão cobertas por regressão isolada.
 
-Em cópias inativas do tenant sintético foram reproduzidos os conflitos e conferida esta proposta:
+Isso comprova o funcionamento técnico, **não comprova um operador real em plantão**. O responsável precisa verificar o próprio e-mail e confirmar a operação antes da liberação.
 
-| Frase | Resultado atual | Proposta ensaiada | Resultado no Laboratório |
-|---|---|---|---|
-| “Como o sistema controla estoque?” | Apresentação do VetorOS | Apresentação geral: prioridade 10 → **200** | Peças e estoque |
-| “Como funciona o financeiro e a nota fiscal?” | Vendas, caixa e financeiro | Notas fiscais: prioridade 80 → **65** | Notas fiscais |
+## Horário e checklist na administração
 
-A proposta ficou registrada para revisão, **sem aplicação ao tenant operacional ou ativação pública**. Evidência: `chat129/priority-proposal.json`. As condições de pagamento continuam sujeitas à confirmação comercial nos modelos revisados da CHAT-12.8; não houve atualização automática do conteúdo das regras produtivas já gravadas.
+Disponível em `/settings/support-automation`, seção **Liberação comercial do WebChat**:
 
-## WAHA e travas
+- Operador autorizado selecionável, com aviso para e-mail não verificado.
+- Política “Ainda não definida”, atendimento assíncrono com mensagem explícita ou expediente com fuso IANA, dias, início, término e resposta externa obrigatórios.
+- Validação de fuso/dias/faixa de horário; nenhum horário foi presumido.
+- Checklist de revisão, conflitos, operador, fila, widget, CRM, desligamento, backup e regressão.
+- Ativação futura exige administrador com e-mail verificado, operador verificado, checklist completo e confirmação literal `ATIVAR WEBCHAT`.
+- Salvar preparação mantém/desliga a automação. Botão para desligamento imediato. Alterações de preparação/ativação são auditadas.
+- Editar uma regra para ativa não contorna a trava pública. Regra fora do expediente não pode ser ativada sem horário.
 
-A sessão do VetorLeads `vl-5f8726f2-5230-4e6c-b13b-69678d4ea517` permaneceu **WORKING**. `vetoros1-1` também permaneceu WORKING. `vetoros1-9` já estava **FAILED antes da publicação** e continuou assim; não foi modificada nem incluída artificialmente no resultado de homologação. As consultas WAHA foram somente GET de estado, sem envio ou reconexão. Detalhes antes/depois em `chat129/runtime-details-*.json`.
+**Estado operacional salvo:** configuração de piloto ainda nula, interpretada como desligada; responsável não selecionado, política `unset`, horários ausentes. A regra “Atendimento fora do expediente” permanece inativa. Os campos de conferência administrativa permanecem pendentes até o administrador atestar a liberação; os testes técnicos abaixo não substituem essa confirmação.
 
-Trava global: **false**. Tenant operacional: `whatsapp_automation_enabled=0`, `whatsapp_automation_homologated_at=null`. Regras ativas: **0/14**. Outbox: **0** antes/depois. Leads, mensagens, eventos e decisões operacionais ficaram iguais. A publicação do Laboratório não habilitou atendimento automático público.
+| Condição | Resultado desta execução |
+| --- | --- |
+| 14 regras revisadas | Concluído; todas inativas |
+| Conflitos aprovados | Corrigidos e conferidos no Laboratório publicado |
+| Operador autorizado e verificado | **Pendente: e-mail não verificado; responsável/plantão não confirmado** |
+| Fila e atendimento humano | Fluxo técnico testado; operação real pelo responsável pendente |
+| Horário ou política assíncrona explícita | **Pendente: não informado** |
+| Widget e sandbox | Homologação publicada concluída com código temporário |
+| CRM/deduplicação | Regressão isolada aprovada; publicado validado apenas em prévia |
+| Desligamento imediato | Testado em base isolada; publicado permanece desligado |
+| Backup válido | Restaurado e migration ensaiada; integridade preservada |
+| Ausência de regressão | Suíte completa e testes afetados aprovados |
+| Confirmação administrativa para ativação | **Não solicitada/não executada nesta fase** |
 
-## Validações e correções de empacotamento
+## Indicadores reais
 
-- Testes focados novamente executados fora da operação: **8 testes / 102 asserções** do laboratório e ponte; **9 testes / 29 asserções** do proxy, incluindo rejeições sem fallback.
-- Evidências da CHAT-12.8 preservadas: regressões completas com **1.318 testes PHP VetorLeads e 820 VetorOS**, PHPStan sem erros e verificações de segurança/isolamento. Não foram repetidas no banco real.
-- Snapshot da revisão VetorOS: **TypeScript aprovado**, **4 testes JavaScript aprovados**, lint dos arquivos alterados — incluindo `vite.config.ts` — aprovado.
-- Lint completo mantido visível: **442 erros e 11 avisos preexistentes**, sem problemas nos arquivos alterados. Não houve desativação global de regras ou correção indiscriminada de arquivos. Artefatos `chat129/full-eslint.json` e `chat129/eslint-summary.json`.
-- Builds Docker dos dois commits concluídos, incluindo os builds frontend de produção. Imagens finais sem `.env`, `.env.testing`, `node_modules`, Pest ou PHPUnit; dependências de desenvolvimento ficaram nos estágios de build.
-- O primeiro build limpo falhou por falta dos diretórios vazios de cache. A publicação ficou suspensa, os Dockerfiles foram corrigidos e os builds passaram antes da atualização dos containers. O build VetorOS também passou a resolver Ziggy pela dependência já fixada no lockfile, sem depender do vendor local. Nenhuma funcionalidade de negócio nova foi criada.
-- `.dockerignore` passou a excluir ambientes privados, sessões/cache locais e assets gerados; `.env.example` foi preservado. Contextos de build foram extraídos de `git archive HEAD`, sem backups, arquivos temporários ou alterações não versionadas.
+Dashboard passou a exibir o acumulado operacional de WebChat do tenant, com conversão indisponível quando não há denominador. Estado real no encerramento:
 
-## Git, comandos e reversão
+| Indicador | Valor |
+| --- | --- |
+| Conversas iniciadas | 2 |
+| Conversas respondidas pelo assistente | 0 |
+| Contatos qualificados | 0 |
+| Oportunidades comerciais associadas | 0 |
+| Transferências para humanos | 0 |
+| Atendimentos pendentes | 0 |
+| Conversões comerciais | 0 |
+| Conversão (%) | Indisponível: sem oportunidades associadas |
 
-Os commits locais foram separados em alterações anteriores de manutenção, migrations, código funcional/ponte, correções de empacotamento e configuração de infraestrutura. Lista exata de commits e arquivos adicionados: `chat129/commits.json`. Foram usados `git add -- <arquivos explícitos>` e `git commit -m <mensagem>`, sem `git add .`, descarte de alterações anteriores ou push. Os dois submódulos estão limpos e seus gitlinks correspondem às revisões publicadas. Evidências e este relatório são versionados separadamente da aplicação. Pastas históricas não rastreadas das etapas anteriores foram preservadas e não foram incluídas indiscriminadamente nesta publicação.
+“Atendimentos pendentes” nessa seção conta WebChats pendentes com automação suspensa, não os dois já em andamento nem a fila WhatsApp. Oportunidades são leads comerciais distintos associados a chats comerciais; conversão usa esses mesmos leads ganhos.
 
-A construção usou os contextos de `git archive` e `docker build --label org.opencontainers.image.revision=<hash> -t <produto>:chat129-<hash> <contexto>`. Depois do ensaio, a migration foi executada por container efêmero da imagem nova; os grupos foram atualizados por `docker compose up -d --no-build --no-deps <api> <worker> <scheduler>`. Não foi utilizado `up` indiscriminado de toda a infraestrutura.
+Laboratório usa tabelas separadas. Novos marcadores persistentes `is_synthetic` em conversas e leads permitem excluir registros sintéticos também fora do Laboratório, sem parâmetro público para marcá-los/desmarcá-los. As consultas afetadas do dashboard, atividades e métricas comerciais excluem esses registros. Testes com dados sintéticos e sandbox comprovaram a exclusão; o dashboard do tenant temporário permaneceu zerado mesmo durante a homologação.
 
-Reversão preparada em **`chat129/rollback.md`**, com overlay **`chat129/rollback-images.json`** e os IDs efetivamente anteriores. Ela revoga acessos sandbox, restaura primeiro o widget/proxy e depois a API anterior compatível, mantém as tabelas aditivas, preserva chaves/volumes e recarrega Nginx. Nenhum rollback foi executado.
+## Testes e isolamento
 
-## Pendências reais
+- Suíte VetorLeads: **1.325 testes / 14.046 assertions aprovados**.
+- Regressão final dos fluxos afetados: **40 testes / 407 assertions aprovados**.
+- Novos cenários de piloto: 7 testes / 83 assertions, incluídos nas contagens acima.
+- PHPStan: zero erros. TypeScript, ESLint e Pint aprovados. Build da imagem/frontend aprovado.
+- Testes automatizados executados em base isolada; nenhum Pest/PHPUnit foi executado contra o banco operacional.
+- Regras inativas silenciosas publicamente, trava global, ativação explícita, permissões, e-mail não verificado, agenda inválida, deduplicação, identificação progressiva, handoff/pausa/retomada e exclusão de sintéticos cobertos pela regressão.
+- Laboratório publicado: conflitos, qualificação somente em prévia, handoff, assumir, resposta humana, silêncio durante pausa, retomada e encerramento aprovados.
+- Widget publicado: código temporário autorizado, troca de mensagens no sandbox, revogação e bloqueio após reload aprovados. **Zero chamadas às rotas operacionais de conversa e zero erros JavaScript**.
+- Interface inspecionada em 1440 px e 390 px. Capturas em `docs/vetor-chat-13/`.
+- Tenant sintético 31 e usuário sintético 25 removidos após exportar histórico e revogar acessos. Contagens operacionais antes/depois idênticas: leads 1, atividades 4, conversas 3, mensagens 8, eventos 5; outbox 0, jobs 0, failed_jobs 0.
 
-1. Passivo de ESLint do VetorOS: 442 erros e 11 avisos, separado desta entrega.
-2. Sessão WAHA `vetoros1-9` em FAILED: situação anterior, fora do escopo e preservada.
-3. Propostas de prioridade aguardam revisão antes de qualquer alteração operacional.
-4. Atendimento automático público e WhatsApp real continuam desabilitados; qualquer ativação futura exige etapa própria. Esta execução homologa somente o **sandbox publicado**.
+A revisão automática bloqueou uma tentativa de teste negativo que enviaria `enabled=true` ao endpoint publicado, mesmo esperando rejeição. A chamada não foi executada: o cenário ficou restrito aos testes isolados, evitando risco de ativação acidental. Não é necessário aprovar esse teste para concluir a preparação.
+
+Evidências: [resumo de validação](docs/vetor-chat-13/validation-summary.json), [isolamento final](docs/vetor-chat-13/final-isolation.json), [histórico sintético exportado](docs/vetor-chat-13/synthetic-sandbox-history.json), [dashboard sintético](docs/vetor-chat-13/1440-dashboard.png).
+
+## Backup, migration e retorno
+
+- Backup privado: `/opt/infra-abrasil/backups/chat130/vetorleads-before-chat130.sql`, permissões 0600, 511284 bytes.
+- SHA-256: `12328edef31175e002d8efa3c1949b850c71d7b9a20d83e839e264caf6d351e0`.
+- Restaurado no banco isolado `chat130_rehearsal`, com credencial restrita a esse banco.
+- Migration `2026_10_19_220000_prepare_web_chat_commercial_pilot` ensaiada antes da aplicação operacional. Assinaturas dos dados originais de **49 tabelas** preservadas na restauração; somente colunas aditivas e registro de migration novos.
+- Credenciais de banco, códigos e senhas temporários não incluídos no relatório ou no Git; mecanismos e credenciais existentes de sandbox preservados.
+- Retorno de código disponível pela imagem anterior CHAT-12.9 nos três serviços Leads. Manter colunas aditivas e auditoria; não executar rollback destrutivo de migration. A imagem anterior exige preservar todas as regras inativas. As prioridades aprovadas podem permanecer.
+
+## Git e pendências
+
+Código VetorLeads registrado no commit `859241bd9bbc48bdd3353587f914d13f97237127`; deploy de preparação no commit `5a25407ee1fba38cadc4f965a3587e924547dd82`. VetorOS sem alteração. Alteração anterior do VetorPet e documentos de outras tarefas preservados e excluídos dos commits CHAT-13.0.
+
+Para atingir o critério de piloto supervisionado: **verificar o e-mail do responsável, confirmar quem operará a fila, definir expediente completo ou mensagem/política assíncrona explícita e obter a conferência administrativa**. Nenhuma dessas decisões foi inventada. A ativação pública exige autorização específica em uma próxima fase.
+
+**Travas finais:** 14/14 regras inativas, piloto WebChat desligado, regra fora do expediente inativa, WhatsApp global `false`, WhatsApp do tenant desligado, homologação WhatsApp ausente, outbox vazia. Não houve envio automático.

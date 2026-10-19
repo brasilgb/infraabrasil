@@ -1,0 +1,1 @@
+{"tool":"pint","result":"fixed","files":[{"path":"\/opt\/infra-abrasil\/gateway\/vetorleads\/app\/Http\/Controllers\/LeadController.php","fixers":["unary_operator_spaces","statement_indentation","not_operator_with_successor_space"]}]}

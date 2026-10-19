@@ -1,0 +1,22 @@
+# Inventário funcional — COMERCIAL-01
+
+Classificação anterior às alterações desta etapa, confirmada por inspeção de modelos, migrations, rotas, controllers, serviços, interfaces e testes. Os caminhos abaixo são relativos ao repositório VetorLeads (`gateway/vetorleads`).
+
+| Área | Estado encontrado | Evidências existentes | Tratamento nesta etapa |
+| --- | --- | --- | --- |
+| Captura / prospects | Implementada | `app/Services/Prospecting/ExtensionProspectImporter.php`, `ProspectDeduplicator.php`, `app/Http/Controllers/ProspectingController.php`, `tests/Feature/ExtensionProspectingTest.php` | Reutilizada; captura sintética, seleção e conversão verificadas. |
+| Qualificação / score / catálogo | Implementada | `app/Services/Prospecting/ProspectQualifier.php`, `ProspectQualificationPreview.php`, `app/Models/ProspectProduct.php`, `resources/js/components/prospecting-results.tsx` | Reutilizada a prévia e confirmação por produto; não houve requalificação operacional. |
+| Conversão para CRM / deduplicação | Implementada | `app/Services/Prospecting/ProspectConverter.php`, `tests/Feature/ProspectingTest.php` | Conversão repetida no teste mantém apenas um lead. |
+| Oportunidades e funil por tenant | Implementada com seis chaves compatíveis | `app/Models/Lead.php::statusOptions`, `app/Http/Controllers/Settings/LeadPipelineController.php`, `resources/js/pages/settings/pipeline.tsx`, `resources/js/pages/leads/index.tsx` | Preservadas seis etapas e personalização de rótulos/ordem; propostas têm estados próprios. As oito etapas do correio são sugestões, não foram impostas nem migradas sobre configurações existentes. |
+| Chamadas, WhatsApp manual, e-mail e reuniões | Implementada | `app/Models/LeadActivity.php::TYPES`, `app/Http/Controllers/LeadActivityController.php`, `resources/js/pages/leads/edit.tsx` | Reutilizados tipo, observação, status/interesse, vendedor e próximo contato. Gravação da atividade e alterações do lead agora são atômicas. |
+| WhatsApp / WebChat reais | Implementada | `app/Services/LeadWhatsappService.php`, `app/Http/Controllers/Api/WhatsappInboundController.php`, `app/Http/Controllers/Api/WebChatController.php`, `app/Models/LeadActivity.php::conversation` | Integrações preservadas. WhatsApp manual sem `direction` permanece somente no histórico; mensagens técnicas têm direção/identificador do provedor. Não foram realizados envios reais. |
+| Follow-ups / atividades cronológicas | Implementada | `app/Models/Lead.php::FOLLOW_UP_STATES`, `resources/js/components/lead-follow-up.tsx`, abas `tasks` do CRM e histórico na edição | Reutilizados filtros de pendentes, vencidos, hoje e futuros; vendedor na atividade e responsável na oportunidade. |
+| Propostas B2B versionadas | Ausente | Busca em modelos, migrations, serviços, rotas e telas encontrou somente checkout/PDF de e-books; nenhum equivalente de proposta comercial | Criados módulo `CommercialProposal`, snapshots de itens/empresa, versões, totais em centavos, estados manuais, PDF A4 com paginação e histórico por vendedor. |
+| Negociação / ganho / perda | Parcial | `Lead::STATUSES`, `Lead::LOST_REASONS`, `LeadController::status`, histórico e valor estimado | Acrescentados valor negociado, data e autor do fechamento, idempotência e reabertura com motivo e preservação do fechamento anterior no histórico. |
+| Indicadores / relatórios | Parcial | `DashboardController`, dashboard e aba `metrics` do CRM; `won_sales_value` somava `estimated_value` | Corrigida a origem do valor fechado; acrescentados propostas emitidas/aceitas, pipeline e resultados por vendedor, produto, segmento e origem. |
+| Recebimentos financeiros | Ausente no módulo B2B | Checkout de e-books é outro domínio e não comprova recebimento de oportunidades B2B | Não foi criado livro financeiro nem pagamento fictício. `received_revenue = null`; telas distinguem previsão, negociação e recebimento não registrado. |
+| Isolamento / autorização | Implementada | `BelongsToTenant`, `TenantContext`, `EnsureCommercialAccess`, `LeadRequest` e testes SaaS | Novos modelos e endpoints usam os mesmos escopos; testes cobrem IDs de lead, produto, proposta, revisão, PDF e fechamento de outro tenant. |
+
+## Integração adicionada
+
+A edição do lead reúne histórico existente, links de propostas e fechamento. O menu tem uma entrada por módulo comercial; o quadro continua acessível na aba de oportunidades do CRM. Produtos/serviços têm acesso direto; configurações continuam no rodapé. Nenhum módulo de contato, funil ou captura foi reconstruído.

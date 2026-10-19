@@ -1,0 +1,20 @@
+{
+  "previous_mail_sha256": "3a69a95cc535bfbb25e7f310471426fb7790cda78596eefbaff83e2483230283",
+  "executed_mail_sha256": "d9bd19925dfc575f9850453d48ac6e124517b786fd187b9db0b338f7793e545f",
+  "changed": true,
+  "native_database": "MariaDB 11.8.6",
+  "native_php": "8.4.26",
+  "full_suite": {
+    "passed": 1280,
+    "assertions": 13630
+  },
+  "final_transaction_checks": {
+    "passed": 62,
+    "assertions": 479
+  },
+  "deploy": false,
+  "push": false,
+  "production_migrations": false,
+  "real_messages": false,
+  "application_commit": "f072ba01e1206ac876b806ddfeb9aecfabe890c8"
+}

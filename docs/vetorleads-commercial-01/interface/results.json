@@ -1,0 +1,89 @@
+{
+  "qualification": "PASS",
+  "conversion": "PASS",
+  "contact": "PASS",
+  "proposal": "PASS",
+  "revision": "PASS",
+  "pdf": "PASS",
+  "negotiation": "PASS",
+  "closure": "PASS",
+  "metrics": "PASS",
+  "lead_id": 1,
+  "proposal_id": 3,
+  "checks": [
+    {
+      "width": 1440,
+      "path": "/dashboard",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/proposals",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/proposals/3",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/leads/1/edit",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/leads?tab=kanban",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/commercial/reports",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/dashboard",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/proposals",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/proposals/3",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/leads/1/edit",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/leads?tab=kanban",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/commercial/reports",
+      "status": 200,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "blockedExternalRequests": []
+}

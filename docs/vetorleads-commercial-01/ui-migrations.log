@@ -1,0 +1,56 @@
+
+   INFO  Preparing database.
+
+  Creating migration table ....................................... 6.38ms DONE
+
+   INFO  Running migrations.
+
+  0001_01_01_000000_create_users_table .......................... 28.29ms DONE
+  0001_01_01_000001_create_cache_table .......................... 17.44ms DONE
+  0001_01_01_000002_create_jobs_table ........................... 30.82ms DONE
+  2024_01_01_000000_create_passkeys_table ....................... 22.70ms DONE
+  2025_08_14_170933_add_two_factor_columns_to_users_table ....... 17.34ms DONE
+  2026_07_16_143900_create_leads_table .......................... 40.27ms DONE
+  2026_07_16_145200_create_lead_activities_table ................ 34.78ms DONE
+  2026_07_17_131700_add_product_to_leads_table .................. 11.31ms DONE
+  2026_07_18_120000_add_lost_reason_to_leads_table ............... 5.17ms DONE
+  2026_07_18_130000_add_deduplication_indexes_to_leads_table .... 16.31ms DONE
+  2026_07_19_180000_create_ebook_commerce_tables ................ 94.19ms DONE
+  2026_07_21_120000_create_blog_tables .......................... 85.86ms DONE
+  2026_07_22_120000_add_google_maps_extraction_fields_to_leads_table  61.57ms DONE
+  2026_07_22_130000_expand_leads_website_column .................. 5.31ms DONE
+  2026_07_22_180000_add_default_blog_categories .................. 2.79ms DONE
+  2026_08_01_142111_add_soft_deletes_to_leads_table .............. 6.04ms DONE
+  2026_08_27_120000_create_testimonials_table ................... 14.98ms DONE
+  2026_08_27_120001_create_portfolio_items_table ................ 14.87ms DONE
+  2026_08_29_165826_create_blog_tags_table ...................... 30.17ms DONE
+  2026_09_22_120000_create_settings_table ........................ 8.83ms DONE
+  2026_09_23_120000_add_whatsapp_provider_fields_to_lead_activities_table  15.47ms DONE
+  2026_09_24_120000_add_direction_to_lead_activities_table ....... 5.54ms DONE
+  2026_09_24_130000_add_read_at_to_lead_activities_table ........ 12.69ms DONE
+  2026_09_25_120000_add_time_to_next_follow_up_at ............... 28.84ms DONE
+  2026_09_28_180000_add_trial_period_to_leads_table ............. 19.63ms DONE
+  2026_09_28_190000_create_lead_automation_executions_table ..... 19.77ms DONE
+  2026_09_28_200000_create_prospect_products_table .............. 10.60ms DONE
+  2026_09_28_210000_add_prospect_product_id_to_leads_table ...... 33.50ms DONE
+  2026_09_29_100000_change_trial_dates_to_datetime_on_leads_table  35.12ms DONE
+  2026_09_29_180000_add_lead_activity_id_to_lead_automation_executions_table  19.18ms DONE
+  2026_09_29_200000_add_registration_check_to_prospect_products_table  17.77ms DONE
+  2026_09_29_200001_add_registration_check_to_leads_table ....... 21.90ms DONE
+  2026_09_30_100000_add_maps_place_identity_to_leads_table ...... 47.01ms DONE
+  2026_10_13_100000_create_saas_foundation ...................... 67.58ms DONE
+  2026_10_13_110000_add_customer_access_fields .................. 59.40ms DONE
+  2026_10_13_120000_add_tenant_ownership_to_commercial_tables .. 140.71ms DONE
+  2026_10_13_150000_create_prospecting_tables .................. 252.69ms DONE
+  2026_10_13_170000_add_queue_and_quality_to_prospecting ........ 39.83ms DONE
+  2026_10_14_190000_add_contact_opposition_to_leads .............. 6.33ms DONE
+  2026_10_15_120000_create_tenant_whatsapp_connections .......... 28.36ms DONE
+  2026_10_17_120000_add_estimated_value_to_leads_table ........... 9.13ms DONE
+  2026_10_18_120000_create_web_chat_tables ..................... 103.23ms DONE
+  2026_10_18_150000_create_support_thread_states_table .......... 30.12ms DONE
+  2026_10_18_150100_add_user_id_to_web_chat_messages ............ 14.97ms DONE
+  2026_10_18_150200_create_automation_events_table .............. 24.46ms DONE
+  2026_10_18_180000_add_delivery_state_to_automation_events ..... 16.15ms DONE
+  2026_10_18_210000_add_identification_to_web_conversations ..... 18.15ms DONE
+  2026_10_19_000000_add_commercial_criteria_to_prospect_products  14.87ms DONE
+  2026_10_19_130000_add_commercial_proposals_and_closure ........ 96.78ms DONE

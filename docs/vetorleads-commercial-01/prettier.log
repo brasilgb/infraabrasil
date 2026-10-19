@@ -1,0 +1,11 @@
+resources/js/components/app-sidebar.tsx 158ms
+resources/js/pages/dashboard.tsx 263ms
+resources/js/pages/leads/edit.tsx 177ms (unchanged)
+resources/js/pages/leads/form.tsx 106ms (unchanged)
+resources/js/components/commercial-summary.tsx 15ms
+resources/js/components/lead-commercial.tsx 38ms
+resources/js/lib/commercial.ts 7ms
+resources/js/pages/commercial/report.tsx 15ms
+resources/js/pages/proposals/form.tsx 34ms
+resources/js/pages/proposals/index.tsx 19ms
+resources/js/pages/proposals/show.tsx 19ms

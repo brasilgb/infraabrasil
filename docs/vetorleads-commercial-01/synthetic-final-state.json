@@ -1,0 +1,69 @@
+{
+    "database": "commercial01_ui",
+    "version": "11.8.6-MariaDB-0+deb13u1 from Debian",
+    "migrations": 49,
+    "tenants": 1,
+    "users": 1,
+    "prospects": 1,
+    "leads": 1,
+    "proposals": 3,
+    "activities": 12,
+    "metrics": {
+        "pipeline_value": 0,
+        "closed_value": 345.55,
+        "won_without_value": 0,
+        "proposals_issued": 1,
+        "proposals_accepted": 1,
+        "follow_ups_pending": 0,
+        "follow_ups_overdue": 0,
+        "received_revenue": null
+    },
+    "groups": {
+        "seller": [
+            {
+                "label": "Vendedor sintético",
+                "total": 1,
+                "won": 1,
+                "lost": 0,
+                "pipeline_value": 0,
+                "closed_value": 345.55,
+                "conversion_rate": 100
+            }
+        ],
+        "product": [
+            {
+                "label": "Gestão COMERCIAL01",
+                "total": 1,
+                "won": 1,
+                "lost": 0,
+                "pipeline_value": 0,
+                "closed_value": 345.55,
+                "conversion_rate": 100
+            }
+        ],
+        "segment": [
+            {
+                "label": "Oficina",
+                "total": 1,
+                "won": 1,
+                "lost": 0,
+                "pipeline_value": 0,
+                "closed_value": 345.55,
+                "conversion_rate": 100
+            }
+        ],
+        "source": [
+            {
+                "label": "Prospecção VetorLeads",
+                "total": 1,
+                "won": 1,
+                "lost": 0,
+                "pipeline_value": 0,
+                "closed_value": 345.55,
+                "conversion_rate": 100
+            }
+        ]
+    },
+    "jobs": 0,
+    "failed_jobs": 0
+}

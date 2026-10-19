@@ -1,0 +1,1 @@
+{"tool":"pint","result":"fixed","files":[{"path":"\/opt\/infra-abrasil\/gateway\/vetorleads\/tests\/Feature\/CommercialCycleTest.php","fixers":["fully_qualified_strict_types","no_extra_blank_lines","ordered_imports"]}]}

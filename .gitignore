@@ -9,3 +9,9 @@ volumes/n8n/*
 volumes/desgarrados/*
 backups/
 !volumes/*/.gitkeep
+
+# Clone e credenciais locais do ensaio PROSPECT-09
+staging/prospect09/
+
+# Evidências privadas e backup do PROSPECT-10
+staging/prospect10/

@@ -1,0 +1,26 @@
+services:
+  vetorleads:
+    image: vetorleads:prospect09-00282e4
+    pull_policy: never
+  vetorleads-worker:
+    image: vetorleads:prospect09-00282e4
+    pull_policy: never
+    volumes:
+      - ./scripts/vetorleads-process-health.php:/opt/infra/vetorleads-process-health.php:ro
+    healthcheck:
+      test: [CMD, php, /opt/infra/vetorleads-process-health.php, 'queue:work']
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+  vetorleads-scheduler:
+    image: vetorleads:prospect09-00282e4
+    pull_policy: never
+    volumes:
+      - ./scripts/vetorleads-process-health.php:/opt/infra/vetorleads-process-health.php:ro
+    healthcheck:
+      test: [CMD, php, /opt/infra/vetorleads-process-health.php, 'schedule:work']
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s

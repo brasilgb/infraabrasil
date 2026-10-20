@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "errors": [],
+  "viewport": [
+    390,
+    844
+  ],
+  "flows": [
+    "login",
+    "prospect list",
+    "request validation",
+    "evidence history",
+    "status filter",
+    "lead validation tab",
+    "mobile viewport"
+  ]
+}

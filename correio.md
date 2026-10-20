@@ -1,172 +1,42 @@
-# VETOR-CHAT-13.0 — Preparação da Ativação Comercial do WebChat VetorOS
+# VETORLEADS-QUALIFY-01 — Qualificação inteligente de oportunidades B2B
 
 ## Objetivo
 
-Preparar o WebChat do VetorOS para atender visitantes reais, qualificar interessados e encaminhar oportunidades comerciais ao VetorLeads.
+Evoluir o VetorLeads de uma plataforma de captura e validação empresarial para uma plataforma que identifica, classifica e prepara oportunidades comerciais reais.
 
-Aproveitar integralmente o motor de automação, o Laboratório e a Central de Atendimento já existentes.
+## Diretrizes
 
-Não implementar IA nesta etapa, não reconstruir módulos e não realizar nova auditoria geral.
+1. Auditar os módulos existentes de prospecção, validação empresarial, CRM e automações antes de implementar.
+2. Reaproveitar integralmente o VETORLEADS-VALIDATE-01, evitando funcionalidades duplicadas.
+3. Criar pontuação comercial independente das pontuações de identidade e atividade.
+4. Permitir definir perfil de cliente ideal (ICP) por tenant, considerando segmento, região, porte e outros critérios relevantes.
+5. Classificar prospects conforme aderência ao ICP, qualidade dos contatos, evidências disponíveis e potencial comercial.
+6. Não interpretar automaticamente presença em redes sociais, atividade cadastral ou popularidade como intenção de compra.
+7. Identificar canais de contato públicos disponíveis e sua origem, respeitando LGPD, permissões e regras dos provedores.
+8. Gerar sugestões de abordagem comercial específicas para o segmento, sem enviar mensagens automaticamente.
+9. Priorizar empresas com maior potencial comercial e apresentar justificativas compreensíveis ao vendedor.
+10. Criar filtros e indicadores no painel de prospecção, mantendo captura, validação, qualificação e CRM claramente organizados.
 
-## 1. Verificação da versão publicada
+## Fluxo esperado
 
-- Confirmar os commits e imagens CHAT-12.9.
-- Verificar a saúde do VetorLeads, VetorOS, worker e scheduler.
-- Confirmar integridade das migrations e do Laboratório.
-- Preservar os mecanismos de sandbox e suas credenciais.
-- Garantir que o WhatsApp automático continue desligado.
+Captura → Deduplicação → Validação empresarial → Qualificação comercial → Revisão → CRM → Atendimento → Negociação → Venda.
 
-## 2. Ajustar as regras comerciais
+## Interface
 
-Revisar as 14 regras do tenant Anderson Brasil.
+Priorizar a reutilização das telas existentes. Utilizar modais, abas e componentes compactos para evitar informações amontoadas.
 
-Aplicar os ajustes de prioridade já aprovados tecnicamente no Laboratório:
+## Regras técnicas
 
-- Apresentação geral: prioridade 10 para 200.
-- Notas fiscais: prioridade 80 para 65.
+- Laravel e React/Inertia existentes.
+- Isolamento rigoroso entre tenants.
+- Consultas externas controladas por cache, orçamento e limites.
+- Nenhuma API paga habilitada automaticamente.
+- Nenhum disparo de WhatsApp, e-mail ou Instagram sem autorização e fluxo operacional apropriado.
+- Preservar contatos, histórico e integrações existentes.
+- Criar testes automatizados e validar o fluxo em ambiente isolado.
 
-Antes de alterar, confirmar que os valores atuais ainda correspondem ao relatório e verificar conflitos com outras regras.
+## Entrega
 
-Preservar conteúdos e registrar auditoria das alterações.
+Implementar a evolução funcional possível, executar testes e documentar evidências e pendências no `executed.md`.
 
-Não ativar automaticamente todas as regras.
-
-## 3. Organizar atendimento comercial
-
-Separar claramente três intenções:
-
-**Informações sobre o VetorOS**
-- Apresentação do produto.
-- Funcionalidades.
-- Segmentos atendidos.
-- Dúvidas frequentes.
-
-**Interesse comercial**
-- Contratação.
-- Planos.
-- Demonstração.
-- Solicitação de contato.
-- Qualificação e criação de oportunidade.
-
-**Suporte**
-- Cliente existente.
-- Dúvidas operacionais.
-- Problemas de acesso.
-- Solicitação de atendimento humano.
-
-Suporte não deverá criar oportunidade comercial automaticamente.
-
-## 4. Identificação progressiva
-
-O assistente deverá solicitar somente as informações necessárias, aproveitando dados fornecidos anteriormente.
-
-Fluxo comercial:
-
-1. Identificar a intenção.
-2. Responder à dúvida inicial.
-3. Solicitar nome quando necessário.
-4. Solicitar empresa.
-5. Solicitar telefone ou WhatsApp com DDD.
-6. Registrar interesse comercial.
-7. Criar ou associar contato.
-8. Criar oportunidade quando aplicável.
-9. Encaminhar para acompanhamento do vendedor.
-
-Não presumir consentimento para campanhas.
-
-## 5. Atendimento humano
-
-Verificar operacionalmente:
-
-- Existência de operador autorizado e com e-mail verificado.
-- Permissões de acesso à Central.
-- Fila de conversas aguardando atendimento.
-- Notificação de nova conversa, quando disponível.
-- Assumir atendimento.
-- Responder ao visitante.
-- Suspender automação.
-- Encerrar atendimento.
-
-Não declarar disponibilidade de atendimento imediato sem operador ou plantão confirmado.
-
-## 6. Horário comercial
-
-Disponibilizar uma configuração simples e obrigatória para:
-
-- Fuso horário.
-- Dias da semana.
-- Início e término do expediente.
-- Resposta fora do expediente.
-- Encaminhamento ao responsável.
-
-Não presumir horários.
-
-Enquanto não forem definidos, manter a regra específica de fora do expediente inativa e não prometer atendimento humano imediato.
-
-## 7. Preparação da ativação pública
-
-Criar checklist de liberação na administração.
-
-Condições obrigatórias:
-
-- Regras revisadas.
-- Conflitos corrigidos.
-- Operador confirmado.
-- Fila validada.
-- Horário definido ou política explícita de atendimento assíncrono.
-- WebChat funcionando.
-- CRM recebendo oportunidades corretamente.
-- Mecanismo de desligamento imediato testado.
-- Backup válido.
-- Ausência de regressão.
-
-A ativação pública deve exigir confirmação explícita do administrador.
-
-**Não executar a ativação pública nesta fase.**
-
-## 8. Indicadores comerciais
-
-Verificar que o dashboard apresenta dados reais de:
-
-- Conversas iniciadas.
-- Conversas respondidas pelo assistente.
-- Contatos qualificados.
-- Oportunidades comerciais.
-- Transferências para humanos.
-- Atendimentos pendentes.
-- Conversões comerciais, quando houver dados suficientes.
-
-Excluir permanentemente os dados sintéticos desses indicadores.
-
-## 9. Testes
-
-Executar testes direcionados e regressão dos fluxos afetados.
-
-Utilizar o Laboratório publicado para verificar as respostas e os conflitos corrigidos, sem utilizar contatos comerciais reais.
-
-Confirmar que:
-
-- Regras inativas não respondem publicamente.
-- O modo sandbox continua isolado.
-- O WhatsApp permanece desligado.
-- O CRM não cria oportunidades duplicadas.
-- A transferência humana suspende o robô.
-- A retomada funciona corretamente.
-
-## 10. Entrega
-
-Atualizar `executed.md` com:
-
-- Regras revisadas e prioridades aplicadas.
-- Estado do operador e da fila.
-- Situação dos horários.
-- Resultado dos testes.
-- Indicadores disponíveis.
-- Pendências para ativação pública.
-- Estado das travas.
-- Checklist de liberação.
-- Eventuais alterações de código e Git.
-
-**Critério de conclusão:** WebChat pronto para piloto comercial supervisionado, com regras corretas, atendimento humano operacional e integração CRM validada.
-
-Não ativar regras públicas nem enviar mensagens WhatsApp sem autorização específica.
+Não realizar publicação em produção sem autorização.

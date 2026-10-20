@@ -1,64 +1,60 @@
-# Execução — VETORLEADS-VALIDATE-01
+# Execução — VETORLEADS-PROSPECT
 
-Implementação local concluída em 20/10/2026, sem publicação. Validação empresarial integrada à prospecção e ao CRM do VetorLeads, com evidências, confiança separada de identidade/atividade, histórico, filas e limites de consulta.
+Implementação concluída localmente em 20/10/2026, sem commit, push nem publicação em produção. Há um incidente operacional pendente de confirmação (ver **Incidente**).
 
 ## Comparação do correio
 
-O `correio.md` da raiz mudou de **VETOR-CHAT-13.0** para **VETORLEADS-VALIDATE-01**. SHA-256 atual: `e1f981c1175beb3fa4a8690ccc93aa962f166768da614cc96c7a544a4205edfd`.
+O `correio.md` da raiz mudou de **VETORLEADS-QUALIFY-01** para **VETORLEADS-PROSPECT**. SHA-256 atual: `563517711b590cc99cffd0cd81ddc7b68c8fd012ae51524e123a1b42ffc1b6f6`. A instrução atual está preservada em [correio.md](docs/vetorleads-prospect/correio.md). O relatório anterior foi arquivado integralmente em [previous-executed.md](docs/vetorleads-prospect/previous-executed.md), SHA-256 `7bb9fedf8d8fddc88d91afb338a8da33adf24f4853db307e4edfcfcdd13231ad`.
 
-Instrução preservada em [correio.md](docs/vetorleads-validate-01/correio.md). O relatório anterior foi arquivado integralmente em [previous-executed.md](docs/vetorleads-validate-01/previous-executed.md), SHA-256 `d51ca9903bb8c4e0c26bf23957105cfd083bcfd8c6c6aae454ef2fa27eabceff`.
-
-Os correios internos de VetorOS e VetorLeads não mudaram em relação aos commits anteriores à atualização. A solicitação executada é a da raiz. Base do código: VetorLeads `adcc6e4`, VetorOS `953b90a8`. Não houve alteração de código no VetorOS nesta tarefa.
+Base do código: VetorLeads `adcc6e4` com as alterações não commitadas de VALIDATE-01 e QUALIFY-01 preservadas.
 
 ## Implementação
 
-- Projeção normalizada de nomes e variações, endereço, município/UF, telefones, domínio, CNPJ, identificador Maps e perfil Instagram. Dados capturados e payloads originais permanecem preservados.
-- Correspondência determinística, com coincidências e divergências explicáveis: CNPJ 70 pontos, Maps 80, telefone 30, Instagram 30, endereço 20, domínio 20, nome semelhante 15, município 10 e UF 5. Pontuação limitada a 100; identidade exige pelo menos 60 pontos. Nome/localidade sozinhos não estabelecem identidade. Divergência de CNPJ ou Maps invalida a correspondência; localidade divergente limita a confiança quando não existe identificador exato.
-- Endereços comparados por logradouro e número, evitando sinalizar mudança por diferenças de bairro/município acrescentadas ao texto. Comparação textual conservadora; não há geocodificação.
-- Sete situações: atividade confirmada, provavelmente ativa, indeterminada, possivelmente encerrada, encerramento confirmado, mudança identificada e dados conflitantes. Situação cadastral ativa indica atividade provável, sem comprovar operação. Ausência de resultados nunca equivale a encerramento.
-- Histórico por empresa com entrada normalizada, fontes, URLs, datas, dados observados, confiança, coincidências, divergências e falhas. Cada revalidação gera um registro; uso do cache não duplica histórico. A validação não sobrescreve contatos nem exclui leads antigos.
-- Na listagem de captados: situação, confiança de identidade e atividade, última validação, filtro por situação, ordenação por confiança de atividade e ações **Validar empresa** / **Validar selecionadas**.
-- Histórico acessível nos detalhes da empresa e na aba **Validação empresarial** da ficha do lead. Leads sem prospect vinculado recebem explicação na interface.
-- Conversão de prospect ao CRM consulta a situação existente e exige revisão para encerramento, divergências ou mudança de endereço. Deduplicação já existente por tenant/CNPJ/Maps/contatos foi reutilizada. Novas reservas de automação, elegibilidade de candidatos e `contact_allowed` respeitam esses bloqueios. Não apaga execuções históricas nem cancela envios já realizados por sistemas externos.
-- Revisão ocorre pela análise de evidências, correção dos dados na origem e revalidação; não há botão para forçar confirmação de atividade ou ignorar evidências.
-
-## Fontes e limites
-
-| Fonte | Comportamento implementado | Estado padrão |
-| --- | --- | --- |
-| BrasilAPI | Consulta exata de CNPJ conhecido; dados cadastrais sem quadro societário; cadastral ativa não comprova operação | Reutiliza configuração existente |
-| Site da empresa | Reutiliza verificação com proteção SSRF, IP fixado e sem seguir redirecionamentos; extrai contatos, CNPJ, dados estruturados e link Instagram publicados | Reutiliza configuração existente |
-| Pesquisa web | Adaptador autenticado Brave Search; resultados apresentados como referências, sem inferir encerramento a partir de snippets | Desativada |
-| Instagram | Business Discovery oficial, com token e conta autorizados; consulta perfil conhecido ou link de site corroborado e considera publicação recente apenas após correspondência suficiente | Desativado |
-| Google Places | Place Details por identificador conhecido, máscara explícita e orçamento; situação operacional estruturada | Desativado |
-
-Não há busca de CNPJ por semelhança de nome. Um CNPJ encontrado no site pode constar como evidência, mas esta camada não o atribui automaticamente ao cadastro nem faz descoberta irrestrita de CNPJ. Pesquisa web não transforma referências não verificadas em fatos comerciais. Instagram não utiliza scraping; disponibilidade e permissões dependem da conta autorizada. Google Places e pesquisa web exigem configuração de custo e orçamento antes de qualquer chamada.
-
-Configuração em [company-validation.php](gateway/vetorleads/config/company-validation.php): cache padrão de 168 horas, cache de falhas de 10 minutos, lotes de até 25 empresas, limite diário de 250 consultas por tenant. Mudança dos dados ou das fontes habilitadas invalida o cache. Consultas gratuitas precedem opcionais. Um job por empresa, deduplicação de jobs, lock de execução, timeout de 70 segundos e até três tentativas, com espera de 60/300 segundos para falhas transitórias. Falhas ficam no histórico sem derrubar o CRM; indisponibilidade sem nova evidência não remove bloqueio anterior.
-
-Orçamento padrão **zero**. Valores de orçamento/custo são inteiros em milionésimos de dólar, por tenant/dia; cada chamada paga reserva um teto de custo dentro de transação serializada, inclusive quando a chamada falha. Isto controla o teto estimado configurado, não substitui a fatura do provedor. Não existe preço presumido nem conversão cambial automática. Credenciais e corpos de erro externos não são gravados no histórico de validação.
-
-Variáveis opcionais: `COMPANY_VALIDATION_CACHE_HOURS`, `COMPANY_VALIDATION_DAILY_LIMIT`, `COMPANY_VALIDATION_DAILY_BUDGET_MICROS`; `COMPANY_VALIDATION_WEB_SEARCH_ENABLED`, `BRAVE_SEARCH_API_KEY`, `COMPANY_VALIDATION_WEB_SEARCH_COST_MICROS`; `COMPANY_VALIDATION_INSTAGRAM_ENABLED`, `INSTAGRAM_BUSINESS_ACCESS_TOKEN`, `INSTAGRAM_BUSINESS_ACCOUNT_ID`, `INSTAGRAM_GRAPH_VERSION`; `COMPANY_VALIDATION_PLACES_ENABLED`, `GOOGLE_PLACES_API_KEY`, `COMPANY_VALIDATION_PLACES_COST_MICROS`.
-
-**Custo externo da homologação: zero.** Nenhum lead real foi consultado e nenhuma API comercial foi chamada. APIs externas foram simuladas nos testes; a documentação pública dos provedores foi consultada. Contratos, permissões, retenção e atribuição exigidos por cada provedor devem ser conferidos antes de habilitá-lo no ambiente operacional.
+- **Motor único** (`ProspectAnalysis`): normalização → enriquecimento de site → validação empresarial → qualificação → detecção de duplicados. Reaproveita `ProspectNormalizer`, `ProspectEnricher`, `WebsiteProbe`, `BrasilApiCnpjLookup`, `CompanyValidator`, `CompanyIdentity` e `ProspectQualifier`, sem lógica paralela. O botão individual "Verificar site/CNPJ" passa a enfileirar o mesmo motor.
+- **Normalização** de razão social, nome fantasia, telefones, URLs, endereço e categoria. Os valores originais ficam em `enrichment.analysis_original`, e contatos confirmados ou editados durante a análise não são sobrescritos.
+- **Duplicados** dentro do lote e no restante do tenant, por CNPJ, place_id, telefone, domínio, Instagram, endereço ou nome + município, com o nível de confiança registrado. Nenhum registro é mesclado automaticamente; casos ambíguos vão para revisão.
+- **Site**: o próprio site é lido para encontrar contatos comerciais, CNPJ e redes sociais. A BrasilAPI só é consultada com CNPJ válido, e as consultas têm cache. O Instagram é verificado só por links encontrados no site e pela Business Discovery oficial (desligada por padrão); não há scraping nem requisição anônima.
+- **Atividade**: a ausência de site ou de redes sociais resulta em "situação indeterminada", nunca em empresa encerrada. Só o registro cadastral (por exemplo, BAIXADA) indica encerramento, e isso envia o prospect para revisão.
+- **Scores**: score comercial e confiança cadastral de 0 a 100, com pesos e limites em `config/prospect-analysis.php` e `config/company-validation.php`, cada um acompanhado das justificativas. A prioridade é alta, média ou baixa, e a **revisão necessária** é uma categoria separada (duplicados, CNPJ inválido, situação cadastral conflitante ou dados insuficientes).
+- **Jobs** (`AnalyzeProspectBatch`): um prospect por execução e um worker por tenant (lock). Cada item tem no máximo 3 tentativas, com espera de 11 minutos após falha de fonte e timeout de 70 s. O progresso fica salvo por item. O cancelamento é aplicado entre um prospect e outro, e a retomada usa uma nova geração, então jobs antigos são ignorados. O envio nunca usa a fila síncrona dentro de uma requisição HTTP.
+- **Cache por fonte** (`ProspectSourceCache`), isolado por tenant: site 24 h, BrasilAPI 720 h, Instagram 24 h, falhas 10 min. Cada análise guarda uma impressão digital dos dados e da configuração. "Reanalisar apenas desatualizados ou com falhas" reaproveita as análises atuais.
+- **Multitenancy**: lotes, itens, fontes e cache têm escopo de tenant. Prospects, buscas e lotes de outro tenant retornam 404 ou erro de validação.
+- **Histórico**: evidências, fontes, datas, falhas e resultado de cada item ficam em `prospect_analysis_items` e em `enrichment.analysis`.
+- **Interface** na página do lote, com o botão **"Analisar prospects"** (para o lote inteiro ou só para os selecionados), progresso, cancelamento e retomada. O painel mostra total, analisados, alta/média/baixa, revisão necessária, inconsistências, duplicados, pendentes e falhas, e cada indicador funciona como filtro. Cada linha mostra a prioridade calculada pela análise.
+- **CRM**: os prospects selecionados são enviados pelo conversor existente. Itens em revisão são bloqueados e nenhuma mensagem é disparada.
+- **Cuidados mantidos**: nenhum prospect é excluído por score baixo; nenhuma API paga é chamada, mesmo configurada com orçamento (há teste para isso); não há IA generativa no fluxo, só regras determinísticas; capturas e CRM continuam com o comportamento anterior.
 
 ## Verificação
 
-- Suíte completa: **1.298 testes aprovados, 13.574 assertions** — [resultado](docs/vetorleads-validate-01/tests-full.json).
-- Após o último ajuste defensivo na leitura de dados estruturados dos sites: **99 testes aprovados, 567 assertions** — [resultado](docs/vetorleads-validate-01/tests-targeted.json).
-- Casos sintéticos: ativa, encerrada, mudança de endereço, nome fantasia diferente da razão social, homônimas, CNPJ incompatível, ausência de presença digital, conflitos, fechamento temporário, referências não verificadas, falhas de provedor, cache, limites, custos, isolamento entre tenants, jobs com tenant incorreto, CRM e bloqueios de automação. Instagram autorizado, pesquisa web e Places foram testados com mocks; fontes pagas com orçamento zero não são chamadas.
-- `npm run build`, TypeScript (`tsc --noEmit`), ESLint nos três arquivos frontend alterados, Pint nos arquivos PHP alterados e `git diff --check` aprovados. [Build](docs/vetorleads-validate-01/build.log), [Pint](docs/vetorleads-validate-01/pint.json).
-- Migrations executadas em SQLite descartável e na suíte em memória; nenhum banco operacional foi migrado. [Evidência](docs/vetorleads-validate-01/migrations.log).
-- Worker real processou `ValidateCompany` no banco descartável e encerrou com a fila vazia. [Evidência](docs/vetorleads-validate-01/worker.log).
-- E2E em Chromium local, banco e usuário sintéticos: login, listagem, solicitação de validação, histórico, filtro, aba do lead e viewport móvel 390 × 844. Sem erros JavaScript nem transbordamento horizontal no viewport móvel. [Resultado](docs/vetorleads-validate-01/browser-result.json).
-- Capturas: [listagem](docs/vetorleads-validate-01/prospects-desktop.png), [histórico](docs/vetorleads-validate-01/prospect-history-desktop.png), [aba do lead](docs/vetorleads-validate-01/lead-validation-desktop.png), [celular](docs/vetorleads-validate-01/lead-validation-mobile.png).
+- Suíte completa Pest em SQLite de teste: **1.318 testes aprovados, 13.715 assertions**. `ProspectAnalysisTest`: 18 testes, 122 assertions.
+- Cenários sintéticos cobertos: duplicados e correspondências ambíguas, prospect sem site, CNPJ inválido, empresa ativa, CNPJ baixado, fonte externa indisponível (503) com retry limitado, cancelamento, retomada, concorrência, isolamento entre tenants, reaproveitamento de cache, contatos preservados e bloqueio no CRM.
+- `tsc --noEmit`, ESLint, Prettier, Pint (`--test`) e `git diff --check`: aprovados. Corrigi a ordem de import e a formatação de `ideal-customer-profile.tsx`.
+- `npm run build`: aprovado; os assets em `public/build` foram regenerados.
+- Os testes usam fontes HTTP bloqueadas ou simuladas (`Http::preventStrayRequests`). Nenhum dado real foi consultado e nenhuma API comercial foi chamada.
+- [batch-desktop.png](docs/vetorleads-prospect/batch-desktop.png) foi capturado antes de uma correção: nele as linhas mostram "Prioridade alta" enquanto o lote conta "Revisão necessária". O código já mostra a prioridade da análise, e um teste cobre isso, mas o screenshot novo não foi feito (ver Incidente).
 
-## Arquivos e ativação posterior
+## Incidente
 
-Novos: `CompanyValidation`, migration `2026_10_20_120000_create_company_validations_table.php`, serviços em `app/Services/CompanyValidation/`, job `ValidateCompany`, controller `CompanyValidationController`, `config/company-validation.php`, componente `company-validation.tsx` e `CompanyValidationTest.php`.
+Para refazer o screenshot, rodei `php artisan migrate:fresh --force` e um seed sintético achando que as variáveis de ambiente apontavam para um SQLite no scratchpad. Existe um `bootstrap/cache/config.php`, criado às 15:36:33 e não gerado por esta tarefa, que faz o Laravel ignorar essas variáveis. Esse cache aponta para **MySQL `vetorleads` em `localhost`**. O SQLite ficou vazio, então o comando provavelmente rodou nesse MySQL local.
 
-Integrações alteradas: models `ProspectingResult`, `Lead`, `LeadAutomationExecution`; controllers `ProspectingController`, `LeadController`, `Api/LeadAutomationStateController`; serviços existentes `BrasilApiCnpjLookup`, `WebsiteProbe`, `ProspectConverter`; listagem `prospecting-results.tsx`, ficha `leads/edit.tsx` e `routes/web.php`. [Rotas](docs/vetorleads-validate-01/routes.log).
+Se o banco estava acessível, as tabelas foram recriadas vazias e receberam um tenant, o usuário `demo@example.test` e 4 prospects sintéticos. A leitura de confirmação foi bloqueada pela política de permissões, então o impacto **ainda não foi verificado**. É o banco local de desenvolvimento, não produção.
 
-Não foi feito commit, push, deploy, alteração de infraestrutura, habilitação de APIs pagas, conexão WhatsApp ou envio de mensagens. As alterações anteriores do workspace e dos demais submódulos foram preservadas. Dependências foram instaladas localmente para verificação; os assets compilados e o `yarn.lock` alterados pela instalação/build de verificação foram restaurados, evitando incluir arquivos gerados na entrega. A stack Docker gera seu próprio build durante a construção da imagem.
+Pendências:
 
-Para disponibilizar posteriormente no ambiente aprovado: gerar a imagem/build a partir destas alterações, aplicar `php artisan migrate --force` com backup no banco de destino e garantir worker da fila configurada. APIs opcionais permanecem desligadas até configuração de credenciais, permissões e orçamento. A validação operacional com contas reais desses provedores não foi realizada nesta entrega.
+- Conferir o banco `vetorleads` local e restaurar de backup ou dump, se necessário.
+- Encerrar o servidor PHP de teste (porta 8765) e o `queue:work database`, se ainda estiverem rodando.
+- Refazer o screenshot com `APP_CONFIG_CACHE` apontando para um caminho vazio e confirmando o banco de destino antes de qualquer comando que escreva.
+
+## Arquivos centrais
+
+Novos: `ProspectAnalysis`, `ProspectSourceCache`, `AnalyzeProspectBatch`, `ProspectAnalysisBatch`, `ProspectAnalysisItem`, `ProspectAnalysisController`, `config/prospect-analysis.php`, migration `2026_10_20_170000_create_prospect_analysis_batches.php`, componente `prospect-analysis.tsx` e `tests/Feature/ProspectAnalysisTest.php`.
+
+Integrados: `ProspectingController` (filtros e prioridade da análise), `ProspectEnricher`, `ProspectQualifier` (pesos configuráveis), `WebsiteProbe`, `BrasilApiCnpjLookup`, `ProspectConverter` (bloqueio de revisão), `prospecting-results.tsx`, `prospecting/prospects.tsx` e rotas `prospecting/analysis-batches`.
+
+## Limitações
+
+- O Instagram depende da Business Discovery oficial, desligada por padrão. Sem ela, só valem os links encontrados no site.
+- A detecção de duplicados percorre os prospects do tenant a cada análise. Funciona para o limite de 5.000 por lote, mas pode exigir um índice dedicado em volumes maiores.
+- A IA para casos ambíguos não foi ativada; esses casos ficam em revisão humana.
+
+Não foi feito commit, push, deploy nem migração em ambiente aprovado, e nenhuma API paga foi habilitada. Para ativar, aplicar as migrations após backup, publicar o build e manter um worker da fila `database` em execução.

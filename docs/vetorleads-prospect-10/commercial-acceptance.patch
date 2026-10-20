@@ -1,0 +1,18 @@
+--- /opt/infra-abrasil/gateway/vetorleads/tests/Feature/ProspectCommercialFlowTest.php	2026-10-19 00:03:07.614270079 +0000
++++ /opt/infra-abrasil/staging/prospect10/app/tests/Feature/ProspectCommercialFlowTest.php	2026-10-19 12:04:33.383946031 +0000
+@@ -57,6 +57,15 @@
+             ->and($result->fresh()->lead_id)->toBe($lead->id);
+     });
+     $this->get('/dashboard')->assertInertia(fn (Assert $p) => $p->where('metrics.captured_prospects', 1)->where('metrics.prospects_in_crm', 1)->where('metrics.prospect_crm_rate', 100)->where('metrics.leads_from_prospects', 1));
++    $lead = $context->run($tenant, fn () => Lead::query()->sole());
++    $this->patch('/leads/'.$lead->id.'/status', ['status' => 'meeting'])->assertRedirect()->assertSessionHasNoErrors();
++    $this->post('/leads/'.$lead->id.'/activities', ['type' => 'note', 'description' => 'Homologação sintética sem contato', 'follow_up_action' => 'keep'])->assertRedirect()->assertSessionHasNoErrors();
++    $context->run($tenant, function () use ($lead) {
++        expect($lead->fresh()->status)->toBe('meeting')
++            ->and($lead->activities()->where('description', 'like', '%Kanban%')->count())->toBe(1)
++            ->and($lead->activities()->where('description', 'Homologação sintética sem contato')->count())->toBe(1);
++    });
++    $this->get('/dashboard')->assertInertia(fn (Assert $p) => $p->where('metrics.prospects_in_crm', 1)->where('metrics.converted', 0));
+     Http::assertNothingSent();
+ });
+ 

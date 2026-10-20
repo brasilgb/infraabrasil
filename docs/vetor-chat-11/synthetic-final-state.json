@@ -1,0 +1,19 @@
+{
+    "database": "SQLite sintético exclusivo CHAT11",
+    "sqlite_version": "3.46.1",
+    "counts": {
+        "tenants": 1,
+        "users": 1,
+        "web_conversations": 4,
+        "web_chat_messages": 45,
+        "support_automation_rules": 14,
+        "support_automation_decisions": 24,
+        "support_automation_audits": 3,
+        "leads": 1,
+        "lead_activities": 7,
+        "commercial_proposals": 0,
+        "prospecting_results": 0,
+        "jobs": 0,
+        "failed_jobs": 0
+    }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "file": "app/Http/Controllers/SupportAutomationController.php",
+    "sha256": "b112423ce513d3f06e7a17de163c30203fe6d9a989658cf865ef3cf4c4403920",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "app/Models/SupportAutomationRule.php",
+    "sha256": "56fd4abdd013be6877d06c6c2ce17754ba351e09f84f2cef15eb4c989e205660",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "app/Services/SupportAutomation.php",
+    "sha256": "8ab30f0ccf77ddd59e52fea04526743b0b408c8b839544a98854b5a1d44a5f82",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "config/support_automation.php",
+    "sha256": "8ba658b2006c141ba1ea54ef339484dc150c60d87c2a93f5438914b720e06fe2",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "database/migrations/2026_10_19_180000_create_support_automation_tables.php",
+    "sha256": "663abca90fafca9ef5acd0d47987638dbb90714f635d3cbbb310b2591a8a5b8c",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "resources/js/lib/request-json.ts",
+    "sha256": "34cbbd2757d871f45c16fd5285ab00cfb67c6a3d8f1ac8b8209ec66808d9ff3e",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "resources/js/pages/support-automation/index.tsx",
+    "sha256": "e1358e60561e4d44f84d1d9b6254fb0a233056dda7985678bd91d15250e0242d",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "tests/Feature/SupportAutomationTest.php",
+    "sha256": "73bbe4d136dda65422195823405805b4b964ba06ab788142ce4c009aa71ea232",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "app/Http/Controllers/Api/WebChatController.php",
+    "sha256": "5a102391058f45c04cc883ff38780252243479166bf9c9a36560128dff72530d",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "app/Http/Controllers/SupportInboxController.php",
+    "sha256": "4eb87c3366979a5edf6275b45435be064c3c58ebb078d81750b1822535a65fef",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "app/Http/Controllers/WebChatInboxController.php",
+    "sha256": "3cc26add70472b7d7f4f50503069b01a7ecdd56369691d510721c4f83f5af932",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "app/Models/WebConversation.php",
+    "sha256": "784d404508dac2bdf07eb7db6e5d29cdef32098f68fc26cefd89eb982e40c7cc",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "resources/js/components/app-sidebar.tsx",
+    "sha256": "5cdc1678f3ddbecc82dca7e24afd0fa07ff535682ab6820c7e63b57beda2f003",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "resources/js/pages/support-inbox/index.tsx",
+    "sha256": "afe33c0deff7dcd72e2b797312b885b17f5bf666c520a47d585cc5e40c659d2f",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "resources/js/pages/web-chat/index.tsx",
+    "sha256": "b891ec19634aa787f596adc7cdc77fa88668fa162dd4288cc8b362025fdb62dc",
+    "verified_copy_equal": true
+  },
+  {
+    "file": "routes/settings.php",
+    "sha256": "dca3265845d090d9ef48335e0181feb07afa82a6ae924e7943d08991a60d85b8",
+    "verified_copy_equal": true
+  }
+]

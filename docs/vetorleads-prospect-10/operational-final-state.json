@@ -1,0 +1,34 @@
+{
+  "vetorleads": {
+    "image": "sha256:fba2f79c606c94196015432706c772ec07c296d35f84d2c975836c8253c50c52",
+    "status": "running",
+    "started_at": "2026-10-19T00:17:37.67443165Z",
+    "restarts": 0,
+    "oom_killed": false,
+    "health": "healthy"
+  },
+  "vetorleads-worker": {
+    "image": "sha256:8f836c54ab0c797ba820bc0233a2f9fa85f5a25b3e705b0c4e32548e4094b3b8",
+    "status": "running",
+    "started_at": "2026-10-19T10:43:01.281071516Z",
+    "restarts": 7,
+    "oom_killed": false,
+    "health": "healthy"
+  },
+  "vetorleads-scheduler": {
+    "image": "sha256:669822b906e6bc5c8258f37b0f4085b57d0a158b36f0c21a1c034d80293cbc30",
+    "status": "running",
+    "started_at": "2026-10-19T00:17:37.494943278Z",
+    "restarts": 0,
+    "oom_killed": false,
+    "health": "healthy"
+  },
+  "mysql": {
+    "image": "sha256:85b9bf2e29cf836ecb8c2a15a935d4ba0c606631dff1dd79531a11983c638f2a",
+    "status": "running",
+    "started_at": "2026-10-19T10:42:54.370173323Z",
+    "restarts": 3,
+    "oom_killed": false,
+    "health": "healthy"
+  }
+}

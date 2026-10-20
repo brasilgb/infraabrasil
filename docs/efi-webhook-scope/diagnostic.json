@@ -1,0 +1,20 @@
+{
+  "checked_at_date_utc": "2026-10-19",
+  "service": "vetoros",
+  "environment": "homologation",
+  "pix_configured": true,
+  "webhook_registered_at": null,
+  "last_connection_ok": true,
+  "oauth_status": 200,
+  "token_received": true,
+  "scope": "cob.read cob.write gn.opb.automatic.consent.read gn.opb.automatic.consent.write gn.opb.automatic.payment.read gn.opb.automatic.payment.write gn.opb.payment.pix.read",
+  "expires_in": 3600,
+  "required_for_registration": "webhook.write",
+  "required_scope_present": false,
+  "new_token_also_missing_scope": true,
+  "diagnostic_calls": ["POST /oauth/token"],
+  "webhook_registration_attempted": false,
+  "payments_created": false,
+  "settings_changed": false,
+  "credentials_or_token_exported": false
+}

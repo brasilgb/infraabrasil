@@ -1,0 +1,8 @@
+{
+  "isolated_table": "lock_probe",
+  "lock_wait_timeout_seconds": 1,
+  "observed_seconds": 1.112481069023488,
+  "blocked_error": 1205,
+  "retry_after_release": "success",
+  "operational_tables_touched": false
+}

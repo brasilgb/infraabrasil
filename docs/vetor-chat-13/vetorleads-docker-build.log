@@ -1,0 +1,346 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.76kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/composer:2
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-bookworm-slim
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/php:8.4-fpm
+#4 DONE 0.3s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 164B done
+#5 DONE 0.0s
+
+#6 [stage-3  1/10] FROM docker.io/library/php:8.4-fpm@sha256:1071b5609d16d60674f78eea8cf9bd7e9e79169ecb566d015c931c5ee789bb13
+#6 resolve docker.io/library/php:8.4-fpm@sha256:1071b5609d16d60674f78eea8cf9bd7e9e79169ecb566d015c931c5ee789bb13 0.0s done
+#6 DONE 0.0s
+
+#7 [frontend 1/9] FROM docker.io/library/node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392
+#7 resolve docker.io/library/node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 0.1s done
+#7 DONE 0.1s
+
+#8 [vendor 1/4] FROM docker.io/library/composer:2@sha256:af98f42dfff7c68ba8d53c2164fd9fde1087b7d449514baa38c418b1f6bc4bac
+#8 resolve docker.io/library/composer:2@sha256:af98f42dfff7c68ba8d53c2164fd9fde1087b7d449514baa38c418b1f6bc4bac 0.1s done
+#8 DONE 0.1s
+
+#9 [internal] load build context
+#9 transferring context: 12.31MB 0.2s done
+#9 DONE 0.2s
+
+#10 [frontend 2/9] WORKDIR /app
+#10 CACHED
+
+#11 [frontend 3/9] COPY package*.json ./
+#11 CACHED
+
+#12 [frontend 4/9] RUN npm ci
+#12 CACHED
+
+#13 [frontend 5/9] COPY . .
+#13 ...
+
+#14 [vendor 2/4] WORKDIR /app
+#14 CACHED
+
+#15 [vendor 3/4] COPY composer.json composer.lock ./
+#15 CACHED
+
+#16 [vendor 4/4] RUN composer install --no-dev --no-interaction --no-progress --no-scripts
+#16 CACHED
+
+#17 [stage-3  2/10] RUN apt-get update && apt-get install -y --no-install-recommends git curl libpng-dev libjpeg62-turbo-dev libwebp-dev libonig-dev libxml2-dev libzip-dev zip unzip && docker-php-ext-configure gd --with-jpeg --with-webp && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip opcache && rm -rf /var/lib/apt/lists/*
+#17 CACHED
+
+#18 [stage-3  3/10] COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+#18 CACHED
+
+#19 [stage-3  4/10] WORKDIR /var/www/html
+#19 CACHED
+
+#20 [stage-3  5/10] COPY --from=vendor /app/vendor ./vendor
+#20 CACHED
+
+#13 [frontend 5/9] COPY . .
+#13 DONE 0.3s
+
+#21 [stage-3  6/10] COPY . .
+#21 DONE 0.3s
+
+#22 [wayfinder 1/2] COPY . .
+#22 DONE 0.3s
+
+#23 [wayfinder 2/2] RUN mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache     && php artisan package:discover --ansi     && php artisan wayfinder:generate --with-form
+#23 1.109 
+#23 1.109   [37;44m INFO [39;49m Discovering packages.  
+#23 1.109 
+#23 1.114   inertiajs/inertia-laravel [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#23 1.116   laravel/fortify [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#23 1.117   laravel/passkeys [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#23 1.117   laravel/tinker [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#23 1.118   laravel/wayfinder [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#23 1.119   nesbot/carbon [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#23 1.121   nunomaduro/termwind [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#23 1.122 
+#23 1.856 
+#23 1.856 [32m [Wayfinder] Generated actions in /app/resources/js/actions[39m
+#23 1.856 
+#23 2.157 [32m [Wayfinder] Generated routes in /app/resources/js/routes[39m
+#23 2.157 
+#23 DONE 2.2s
+
+#24 [frontend 6/9] COPY --from=wayfinder /app/resources/js/actions ./resources/js/actions
+#24 DONE 0.1s
+
+#25 [stage-3  7/10] RUN mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache && composer dump-autoload --no-dev --optimize --no-interaction && mkdir -p /opt/public-build && chown -R www-data:www-data storage bootstrap/cache
+#25 0.720 Generating optimized autoload files
+#25 ...
+
+#26 [frontend 7/9] COPY --from=wayfinder /app/resources/js/routes ./resources/js/routes
+#26 DONE 0.1s
+
+#27 [frontend 8/9] COPY --from=wayfinder /app/resources/js/wayfinder ./resources/js/wayfinder
+#27 DONE 0.0s
+
+#28 [frontend 9/9] RUN npm run build
+#28 0.620 
+#28 0.620 > build
+#28 0.620 > vite build
+#28 0.620 
+#28 1.212 vite v8.1.4 building client environment for production...
+#28 1.232 [plugin @laravel/vite-plugin-wayfinder] Types generated for actions, routes, form variants
+#28 1.804 [2Ktransforming...
+#28 ...
+
+#25 [stage-3  7/10] RUN mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache && composer dump-autoload --no-dev --optimize --no-interaction && mkdir -p /opt/public-build && chown -R www-data:www-data storage bootstrap/cache
+#25 5.543 > Illuminate\Foundation\ComposerScripts::postAutoloadDump
+#25 5.572 > @php artisan package:discover --ansi
+#25 5.902 
+#25 5.902   [37;44m INFO [39;49m Discovering packages.  
+#25 5.902 
+#25 5.904   inertiajs/inertia-laravel [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#25 5.906   laravel/fortify [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#25 5.907   laravel/passkeys [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#25 5.908   laravel/tinker [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#25 5.909   laravel/wayfinder [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#25 5.910   nesbot/carbon [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#25 5.911   nunomaduro/termwind [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#25 5.912 
+#25 5.920 Generated optimized autoload files containing 6717 classes
+#25 DONE 6.0s
+
+#28 [frontend 9/9] RUN npm run build
+#28 1.804 [2Ktransforming...✓ 2415 modules transformed.
+#28 16.09 rendering chunks...
+#28 16.35 computing gzip size...
+#28 16.37 public/build/manifest.json                                    64.19 kB │ gzip:   6.58 kB
+#28 16.37 public/build/assets/app-VrpO_jNO.css                         155.44 kB │ gzip:  24.40 kB
+#28 16.37 public/build/assets/commercial-DictzB4s.js                     0.09 kB │ gzip:   0.10 kB
+#28 16.37 public/build/assets/check-C_eefg2k.js                          0.12 kB │ gzip:   0.14 kB
+#28 16.37 public/build/assets/chevron-down-CdwPLFF2.js                   0.12 kB │ gzip:   0.14 kB
+#28 16.37 public/build/assets/chevron-right-DqerVEcg.js                  0.12 kB │ gzip:   0.14 kB
+#28 16.37 public/build/assets/loader-circle-DTKhgm28.js                  0.14 kB │ gzip:   0.15 kB
+#28 16.37 public/build/assets/message-circle-FyelX0Wh.js                 0.14 kB │ gzip:   0.16 kB
+#28 16.37 public/build/assets/plus-DS6gqM7n.js                           0.15 kB │ gzip:   0.15 kB
+#28 16.37 public/build/assets/x-BKI7Lgwt.js                              0.15 kB │ gzip:   0.15 kB
+#28 16.37 public/build/assets/arrow-down-fSg4azMl.js                     0.16 kB │ gzip:   0.16 kB
+#28 16.37 public/build/assets/arrow-left-Czs_hWJO.js                     0.16 kB │ gzip:   0.16 kB
+#28 16.37 public/build/assets/arrow-right-DIvQQJEU.js                    0.16 kB │ gzip:   0.16 kB
+#28 16.37 public/build/assets/arrow-up-right-BhDWbkfL.js                 0.16 kB │ gzip:   0.15 kB
+#28 16.37 public/build/assets/search-YurYmR8D.js                         0.17 kB │ gzip:   0.16 kB
+#28 16.37 public/build/assets/circle-check-CviCrU6n.js                   0.17 kB │ gzip:   0.17 kB
+#28 16.37 public/build/assets/user-round-BDXLXJnm.js                     0.18 kB │ gzip:   0.17 kB
+#28 16.37 public/build/assets/rotate-ccw-DaJvY5pQ.js                     0.19 kB │ gzip:   0.18 kB
+#28 16.37 public/build/assets/code-xml-CvaxyQC0.js                       0.20 kB │ gzip:   0.17 kB
+#28 16.37 public/build/assets/mail-A9UO13RU.js                           0.21 kB │ gzip:   0.20 kB
+#28 16.37 public/build/assets/columns-3-ByPa8K5A.js                      0.22 kB │ gzip:   0.19 kB
+#28 16.37 public/build/assets/target-B30KvYR-.js                         0.22 kB │ gzip:   0.16 kB
+#28 16.37 public/build/assets/history-zs6f0nUI.js                        0.23 kB │ gzip:   0.19 kB
+#28 16.37 public/build/assets/globe-Ba8Cz2Se.js                          0.24 kB │ gzip:   0.19 kB
+#28 16.37 public/build/assets/menu-CqounEbU.js                           0.24 kB │ gzip:   0.17 kB
+#28 16.37 public/build/assets/chart-column-DyTSUjB8.js                   0.25 kB │ gzip:   0.19 kB
+#28 16.37 public/build/assets/external-link-D-maRz_J.js                  0.25 kB │ gzip:   0.20 kB
+#28 16.37 public/build/assets/eye-CjpQT8VV.js                            0.25 kB │ gzip:   0.20 kB
+#28 16.37 public/build/assets/triangle-alert-DWu6u5Qn.js                 0.26 kB │ gzip:   0.21 kB
+#28 16.37 public/build/assets/workflow-Cjpwo8gU.js                       0.26 kB │ gzip:   0.20 kB
+#28 16.37 public/build/assets/compiler-runtime-D-svIFWU.js               0.27 kB │ gzip:   0.23 kB
+#28 16.37 public/build/assets/pencil-CavMcpvH.js                         0.27 kB │ gzip:   0.22 kB
+#28 16.37 public/build/assets/book-open-Bb6CAGr-.js                      0.27 kB │ gzip:   0.20 kB
+#28 16.37 public/build/assets/list-todo-BEjA9OSi.js                      0.29 kB │ gzip:   0.22 kB
+#28 16.37 public/build/assets/users-BrNV0Dt4.js                          0.30 kB │ gzip:   0.23 kB
+#28 16.37 public/build/assets/user-plus-DFpdEivn.js                      0.30 kB │ gzip:   0.23 kB
+#28 16.37 public/build/assets/shield-check-B_cw9JC9.js                   0.31 kB │ gzip:   0.25 kB
+#28 16.37 public/build/assets/refresh-cw-hQwSvnCn.js                     0.32 kB │ gzip:   0.22 kB
+#28 16.37 public/build/assets/bot-B2k5ghw8.js                            0.32 kB │ gzip:   0.23 kB
+#28 16.37 public/build/assets/contact-Cu1nVoBJ.js                        0.33 kB │ gzip:   0.24 kB
+#28 16.37 public/build/assets/trash-2-COo5BBJi.js                        0.35 kB │ gzip:   0.25 kB
+#28 16.37 public/build/assets/confirm-Culw9Q-x.js                        0.36 kB │ gzip:   0.22 kB
+#28 16.37 public/build/assets/tenants-DH6ItwcR.js                        0.37 kB │ gzip:   0.27 kB
+#28 16.37 public/build/assets/calendar-clock-BwLIjeah.js                 0.38 kB │ gzip:   0.25 kB
+#28 16.37 public/build/assets/octagon-alert-C2T4j99X.js                  0.42 kB │ gzip:   0.25 kB
+#28 16.37 public/build/assets/users-Dg1aBHeD.js                          0.43 kB │ gzip:   0.29 kB
+#28 16.37 public/build/assets/building-2-C_0UrvXJ.js                     0.43 kB │ gzip:   0.25 kB
+#28 16.37 public/build/assets/star-DJ9BG-Bt.js                           0.47 kB │ gzip:   0.29 kB
+#28 16.37 public/build/assets/input-error-enib3LOb.js                    0.49 kB │ gzip:   0.35 kB
+#28 16.37 public/build/assets/contact-BXtHFeYm.js                        0.49 kB │ gzip:   0.36 kB
+#28 16.37 public/build/assets/security-ZZC6IP8e.js                       0.50 kB │ gzip:   0.27 kB
+#28 16.37 public/build/assets/sparkles-yrguz9td.js                       0.50 kB │ gzip:   0.30 kB
+#28 16.37 public/build/assets/spinner-ioCI7Q06.js                        0.51 kB │ gzip:   0.36 kB
+#28 16.37 public/build/assets/monitor-smartphone-DuEQaDku.js             0.55 kB │ gzip:   0.31 kB
+#28 16.37 public/build/assets/upload-Cx-YVnQk.js                         0.56 kB │ gzip:   0.34 kB
+#28 16.37 public/build/assets/dist-DyXk-fdN.js                           0.59 kB │ gzip:   0.37 kB
+#28 16.37 public/build/assets/dist-CBWphwuT.js                           0.60 kB │ gzip:   0.41 kB
+#28 16.37 public/build/assets/text-link-wVb42XLA.js                      0.65 kB │ gzip:   0.43 kB
+#28 16.37 public/build/assets/heading-CZofKxKr.js                        0.66 kB │ gzip:   0.44 kB
+#28 16.37 public/build/assets/rolldown-runtime-QTnfLwEv.js               0.69 kB │ gzip:   0.42 kB
+#28 16.37 public/build/assets/customer-phone-BPMU8z3o.js                 0.76 kB │ gzip:   0.49 kB
+#28 16.37 public/build/assets/wayfinder-Dp7PqxvV.js                      0.89 kB │ gzip:   0.53 kB
+#28 16.37 public/build/assets/createLucideIcon-BFRVo75E.js               0.95 kB │ gzip:   0.56 kB
+#28 16.37 public/build/assets/unavailable-Dgytg3QQ.js                    0.95 kB │ gzip:   0.54 kB
+#28 16.37 public/build/assets/label-DOIUzRqo.js                          0.96 kB │ gzip:   0.59 kB
+#28 16.37 public/build/assets/lead-settings-DxfxCs79.js                  1.01 kB │ gzip:   0.36 kB
+#28 16.37 public/build/assets/public-brand-C9SleZeX.js                   1.11 kB │ gzip:   0.64 kB
+#28 16.37 public/build/assets/article-body-DGR0ARxe.js                   1.14 kB │ gzip:   0.61 kB
+#28 16.37 public/build/assets/input-CGFlU3gO.js                          1.16 kB │ gzip:   0.65 kB
+#28 16.37 public/build/assets/dist-DnmCaZxA.js                           1.23 kB │ gzip:   0.66 kB
+#28 16.37 public/build/assets/select-C2jPSFnF.js                         1.38 kB │ gzip:   0.79 kB
+#28 16.37 public/build/assets/confirm-password-DI8_FccH.js               1.39 kB │ gzip:   0.71 kB
+#28 16.37 public/build/assets/verify-email-CSSHYjsE.js                   1.40 kB │ gzip:   0.74 kB
+#28 16.37 public/build/assets/profile-uNtLFEsD.js                        1.43 kB │ gzip:   0.40 kB
+#28 16.37 public/build/assets/verification-BOcn3HIw.js                   1.48 kB │ gzip:   0.52 kB
+#28 16.37 public/build/assets/badge-DToXliJv.js                          1.61 kB │ gzip:   0.81 kB
+#28 16.37 public/build/assets/card-C9bLKKeM.js                           1.81 kB │ gzip:   0.51 kB
+#28 16.37 public/build/assets/password-input-C5tDxBJJ.js                 1.87 kB │ gzip:   1.05 kB
+#28 16.37 public/build/assets/appearance-C_3XQ1RD.js                     1.89 kB │ gzip:   0.89 kB
+#28 16.37 public/build/assets/create-DnR1Ypn-.js                         1.89 kB │ gzip:   0.92 kB
+#28 16.37 public/build/assets/forgot-password-CYoGowOm.js                2.09 kB │ gzip:   0.97 kB
+#28 16.37 public/build/assets/commercial-summary-DfDT_X4t.js             2.11 kB │ gzip:   1.11 kB
+#28 16.37 public/build/assets/tenant-B9fCAie3.js                         2.25 kB │ gzip:   0.99 kB
+#28 16.37 public/build/assets/reset-password-l_UlS3zB.js                 2.37 kB │ gzip:   0.96 kB
+#28 16.37 public/build/assets/404-DSmYOL4l.js                            2.38 kB │ gzip:   1.12 kB
+#28 16.37 public/build/assets/lead-owner-actions-B9Vhqnmx.js             2.44 kB │ gzip:   1.31 kB
+#28 16.37 public/build/assets/report-Cfvo76YX.js                         2.45 kB │ gzip:   1.10 kB
+#28 16.37 public/build/assets/dist-C3AuAu45.js                           2.48 kB │ gzip:   1.12 kB
+#28 16.37 public/build/assets/button-B4NdUaBk.js                         2.50 kB │ gzip:   1.22 kB
+#28 16.37 public/build/assets/whatsapp-C3vaBG9Z.js                       2.58 kB │ gzip:   1.31 kB
+#28 16.37 public/build/assets/dashboard-Bx8kJaAC.js                      2.60 kB │ gzip:   1.18 kB
+#28 16.37 public/build/assets/dashboard-pjyuFPqP.js                      2.66 kB │ gzip:   1.13 kB
+#28 16.37 public/build/assets/appearance-ChxnCzNt.js                     2.72 kB │ gzip:   1.33 kB
+#28 16.37 public/build/assets/comments-B8R2DmNG.js                       2.72 kB │ gzip:   1.14 kB
+#28 16.37 public/build/assets/password-CB_NxgQN.js                       2.73 kB │ gzip:   0.73 kB
+#28 16.37 public/build/assets/UserController-KpNPhtVH.js                 2.89 kB │ gzip:   0.70 kB
+#28 16.37 public/build/assets/categories-BXbYhKJB.js                     2.92 kB │ gzip:   1.36 kB
+#28 16.37 public/build/assets/users-DcY2RLCM.js                          2.95 kB │ gzip:   0.71 kB
+#28 16.37 public/build/assets/collapsible-B1XAiKim.js                    2.96 kB │ gzip:   1.17 kB
+#28 16.37 public/build/assets/portfolio-CW-EN6mu.js                      2.96 kB │ gzip:   1.31 kB
+#28 16.37 public/build/assets/proposals-CqEZQw8y.js                      2.99 kB │ gzip:   1.41 kB
+#28 16.37 public/build/assets/create-HvhGoYwp.js                         3.11 kB │ gzip:   1.19 kB
+#28 16.37 public/build/assets/ai-assistant-CxSQR05e.js                   3.14 kB │ gzip:   1.44 kB
+#28 16.37 public/build/assets/prospect-products-CeYxAQAX.js              3.16 kB │ gzip:   0.88 kB
+#28 16.37 public/build/assets/lead-whatsapp-messages-CSHM_fca.js         3.17 kB │ gzip:   1.40 kB
+#28 16.37 public/build/assets/cookies-BmDsRS4w.js                        3.21 kB │ gzip:   1.29 kB
+#28 16.37 public/build/assets/blog-public-layout-C9nZibmK.js             3.45 kB │ gzip:   1.35 kB
+#28 16.37 public/build/assets/users-DCQY52Q_.js                          3.48 kB │ gzip:   1.36 kB
+#28 16.37 public/build/assets/edit-Bnt3VqBY.js                           3.53 kB │ gzip:   1.48 kB
+#28 16.37 public/build/assets/dist-fCUj0dpv.js                           3.54 kB │ gzip:   1.50 kB
+#28 16.37 public/build/assets/testimonials-CxV-yAyb.js                   3.57 kB │ gzip:   1.44 kB
+#28 16.37 public/build/assets/searches-ChAA4te4.js                       3.60 kB │ gzip:   1.29 kB
+#28 16.37 public/build/assets/login-CGP2jcWL.js                          3.71 kB │ gzip:   1.60 kB
+#28 16.37 public/build/assets/security-Dz0zn6Fb.js                       3.80 kB │ gzip:   1.35 kB
+#28 16.37 public/build/assets/pipeline-hUjmNRYP.js                       4.03 kB │ gzip:   1.88 kB
+#28 16.37 public/build/assets/dialog-CCIskEzs.js                         4.16 kB │ gzip:   1.29 kB
+#28 16.37 public/build/assets/dist-wgTeR5Dq.js                           4.39 kB │ gzip:   1.62 kB
+#28 16.37 public/build/assets/search-tPGIoeHI.js                         4.70 kB │ gzip:   2.12 kB
+#28 16.37 public/build/assets/checkbox-CjtzWWLC.js                       4.76 kB │ gzip:   2.06 kB
+#28 16.37 public/build/assets/termos-DdZdhw4h.js                         4.79 kB │ gzip:   1.94 kB
+#28 16.37 public/build/assets/app-pagination-BXVE8kFv.js                 5.23 kB │ gzip:   2.13 kB
+#28 16.37 public/build/assets/blog-DcceCq5b.js                           5.44 kB │ gzip:   2.19 kB
+#28 16.37 public/build/assets/privacidade-C7di8yXc.js                    5.50 kB │ gzip:   2.18 kB
+#28 16.37 public/build/assets/vetorleads-public-DvvTU17p.js              5.51 kB │ gzip:   2.22 kB
+#28 16.37 public/build/assets/dist-CRtf1R-H.js                           5.72 kB │ gzip:   2.04 kB
+#28 16.37 public/build/assets/ab-prospect-CzfIzH-L.js                    6.09 kB │ gzip:   2.73 kB
+#28 16.37 public/build/assets/whatsapp-float-CyLt1pNE.js                 6.19 kB │ gzip:   2.25 kB
+#28 16.37 public/build/assets/whatsapp-h_fYmucJ.js                       6.20 kB │ gzip:   2.45 kB
+#28 16.37 public/build/assets/routes-_IZluN-H.js                         6.28 kB │ gzip:   1.06 kB
+#28 16.37 public/build/assets/form-BO8f9K1E.js                           6.30 kB │ gzip:   2.66 kB
+#28 16.37 public/build/assets/register-gQG9ggMB.js                       6.36 kB │ gzip:   2.59 kB
+#28 16.37 public/build/assets/form-J0CUIdCX.js                           6.39 kB │ gzip:   2.65 kB
+#28 16.37 public/build/assets/show-CGOOfXcW.js                           6.52 kB │ gzip:   2.68 kB
+#28 16.37 public/build/assets/form-BBHXFKVF.js                           6.73 kB │ gzip:   2.82 kB
+#28 16.37 public/build/assets/profile-uIjaDg0n.js                        7.06 kB │ gzip:   2.45 kB
+#28 16.37 public/build/assets/web-chat-CMVD6kD9.js                       7.35 kB │ gzip:   2.71 kB
+#28 16.37 public/build/assets/lab-CVWo_aum.js                            7.36 kB │ gzip:   2.67 kB
+#28 16.37 public/build/assets/sobre-Dz5ltvI4.js                          7.53 kB │ gzip:   2.95 kB
+#28 16.37 public/build/assets/company-whatsapp-connection-PaJwaRvn.js    7.91 kB │ gzip:   2.84 kB
+#28 16.37 public/build/assets/prospecting-DzObEZTh.js                    8.20 kB │ gzip:   1.41 kB
+#28 16.37 public/build/assets/cookie-consent-BEsgSf_B.js                 8.38 kB │ gzip:   2.99 kB
+#28 16.37 public/build/assets/contacts-B4o2vRAN.js                       9.06 kB │ gzip:   3.08 kB
+#28 16.37 public/build/assets/web-chat-pilot-B_EKNc1l.js                 9.11 kB │ gzip:   3.36 kB
+#28 16.37 public/build/assets/contato-BGS1tj1V.js                        9.14 kB │ gzip:   3.30 kB
+#28 16.37 public/build/assets/lead-trial-D6mzQv4O.js                     9.32 kB │ gzip:   3.61 kB
+#28 16.37 public/build/assets/automations-YElAxTog.js                    9.34 kB │ gzip:   3.66 kB
+#28 16.37 public/build/assets/LeadController-Cslhb020.js                 9.54 kB │ gzip:   1.42 kB
+#28 16.37 public/build/assets/secondary-page-header-hNIbCgKe.js          9.56 kB │ gzip:   2.98 kB
+#28 16.37 public/build/assets/tooltip-CY2_LZvB.js                        9.76 kB │ gzip:   3.61 kB
+#28 16.37 public/build/assets/servicos-RToSq6aT.js                      10.26 kB │ gzip:   3.81 kB
+#28 16.37 public/build/assets/awaiting-reply-CB5WVKX1.js                10.56 kB │ gzip:   4.27 kB
+#28 16.37 public/build/assets/support-inbox-C5qftKG5.js                 10.87 kB │ gzip:   3.45 kB
+#28 16.37 public/build/assets/show-PG8MiZVU.js                          11.78 kB │ gzip:   4.35 kB
+#28 16.37 public/build/assets/leads-C2CvvwT-.js                         13.58 kB │ gzip:   1.87 kB
+#28 16.37 public/build/assets/blog-BLcmokeQ2.js                         14.61 kB │ gzip:   4.56 kB
+#28 16.37 public/build/assets/es2015-CLJkZJKI.js                        16.41 kB │ gzip:   6.26 kB
+#28 16.37 public/build/assets/prospect-products-Bh_sEDjG.js             17.24 kB │ gzip:   6.01 kB
+#28 16.37 public/build/assets/root-management-ZcVFrtdX.js               17.27 kB │ gzip:   6.08 kB
+#28 16.37 public/build/assets/support-automation-DHcTRnNq.js            17.87 kB │ gzip:   4.84 kB
+#28 16.37 public/build/assets/leads-CvhNji4v.js                         18.68 kB │ gzip:   6.53 kB
+#28 16.37 public/build/assets/produtos-Dti_Fb9p.js                      18.75 kB │ gzip:   6.27 kB
+#28 16.37 public/build/assets/welcome-BFMHN8bA.js                       19.37 kB │ gzip:   6.25 kB
+#28 16.37 public/build/assets/dashboard-BR7rt_Ln.js                     20.98 kB │ gzip:   7.05 kB
+#28 16.37 public/build/assets/company-websites-A3rHTOvW.js              23.31 kB │ gzip:   7.21 kB
+#28 16.37 public/build/assets/app-B535V9UE.js                           23.48 kB │ gzip:   7.83 kB
+#28 16.37 public/build/assets/dropdown-menu-BdQvcUPv.js                 25.81 kB │ gzip:   7.77 kB
+#28 16.37 public/build/assets/dist-CJRmOaGB.js                          26.47 kB │ gzip:  10.23 kB
+#28 16.37 public/build/assets/utils-BNhDZxi-.js                         27.31 kB │ gzip:   8.71 kB
+#28 16.37 public/build/assets/form-C--_Tg_e.js                          31.08 kB │ gzip:  10.28 kB
+#28 16.37 public/build/assets/whatsapp-Db1Kd9HM.js                      34.68 kB │ gzip:   9.64 kB
+#28 16.37 public/build/assets/app-layout-DNdwpLIo.js                    36.97 kB │ gzip:  11.32 kB
+#28 16.37 public/build/assets/prospects-cNOowp75.js                     38.69 kB │ gzip:  12.69 kB
+#28 16.37 public/build/assets/edit-CYV92450.js                          40.35 kB │ gzip:  13.20 kB
+#28 16.37 public/build/assets/leads-DXlub51V.js                         45.40 kB │ gzip:  13.40 kB
+#28 16.37 public/build/assets/jsx-runtime-w0JA_hSj.js                  314.35 kB │ gzip:  98.83 kB
+#28 16.37 public/build/assets/form-CHdGWkZR.js                         414.24 kB │ gzip: 130.31 kB
+#28 16.37 
+#28 16.37 [33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+#28 16.37   - @inertiajs/vite (60%)
+#28 16.37   - laravel (23%)
+#28 16.37   - vite:react-babel (17%)
+#28 16.37 See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+#28 16.37 
+#28 16.38 ✓ built in 15.16s
+#28 DONE 16.5s
+
+#29 [stage-3  8/10] COPY --from=frontend /app/public/build /opt/public-build
+#29 DONE 0.1s
+
+#30 [stage-3  9/10] COPY docker-entrypoint.sh /usr/local/bin/infra-entrypoint
+#30 DONE 0.0s
+
+#31 [stage-3 10/10] RUN chmod +x /usr/local/bin/infra-entrypoint
+#31 DONE 0.2s
+
+#32 exporting to image
+#32 exporting layers
+#32 exporting layers 0.6s done
+#32 exporting manifest sha256:2da20fe0056a92edb553830f49a94fbb73cc70f026b8ece21097d86b17de4011 0.0s done
+#32 exporting config sha256:fc1d5aa3f1368ba83540792418eded02dcfcd7fdbd206d8d6f11364eec3fef2e done
+#32 exporting attestation manifest sha256:de8b045bfa3dc69fa88adaf9438ef4cbc54950bc08685b0d7f3c9ad1d71ff09d 0.0s done
+#32 exporting manifest list sha256:5ab2572d41cfc2f0ce4fc8377b62317109415256080da7e285c53f5c447aca93 done
+#32 naming to docker.io/library/vetorleads:chat130-859241bd9bbc done
+#32 unpacking to docker.io/library/vetorleads:chat130-859241bd9bbc
+#32 unpacking to docker.io/library/vetorleads:chat130-859241bd9bbc 0.3s done
+#32 DONE 1.0s

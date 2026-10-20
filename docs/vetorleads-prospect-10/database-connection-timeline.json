@@ -1,0 +1,95 @@
+{
+  "mysql_events": [
+    {
+      "timestamp": "2026-10-19T10:33:13.942144400Z",
+      "event": "starting"
+    },
+    {
+      "timestamp": "2026-10-19T10:33:13.951204171Z",
+      "event": "starting"
+    },
+    {
+      "timestamp": "2026-10-19T10:33:17.070026425Z",
+      "event": "recovery"
+    },
+    {
+      "timestamp": "2026-10-19T10:33:17.130436167Z",
+      "event": "recovery"
+    },
+    {
+      "timestamp": "2026-10-19T10:33:17.654010298Z",
+      "event": "ready_for_connections"
+    },
+    {
+      "timestamp": "2026-10-19T10:33:17.660477797Z",
+      "event": "ready_for_connections"
+    },
+    {
+      "timestamp": "2026-10-19T10:35:12.405970443Z",
+      "event": "starting"
+    },
+    {
+      "timestamp": "2026-10-19T10:35:12.425020156Z",
+      "event": "starting"
+    },
+    {
+      "timestamp": "2026-10-19T10:35:15.090196138Z",
+      "event": "recovery"
+    },
+    {
+      "timestamp": "2026-10-19T10:35:15.134634449Z",
+      "event": "recovery"
+    },
+    {
+      "timestamp": "2026-10-19T10:35:15.399554881Z",
+      "event": "ready_for_connections"
+    },
+    {
+      "timestamp": "2026-10-19T10:35:15.401704330Z",
+      "event": "ready_for_connections"
+    },
+    {
+      "timestamp": "2026-10-19T10:42:59.144338586Z",
+      "event": "starting"
+    },
+    {
+      "timestamp": "2026-10-19T10:42:59.157965120Z",
+      "event": "starting"
+    },
+    {
+      "timestamp": "2026-10-19T10:43:02.348783736Z",
+      "event": "recovery"
+    },
+    {
+      "timestamp": "2026-10-19T10:43:02.449364913Z",
+      "event": "recovery"
+    },
+    {
+      "timestamp": "2026-10-19T10:43:02.861631651Z",
+      "event": "ready_for_connections"
+    },
+    {
+      "timestamp": "2026-10-19T10:43:02.862783464Z",
+      "event": "ready_for_connections"
+    }
+  ],
+  "worker_lost_connection_times": [
+    "2026-10-19T10:33:10.273840082Z",
+    "2026-10-19T10:35:10.081894533Z"
+  ],
+  "worker_connection_refused_times": [
+    "2026-10-19T10:33:15.606590342Z",
+    "2026-10-19T10:33:15.606620952Z",
+    "2026-10-19T10:35:13.340989747Z",
+    "2026-10-19T10:35:13.341550009Z",
+    "2026-10-19T10:42:50.889087040Z",
+    "2026-10-19T10:42:50.889124880Z",
+    "2026-10-19T10:42:56.854014364Z",
+    "2026-10-19T10:42:56.854040624Z",
+    "2026-10-19T10:42:59.883406494Z",
+    "2026-10-19T10:42:59.884336578Z"
+  ],
+  "scheduler_latest_no_tasks_time": [
+    "2026-10-19T11:55:00.828659324Z"
+  ]
+}

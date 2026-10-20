@@ -1,0 +1,12 @@
+{
+  "worker": {
+    "healthy_exit": 0,
+    "database_unavailable_exit": 1,
+    "wrong_process_exit": 1
+  },
+  "scheduler": {
+    "healthy_exit": 0,
+    "database_unavailable_exit": 1,
+    "wrong_process_exit": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "vetorleads": {
+    "base_commit": "f072ba01e1206ac876b806ddfeb9aecfabe890c8",
+    "manifest_sha256": "8c0d1a85101b3bb472408145a97d593a30322bfcdbc24106f7820e27b485d765",
+    "release_commit": null,
+    "release_image": null,
+    "build_location": "/opt/infra-abrasil/backups/chat128/vetorleads/public/build"
+  },
+  "vetoros": {
+    "base_commit": "953b90a825c76239055c29f90d77530770e6c2a5",
+    "manifest_sha256": "7e95556c45d5aa1268bc2571bb755dfa826b70f6bf1c59d02bf4bcffe6f07047",
+    "release_commit": null,
+    "release_image": null,
+    "build_location": "/opt/infra-abrasil/backups/chat128/vetoros/public/build"
+  }
+}

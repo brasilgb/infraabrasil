@@ -1,0 +1,3 @@
+Servidor PHP de homologação encerrado.
+Simulador WAHA encerrado.
+MariaDB local encerrado por mariadb-admin no socket exclusivo; Shutdown complete confirmado.

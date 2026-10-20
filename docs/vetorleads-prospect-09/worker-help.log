@@ -1,0 +1,35 @@
+Description:
+  Start processing jobs on the queue as a daemon
+
+Usage:
+  queue:work [options] [--] [<connection>]
+
+Arguments:
+  connection                                       The name of the queue connection to work
+
+Options:
+      --name[=NAME]                                The name of the worker [default: "default"]
+      --queue[=QUEUE]                              The names of the queues to work
+      --daemon                                     Run the worker in daemon mode (Deprecated)
+      --once                                       Only process the next job on the queue
+      --stop-when-empty                            Stop when the queue is empty
+      --stop-when-empty-for[=STOP-WHEN-EMPTY-FOR]  Stop when no jobs have been processed for the given number of seconds [default: "0"]
+      --delay[=DELAY]                              The number of seconds to delay failed jobs (Deprecated) [default: "0"]
+      --backoff[=BACKOFF]                          The number of seconds to wait before retrying a job that encountered an uncaught exception [default: "0"]
+      --max-jobs[=MAX-JOBS]                        The number of jobs to process before stopping [default: "0"]
+      --max-time[=MAX-TIME]                        The maximum number of seconds the worker should run [default: "0"]
+      --force                                      Force the worker to run even in maintenance mode
+      --memory[=MEMORY]                            The memory limit in megabytes, or as a percentage of the PHP memory limit [default: "128"]
+      --sleep[=SLEEP]                              The number of seconds to sleep when no job is available [default: "3"]
+      --rest[=REST]                                The number of seconds to rest between jobs [default: "0"]
+      --timeout[=TIMEOUT]                          The number of seconds a child process can run [default: "60"]
+      --tries[=TRIES]                              The number of times to attempt a job before logging it failed [default: "1"]
+      --json                                       Output the queue worker information as JSON
+  -h, --help                                       Display help for the given command. When no command is given display help for the list command
+      --silent                                     Do not output any message
+  -q, --quiet                                      Only errors are displayed. All other output is suppressed
+  -V, --version                                    Display this application version
+      --ansi|--no-ansi                             Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction                             Do not ask any interactive question
+      --env[=ENV]                                  The environment the command should run under
+  -v|vv|vvv, --verbose                             Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug

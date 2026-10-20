@@ -1,0 +1,22 @@
+{
+  "vetorleads_commit": "00282e4ab046b4fc0f7bd0a5f33766255104df3e",
+  "image_tag": "vetorleads:prospect09-00282e4",
+  "image_id": "sha256:4d9deab99bb7ab4d2ffbe660983cb668ca34a931ae34cd4e982d957d8181a733",
+  "vetoros_commit_preservado": "953b90a825c76239055c29f90d77530770e6c2a5",
+  "infra_base": "1165aa9bd35d8fa455ab100340d7cf1e20f78594",
+  "vetorleads_operacional": {
+    "image": "sha256:fba2f79c606c94196015432706c772ec07c296d35f84d2c975836c8253c50c52",
+    "started_at": "2026-10-19T00:17:37.67443165Z",
+    "restarts": 0
+  },
+  "vetorleads-worker_operacional": {
+    "image": "sha256:8f836c54ab0c797ba820bc0233a2f9fa85f5a25b3e705b0c4e32548e4094b3b8",
+    "started_at": "2026-10-19T10:43:01.281071516Z",
+    "restarts": 7
+  },
+  "vetorleads-scheduler_operacional": {
+    "image": "sha256:669822b906e6bc5c8258f37b0f4085b57d0a158b36f0c21a1c034d80293cbc30",
+    "started_at": "2026-10-19T00:17:37.494943278Z",
+    "restarts": 0
+  }
+}

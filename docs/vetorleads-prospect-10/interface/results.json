@@ -1,0 +1,31 @@
+{
+  "captureStatus": 201,
+  "recaptureStatus": 200,
+  "catalogue": "PASS",
+  "preview": "PASS",
+  "qualification": "PASS",
+  "conversion": "PASS",
+  "crm": "PASS",
+  "dashboard": "PASS",
+  "pipelineMovement": "PASS",
+  "note": "PASS",
+  "filters": "PASS",
+  "settings": "PASS",
+  "checks": [
+    {
+      "width": 1440,
+      "result": "PASS"
+    },
+    {
+      "width": 390,
+      "result": "PASS"
+    },
+    {
+      "width": 320,
+      "result": "PASS"
+    }
+  ],
+  "errors": [],
+  "opportunitiesBoard": "PASS",
+  "boardErrors": []
+}

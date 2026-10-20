@@ -1,0 +1,99 @@
+{
+  "database": "11.8.6-MariaDB-0+deb13u1 from Debian",
+  "workers": 4,
+  "inbound_replay": [
+    {
+      "mode": "receive",
+      "result": "idempotent",
+      "start": 1792424327.192929,
+      "end": 1792424327.260894
+    },
+    {
+      "mode": "receive",
+      "result": "idempotent",
+      "start": 1792424327.212256,
+      "end": 1792424327.263639
+    },
+    {
+      "mode": "receive",
+      "result": "created",
+      "start": 1792424327.191773,
+      "end": 1792424327.260603
+    },
+    {
+      "mode": "receive",
+      "result": "idempotent",
+      "start": 1792424327.285508,
+      "end": 1792424327.288801
+    }
+  ],
+  "delivery_race": [
+    {
+      "mode": "deliver",
+      "result": null,
+      "start": 1792424327.769416,
+      "end": 1792424328.133486
+    },
+    {
+      "mode": "deliver",
+      "result": null,
+      "start": 1792424327.833065,
+      "end": 1792424328.138124
+    },
+    {
+      "mode": "deliver",
+      "result": null,
+      "start": 1792424327.865951,
+      "end": 1792424328.147093
+    },
+    {
+      "mode": "deliver",
+      "result": null,
+      "start": 1792424327.865623,
+      "end": 1792424328.145084
+    }
+  ],
+  "operator_race": [
+    {
+      "mode": "deliver",
+      "result": null,
+      "start": 1792424328.856737,
+      "end": 1792424329.098062
+    },
+    {
+      "mode": "deliver",
+      "result": null,
+      "start": 1792424328.780658,
+      "end": 1792424329.094679
+    }
+  ],
+  "qualification_replay": [
+    {
+      "mode": "receive",
+      "result": "idempotent",
+      "start": 1792424330.115602,
+      "end": 1792424330.11993
+    },
+    {
+      "mode": "receive",
+      "result": "idempotent",
+      "start": 1792424330.092125,
+      "end": 1792424330.095922
+    },
+    {
+      "mode": "receive",
+      "result": "created",
+      "start": 1792424329.955872,
+      "end": 1792424330.025467
+    },
+    {
+      "mode": "receive",
+      "result": "idempotent",
+      "start": 1792424330.117778,
+      "end": 1792424330.121579
+    }
+  ],
+  "simulated_external_sends": 1,
+  "leads_created": 1,
+  "assertions": "PASS"
+}

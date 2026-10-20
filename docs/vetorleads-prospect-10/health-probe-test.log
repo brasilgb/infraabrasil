@@ -1,0 +1,8 @@
+PASS worker and database available
+PASS scheduler and database available
+PASS worker rejects database failure
+PASS scheduler rejects database failure
+PASS php-fpm is not a worker
+PASS scheduler is not a worker
+PASS rejects substring matches
+PASS rejects arbitrary commands

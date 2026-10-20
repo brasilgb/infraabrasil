@@ -1,0 +1,49 @@
+Field	Type	Null	Key	Default	Extra
+id	char(36)	NO	PRI	NULL	
+tenant_id	bigint unsigned	YES	MUL	NULL	
+lead_id	bigint unsigned	YES	MUL	NULL	
+visitor_token_hash	varchar(64)	NO	UNI	NULL	
+visitor_name	varchar(255)	YES		NULL	
+visitor_whatsapp	varchar(24)	YES		NULL	
+visitor_email	varchar(255)	YES		NULL	
+company_name	varchar(255)	YES		NULL	
+subject	varchar(24)	YES		NULL	
+identified_at	timestamp	YES		NULL	
+whatsapp_consent_at	timestamp	YES		NULL	
+source	varchar(40)	NO		vetoros_web	
+page_url	varchar(2048)	YES		NULL	
+status	varchar(24)	NO		pending	
+last_message_at	timestamp	YES	MUL	NULL	
+expires_at	timestamp	NO	MUL	NULL	
+created_at	timestamp	YES		NULL	
+updated_at	timestamp	YES		NULL	
+Field	Type	Null	Key	Default	Extra
+id	bigint unsigned	NO	PRI	NULL	auto_increment
+tenant_id	bigint unsigned	YES	MUL	NULL	
+name	varchar(120)	NO		NULL	
+whatsapp_text	text	YES		NULL	
+trial_days	int unsigned	YES		NULL	
+trial_expiration_text	text	YES		NULL	
+active	tinyint(1)	NO	MUL	1	
+created_at	timestamp	YES		NULL	
+updated_at	timestamp	YES		NULL	
+registration_check_mode	varchar(10)	NO		manual	
+registration_api_url	varchar(2048)	YES		NULL	
+registration_lookup_field	varchar(20)	YES		NULL	
+registration_api_token	text	YES		NULL	
+target_segments	text	YES		NULL	
+excluded_segments	text	YES		NULL	
+website_preference	varchar(16)	NO		any	
+Table	Non_unique	Key_name	Seq_in_index	Column_name	Collation	Cardinality	Sub_part	Packed	Null	Index_type	Comment	Index_comment	Visible	Expression
+web_conversations	0	PRIMARY	1	id	A	2	NULL	NULL		BTREE			YES	NULL
+web_conversations	0	web_conversations_visitor_token_hash_unique	1	visitor_token_hash	A	2	NULL	NULL		BTREE			YES	NULL
+web_conversations	1	web_conversations_lead_id_foreign	1	lead_id	A	1	NULL	NULL	YES	BTREE			YES	NULL
+web_conversations	1	web_conversations_tenant_id_status_last_message_at_index	1	tenant_id	A	1	NULL	NULL	YES	BTREE			YES	NULL
+web_conversations	1	web_conversations_tenant_id_status_last_message_at_index	2	status	A	1	NULL	NULL		BTREE			YES	NULL
+web_conversations	1	web_conversations_tenant_id_status_last_message_at_index	3	last_message_at	A	2	NULL	NULL	YES	BTREE			YES	NULL
+web_conversations	1	web_conversations_last_message_at_index	1	last_message_at	A	2	NULL	NULL	YES	BTREE			YES	NULL
+web_conversations	1	web_conversations_expires_at_index	1	expires_at	A	2	NULL	NULL		BTREE			YES	NULL
+Table	Non_unique	Key_name	Seq_in_index	Column_name	Collation	Cardinality	Sub_part	Packed	Null	Index_type	Comment	Index_comment	Visible	Expression
+prospect_products	0	PRIMARY	1	id	A	0	NULL	NULL		BTREE			YES	NULL
+prospect_products	1	prospect_products_active_index	1	active	A	0	NULL	NULL		BTREE			YES	NULL
+prospect_products	1	prospect_products_tenant_id_foreign	1	tenant_id	A	0	NULL	NULL	YES	BTREE			YES	NULL

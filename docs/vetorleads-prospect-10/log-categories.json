@@ -1,0 +1,41 @@
+{
+  "vetorleads": {
+    "mysql_missing_column": 0,
+    "mysql_missing_table": 0,
+    "access_denied": 0,
+    "memory_exhausted": 0,
+    "connection_refused": 0,
+    "connection_timeout": 0,
+    "missing_command": 0,
+    "missing_option": 0,
+    "signal_terminated": 0,
+    "exception": 0,
+    "php_fatal": 0
+  },
+  "vetorleads-worker": {
+    "mysql_missing_column": 0,
+    "mysql_missing_table": 0,
+    "access_denied": 0,
+    "memory_exhausted": 0,
+    "connection_refused": 10,
+    "connection_timeout": 0,
+    "missing_command": 0,
+    "missing_option": 0,
+    "signal_terminated": 0,
+    "exception": 0,
+    "php_fatal": 0
+  },
+  "vetorleads-scheduler": {
+    "mysql_missing_column": 0,
+    "mysql_missing_table": 0,
+    "access_denied": 0,
+    "memory_exhausted": 0,
+    "connection_refused": 14,
+    "connection_timeout": 0,
+    "missing_command": 0,
+    "missing_option": 0,
+    "signal_terminated": 0,
+    "exception": 0,
+    "php_fatal": 0
+  }
+}

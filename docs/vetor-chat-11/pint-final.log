@@ -1,0 +1,1 @@
+{"tool":"pint","result":"fixed","files":[{"path":"tests\/Feature\/SupportAutomationTest.php","fixers":["no_extra_blank_lines"]}]}

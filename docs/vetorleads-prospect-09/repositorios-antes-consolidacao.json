@@ -1,0 +1,24 @@
+{
+  ".": {
+    "head": "1165aa9bd35d8fa455ab100340d7cf1e20f78594",
+    "branch": "main",
+    "status": "M .gitignore\n M correio.md\n m gateway/vetorleads\n M gateway/vetoros\n?? docs/vetorleads-prospect-09/",
+    "ahead_behind_cached": "0\t0"
+  },
+  "gateway/vetorleads": {
+    "head": "adcc6e40f8025161882c95631f29cb69eab0bdba",
+    "branch": "main",
+    "status": "M tests/Feature/ExtensionProspectingTest.php\n M tests/Feature/ProspectAuditPreviewTest.php\n M tests/Feature/ProspectingTest.php\n M tests/Pest.php\n?? tests/RefreshAuditDatabase.php",
+    "ahead_behind_cached": "0\t0"
+  },
+  "gateway/vetoros": {
+    "head": "953b90a825c76239055c29f90d77530770e6c2a5",
+    "branch": "deploy/vetor-intel-20261008",
+    "status": "",
+    "ahead_behind_cached": "0\t0"
+  },
+  "correio": {
+    "current_sha256": "c3f86c8fd22b5b95f4bb9f6c22589844fedc7f43b0e6d0cb76892eda3d8b526f",
+    "previous_sha256": "00c7f00a20abb3be555f249a18bc801834e378ab00327a62d4e2d16f9b3c19af"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "mysql_restarts": 3,
+  "mysql_current_oom_killed": false,
+  "mysql_started_at": "2026-10-19T10:42:54.370173323Z",
+  "memory_limit_bytes": 0,
+  "events": [],
+  "kernel_available": true,
+  "kernel_oom_mysql_lines": [
+    "Oct 19 10:33:04 srv1990862 kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=docker-28f4f55b745b4d21b323724def6bdbf93dc9e20fb0a84afe67e6b0314b991879.scope,mems_allowed=0,global_oom,task_memcg=/system.slice/docker-28f4f55b745b4d21b323724def6bdbf93dc9e20fb0a84afe67e6b0314b991879.scope,task=mysqld,pid=3074203,uid=999",
+    "Oct 19 10:33:04 srv1990862 kernel: Out of memory: Killed process 3074203 (mysqld) total-vm:1882824kB, anon-rss:615116kB, file-rss:68kB, shmem-rss:0kB, UID:999 pgtables:1560kB oom_score_adj:0",
+    "Oct 19 10:35:05 srv1990862 kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=qemu-guest-agent.service,mems_allowed=0,global_oom,task_memcg=/system.slice/docker-28f4f55b745b4d21b323724def6bdbf93dc9e20fb0a84afe67e6b0314b991879.scope,task=mysqld,pid=927707,uid=999",
+    "Oct 19 10:35:05 srv1990862 kernel: Out of memory: Killed process 927707 (mysqld) total-vm:1853164kB, anon-rss:453288kB, file-rss:280kB, shmem-rss:0kB, UID:999 pgtables:1280kB oom_score_adj:0",
+    "Oct 19 10:42:50 srv1990862 kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=containerd.service,mems_allowed=0,global_oom,task_memcg=/system.slice/docker-28f4f55b745b4d21b323724def6bdbf93dc9e20fb0a84afe67e6b0314b991879.scope,task=mysqld,pid=930545,uid=999",
+    "Oct 19 10:42:50 srv1990862 kernel: Out of memory: Killed process 930545 (mysqld) total-vm:1857280kB, anon-rss:480808kB, file-rss:160kB, shmem-rss:0kB, UID:999 pgtables:1340kB oom_score_adj:0"
+  ]
+}

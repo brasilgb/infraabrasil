@@ -1,0 +1,61 @@
+{
+  "activation": "PASS",
+  "sharedRuleEditor": "PASS",
+  "simulator": "PASS",
+  "whatsappQualification": "PASS",
+  "operator": "PASS",
+  "returnToBot": "PASS",
+  "webChatCompatibility": "PASS",
+  "metricFilter": "PASS",
+  "checks": [
+    {
+      "width": 1440,
+      "path": "/settings/support-automation",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/atendimento?channel=whatsapp",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/atendimento?channel=web_chat",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/atendimento/contatos",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/settings/support-automation",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/atendimento?channel=whatsapp",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/atendimento?channel=web_chat",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/atendimento/contatos",
+      "status": 200,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

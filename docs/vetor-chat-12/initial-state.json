@@ -1,0 +1,6 @@
+{
+  "request_sha256": "5a6fc9156d4e60d2dcafec9e8d7a50bb15eebac2a3f81733ebbae344d29e1357",
+  "previous_request_sha256": "48f046cf2af428b8c56b7466b0773a0e176bdc879402a7e5201c54d6b4e7fe50",
+  "vetorleads_status": " M app/Http/Controllers/Api/WebChatController.php\n M app/Http/Controllers/SupportInboxController.php\n M app/Http/Controllers/WebChatInboxController.php\n M app/Models/WebConversation.php\n M resources/js/components/app-sidebar.tsx\n M resources/js/pages/support-inbox/index.tsx\n M resources/js/pages/web-chat/index.tsx\n M routes/settings.php\n?? app/Http/Controllers/SupportAutomationController.php\n?? app/Models/SupportAutomationRule.php\n?? app/Services/SupportAutomation.php\n?? config/support_automation.php\n?? database/migrations/2026_10_19_180000_create_support_automation_tables.php\n?? resources/js/lib/request-json.ts\n?? resources/js/pages/support-automation/\n?? tests/Feature/SupportAutomationTest.php\n",
+  "vetoros_status": " M resources/js/pages/site/components/web-chat.tsx\n"
+}

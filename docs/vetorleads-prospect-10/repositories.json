@@ -1,0 +1,21 @@
+{
+  ".": {
+    "head": "1165aa9bd35d8fa455ab100340d7cf1e20f78594",
+    "status": "M .gitignore\n M correio.md\n M executed.md\n M gateway/vetorleads\n M gateway/vetoros\n?? docs/vetorleads-prospect-09/\n?? docs/vetorleads-prospect-10/\n?? scripts/vetorleads-process-health.php",
+    "branch": "main"
+  },
+  "gateway/vetorleads": {
+    "head": "00282e4ab046b4fc0f7bd0a5f33766255104df3e",
+    "status": "",
+    "branch": "main"
+  },
+  "gateway/vetoros": {
+    "head": "953b90a825c76239055c29f90d77530770e6c2a5",
+    "status": "",
+    "branch": "deploy/vetor-intel-20261008"
+  },
+  "remote_heads_verified_read_only": {
+    "infra": "1165aa9bd35d8fa455ab100340d7cf1e20f78594",
+    "vetorleads": "adcc6e40f8025161882c95631f29cb69eab0bdba"
+  }
+}

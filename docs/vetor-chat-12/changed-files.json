@@ -1,0 +1,170 @@
+[
+  {
+    "file": "app/Console/Commands/DeliverSupportAutomation.php",
+    "sha256": "cad9f96a78f0f4cb452047cf538ed3dec815851ee8712d601a7542b297099fc0",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Http/Controllers/SupportAutomationController.php",
+    "sha256": "c0d4fea6de1b07d01979bdc1ddbc2f4ac7185e74d4b6e1bb77447d083f8837dd",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Models/SupportAutomationOutbox.php",
+    "sha256": "981bfc2744c634a28a96de91f51d477a633b0ae4e86e5048b554fc439a0b94b7",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Models/SupportAutomationRule.php",
+    "sha256": "56fd4abdd013be6877d06c6c2ce17754ba351e09f84f2cef15eb4c989e205660",
+    "native_equal": true,
+    "changed_since_chat11": false
+  },
+  {
+    "file": "app/Services/SupportAutomation.php",
+    "sha256": "a23028777925a9468176e5d7a25caba689a2520129866a43a539391e2881d423",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Services/SupportAutomationDelivery.php",
+    "sha256": "ae30d09d8d08164f0c66e2611e1307f075e9c9772807b85225e52b8cff15ea24",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Services/SupportWhatsappConversation.php",
+    "sha256": "f671e8327219fae97a6281efa281034090af175e45b9eee9b6191dae1696702c",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "config/support_automation.php",
+    "sha256": "797d7bd3ca28296b655a84cc2eb5d2458e646162ea6662d8076a32dc183de98c",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "database/migrations/2026_10_19_180000_create_support_automation_tables.php",
+    "sha256": "663abca90fafca9ef5acd0d47987638dbb90714f635d3cbbb310b2591a8a5b8c",
+    "native_equal": true,
+    "changed_since_chat11": false
+  },
+  {
+    "file": "database/migrations/2026_10_19_190000_extend_support_automation_multichannel.php",
+    "sha256": "8c3419f7194fefc5c17afe7e57bd729e36a9250ac088778704a4278aee6bfc85",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "resources/js/lib/request-json.ts",
+    "sha256": "34cbbd2757d871f45c16fd5285ab00cfb67c6a3d8f1ac8b8209ec66808d9ff3e",
+    "native_equal": true,
+    "changed_since_chat11": false
+  },
+  {
+    "file": "resources/js/pages/support-automation/index.tsx",
+    "sha256": "801614e6be39b626638b606c6ab13a8bfd67007603e33f08b3e3bd5c3e0c25c1",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "tests/Feature/SupportAutomationTest.php",
+    "sha256": "73bbe4d136dda65422195823405805b4b964ba06ab788142ce4c009aa71ea232",
+    "native_equal": true,
+    "changed_since_chat11": false
+  },
+  {
+    "file": "tests/Feature/SupportMultichannelTest.php",
+    "sha256": "44dccc0071fa5c50e382f7daf87437d0683a6d4a306f14397348a37fbbde886d",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Http/Controllers/Api/TenantWhatsappEventController.php",
+    "sha256": "a758b76df6d6f398fce1db3ff7a0a628a833555c346b32a06384c26367b5b83d",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Http/Controllers/Api/WebChatController.php",
+    "sha256": "e11b9b5e2069dead4e9305f08fe3cdd82742eaa535b6dd32950e0bcb15667487",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Http/Controllers/ReceivedContactsController.php",
+    "sha256": "6629e9d34e12d139d4caaed046fb24daae43cd0c243b1fb58d741e266464d0e4",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Http/Controllers/SupportInboxController.php",
+    "sha256": "8a854d6eda634708d286df399515a38e8077d06146e8f1e6725e12c5ae84db65",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Http/Controllers/WebChatInboxController.php",
+    "sha256": "fe8fb9b86fec611fb01c9b79c94e4a932857abe2c2fb46d7ac7c610cd0add6b4",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Models/Tenant.php",
+    "sha256": "b51503218efe1b17086f16f602b6f36410e80d34ac1b2ddd206f3874fa61703a",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Models/WebChatMessage.php",
+    "sha256": "c55b4072cc577bd0b8ed9ba0f306ba9bd34b9b18f87a23507113f4e171c09874",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Models/WebConversation.php",
+    "sha256": "8aa45fa832e10fc351154120c235c5889bbd4bead185ed476df1b32c63780372",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "app/Services/TenantWhatsapp.php",
+    "sha256": "3beaa004602551a32c1d26a133b4b994f4b3726a88be886c9cfe8825511cf3bf",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "resources/js/components/app-sidebar.tsx",
+    "sha256": "5cdc1678f3ddbecc82dca7e24afd0fa07ff535682ab6820c7e63b57beda2f003",
+    "native_equal": true,
+    "changed_since_chat11": false
+  },
+  {
+    "file": "resources/js/pages/support-inbox/index.tsx",
+    "sha256": "cf7d5a18cb7c3165544653f1172837f2ce26fc95c31a523f215b7605e4eaeb4c",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "resources/js/pages/web-chat/index.tsx",
+    "sha256": "b891ec19634aa787f596adc7cdc77fa88668fa162dd4288cc8b362025fdb62dc",
+    "native_equal": true,
+    "changed_since_chat11": false
+  },
+  {
+    "file": "routes/console.php",
+    "sha256": "c0bb625059a79f9507e9d105e90ce592d6f85899b03898ab53f183589df84f69",
+    "native_equal": true,
+    "changed_since_chat11": true
+  },
+  {
+    "file": "routes/settings.php",
+    "sha256": "228ff840368abe2a60b6e6e191abfcdf1a9f5c3c5eeb11b1e2821f1385f7e5bb",
+    "native_equal": true,
+    "changed_since_chat11": true
+  }
+]

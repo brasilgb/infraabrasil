@@ -1,0 +1,10 @@
+services:
+  vetorleads:
+    image: vetorleads:prospect09-00282e4
+    pull_policy: never
+  vetorleads-worker:
+    image: vetorleads:prospect09-00282e4
+    pull_policy: never
+  vetorleads-scheduler:
+    image: vetorleads:prospect09-00282e4
+    pull_policy: never

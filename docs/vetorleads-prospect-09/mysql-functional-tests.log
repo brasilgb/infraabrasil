@@ -1,0 +1,205 @@
+
+  ............................................................................
+  ............................................................................
+  .⨯...⨯......................................................................
+  ............................................................................
+  ............................................................................
+  ............................................................................
+  ............................................................................
+  ............................................................................
+  ............................................................................
+  ............................................................................
+  .............................................................⨯..⨯.⨯.........
+  ............................................................................
+  ..⨯.........................................................................
+  ............................................................................
+  ............................................................................
+  ............................................................................
+  ......................................................
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\ExtensionProspectingTest > it fills missing data wi…   
+  Failed asserting that two arrays are identical.
+   Array &0 [
+  +    'https' => false,
+       'accessible' => true,
+  -    'https' => false,
+   ]
+  
+
+  at tests/Feature/ExtensionProspectingTest.php:131
+    127▕     $result = extensionResult($tenant);
+    128▕     expect($result->website)->toBe('https://exemplo.test')->and($result->address)->toBe('Rua Exemplo, 10')
+    129▕         ->and($result->postal_code)->toBe('90000000')->and($result->email)->toBe('contato@example.test');
+    130▕     $source = app(TenantContext::class)->run($tenant, fn () => $result->sources()->first());
+  ➜ 131▕     expect($source->payload['websiteChecks'])->toBe(['accessible' => true, 'https' => false])->and($source->payload['siteStatus'])->toBe('Com site - pode melhorar');
+    132▕ });
+    133▕ 
+    134▕ it('does not convert discarded or unselected prospects', function (string $status) {
+    135▕     [$tenant, $user, $token] = extensionTenant();
+
+  1   tests/Feature/ExtensionProspectingTest.php:131
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\ExtensionProspectingTest > it converts selected pro…   
+  Failed asserting that two arrays are identical.
+   Array &0 [
+  +    'https' => true,
+       'accessible' => true,
+  -    'https' => true,
+   ]
+  
+
+  at tests/Feature/ExtensionProspectingTest.php:177
+    173▕     $this->actingAs($user)->post('/prospecting/results/convert', ['ids' => [$result->id], 'prospect_product_id' => $product->id])->assertRedirect();
+    174▕     $lead = Lead::withoutGlobalScopes()->firstOrFail();
+    175▕     expect($lead->tenant_id)->toBe($tenant->id)->and($lead->site_status)->toBe('Com site - pode melhorar')->and($lead->opportunity)->toBe('Modernizar')
+    176▕         ->and($lead->google_place_id)->toBe('ChIJExemplo0001')->and($lead->rating)->toBe('4.80')->and($lead->reviews)->toBe(150)
+  ➜ 177▕         ->and($lead->website_checks)->toBe(['accessible' => true, 'https' => true]);
+    178▕     $metadata = app(TenantContext::class)->run($tenant, fn () => $lead->prospect_data);
+    179▕     expect($metadata['cnpj'])->toBe('11222333000181')->and($metadata['postal_code'])->toBe('90000000')
+    180▕         ->and($metadata['mobile_phone'])->toBe('5551999998888')->and($metadata['domain'])->toBe('exemplo.test');
+    181▕     $this->actingAs($user)->post('/prospecting/results/convert', ['ids' => [$result->id], 'prospect_product_id' => $product->id])->assertRedirect();
+
+  1   tests/Feature/ExtensionProspectingTest.php:177
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\ProspectAuditPreviewTest > it previ…  LogicException   
+  Audit requires a supported, dedicated read-only transaction.
+
+  at app/Services/Prospecting/ReadOnlyProspectAudit.php:28
+     24▕                 $db->statement('PRAGMA query_only = '.($old ? 'ON' : 'OFF'));
+     25▕             }
+     26▕         }
+     27▕         if (! in_array($driver, ['mysql', 'mariadb'], true) || $db->transactionLevel() !== 0) {
+  ➜  28▕             throw new LogicException('Audit requires a supported, dedicated read-only transaction.');
+     29▕         }
+     30▕         $old = (int) $db->selectOne('SELECT @@session.transaction_read_only AS read_only')->read_only;
+     31▕         $db->statement('SET SESSION TRANSACTION READ ONLY');
+     32▕         try {
+
+  1   app/Services/Prospecting/ReadOnlyProspectAudit.php:28
+  2   tests/Feature/ProspectAuditPreviewTest.php:61
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\ProspectAuditPreviewTest > it retai…  QueryException   
+  SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: 'invalid-date' for column 'last_seen_at' at row 1 (Connection: mysql, Host: prospect09-mysql, Port: 3306, Database: functional, SQL: update `prospecting_results` set `last_seen_at` = invalid-date where `id` = 127)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:633
+    629▕             $statement = $this->getPdo()->prepare($query);
+    630▕ 
+    631▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    632▕ 
+  ➜ 633▕             $statement->execute();
+    634▕ 
+    635▕             $this->recordsHaveBeenModified(
+    636▕                 ($count = $statement->rowCount()) > 0
+    637▕             );
+
+      +6 vendor frames 
+  7   tests/Feature/ProspectAuditPreviewTest.php:104
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\ProspectAuditPreviewTest > it keeps insufficient da…   
+  Expected status code 0 but received 1.
+Failed asserting that 1 matches expected 0.
+
+  at tests/Feature/ProspectAuditPreviewTest.php:129
+    125▕     [$tenant, $actor] = auditFixture();
+    126▕     DB::table('prospecting_results')->update(['phone' => null, 'mobile_phone' => null, 'whatsapp' => null, 'whatsapp_status' => null]);
+    127▕     $report = app(ProspectQualificationPreview::class)->inspect($actor, $tenant);
+    128▕     expect($report['priorities']['insufficient'])->toBe(1)->and($report['inventory']['capture_phone_not_stored'])->toBe(1);
+  ➜ 129▕     $this->artisan('prospecting:preview', ['tenant' => $tenant->id, '--actor' => $actor->id, '--sample' => 0])->assertSuccessful();
+    130▕ });
+    131▕ 
+    132▕ it('rejects forged source scope and permits only explicit root administrative inspection', function () {
+    133▕     [$tenant, $actor] = auditFixture();
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\ProspectingTest > 6-7: score is deterministic and e…   
+  Failed asserting that two arrays are identical.
+   Array &0 [
+       0 => Array &1 [
+  +        'max' => 20,
+  +        'met' => true,
+  +        'rule' => 'data',
+           'group' => 'data',
+  -        'rule' => 'data',
+           'label' => 'Qualidade cadastral',
+  +        'detail' => '90/100 × 20%; Nome empresarial; Categoria/atividade; Cidade e UF; Telefone disponível; Endereço; Website informado; CNPJ válido; Situação cadastral ativa verificada',
+           'points' => 18,
+  -        'max' => 20,
+  -        'met' => true,
+  -        'detail' => '90/100 × 20%; Nome empresarial; Categoria/atividade; Cidade e UF; Telefone disponível; Endereço; Website informado; CNPJ válido; Situação cadastral ativa verificada',
+       ],
+       1 => Array &2 [
+  +        'max' => 45,
+  +        'met' => true,
+  +        'rule' => 'contact',
+           'group' => 'contact',
+  -        'rule' => 'contact',
+           'label' => 'Potencial de contato',
+  +        'detail' => '73/100 × 45%; Telefone fixo ou celular: canal disponível, sem comprovar atendimento; WhatsApp provável (celular, não confirmado); E-mail; Website como canal adicional; Captura recebida nos últimos 180 dias; número não validado em rede',
+           'points' => 33,
+  -        'max' => 45,
+  -        'met' => true,
+  -        'detail' => '73/100 × 45%; Telefone fixo ou celular: canal disponível, sem comprovar atendimento; WhatsApp provável (celular, não confirmado); E-mail; Website como canal adicional; Captura recebida nos últimos 180 dias; número não validado em rede',
+       ],
+       2 => Array &3 [
+  +        'max' => 35,
+  +        'met' => true,
+  +        'rule' => 'fit',
+           'group' => 'fit',
+  -        'rule' => 'fit',
+           'label' => 'Aderência comercial',
+  +        'detail' => '100/100 × 35%; Atividade compatível com segmento explícito da pesquisa',
+           'points' => 35,
+  -        'max' => 35,
+  -        'met' => true,
+  -        'detail' => '100/100 × 35%; Atividade compatível com segmento explícito da pesquisa',
+       ],
+       3 => Array &4 [
+  +        'max' => 0,
+  +        'met' => false,
+  +        'rule' => 'no_website',
+           'group' => 'opportunity',
+  -        'rule' => 'no_website',
+           'label' => 'Sem site próprio: possível oportunidade de presença digital',
+  +        'detail' => 'Depende do produto e do interesse comercial; não comprova intenção de compra.',
+           'points' => 0,
+  +    ],
+  +    4 => Array &5 [
+           'max' => 0,
+           'met' => false,
+  -        'detail' => 'Depende do produto e do interesse comercial; não comprova intenção de compra.',
+  -    ],
+  -    4 => Array &5 [
+  +        'rule' => 'reviews',
+           'group' => 'context',
+  -        'rule' => 'reviews',
+           'label' => 'Avaliações públicas não comprovam reputação comercial',
+  +        'detail' => 'Avaliações preservadas sem pontos adicionais.',
+           'points' => 0,
+  -        'max' => 0,
+  -        'met' => false,
+  -        'detail' => 'Avaliações preservadas sem pontos adicionais.',
+       ],
+   ]
+  
+
+  at tests/Feature/ProspectingTest.php:229
+    225▕         ->and(collect($first['breakdown'])->firstWhere('rule', 'contact')['max'])->toBe(45)
+    226▕         ->and(collect($first['breakdown'])->firstWhere('rule', 'reviews')['points'])->toBe(0);
+    227▕ 
+    228▕     $stored = ProspectingQualification::withoutGlobalScopes()->sole();
+  ➜ 229▕     expect($stored->score)->toBe($first['score'])->and($stored->breakdown)->toBe($first['breakdown']);
+    230▕ });
+    231▕ 
+    232▕ test('8: search and qualification work without any AI provider', function () {
+    233▕     useProspectingProviders([fakeProspectingProvider('fonte', [prospectCandidate('fonte', '1')])]);
+
+  1   tests/Feature/ProspectingTest.php:229
+
+
+  Tests:    6 failed, 1264 passed (13447 assertions)
+  Duration: 82.98s
+

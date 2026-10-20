@@ -1,0 +1,98 @@
+{
+  "checks": [
+    {
+      "name": "lab-rules",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "lab-whatsapp",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "lab-rules",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "lab-whatsapp",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "widget-rule",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "widget-rule",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "qualification",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "qualification",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "operator",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "widget-operator",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "operator",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "widget-operator",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "widget-revoked",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "widget-revoked",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "lab-error",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "lab-error",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "widget-expired",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "widget-expired",
+      "width": 390,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "operational": [],
+  "restoredPublicSession": true,
+  "journey": "passed"
+}

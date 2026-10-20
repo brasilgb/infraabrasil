@@ -1,0 +1,22 @@
+diff --git a/resources/js/pages/site/components/web-chat.tsx b/resources/js/pages/site/components/web-chat.tsx
+index 28f6b28e..dbcb97bd 100644
+--- a/resources/js/pages/site/components/web-chat.tsx
++++ b/resources/js/pages/site/components/web-chat.tsx
+@@ -79,7 +79,7 @@ export function WebChat() {
+                 if (response.data.identified === true && !session.identified) saveSession({ ...session, identified: true });
+                 setMessages((current) => {
+                     const known = new Set(current.map((item) => String(item.id)));
+-                    const fresh = incoming.filter((item) => !known.has(String(item.id)) && item.sender === 'attendant');
++                    const fresh = incoming.filter((item) => !known.has(String(item.id)) && item.sender !== 'visitor');
+                     if (!open && fresh.length) setUnread((count) => count + fresh.length);
+                     return incoming;
+                 });
+@@ -214,7 +214,7 @@ export function WebChat() {
+                                 <p
+                                     className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap ${message.sender === 'visitor' ? 'rounded-br-sm bg-blue-700 text-white' : 'rounded-bl-sm bg-white text-slate-700 shadow-sm'}`}
+                                 >
+-                                    {message.body}
++                                    {message.sender === 'bot' && <span className="mb-1 block text-xs font-semibold">Assistente automático</span>}{message.body}
+                                 </p>
+                             </div>
+                         ))}

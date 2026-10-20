@@ -1,0 +1,59 @@
+{
+    "database": "chat12_ui sintético",
+    "version": "11.8.6-MariaDB-0+deb13u1 from Debian",
+    "counts": {
+        "tenants": 1,
+        "users": 1,
+        "web_conversations": 2,
+        "web_chat_messages": 22,
+        "leads": 2,
+        "lead_activities": 6,
+        "support_automation_rules": 3,
+        "support_automation_decisions": 11,
+        "support_automation_outbox": 6,
+        "support_whatsapp_receipts": 12,
+        "support_automation_audits": 3,
+        "commercial_proposals": 0,
+        "prospecting_results": 0,
+        "jobs": 0,
+        "failed_jobs": 0
+    },
+    "decisions": [
+        {
+            "channel": "web_chat",
+            "outcome": "qualification",
+            "total": 4
+        },
+        {
+            "channel": "web_chat",
+            "outcome": "qualify",
+            "total": 1
+        },
+        {
+            "channel": "whatsapp",
+            "outcome": "handoff",
+            "total": 1
+        },
+        {
+            "channel": "whatsapp",
+            "outcome": "human_or_closed",
+            "total": 1
+        },
+        {
+            "channel": "whatsapp",
+            "outcome": "qualification",
+            "total": 3
+        },
+        {
+            "channel": "whatsapp",
+            "outcome": "qualify",
+            "total": 1
+        }
+    ],
+    "outbox": [
+        {
+            "status": "delivered",
+            "total": 6
+        }
+    ]
+}

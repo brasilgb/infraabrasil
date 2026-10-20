@@ -1,0 +1,60 @@
+{
+  "audit_at": "2026-10-19T18:18:11Z",
+  "request": {
+    "version": "VETOR-CHAT-12.6",
+    "sha256": "ab0c56eb57ff48433f96a81379d1c3b27fea1576bd9d6fc2200b384d10296729",
+    "previous_version": "VETOR-CHAT-12.5",
+    "previous_sha256": "6ea98978691c9436edeef3ae4293c325cb6c62bfedf5fc223ae44d18baf7de3a"
+  },
+  "public_widget_read_only": {
+    "url": "https://vetoros.com.br/",
+    "http_status": 200,
+    "widget_visible_after_open": true,
+    "javascript_errors": [],
+    "non_read_requests": [],
+    "messages_sent": 0
+  },
+  "production_read_only": {
+    "tenant_id": 1,
+    "tenant_name": "Anderson Brasil",
+    "tenant_active": true,
+    "whatsapp_automation_enabled": false,
+    "whatsapp_automation_homologated_at": null,
+    "rules_total": 14,
+    "rules_active": 0,
+    "rules_inactive": 14,
+    "rules_with_schedule": 0,
+    "outbox_by_status": [],
+    "global_whatsapp_delivery_enabled": false,
+    "waha_state": "connected",
+    "waha_last_connected_at": "2026-10-18 17:55:31",
+    "waha_last_activity_at": "2026-10-19 16:02:40",
+    "operator_memberships_by_role": [
+      {"role": "owner", "accounts": 1, "verified_accounts": 0}
+    ],
+    "commercial_prices_public": false,
+    "billing_methods": null,
+    "billing_homologated": false,
+    "billing_environment": "homologation"
+  },
+  "running_images": {
+    "vetorleads": {
+      "tag": "vetorleads:prospect09-00282e4",
+      "image_id": "sha256:2469df8808be3a946b2fa3641f8bad7aa030f138a33314d63f0fdc00550a4d37",
+      "containers": ["app", "worker", "scheduler"]
+    },
+    "vetoros": {
+      "tag": "infra-abrasil-vetoros:latest",
+      "image_id": "sha256:5f17c3fef2fee54c5bfe9fbf337560c7e3c31e636682f20ff7fdd9077502af16",
+      "container": "app"
+    }
+  },
+  "changes_made": {
+    "database_writes": 0,
+    "whatsapp_messages_sent": 0,
+    "rules_activated": 0,
+    "images_published": 0,
+    "commits_created": 0,
+    "pushes": 0
+  }
+}

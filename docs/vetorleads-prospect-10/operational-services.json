@@ -1,0 +1,91 @@
+{
+  "vetorleads": {
+    "container_id": "92efc97b36af222cfd8c6742d9db66e78d52c62a0509dd57380bbc4ef7037f40",
+    "image": "sha256:fba2f79c606c94196015432706c772ec07c296d35f84d2c975836c8253c50c52",
+    "command": [
+      "php-fpm",
+      "-F"
+    ],
+    "status": "running",
+    "started_at": "2026-10-19T00:17:37.67443165Z",
+    "finished_at": "0001-01-01T00:00:00Z",
+    "restarts": 0,
+    "oom_killed": false,
+    "exit_code": 0,
+    "health": "healthy",
+    "sql_error_codes": [],
+    "log_lines_sampled": 1500,
+    "hashes": {
+      "app/Services/Prospecting/ProspectQualifier.php": "21d3ba7450fb19ef671dda06e32a9b1406d21b658fbdf64f14c51aedb85ea0a8",
+      "app/Http/Controllers/Api/WebChatController.php": "ea64ffca7ec96dc6b8336ac5e1df6ca468e113da143b80a0bb367e20546b9c65",
+      "app/Models/ProspectProduct.php": "1f6339351906d5264714cd581be08704b8290d093c3b9679a5d7474a3976493b",
+      "app/Services/Prospecting/ExtensionProspectImporter.php": "155b5b3797b4e3c103617f73b2929a876c83f3e940d5beb2b147934a46759cd0",
+      "composer.lock": "9c72da5e77cb07c2f21f7585ef03cbc7c3b0bac08689daa95d03e6a618f3633f"
+    },
+    "artisan_processes": []
+  },
+  "vetorleads-worker": {
+    "container_id": "a43d39f3aab5a730ee6fbdaa13d90989c4883c3a2c2132cfad536b3c424a42ea",
+    "image": "sha256:8f836c54ab0c797ba820bc0233a2f9fa85f5a25b3e705b0c4e32548e4094b3b8",
+    "command": [
+      "php",
+      "artisan",
+      "queue:work",
+      "database",
+      "--sleep=3",
+      "--tries=3",
+      "--timeout=90"
+    ],
+    "status": "running",
+    "started_at": "2026-10-19T10:43:01.281071516Z",
+    "finished_at": "2026-10-19T10:42:59.949672459Z",
+    "restarts": 7,
+    "oom_killed": false,
+    "exit_code": 0,
+    "health": "healthy",
+    "sql_error_codes": [
+      "HY000"
+    ],
+    "log_lines_sampled": 73,
+    "hashes": {
+      "app/Services/Prospecting/ProspectQualifier.php": "21d3ba7450fb19ef671dda06e32a9b1406d21b658fbdf64f14c51aedb85ea0a8",
+      "app/Http/Controllers/Api/WebChatController.php": "ea64ffca7ec96dc6b8336ac5e1df6ca468e113da143b80a0bb367e20546b9c65",
+      "app/Models/ProspectProduct.php": "1f6339351906d5264714cd581be08704b8290d093c3b9679a5d7474a3976493b",
+      "app/Services/Prospecting/ExtensionProspectImporter.php": "155b5b3797b4e3c103617f73b2929a876c83f3e940d5beb2b147934a46759cd0",
+      "composer.lock": "9c72da5e77cb07c2f21f7585ef03cbc7c3b0bac08689daa95d03e6a618f3633f"
+    },
+    "artisan_processes": [
+      "php artisan queue:work database --sleep=3 --tries=3 --timeout=90 "
+    ]
+  },
+  "vetorleads-scheduler": {
+    "container_id": "ef686ddf5ee62510f79fc003a02ae604a1b9a9cdb8b85fca746d0620b484a726",
+    "image": "sha256:669822b906e6bc5c8258f37b0f4085b57d0a158b36f0c21a1c034d80293cbc30",
+    "command": [
+      "php",
+      "artisan",
+      "schedule:work"
+    ],
+    "status": "running",
+    "started_at": "2026-10-19T00:17:37.494943278Z",
+    "finished_at": "0001-01-01T00:00:00Z",
+    "restarts": 0,
+    "oom_killed": false,
+    "exit_code": 0,
+    "health": "healthy",
+    "sql_error_codes": [
+      "HY000"
+    ],
+    "log_lines_sampled": 1466,
+    "hashes": {
+      "app/Services/Prospecting/ProspectQualifier.php": "21d3ba7450fb19ef671dda06e32a9b1406d21b658fbdf64f14c51aedb85ea0a8",
+      "app/Http/Controllers/Api/WebChatController.php": "ea64ffca7ec96dc6b8336ac5e1df6ca468e113da143b80a0bb367e20546b9c65",
+      "app/Models/ProspectProduct.php": "1f6339351906d5264714cd581be08704b8290d093c3b9679a5d7474a3976493b",
+      "app/Services/Prospecting/ExtensionProspectImporter.php": "155b5b3797b4e3c103617f73b2929a876c83f3e940d5beb2b147934a46759cd0",
+      "composer.lock": "9c72da5e77cb07c2f21f7585ef03cbc7c3b0bac08689daa95d03e6a618f3633f"
+    },
+    "artisan_processes": [
+      "php artisan schedule:work "
+    ]
+  }
+}

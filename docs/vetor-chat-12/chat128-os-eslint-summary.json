@@ -1,0 +1,667 @@
+{
+  "errors": 442,
+  "warnings": 11,
+  "changed_file_issues": [],
+  "files": [
+    {
+      "path": "resources/js/Utils/selectStyles.ts",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/components/Charts/chart-area-dashboard.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/components/Charts/chart-fluxo-orders.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/components/Charts/chart-follow-up-trend.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/components/Charts/chart-quality-trend.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/components/Modals/SaleInvoiceModal.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/components/async-resource-select.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/branches/create-branch.tsx",
+      "errors": 5,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/branches/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/fiscal-documents/index.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/plans/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/prospects/index.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/tenant-feedbacks/index.tsx",
+      "errors": 4,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/tenant-improvement-requests/index.tsx",
+      "errors": 4,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/users/create-user.tsx",
+      "errors": 9,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/users/edit-user.tsx",
+      "errors": 9,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/admin/users/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/accounts-payable/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/budgets/budget-form.tsx",
+      "errors": 1,
+      "warnings": 1,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/budgets/create-budget.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/budgets/edit-budget.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/budgets/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/budgets/print-buget.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/cashier/index.tsx",
+      "errors": 12,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/checklists/create-checklist.tsx",
+      "errors": 5,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/checklists/edit-checklist.tsx",
+      "errors": 5,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/checklists/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/company/index.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/customers/customer-form.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/customers/index.tsx",
+      "errors": 5,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/dashboard/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/dashboard/ope-order/index.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/equipments/create-equipment.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/equipments/edit-equipment.tsx",
+      "errors": 5,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/equipments/index.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/expenses/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/follow-ups/index.tsx",
+      "errors": 8,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/follow-ups/performance.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/follow-ups/tasks.tsx",
+      "errors": 9,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/label-printing/index.tsx",
+      "errors": 4,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/maintenance-contracts/charges.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/maintenance-contracts/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/maintenance-contracts/print-contract.tsx",
+      "errors": 5,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/messages/create-message.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/messages/edit-message.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/messages/index.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/orders/add-parts.tsx",
+      "errors": 15,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/orders/customer-equipment-field.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/orders/equipment-types-modal.tsx",
+      "errors": 0,
+      "warnings": 2,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/orders/index.tsx",
+      "errors": 5,
+      "warnings": 1,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/orders/order-payments-modal.tsx",
+      "errors": 6,
+      "warnings": 2,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/others/index.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/parts/create-part.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/parts/edit-part.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/parts/index.tsx",
+      "errors": 2,
+      "warnings": 1,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/parts/part-form.tsx",
+      "errors": 11,
+      "warnings": 1,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/purchase-orders/create.tsx",
+      "errors": 4,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/purchase-orders/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/receipts/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/receipts/modal-receipt.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/receipts/pdf/OrderReceiptPDF.tsx",
+      "errors": 13,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/receipts/print-receipt.tsx",
+      "errors": 16,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/cashier-report.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/customers-report.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/expenses-report.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/fiscal-report.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/order-statistics.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/orders-daily.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/orders-report.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/parts-report.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/CashierDailyReportPDF.tsx",
+      "errors": 7,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/CashierPeriodReportPDF.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/CustomerReportPDF.tsx",
+      "errors": 5,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/ExpenseReportPDF.tsx",
+      "errors": 4,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/FiscalReportPDF.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/OrderReportPDF.tsx",
+      "errors": 7,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/OrderStatisticsPDF.tsx",
+      "errors": 13,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/PartReportPDF.tsx",
+      "errors": 6,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/QualityReportPDF.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/SaleReportPDF.tsx",
+      "errors": 7,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/SchedulesReportPDF.tsx",
+      "errors": 5,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/pdf/TechnicianProductivityPDF.tsx",
+      "errors": 14,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/quality-report.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/sales-report.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/schedules-report.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/reports/technician-productivity.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/sales/index.tsx",
+      "errors": 12,
+      "warnings": 1,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/sales/receipt.tsx",
+      "errors": 6,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/schedules/create-schedule.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/schedules/edit-schedule.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/schedules/index.tsx",
+      "errors": 13,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/schedules/schedule-form.tsx",
+      "errors": 23,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/serviceorders/fiscal-proof.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/serviceorders/index.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/serviceorders/payment-proof.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/services/create-service.tsx",
+      "errors": 6,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/services/edit-service.tsx",
+      "errors": 12,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/services/index.tsx",
+      "errors": 4,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/suppliers/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/technician-commissions/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/tenant-improvement-requests/index.tsx",
+      "errors": 4,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/users/create-user.tsx",
+      "errors": 10,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/users/edit-user.tsx",
+      "errors": 12,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/users/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/app/whatsapp-message/connection-panel.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/site/components/LegalSidebar.tsx",
+      "errors": 3,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/site/components/header.tsx",
+      "errors": 1,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/site/privacy/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    },
+    {
+      "path": "resources/js/pages/site/terms/index.tsx",
+      "errors": 2,
+      "warnings": 0,
+      "changed": false
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+
+   INFO  Preparing database.  
+
+  Creating migration table ...................................... 17.09ms DONE
+
+   INFO  Running migrations.  
+
+  0000_00_00_000000_create_plans_table .......................... 10.91ms DONE
+  0000_00_01_000000_create_tenants_table ........................ 13.21ms DONE
+  0001_01_01_000000_create_users_table .......................... 22.31ms DONE
+  0001_01_01_000001_create_cache_table .......................... 10.85ms DONE
+  0001_01_01_000002_create_jobs_table ........................... 19.80ms DONE
+  2025_05_30_191702_create_customers_table ....................... 8.95ms DONE
+  2025_05_30_191702_create_equipment_table ....................... 3.30ms DONE
+  2025_05_30_191703_create_orders_table ......................... 10.72ms DONE
+  2025_05_30_192413_create_messages_table ........................ 1.80ms DONE
+  2025_05_30_192425_create_schedules_table ....................... 1.90ms DONE
+  2025_06_04_191734_create_companies_table ....................... 8.72ms DONE
+  2025_06_05_120914_create_whatsapp_messages_table .............. 10.93ms DONE
+  2025_06_05_131738_create_receipts_table ........................ 2.52ms DONE
+  2025_06_06_120731_create_budgets_table ......................... 2.25ms DONE
+  2025_06_06_120744_create_checklists_table ...................... 3.58ms DONE
+  2025_06_08_154927_create_images_table ......................... 12.73ms DONE
+  2025_06_12_144125_create_others_table .......................... 2.41ms DONE
+  2025_06_30_184245_create_personal_access_tokens_table .......... 9.23ms DONE
+  2025_07_08_121028_create_branches_table ........................ 2.54ms DONE
+  2025_07_08_121254_create_settings_table ........................ 1.70ms DONE
+  2025_07_11_130813_create_periods_table ......................... 3.32ms DONE
+  2025_07_11_134947_create_features_table ........................ 2.47ms DONE
+  2025_08_29_134347_create_parts_table ........................... 6.14ms DONE
+  2025_08_29_141550_create_part_movements_table .................. 2.01ms DONE
+  2025_08_31_135731_create_order_parts_table ..................... 3.72ms DONE
+  2025_11_11_000000_create_sales_table ........................... 2.23ms DONE
+  2025_11_11_000001_create_sale_items_table ...................... 1.79ms DONE
+  2026_01_23_165507_create_payments_table ....................... 10.76ms DONE
+  2026_03_06_141410_order_status_history ......................... 5.91ms DONE
+  2026_03_06_141715_order_payments ............................... 2.36ms DONE
+  2026_03_06_141817_order_logs ................................... 9.07ms DONE
+  2026_04_02_112214_add_performance_indexes_to_core_tables ..... 183.75ms DONE
+  2026_04_06_120000_create_cash_sessions_table .................. 11.66ms DONE
+  2026_04_06_120100_add_cash_session_id_to_sales_table .......... 40.22ms DONE
+  2026_04_06_130000_add_cash_session_to_order_payments_and_totals  43.07ms DONE
+  2026_04_06_140000_add_payment_method_to_sales_table ............ 6.29ms DONE
+  2026_04_06_150000_add_cancel_metadata_to_sales_table .......... 44.95ms DONE
+  2026_04_06_160000_add_financial_fields_to_sales_table ......... 12.41ms DONE
+  2026_04_06_170000_add_fiscal_fields_to_sales_table ............ 37.90ms DONE
+  2026_04_06_170100_create_sale_logs_table ...................... 10.41ms DONE
+  2026_04_07_120000_add_fiscal_fields_to_orders_table ........... 34.29ms DONE
+  2026_04_07_173000_add_default_message_to_whatsapp_messages_table  1.68ms DONE
+  2026_04_08_120000_create_expenses_table ........................ 8.41ms DONE
+  2026_04_08_130000_add_expense_number_to_expenses_table ......... 7.22ms DONE
+  2026_04_09_120000_add_mail_settings_to_others_table ........... 33.70ms DONE
+  2026_04_14_120000_create_cash_session_logs_table .............. 10.67ms DONE
+  2026_04_14_120100_create_expense_logs_table .................... 8.27ms DONE
+  2026_04_14_150000_add_warranty_fields_to_orders_table ......... 12.58ms DONE
+  2026_04_14_160000_add_warranty_return_fields_to_orders_table .. 56.92ms DONE
+  2026_04_14_180000_add_warranty_return_threshold_to_others_table  5.25ms DONE
+  2026_04_14_190000_add_follow_up_templates_to_whatsapp_messages_table  25.51ms DONE
+  2026_04_15_090000_add_communication_follow_up_cooldown_days_to_others_table  22.63ms DONE
+  2026_04_15_100000_add_follow_up_pause_fields_to_orders_table . 172.96ms DONE
+  2026_04_15_110000_add_follow_up_response_fields_to_orders_table  37.11ms DONE
+  2026_04_15_120000_add_follow_up_targets_to_others_table ........ 8.22ms DONE
+  2026_04_15_130000_add_follow_up_snooze_fields_to_orders_table .. 5.72ms DONE
+  2026_04_15_140000_add_follow_up_assignment_fields_to_orders_table  7.58ms DONE
+  2026_04_15_150000_add_customer_notification_acknowledged_at_to_orders_table  7.25ms DONE
+  2026_04_16_090000_add_customer_pickup_acknowledged_at_to_orders_table  4.61ms DONE
+  2026_04_16_100000_add_customer_feedback_fields_to_orders_table  13.42ms DONE
+  2026_04_16_110000_add_customer_feedback_recovery_fields_to_orders_table  55.40ms DONE
+  2026_04_16_150000_add_customer_feedback_request_delay_days_to_others_table  2.56ms DONE
+  2026_04_16_180000_create_operational_audits_table ............. 13.31ms DONE
+  2026_04_17_133257_drop_customers_tenant_id_cpfcnpj_unique ...... 6.31ms DONE
+  2026_04_17_154103_add_menu_visibility_flags_to_others_table ... 18.84ms DONE
+  2026_04_17_160523_add_automatic_follow_ups_enabled_to_others_table  5.36ms DONE
+  2026_04_17_173500_change_operational_defaults_on_others_table . 39.09ms DONE
+  2026_04_18_120000_add_billing_months_to_plans_table ............ 2.27ms DONE
+  2026_04_18_120000_add_period_id_to_tenants_table .............. 34.64ms DONE
+  2026_04_18_130000_add_print_label_button_after_order_create_to_others_table  2.20ms DONE
+  2026_04_18_130000_backfill_period_id_on_tenants_table .......... 0.20ms DONE
+  2026_04_18_150000_add_subscription_notice_tracking_to_tenants_table  18.38ms DONE
+  2026_04_20_120000_create_tenant_feedbacks_table ............... 61.61ms DONE
+  2026_04_20_150000_add_testimonial_fields_to_tenant_feedbacks_table  38.30ms DONE
+  2026_04_20_160000_create_tenant_improvement_requests_table .... 19.51ms DONE
+  2026_04_23_120000_create_fiscal_settings_table ................ 14.26ms DONE
+  2026_04_23_121000_create_fiscal_documents_table ............... 16.40ms DONE
+  2026_04_27_120000_scope_part_numbers_by_tenant ................ 10.74ms DONE
+  2026_05_14_120000_create_cash_session_movements_table .......... 9.99ms DONE
+  2026_05_15_120000_add_cancellation_fields_to_cash_session_movements_table  43.98ms DONE
+  2026_05_15_120000_create_admin_fiscal_settings_table ........... 2.41ms DONE
+  2026_05_15_121000_create_admin_fiscal_documents_table ......... 19.04ms DONE
+  2026_05_15_122000_add_invoice_fields_to_payments_table ........ 63.52ms DONE
+  2026_05_15_123000_add_payment_id_to_admin_fiscal_documents_table  0.65ms DONE
+  2026_05_19_000000_add_enable_finance_to_others_table .......... 16.47ms DONE
+  2026_05_19_010000_create_accounts_receivable_table ............ 15.96ms DONE
+  2026_05_19_020000_create_order_items_table .................... 22.94ms DONE
+  2026_05_19_030000_expand_part_movement_types ................... 0.87ms DONE
+  2026_05_19_040000_drop_unique_index_from_parts_category ........ 0.20ms DONE
+  2026_05_19_134633_expand_text_input_columns_to_500 ............. 0.04ms DONE
+  2026_05_21_120000_add_can_view_all_orders_to_users_table ....... 4.76ms DONE
+  2026_05_21_130000_add_avatar_to_users_table .................... 2.01ms DONE
+  2026_05_26_120000_add_budget_link_to_orders_table ............. 10.42ms DONE
+  2026_06_01_120000_add_order_and_send_to_technician_to_schedules_table  95.00ms DONE
+  2026_06_01_130000_add_technician_schedule_notifications_to_others_table  12.43ms DONE
+  2026_06_02_120000_add_technician_service_fields_to_orders_table  182.42ms DONE
+  2026_06_02_121000_create_technician_schedule_status_logs_table  31.80ms DONE
+  2026_06_03_140000_add_technician_checklist_fields_to_orders_table  9.92ms DONE
+  2026_06_04_120000_create_technician_push_tokens_table ......... 13.99ms DONE
+  2026_06_06_120000_add_technician_local_payment_status_to_orders_table  10.76ms DONE
+  2026_06_09_120000_add_order_type_to_orders_table .............. 23.83ms DONE
+  2026_06_09_121000_drop_service_fields_from_schedules_table ..... 0.05ms DONE
+  2026_06_09_122000_add_external_service_fields_to_orders_table . 22.49ms DONE
+  2026_06_10_120000_add_service_and_material_checklist_to_schedules_table  7.85ms DONE
+  2026_06_10_130000_ensure_technician_schedule_columns_exist ..... 9.70ms DONE
+  2026_06_10_140000_create_schedule_images_table ................ 14.39ms DONE
+  2026_06_10_150000_add_local_payment_to_schedules_table ....... 147.55ms DONE
+  2026_06_10_160000_add_schedule_cashier_link_fields ............ 81.88ms DONE
+  2026_06_18_120000_add_records_per_page_to_others_table ......... 5.50ms DONE
+  2026_06_19_180000_add_service_closure_pricing_to_schedules_table  83.32ms DONE
+  2026_06_19_181000_add_technician_report_to_schedules_table .... 11.10ms DONE
+  2026_06_19_190000_add_technician_checklist_to_schedules_table . 21.25ms DONE
+  2026_06_20_120000_add_customer_feedback_reminder_fields_to_orders_table  11.55ms DONE
+  2026_07_02_120000_move_ncm_and_cfop_from_fiscal_settings_to_parts  28.77ms DONE
+  2026_07_03_170000_add_nfse_mode_to_fiscal_settings_table ...... 23.94ms DONE
+  2026_07_03_173000_add_nfse_operation_indicator_to_fiscal_settings_table  15.56ms DONE
+  2026_07_04_120000_add_barcode_to_orders_table ................. 15.84ms DONE
+  2026_07_06_120000_remove_schedule_statuses_from_orders ......... 0.42ms DONE
+  2026_07_07_120000_create_or_update_commercial_plans ........... 16.81ms DONE
+  2026_07_10_180000_add_public_access_protection ................ 34.35ms DONE
+  2026_07_13_120000_create_plan_leads_table ...................... 1.66ms DONE
+  2026_07_13_121000_replace_commercial_plans_with_monthly_and_annual  15.95ms DONE
+  2026_07_13_122000_rename_name_to_company_on_plan_leads_table .. 22.58ms DONE
+  2026_07_13_123000_rename_company_to_name_on_plan_leads_table .. 11.98ms DONE
+  2026_07_13_124000_add_management_fields_to_plan_leads_table ... 48.39ms DONE
+  2026_07_13_125000_disable_focus_nfe_integrations ............... 0.57ms DONE
+  2026_07_15_130000_set_national_nfse_as_default_on_fiscal_settings  1.31ms DONE
+  2026_07_18_010000_update_default_receipt_templates ............. 1.23ms DONE
+  2026_07_18_011000_update_default_whatsapp_budget_template ...... 0.17ms DONE
+  2026_07_18_120000_add_image_to_parts_table ..................... 2.91ms DONE
+  2026_07_18_130000_add_automatic_fiscal_emission_enabled_to_tenants  2.90ms DONE
+  2026_07_23_120000_add_last_login_at_to_users_table ............ 31.77ms DONE
+  2026_08_01_090000_add_customer_update_note_to_orders_table ..... 6.19ms DONE
+  2026_08_12_184520_add_ai_classification_fields_to_orders_table  10.51ms DONE
+  2026_08_27_175135_create_help_topics_table ..................... 3.39ms DONE
+  2026_08_28_073600_add_commission_percentage_to_users_table ..... 2.13ms DONE
+  2026_08_28_073601_create_accounts_payable_table ................ 6.87ms DONE
+  2026_08_28_073602_create_account_payable_logs_table ............ 4.10ms DONE
+  2026_08_28_073603_create_order_commissions_table ............... 8.96ms DONE
+  2026_08_28_120000_drop_ai_classification_fields_from_orders_table  53.11ms DONE
+  2026_08_28_140000_create_maintenance_contracts_table ........... 7.04ms DONE
+  2026_08_28_140001_create_maintenance_contract_logs_table ....... 3.54ms DONE
+  2026_08_28_150000_add_maintenance_contract_template_to_receipts_table  6.84ms DONE
+  2026_08_28_160000_add_customer_signature_to_orders_table ....... 2.52ms DONE
+  2026_09_16_090000_create_suppliers_table ....................... 7.70ms DONE
+  2026_09_16_090100_create_purchase_orders_table ................. 6.15ms DONE
+  2026_09_16_090200_create_purchase_order_items_table ............ 1.74ms DONE
+  2026_09_16_090300_create_purchase_order_logs_table ............. 3.65ms DONE
+  2026_09_16_090400_add_purchase_order_id_to_part_movements_table  15.16ms DONE
+  2026_09_16_180000_add_enable_purchases_to_others_table ......... 2.41ms DONE
+  2026_09_17_120000_restrict_part_id_delete_on_order_parts_table  31.00ms DONE
+  2026_09_17_120100_restrict_part_id_delete_on_sale_items_table . 28.17ms DONE
+  2026_09_17_130000_restrict_equipment_id_delete_on_dependent_tables  141.27ms DONE
+  2026_09_17_130100_restrict_order_id_delete_on_order_payments_table  36.61ms DONE
+  2026_09_17_130200_restrict_user_id_delete_on_orders_and_schedules  92.52ms DONE
+  2026_09_17_130300_restrict_customer_id_delete_on_maintenance_contracts  23.00ms DONE
+  2026_09_17_140000_create_customer_equipments_table ............. 7.32ms DONE
+  2026_09_17_140100_add_customer_equipment_id_to_orders_table ... 56.49ms DONE
+  2026_09_17_150000_add_kind_to_equipment_table ................. 15.70ms DONE
+  2026_09_18_090000_create_whatsapp_connections_table ............ 8.24ms DONE
+  2026_09_18_100000_change_customers_number_to_string ........... 19.17ms DONE
+  2026_09_19_120000_add_technician_schedule_template_to_whatsapp_messages_table  6.69ms DONE
+  2026_09_19_120100_backfill_blank_whatsapp_message_templates .... 0.57ms DONE
+  2026_10_06_120000_add_native_emission_fields_to_fiscal_tables  110.27ms DONE
+  2026_10_06_160000_add_traceability_and_tax_confirmation_to_fiscal_tables  73.11ms DONE
+  2026_10_07_100000_create_fiscal_central_administration ....... 214.58ms DONE
+  2026_10_07_200000_create_order_events_table ................... 28.36ms DONE
+  2026_10_08_100000_add_financial_integrity_fields .............. 47.61ms DONE
+  2026_10_09_100000_create_order_budgets_and_messages .......... 110.47ms DONE
+  2026_10_10_100000_add_payment_fee_settings_and_manual_parts_cost  61.58ms DONE
+  2026_10_11_100000_widen_company_identity_fields ............... 55.97ms DONE
+  2026_10_12_100000_add_maintenance_contract_invoice_automation . 31.64ms DONE
+  2026_10_13_100000_add_contract_fiscal_schedule ................ 39.62ms DONE
+  2026_10_15_100000_add_spedy_link_environment_to_fiscal_settings  14.84ms DONE
+  2026_10_15_110000_add_action_created_index_to_order_logs ....... 1.89ms DONE
+  2026_10_15_120000_create_saas_commercial_contracts ............ 92.31ms DONE
+  2026_10_16_120000_add_anchor_and_scheduled_revert_to_saas_contracts  170.37ms DONE
+  2026_10_16_130000_create_efi_saas_payments ................... 358.95ms DONE
+  2026_10_16_140000_remove_provider_switch_from_saas_payment_settings  104.37ms DONE
+  2026_10_17_100000_create_standalone_invoices_table ............ 15.57ms DONE
+  2026_10_17_200000_create_support_sessions_table ................ 9.42ms DONE
+  2026_10_17_210000_add_commercial_whatsapp_settings ............ 48.98ms DONE
+  2026_10_18_130000_add_web_chat_settings ....................... 37.04ms DONE
+

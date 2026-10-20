@@ -1,0 +1,7 @@
+8.4.26
+pdo_mysql OK
+gd OK
+pcntl OK
+bcmath OK
+zip OK
+{"GD Version":"bundled (2.1.0 compatible)","FreeType Support":false,"GIF Read Support":true,"GIF Create Support":true,"JPEG Support":true,"PNG Support":true,"WBMP Support":true,"XPM Support":false,"XBM Support":true,"WebP Support":true,"BMP Support":true,"AVIF Support":false,"TGA Read Support":true,"JIS-mapped Japanese Font Support":false}

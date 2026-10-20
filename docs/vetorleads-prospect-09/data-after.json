@@ -1,0 +1,162 @@
+{
+    "automation_events": {
+        "rows": 10,
+        "sha256": "e80f9d478ff77a6f70c4d4a857dbd7d69c92138dd9f1c9abe15fc8f2e27e9254"
+    },
+    "blog_categories": {
+        "rows": 5,
+        "sha256": "5e3aee53a5182ebeed3c172f12b7c985ed77619c3cfddcebf857cbd5fccfa7b8"
+    },
+    "blog_comments": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "blog_post_blog_tag": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "blog_posts": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "blog_tags": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cache": {
+        "rows": 16,
+        "sha256": "c22808aa07a3227b0a300b1d12d1a80a592ea9072e21e49318ed44e9d4f9ada9"
+    },
+    "cache_locks": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ebook_entitlements": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ebook_orders": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ebooks": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "failed_jobs": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "job_batches": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "jobs": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lead_activities": {
+        "rows": 4,
+        "sha256": "6dc2879a2f5a15af1831a50e14def1d66372fce8a7a294aef3f753dc241fdd46"
+    },
+    "lead_automation_executions": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "leads": {
+        "rows": 1,
+        "sha256": "f4828dbf8b841369ec8a54d0d7e6f1d0706fea098383f9fbb7f3628cfa325127"
+    },
+    "passkeys": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "password_reset_tokens": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "portfolio_items": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prospect_products": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prospecting_qualifications": {
+        "rows": 61,
+        "sha256": "ce1dc2c3458042759878e9359fa107eb35d94bb2adfb265e4572603da17f1a6d"
+    },
+    "prospecting_result_sources": {
+        "rows": 61,
+        "sha256": "abc66eb589039ca5b215925517cdd44309b6ae194cb708ab451a5213633c64c1"
+    },
+    "prospecting_results": {
+        "rows": 61,
+        "sha256": "7b164e155c805565304829132899dd64b32044a4d099d7d342a8c3d2cfd7fe52"
+    },
+    "prospecting_search_results": {
+        "rows": 61,
+        "sha256": "a9dcb4dc0fc2ac917e7a3aac7a26ddfdeed079518edad94cc6afc1477280a216"
+    },
+    "prospecting_searches": {
+        "rows": 2,
+        "sha256": "f87d5f79e37bbd46155fc1628decdadc1e45bbfe9444fadb44d47075d26c8b99"
+    },
+    "root_admin_events": {
+        "rows": 1,
+        "sha256": "27449a2b2889e6934eeb466e583968aa0b20b88388201f5e63b8a18f2717edbc"
+    },
+    "saas_admin_events": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sessions": {
+        "rows": 8,
+        "sha256": "bfd90aed23c157364f3211488d535a19134d2f4737bbb540ccff96f67f763536"
+    },
+    "settings": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "support_thread_states": {
+        "rows": 3,
+        "sha256": "37f426dd1e44a725d97a98c9377fbe0bbfb253defb465868eccf189e68ec79d9"
+    },
+    "tenant_api_tokens": {
+        "rows": 1,
+        "sha256": "776d73e9aafc8423c9ba7fc15dbd593b1dc19ff97342fbef80c8c229355363ac"
+    },
+    "tenant_memberships": {
+        "rows": 1,
+        "sha256": "077e066d9da9dc1321d345aae2527fb63f0b075123975f05e7b827c7d0e74d5e"
+    },
+    "tenant_whatsapp_connections": {
+        "rows": 1,
+        "sha256": "0a1f368ffc467bfe4e812290fb47f8829036c51aa05d5d48e29f53b07435f79e"
+    },
+    "tenants": {
+        "rows": 1,
+        "sha256": "f5f19cc99b198392a48dda0f0fe2b5decf6ab31914253aa07204e8a47754dfcd"
+    },
+    "testimonials": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "users": {
+        "rows": 2,
+        "sha256": "9ae3c0158397f6eea865ba77e64a80a3167d58e4b66fd3b2e68ce6fbd1fded9d"
+    },
+    "web_chat_events": {
+        "rows": 3,
+        "sha256": "83d4dbdf951ac94a3eae2e403275be2b03235c063458283d4c2ca38225486e88"
+    },
+    "web_chat_messages": {
+        "rows": 5,
+        "sha256": "54a86d0e747e374ac59a9a4d498885858b3a2a51aafb16fe066bdcbd3e18d590"
+    },
+    "web_conversations": {
+        "rows": 2,
+        "sha256": "5bd844c628582b797ad4a9531316a3fcc9c9884876fc3e37e4930fce13fe81f3"
+    }
+}

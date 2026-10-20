@@ -1,0 +1,47 @@
+{
+  "journey": "PASS",
+  "simulator": "PASS",
+  "editor": "PASS",
+  "takeover": "PASS",
+  "resume": "PASS",
+  "conversation_id": "180ad52b-da88-4457-98d1-6ee01517d329",
+  "checks": [
+    {
+      "width": 1440,
+      "path": "/settings/support-automation",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/atendimento",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "path": "/web-chat",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/settings/support-automation",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/atendimento",
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "path": "/web-chat",
+      "status": 200,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

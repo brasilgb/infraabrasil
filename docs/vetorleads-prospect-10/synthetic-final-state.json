@@ -1,0 +1,14 @@
+{
+    "tenants": 1,
+    "users": 1,
+    "prospect_products": 1,
+    "prospecting_results": 1,
+    "leads": 1,
+    "lead_activities": 3,
+    "jobs": 0,
+    "failed_jobs": 0,
+    "lead_status": "meeting",
+    "qualification_versions": [
+        "v3"
+    ]
+}

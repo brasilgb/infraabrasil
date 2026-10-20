@@ -1,0 +1,12 @@
+[
+  {
+    "pid": 767221,
+    "address": "127.0.0.1:8016",
+    "cwd": "/opt/infra-abrasil/backups/chat128/vetorleads"
+  },
+  {
+    "pid": 767494,
+    "address": "127.0.0.1:8017",
+    "cwd": "/opt/infra-abrasil/backups/chat128/vetoros"
+  }
+]

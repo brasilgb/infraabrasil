@@ -1,50 +1,98 @@
-# VETORLEADS-PROSPECT — Análise e qualificação automática por lote
+# VETORLEADS-DEPLOY-01 — Implantação e homologação operacional na VPS
 
-Implementar no VetorLeads uma evolução do módulo de prospecção para permitir a análise, normalização, enriquecimento e classificação de todos os prospects capturados pelo Google Maps.
+O build já foi enviado para a VPS.
 
-## Objetivo
+**Objetivo:** colocar o VetorLeads em funcionamento com as implementações mais recentes, preservando dados e serviços existentes.
 
-Eliminar a necessidade de abrir cada prospect e executar individualmente o botão "Verificar site/CNPJ".
+## 1. Auditoria inicial
 
-Adicionar à página de resultados da captura o botão **"Analisar prospects"**, que executará o processamento completo do lote selecionado.
+Verifique o estado atual de `/opt/infra-abrasil`:
 
-## Requisitos
+- Repositórios, submódulos e commits.
+- Containers, Docker Compose e Nginx.
+- Configurações de ambiente.
+- Build frontend disponível.
+- Migrations pendentes.
+- Banco MariaDB operacional.
+- Configurações de WAHA, n8n e WebChat.
+- Flags de liberação comercial.
 
-1. Auditar e reutilizar os serviços já existentes de verificação de site, CNPJ, enriquecimento e score. Evitar duplicação de lógica.
-2. Normalizar razão social/nome fantasia, telefones, URLs, endereços e categorias, preservando os valores originais.
-3. Identificar empresas duplicadas dentro do lote e em outros registros do mesmo tenant, sem mesclar automaticamente casos ambíguos.
-4. Verificar sites existentes, identificar contatos comerciais publicados e localizar referências a CNPJ e redes sociais.
-5. Consultar a BrasilAPI somente quando houver CNPJ válido identificado, utilizando cache para evitar consultas repetidas.
-6. Adicionar verificação de Instagram empresarial, priorizando links identificados no site e fontes autorizadas. Não implementar scraping que contorne bloqueios, autenticação ou limites da plataforma.
-7. Cruzar nome, endereço, município, domínio e telefone para identificar possíveis correspondências, registrando nível de confiança.
-8. Verificar sinais recentes de atividade comercial, diferenciando ausência de evidência de inatividade confirmada.
-9. Implementar score comercial de 0 a 100 e confiança cadastral de 0 a 100, configuráveis e acompanhados das justificativas.
-10. Classificar os prospects em alta, média ou baixa prioridade, com categoria separada para revisão necessária.
-11. Criar processamento assíncrono por jobs, com controle de concorrência, retries limitados, timeout, progresso, cancelamento seguro e retomada.
-12. Evitar consultas repetidas mediante cache com validade por fonte e data da última verificação.
-13. Preservar o isolamento multitenant e impedir consultas ou alterações em prospects de outros tenants.
-14. Registrar evidências, fontes, datas, falhas e histórico das análises.
-15. Disponibilizar resumo e filtros na página do lote: total, analisados, prioridades, inconsistências, duplicados e pendentes.
-16. Permitir selecionar e encaminhar prospects qualificados ao CRM sem disparar mensagens automaticamente.
-17. Manter a análise individual existente, utilizando o mesmo motor do processamento em lote.
-18. Permitir reanalisar apenas prospects desatualizados ou com falhas, sem repetir desnecessariamente todas as consultas.
+Confirme que o código disponível contém as implementações VETORLEADS-06, UX-04 e PROSPECT-05, além das correções posteriores presentes no repositório.
 
-## Cuidados
+Não sobrescreva alterações locais nem execute `git reset --hard`.
 
-- Não excluir prospects por score baixo.
-- Não alterar contatos confirmados sem validação.
-- Não classificar como encerrada uma empresa apenas pela ausência de site ou redes sociais.
-- Não criar custos com APIs pagas nesta etapa.
-- Não utilizar IA generativa em todas as verificações: priorizar regras determinísticas e recorrer à IA somente para casos ambíguos, com orçamento e limites configuráveis.
-- Não bloquear a interface durante a análise.
-- Preservar o comportamento atual das capturas e do CRM.
+## 2. Preparação e segurança
 
-## Entrega
+Antes de qualquer alteração:
 
-Implementar backend, migrations necessárias, jobs, testes automatizados e uma interface profissional integrada à página de captura.
+- Verifique os backups existentes.
+- Gere backup consistente do banco VetorLeads.
+- Confirme a possibilidade de restauração.
+- Identifique as migrations pendentes.
+- Verifique alterações potencialmente destrutivas.
+- Preserve configurações, usuários, tenants, prospects, históricos e integrações.
 
-Executar uma validação com dados sintéticos, incluindo duplicidades, ausência de site, CNPJ inválido, empresa ativa, CNPJ baixado, indisponibilidade de fonte externa e correspondências ambíguas.
+Não exponha credenciais nos relatórios.
 
-Registrar no `executed.md` as alterações, testes, limitações e pendências.
+## 3. Implantação
 
-Não executar disparos WhatsApp, não consumir serviços pagos e não publicar em produção sem autorização.
+Se a auditoria não identificar bloqueios:
+
+- Consolide os arquivos e o build já enviados.
+- Reconstrua somente os serviços necessários.
+- Execute migrations compatíveis e não destrutivas.
+- Atualize caches do Laravel.
+- Confirme permissões de diretórios.
+- Verifique a configuração comercial `SAAS_COMMERCIAL_ENABLED`.
+- Habilite a área comercial somente após verificar autorização e compatibilidade com os módulos atuais.
+- Preserve VetorOS, n8n, WAHA e os demais sistemas da infraestrutura.
+
+Não recrie volumes do banco, não execute `docker compose down -v` e não substitua configurações operacionais sem necessidade.
+
+## 4. Homologação funcional
+
+Verifique no ambiente publicado:
+
+1. Cadastro e login.
+2. Isolamento entre tenants.
+3. Dashboard comercial.
+4. Capturar empresas.
+5. Download da extensão AB Prospect.
+6. Leads captados e filtros.
+7. Qualificação comercial v3.
+8. Conversão explícita ao CRM.
+9. Cadastro e edição de leads.
+10. Funil Kanban configurável.
+11. Follow-ups e atividades.
+12. Valores estimados e negócios ganhos.
+13. Configuração da integração AB Prospect.
+14. Landing page e páginas legais.
+
+Realize inicialmente verificações somente de leitura. Utilize dados sintéticos isolados para testes que exijam escrita, sem enviar mensagens reais ou alterar prospects operacionais.
+
+## 5. Validação dos prospects reais
+
+Verifique os registros existentes utilizando consultas somente de leitura.
+
+Apresente quantos possuem telefone, localização, website, CNPJ e qualificação v3.
+
+Não requalifique os registros em massa sem autorização específica.
+
+## 6. Relatório
+
+Atualize `executed.md` informando:
+
+- Versão efetivamente implantada.
+- Estado dos containers.
+- Backup realizado.
+- Migrations executadas.
+- Testes e verificações.
+- Funcionalidades homologadas.
+- Problemas encontrados.
+- Pendências para liberação comercial.
+
+Se encontrar um bloqueio que coloque dados ou serviços em risco, interrompa a implantação e explique a situação.
+
+**Prioridade absoluta: prospecção B2B, qualificação, conversão ao CRM e acompanhamento das vendas.**
+
+Não adicionar novas funcionalidades nesta execução.

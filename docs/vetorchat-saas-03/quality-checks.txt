@@ -1,0 +1,10 @@
+VetorLeads:
+- TypeScript: node_modules/.bin/tsc --noEmit — exit 0, sem diagnósticos.
+- ESLint: resources/js/pages/settings/chat-widget.tsx — exit 0.
+- Prettier: chat-widget.tsx e public/widget.js — aprovado.
+- Pint: ChatWidgetController.php, routes/settings.php e TenantChatWidgetTest.php — aprovado.
+- node --check public/widget.js — exit 0.
+- SKIP_WAYFINDER_GENERATE=1 vite build --outDir /tmp/vetorchat-saas03/public/vetorchat-preview --base /vetorchat-preview/ — exit 0; 13,84s.
+ABrasil:
+- Pint: tests/Feature/InstitutionalChatWidgetTest.php — aprovado.
+Observação: git diff --check do submódulo institucional aponta espaços preexistentes em seu correio.md; arquivo preservado.

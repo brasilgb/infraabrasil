@@ -1,0 +1,2 @@
+bf71057d46f3582c510140bbfe94ea7d9b7290f6976f4fcb5d9e31b7af19376d  docs/vetorchat-saas-05/correio.md
+46c2809645462651b23b8b3280b12de6223ce8abebf194e91dee5be3791e65a2  docs/vetorchat-saas-05/executed-anterior.md

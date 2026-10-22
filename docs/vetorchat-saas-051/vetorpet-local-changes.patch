@@ -1,0 +1,44 @@
+diff --git a/.env.example b/.env.example
+index 216f3620..829f70ac 100644
+--- a/.env.example
++++ b/.env.example
+@@ -3,6 +3,8 @@ APP_ENV=local
+ APP_KEY=
+ APP_DEBUG=true
+ APP_URL=https://vetorpet.com.br
++VETORCHAT_WIDGET_KEY=
++VETORCHAT_SCRIPT_URL=https://vetorleads.com.br/widget.js
+ 
+ APP_LOCALE=pt_BR
+ APP_FALLBACK_LOCALE=en
+diff --git a/config/services.php b/config/services.php
+index 4c7078e8..046a0db0 100644
+--- a/config/services.php
++++ b/config/services.php
+@@ -1,6 +1,11 @@
+ <?php
+ 
+ return [
++    'vetorchat' => [
++        'widget_key' => env('VETORCHAT_WIDGET_KEY'),
++        'script_url' => env('VETORCHAT_SCRIPT_URL', 'https://vetorleads.com.br/widget.js'),
++    ],
++
+ 
+     /*
+     |--------------------------------------------------------------------------
+diff --git a/resources/views/app.blade.php b/resources/views/app.blade.php
+index 50b9fd3d..c38d92ba 100644
+--- a/resources/views/app.blade.php
++++ b/resources/views/app.blade.php
+@@ -58,5 +58,10 @@
+     </head>
+     <body class="font-sans antialiased">
+         @inertia
++        @if (request()->routeIs('home', 'privacy', 'terms', 'campaigns.public', 'catalog.public')
++            && preg_match('/^[A-Za-z0-9]{48}$/', (string) config('services.vetorchat.widget_key'))
++            && str_starts_with((string) config('services.vetorchat.script_url'), 'https://'))
++            <script src="{{ config('services.vetorchat.script_url') }}" data-widget-key="{{ config('services.vetorchat.widget_key') }}" data-product="vetorpet" async></script>
++        @endif
+     </body>
+ </html>

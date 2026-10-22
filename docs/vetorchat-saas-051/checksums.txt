@@ -1,0 +1,5 @@
+4df0a2538606fcc8173734bd3f9be5fce78702e4417d4e6ea3cf4f0f623ff676  docs/vetorchat-saas-051/correio.md
+7e1439358e41ccbcbf09a8805bc8578cecb664385220175cb151f82fbadf5672  docs/vetorchat-saas-051/executed-anterior.md
+ed7c8e803baa0a15d3fa46bcc5403a414b8fcef5634a25d52b73e65ca006c493  docs/vetorchat-saas-051/vetorpet-local-changes.patch
+685cbbbd6a419235fa9a5d742443017c025f34c286379d0fb7d5acc2e053d607  docs/vetorchat-saas-051/VetorChatInstallationTest.php
+963fd61b640527f3fc5e6c0af5a3e82277839a83d907404cc8cf3847c13cb9cc  docs/vetorchat-saas-051/vetorpet-unmerged-index.txt

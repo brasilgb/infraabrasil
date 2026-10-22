@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "Tela de configuração carregou no navegador",
+    "Visitante A enviou mensagem ao backend real",
+    "Resposta humana chegou ao visitante A",
+    "Loader duplicado não montou dois widgets",
+    "Histórico recuperado após recarregar e navegar",
+    "Tenant B não recebeu o histórico de A",
+    "Widget mobile permanece dentro da tela de 390 pixels",
+    "Resposta de B ficou isolada de A",
+    "Encerramento bloqueia novas mensagens na sessão encerrada",
+    "Desinstalação removeu widget e timers",
+    "Sem erros JavaScript: []"
+  ]
+}

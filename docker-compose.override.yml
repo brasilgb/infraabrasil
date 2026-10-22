@@ -2,12 +2,12 @@ services:
   vetorleads:
     environment:
       SUPPORT_AUTOMATION_WHATSAPP_DELIVERY_ENABLED: "false"
-    image: vetorleads:pull-5f018d9
+    image: vetorleads:pull-549aba8
     pull_policy: never
   vetorleads-worker:
     environment:
       SUPPORT_AUTOMATION_WHATSAPP_DELIVERY_ENABLED: "false"
-    image: vetorleads:pull-5f018d9
+    image: vetorleads:pull-549aba8
     pull_policy: never
     volumes:
       - ./scripts/vetorleads-process-health.php:/opt/infra/vetorleads-process-health.php:ro
@@ -20,7 +20,7 @@ services:
   vetorleads-scheduler:
     environment:
       SUPPORT_AUTOMATION_WHATSAPP_DELIVERY_ENABLED: "false"
-    image: vetorleads:pull-5f018d9
+    image: vetorleads:pull-549aba8
     pull_policy: never
     volumes:
       - ./scripts/vetorleads-process-health.php:/opt/infra/vetorleads-process-health.php:ro
@@ -32,11 +32,11 @@ services:
       start_period: 20s
 
   vetoros:
-    image: vetoros:pull-370f08f1
+    image: vetoros:chat129-1700256f53fd
     pull_policy: never
   vetoros-worker:
-    image: vetoros:pull-370f08f1
+    image: vetoros:chat129-1700256f53fd
     pull_policy: never
   vetoros-scheduler:
-    image: vetoros:pull-370f08f1
+    image: vetoros:chat129-1700256f53fd
     pull_policy: never

@@ -1,0 +1,350 @@
+--- docs/vetorchat-saas-02/correio.md	2026-10-21 09:41:45.831897266 -0300
++++ correio.md	2026-10-21 13:51:50.594904636 -0300
+@@ -1,290 +1,61 @@
+-# VETORCHAT-SAAS-02 — Correção arquitetural e implementação do chat multitenant
++# VETORCHAT-SAAS-03 — Ativação institucional e homologação operacional
+ 
+-## 1. Substituição da instrução anterior
++## Objetivo
+ 
+-Esta instrução substitui as diretrizes arquiteturais de **ABRASIL-CHAT-01 — Chat institucional integrado ao VetorLeads**.
++Preparar e validar a integração real do chat da ABrasil Sistemas com o VetorLeads, utilizando a arquitetura multitenant implementada em VETORCHAT-SAAS-02.
+ 
+-A decisão definitiva é:
++O VetorLeads continua sendo o serviço central. Não criar um backend de chat independente na ABrasil.
+ 
+-**O VetorChat pertence ao VetorLeads e deve funcionar como serviço SaaS multitenant, disponível para qualquer empresa cadastrada.**
++## Etapas
++
++1. Auditar a implementação existente antes de modificar qualquer código.
++2. Verificar como o tenant ABrasil é identificado e como sua configuração de widget é persistida.
++3. Validar o fluxo de geração, armazenamento e rotação da chave pública, sem exposição de credenciais privadas.
++4. Preparar o snippet de instalação para `abrasilsistemas.com.br`.
++5. Verificar a integração com o frontend institucional, evitando conflitos de layout, CSS, JavaScript e componentes existentes.
++6. Confirmar a proteção de origem, CORS, rate limiting, isolamento entre tenants e permissões.
++7. Verificar se mensagens enviadas pelo visitante aparecem corretamente no painel VetorLeads.
++8. Confirmar que a resposta do atendente retorna ao widget e que o histórico permanece disponível.
++9. Manter os contatos recebidos pelo site separados dos prospects captados pelas ferramentas de prospecção.
++10. Validar a associação opcional de contatos e oportunidades comerciais, evitando leads duplicados.
++11. Preparar o processo para permitir futuras instalações em outros tenants, sem configurações globais ou intervenção no código.
++12. Registrar evidências e eventuais bloqueios para homologação na VPS.
++
++## Critérios de aceitação
++
++- O tenant ABrasil visualiza somente suas conversas.
++- Nenhum outro tenant consegue consultar ou responder a essas conversas.
++- O widget funciona em desktop e mobile.
++- A instalação repetida não cria widgets duplicados.
++- Mensagens não são duplicadas após atualização ou reconexão.
++- A resposta humana chega corretamente ao visitante.
++- O CRM distingue atendimento institucional de prospecção ativa.
++- O processo de instalação é reutilizável por qualquer tenant.
++- Nenhum segredo ou token administrativo fica exposto no navegador.
++
++## Regras obrigatórias de execução
++
++- Não criar, iniciar ou modificar containers Docker locais.
++- Não executar migrations em bancos de produção.
++- Não enviar mensagens reais sem autorização.
++- Não fazer deploy, commit ou push sem autorização.
++- Utilizar banco isolado e dados sintéticos para testes.
++- Executar testes automatizados antes dos testes de navegador.
++- Se uma ferramenta de navegador falhar repetidamente por limitação do ambiente, interromper as tentativas, registrar o motivo e utilizar testes alternativos confiáveis. Não insistir indefinidamente no mesmo erro.
++- Não alterar funcionalidades de outros módulos que estejam fora do escopo.
++- Preservar arquivos e alterações preexistentes.
++- Não declarar homologação real quando apenas testes sintéticos tiverem sido executados.
++
++## Relatório
++
++Atualizar `executed.md` com:
++
++- Comparação com o `correio.md` anterior.
++- Arquivos modificados.
++- Testes executados e seus resultados.
++- Evidências da instalação e do fluxo de conversas.
++- Pendências de configuração na VPS.
++- Procedimento de ativação do primeiro tenant.
++- Riscos e recomendações.
+ 
+-O painel da ABrasil Sistemas não será o servidor central do chat, nem uma dependência do serviço.
+-
+-A ABrasil Sistemas será somente o primeiro tenant a utilizar o widget, seguindo o mesmo procedimento de configuração e instalação dos demais clientes.
+-
+-### Importante
+-
+-Antes de modificar o código, auditar o que já foi implementado nas tarefas ABRASIL-CHAT-01 e VETOR-CHAT anteriores.
+-
+-Reaproveitar os componentes existentes, evitando reconstruções, duplicação de tabelas, endpoints, serviços e interfaces.
+-
+-Não remover funcionalidades operacionais sem necessidade.
+-
+----
+-
+-## 2. Arquitetura definitiva
+-
+-O VetorLeads será responsável por:
+-
+-- Cadastro e configuração de widgets por tenant.
+-- Identificação segura do tenant.
+-- Recebimento e armazenamento das mensagens.
+-- Gerenciamento de conversas.
+-- Atendimento humano.
+-- Respostas automáticas configuráveis.
+-- Integração com o CRM.
+-- Histórico de interações.
+-- Indicadores comerciais.
+-- Integração opcional com WhatsApp.
+-
+-Cada tenant deverá possuir seus próprios recursos, configurações e dados.
+-
+-Nenhum tenant poderá visualizar ou manipular conversas de outro.
+-
+-## 3. Configuração no painel VetorLeads
+-
+-Adicionar ou consolidar:
+-
+-**Configurações → Canais → Chat do Site**
+-
+-Funcionalidades:
+-
+-1. Ativar/desativar widget.
+-2. Nome exibido no atendimento.
+-3. Logotipo ou avatar.
+-4. Cor principal do widget.
+-5. Mensagem de boas-vindas.
+-6. Mensagem de ausência.
+-7. Horário de funcionamento.
+-8. Cadastro de um ou mais domínios autorizados.
+-9. Atendentes responsáveis.
+-10. Respostas rápidas.
+-11. Geração automática do código de instalação.
+-12. Botão "Copiar código".
+-13. Botão "Verificar instalação".
+-14. Status da conexão do widget.
+-
+-A tela deverá ser profissional, limpa e responsiva, seguindo o padrão visual do VetorLeads.
+-
+-Não criar outra área administrativa desnecessária.
+-
+-## 4. Vinculação automática ao tenant
+-
+-O widget deverá ser vinculado automaticamente ao tenant autenticado durante a configuração.
+-
+-Não exigir preenchimento manual de tenant ID.
+-
+-Gerar um identificador público exclusivo do widget, associado ao tenant no servidor.
+-
+-O código deverá seguir conceitualmente este formato:
+-
+-```html
+-<script
+-  src="https://vetorleads.com.br/widget.js"
+-  data-widget-key="CHAVE_PUBLICA_GERADA"
+-  async>
+-</script>
+-```
+-
+-O endereço acima é ilustrativo e deve ser ajustado à arquitetura real.
+-
+-A chave pública não pode conceder privilégios administrativos.
+-
+-Na abertura da conversa, validar:
+-
+-- Widget ativo.
+-- Domínio autorizado.
+-- Tenant proprietário.
+-- Sessão do visitante.
+-- Limites de uso.
+-- Proteções contra abuso.
+-
+-Não confiar em um tenant ID informado pelo navegador.
+-
+-## 5. Widget público reutilizável
+-
+-Criar ou adaptar o widget existente para instalação em:
+-
+-- Sites HTML.
+-- WordPress.
+-- Laravel.
+-- React e Next.js.
+-- Outras plataformas que aceitem JavaScript externo.
+-
+-Requisitos:
+-
+-- Carregamento assíncrono.
+-- Interface responsiva.
+-- Boa experiência mobile.
+-- Persistência segura da sessão.
+-- Recuperação de conversas.
+-- Mensagens nas duas direções.
+-- Estado de conexão.
+-- Tratamento de falhas.
+-- Acessibilidade.
+-- Política de privacidade.
+-- Proteção contra mensagens duplicadas.
+-
+-O widget deve ser independente do framework utilizado pelo site do cliente.
+-
+-## 6. Central de Atendimento
+-
+-A Central de Atendimento deverá permanecer no VetorLeads.
+-
+-Consolidar os canais:
+-
+-**Atendimento → Caixa de Entrada**
+-
+-Canais previstos:
+-
+-- Chat Web.
+-- WhatsApp, quando configurado.
+-
+-Organização:
+-
+-- Novas conversas.
+-- Em atendimento.
+-- Aguardando resposta.
+-- Encerradas.
+-- Atendimento atribuído.
+-- Identificação do contato.
+-- Produto ou serviço de interesse.
+-- Histórico.
+-- Encaminhamento para CRM.
+-
+-Não misturar os leads provenientes da prospecção ativa com os contatos recebidos pelo chat.
+-
+-Ambos poderão ser convertidos em oportunidades comerciais, preservando suas origens.
+-
+-## 7. Integração comercial
+-
+-Quando uma conversa indicar interesse comercial:
+-
+-1. Identificar o visitante.
+-2. Registrar produto ou serviço de interesse.
+-3. Consultar contatos equivalentes.
+-4. Criar ou atualizar lead no CRM.
+-5. Preservar o histórico da conversa.
+-6. Permitir atribuição a vendedor.
+-7. Permitir criar oportunidade comercial.
+-8. Acompanhar negociação e fechamento.
+-
+-Não criar oportunidades automaticamente apenas pela abertura do chat.
+-
+-O objetivo é converter atendimentos em vendas, sem perder a rastreabilidade comercial.
+-
+-## 8. Respostas automáticas
+-
+-Preparar configuração por tenant:
+-
+-- Saudação automática.
+-- Atendimento fora do horário.
+-- Respostas rápidas.
+-- Perguntas de qualificação.
+-- Encaminhamento ao atendente.
+-- Base de conhecimento individual do tenant.
+-- Possibilidade futura de respostas com IA.
+-
+-Não compartilhar bases de conhecimento entre tenants.
+-
+-Não ativar serviços pagos ou IA generativa automaticamente.
+-
+-## 9. Integração com o painel ABrasil Sistemas
+-
+-A ABrasil Sistemas deverá instalar o widget como qualquer outro tenant.
+-
+-Caso seja necessário aproveitar o painel `/atendimento` existente:
+-
+-- Utilizar API autenticada do VetorLeads.
+-- Não duplicar a lógica central do chat.
+-- Não transferir a propriedade dos dados para o painel institucional.
+-- Não acoplar o VetorChat ao domínio da ABrasil.
+-- Evitar sincronização bidirecional desnecessária.
+-
+-A Central de Atendimento nativa do VetorLeads deverá funcionar independentemente dessa integração.
+-
+-## 10. Verificação da instalação
+-
+-Implementar o botão **Verificar instalação**.
+-
+-O sistema deverá verificar, de maneira segura, se o código do widget está instalado no domínio informado.
+-
+-Exibir estados claros:
+-
+-- Aguardando instalação.
+-- Instalação detectada.
+-- Widget conectado.
+-- Domínio não autorizado.
+-- Erro de comunicação.
+-
+-Distinguir presença do script, carregamento bem-sucedido e conexão efetiva.
+-
+-Não declarar conexão ativa apenas porque o código foi encontrado no HTML.
+-
+-## 11. Segurança e isolamento
+-
+-Validar especificamente:
+-
+-- Isolamento entre tenants.
+-- Proteção dos endpoints públicos.
+-- Rate limiting.
+-- Validação de domínio e origem.
+-- Autorização de atendentes.
+-- Identificação segura dos visitantes.
+-- Proteção contra XSS.
+-- Integridade das mensagens.
+-- Isolamento dos eventos e filas.
+-- Prevenção contra enumeração de identificadores.
+-- Prevenção contra acesso cruzado entre tenants.
+-- Compatibilidade com LGPD.
+-
+-Criar testes automatizados de isolamento e tentativas de acesso indevido.
+-
+-## 12. Homologação
+-
+-Criar cenários com dois tenants independentes.
+-
+-Tenant A: ABrasil Sistemas.
+-
+-Tenant B: empresa fictícia de teste.
+-
+-Validar:
+-
+-1. Ativação independente.
+-2. Geração de chaves diferentes.
+-3. Instalação em domínios distintos.
+-4. Personalização visual por empresa.
+-5. Recebimento de mensagens.
+-6. Resposta pelo atendente.
+-7. Recuperação de sessões.
+-8. Encerramento de conversas.
+-9. Conversão para CRM.
+-10. Bloqueio de acesso cruzado.
+-11. Instalação e desinstalação.
+-12. Funcionamento mobile.
+-
+-Usar dados sintéticos quando necessário.
+-
+-## 13. Entrega e publicação
+-
+-- Preservar trabalho existente.
+-- Implementar o máximo possível no módulo atual.
+-- Não criar outro projeto de chat sem justificativa técnica.
+-- Executar testes automatizados.
+-- Verificar qualidade do frontend.
+-- Realizar inspeção visual.
+-- Atualizar documentação e manual do VetorLeads.
+-- Registrar resultados em `executed.md`.
+-- Descrever pendências e limitações efetivas.
+-
+-**Não fazer commit, push ou deploy automaticamente.**
+-
+-Não alterar o funcionamento dos outros produtos do ecossistema.
+-
+-### Critério final de aprovação
+-
+-Um novo tenant cadastrado no VetorLeads deverá conseguir:
+-
+-**Ativar Chat → Configurar domínio → Copiar código → Instalar no site → Verificar conexão → Receber mensagens → Responder → Converter contato em lead.**
+-
+-Tudo isso sem intervenção manual do rootAdmin e sem depender da infraestrutura administrativa exclusiva da ABrasil Sistemas.
+\ No newline at end of file
++**Resultado esperado:** integração institucional tecnicamente pronta e documentada para ativação controlada na VPS, sem publicação automática.

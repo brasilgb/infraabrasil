@@ -1,0 +1,121 @@
+diff --git a/docs/vetorchat-saas-051/correio.md b/docs/vetorchat-saas-053/correio.md
+index 68dde4d..ade1b59 100644
+--- a/docs/vetorchat-saas-051/correio.md
++++ b/docs/vetorchat-saas-053/correio.md
+@@ -1,88 +1,36 @@
+-# VETORCHAT-SAAS-05.1 — Desbloqueio Git e consolidação técnica
++# VETORCHAT-SAAS-05.3 — Consolidação de versionamento
+ 
+-## Objetivo
+-
+-Eliminar os impedimentos identificados na VETORCHAT-SAAS-05 e preparar o ecossistema para homologação operacional, sem reimplementar funcionalidades existentes.
+-
+-### 1. Resolver o Git do VetorPet
+-
+-- Identificar a causa das permissões somente leitura em `.git/modules/gateway/vetorpet`.
+-- Verificar proprietário, permissões e possíveis restrições do filesystem.
+-- Corrigir somente as permissões necessárias, se houver autorização e segurança para isso.
+-- Preservar integralmente as alterações locais e os dois históricos divergentes.
+-- Fazer backup das alterações não commitadas antes de qualquer merge.
+-- Concluir a mesclagem das duas linhas sem escolher arbitrariamente uma versão.
+-- Resolver o gitlink do repositório principal.
+-- Não usar `git reset --hard`, `git clean -fd`, `git push --force` ou comandos destrutivos.
+-- Se houver bloqueio de permissões que exija privilégios não disponíveis, registrar o comando necessário e interromper somente essa operação.
+-
+-### 2. Validar o VetorPet
+-
+-- Conferir a instalação do widget e os arquivos alterados.
+-- Verificar dependências já declaradas.
+-- Executar testes quando houver ambiente compatível.
+-- Não instalar dependências desnecessárias.
+-
+-### 3. Validar o VetorOS
++O superprojeto `infra-abrasil` está na branch `main`, commit `0f6665e`, com o rebase encerrado e os conflitos resolvidos.
+ 
+-- Revisar os 11 avisos dos testes.
+-- Distinguir problemas do ambiente de defeitos reais.
+-- Corrigir problemas comprovados.
+-- Repetir os testes afetados.
+-
+-### 4. Revisar a arquitetura multitenant
+-
+-- Confirmar que o tenant ABrasil utiliza uma chave pública comum para seus quatro produtos.
+-- Confirmar que `data-product` identifica corretamente cada produto.
+-- Validar a separação de sessões e conversas.
+-- Verificar a segurança das origens HTTPS.
+-- Confirmar que outros tenants não compartilham credenciais ou sessões WAHA.
+-- Garantir que chaves públicas não concedam permissões administrativas.
+-
+-### 5. Revisar UX/UI
+-
+-- Conferir o painel do VetorChat dentro do VetorLeads.
+-- Manter inbox, filtros, operadores, produtos e configurações bem organizados.
+-- Evitar duplicação de menus e formulários.
+-- Preservar a experiência profissional e responsiva.
+-
+-### 6. Preparação de produção
+-
+-Produzir checklist verificável para:
++## Objetivo
+ 
+-- Backup.
+-- Migrations.
+-- Build.
+-- Configurações de ambiente.
+-- Sessões WAHA.
+-- Produtos e domínios.
+-- Homologação do widget.
+-- Rollback.
++Auditar as alterações locais pendentes, preservar os trabalhos de SEO, VetorChat e relatórios, e preparar o versionamento organizado dos produtos.
+ 
+-Não executar publicação sem autorização.
++## Instruções
+ 
+-## Regras obrigatórias
++1. Confirmar que não existem conflitos Git ou operações de rebase pendentes.
++2. Auditar individualmente os submódulos ABrasil Sistemas, VetorLeads, VetorOS, VetorPet e Desgarrados.
++3. Identificar alterações pertencentes a cada implementação.
++4. Preservar todos os arquivos locais, incluindo os não rastreados.
++5. Verificar as referências de imagem em `docker-compose.override.yml` e documentar divergências sem substituí-las automaticamente.
++6. Separar as alterações por projeto, evitando misturar SEO, VetorChat, relatórios e outras funcionalidades.
++7. Executar verificações estáticas e testes disponíveis.
++8. Preparar um plano de commits por repositório e atualização posterior dos gitlinks do superprojeto.
++9. Verificar que os commits dos submódulos estejam disponíveis nos respectivos remotos antes de recomendar a publicação do superprojeto.
++10. Preparar checklist para a homologação VETORCHAT-SAAS-06.
+ 
+-- Não criar, iniciar ou alterar containers Docker locais.
+-- Não fazer commit, push ou deploy sem autorização.
+-- Não alterar a VPS nesta etapa.
+-- Não enviar mensagens reais.
+-- Testar no navegador quando existir ambiente compatível.
+-- Se a ferramenta de navegador falhar, tentar alternativa disponível.
+-- Não insistir repetidamente em testes que falham por limitações ambientais.
+-- Não instalar novas ferramentas sem necessidade.
+-- Preservar toda a implementação funcional anterior.
++## Restrições
+ 
+-## Relatório
++- Não utilizar containers Docker locais.
++- Não realizar commit, push ou deploy sem autorização.
++- Não modificar configurações da VPS.
++- Não apagar alterações locais ou arquivos não rastreados.
++- Não usar reset destrutivo.
++- Não insistir repetidamente em ferramentas de teste que falharem por problemas ambientais.
++- Testar em navegador quando possível.
+ 
+-Atualizar `executed.md` com:
++## Entrega
+ 
+-1. Estado inicial e final do Git.
+-2. Correções efetivamente realizadas.
+-3. Arquivos alterados.
+-4. Testes executados e resultados.
+-5. Pendências.
+-6. Checklist de ativação.
+-7. Classificação final: PRONTO PARA HOMOLOGAÇÃO ou BLOQUEADO.
++Atualizar `executed.md` com os resultados da auditoria, alterações identificadas, riscos, testes e plano de versionamento.
+ 
+-Não declarar homologação operacional sem testes reais.
+\ No newline at end of file
++Informar claramente se o projeto está pronto para homologação operacional.
+\ No newline at end of file

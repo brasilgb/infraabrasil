@@ -1,0 +1,2 @@
+d5c400effde7f1eab146617433312060a9afcff45300280c9ef6245ada7e2116  correio.md
+60844e32f54a890cea0e66fff3a29cacd02fcedd32dfe6d0305c1af9c0a0db64  docs/vetorchat-saas-02/correio.md

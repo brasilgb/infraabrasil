@@ -124,6 +124,8 @@ services:
       # WebChat do site (VETOR-CHAT-10.2): proxy para a API do VetorLeads, pelo Nginx
       VETORLEADS_WEB_CHAT_URL: ${VETORLEADS_WEB_CHAT_URL:-https://vetorleads.com.br}
       VETORLEADS_WEB_CHAT_TOKEN: ${VETORLEADS_WEB_CHAT_SERVICE_TOKEN:-}
+      # VetorChat no site público (VETORCHAT-10): mesma chave institucional do tenant; o produto é escolhido por data-product
+      VETORCHAT_WIDGET_KEY: ${VETORCHAT_WIDGET_KEY:-}
     volumes: [./volumes/vetoros:/var/www/html/storage/app/public, vetoros-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]

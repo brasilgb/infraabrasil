@@ -6,15 +6,18 @@ CREATE DATABASE IF NOT EXISTS vetorpet CHARACTER SET utf8mb4 COLLATE utf8mb4_uni
 CREATE DATABASE IF NOT EXISTS abrasilsistemas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE DATABASE IF NOT EXISTS desgarrados CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE DATABASE IF NOT EXISTS vetorleads CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS vetorsales CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER IF NOT EXISTS 'vetoros_user'@'%' IDENTIFIED BY '${VETOROS_DB_PASSWORD}';
 CREATE USER IF NOT EXISTS 'vetorpet_user'@'%' IDENTIFIED BY '${VETORPET_DB_PASSWORD}';
 CREATE USER IF NOT EXISTS 'abrasilsistema_user'@'%' IDENTIFIED BY '${ABRASILSISTEMA_DB_PASSWORD}';
 CREATE USER IF NOT EXISTS 'desgarrados_user'@'%' IDENTIFIED BY '${DESGARRADOS_DB_PASSWORD}';
 CREATE USER IF NOT EXISTS 'vetorleads_user'@'%' IDENTIFIED BY '${VETORLEADS_DB_PASSWORD}';
+CREATE USER IF NOT EXISTS 'vetorsales_user'@'%' IDENTIFIED BY '${VETORSALES_DB_PASSWORD}';
 GRANT ALL PRIVILEGES ON vetoros.* TO 'vetoros_user'@'%';
 GRANT ALL PRIVILEGES ON vetorpet.* TO 'vetorpet_user'@'%';
 GRANT ALL PRIVILEGES ON abrasilsistemas.* TO 'abrasilsistema_user'@'%';
 GRANT ALL PRIVILEGES ON desgarrados.* TO 'desgarrados_user'@'%';
 GRANT ALL PRIVILEGES ON vetorleads.* TO 'vetorleads_user'@'%';
+GRANT ALL PRIVILEGES ON vetorsales.* TO 'vetorsales_user'@'%';
 FLUSH PRIVILEGES;
 SQL

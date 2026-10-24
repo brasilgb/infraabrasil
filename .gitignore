@@ -3,6 +3,7 @@ volumes/mysql/*
 volumes/waha/*
 volumes/vetoros/*
 volumes/vetorpet/*
+volumes/vetorsales/*
 volumes/abrasilsistema/*
 volumes/certbot/*
 volumes/n8n/*

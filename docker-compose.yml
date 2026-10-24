@@ -30,6 +30,7 @@ services:
       ABRASILSISTEMA_DB_PASSWORD: ${ABRASILSISTEMA_DB_PASSWORD:?configure ABRASILSISTEMA_DB_PASSWORD in .env}
       DESGARRADOS_DB_PASSWORD: ${DESGARRADOS_DB_PASSWORD:?configure DESGARRADOS_DB_PASSWORD in .env}
       VETORLEADS_DB_PASSWORD: ${VETORLEADS_DB_PASSWORD:?configure VETORLEADS_DB_PASSWORD in .env}
+      VETORSALES_DB_PASSWORD: ${VETORSALES_DB_PASSWORD:?configure VETORSALES_DB_PASSWORD in .env}
     volumes:
       - ./volumes/mysql:/var/lib/mysql
       - ./mysql-init:/docker-entrypoint-initdb.d:ro
@@ -263,6 +264,35 @@ services:
   vetorleads-scheduler:
     extends: {service: vetorleads}
     command: php artisan schedule:work
+  vetorsales:
+    build: {context: ./gateway/vetorsales, dockerfile: Dockerfile}
+    restart: unless-stopped
+    env_file: ./gateway/vetorsales/.env.example
+    environment:
+      <<: *laravel-environment
+      APP_NAME: VetorSales
+      APP_ENV: production
+      APP_URL: ${VETORSALES_APP_URL:-http://vetorsales.localhost}
+      APP_KEY: ${VETORSALES_APP_KEY:?configure VETORSALES_APP_KEY in .env}
+      DB_DATABASE: vetorsales
+      DB_USERNAME: vetorsales_user
+      DB_PASSWORD: ${VETORSALES_DB_PASSWORD:?configure VETORSALES_DB_PASSWORD in .env}
+      REDIS_PREFIX: vetorsales_
+      MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN:-}
+      MP_WEBHOOK_TOKEN: ${MP_WEBHOOK_TOKEN:-}
+      # VetorChat no site público: mesma chave institucional do tenant ABrasil
+      VETORCHAT_WIDGET_KEY: ${VETORCHAT_WIDGET_KEY:-}
+    volumes: [./volumes/vetorsales:/var/www/html/storage/app/public, vetorsales-build:/var/www/html/public/build]
+    depends_on: {mysql: {condition: service_healthy}}
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
+    logging: *default-logging
+  vetorsales-worker:
+    extends: {service: vetorsales}
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
+  vetorsales-scheduler:
+    extends: {service: vetorsales}
+    command: php artisan schedule:work
   nginx:
     image: nginx:1.27-alpine
     restart: unless-stopped
@@ -278,14 +308,16 @@ services:
       - ./gateway/desgarrados/public:/var/www/desgarrados/public:ro
       - ./volumes/desgarrados:/var/www/desgarrados/storage:ro
       - ./gateway/vetorleads/public:/var/www/vetorleads/public:ro
+      - ./gateway/vetorsales/public:/var/www/vetorsales/public:ro
       - vetoros-build:/var/www/vetoros/build:ro
       - vetorpet-build:/var/www/vetorpet/build:ro
       - abrasilsistema-build:/var/www/abrasilsistema/build:ro
       - desgarrados-build:/var/www/desgarrados/build:ro
       - vetorleads-build:/var/www/vetorleads/build:ro
+      - vetorsales-build:/var/www/vetorsales/build:ro
       - ./volumes/certbot/conf:/etc/letsencrypt:ro
       - ./volumes/certbot/www:/var/www/certbot:ro
-    depends_on: [vetoros, vetorpet, abrasilsistema, desgarrados, vetorleads, n8n]
+    depends_on: [vetoros, vetorpet, abrasilsistema, desgarrados, vetorleads, vetorsales, n8n]
     networks: [infra-abrasil-network]
     healthcheck: {test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz"], interval: 15s, timeout: 5s, retries: 5}
     logging: *default-logging
@@ -304,3 +336,4 @@ volumes:
   abrasilsistema-build:
   desgarrados-build:
   vetorleads-build:
+  vetorsales-build:

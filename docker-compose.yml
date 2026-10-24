@@ -293,6 +293,8 @@ services:
       MP_WEBHOOK_TOKEN: ${MP_WEBHOOK_TOKEN:-}
       # VetorChat no site público: mesma chave institucional do tenant ABrasil
       VETORCHAT_WIDGET_KEY: ${VETORCHAT_WIDGET_KEY:-}
+      # Destinatário do formulário de contato do site público
+      MAIL_CONTACT_RECIPIENT: contato@abrasilsistemas.com.br
     volumes: [./volumes/vetorsales:/var/www/html/storage/app/public, vetorsales-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}}
     networks: [infra-abrasil-network]

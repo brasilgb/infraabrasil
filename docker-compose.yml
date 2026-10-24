@@ -171,6 +171,12 @@ services:
     env_file: ./gateway/abrasilsistemas/.env.example
     environment:
       <<: *laravel-environment
+      APP_ENV: production
+      APP_DEBUG: "false"
+      LOG_LEVEL: warning
+      GOOGLE_SEARCH_CONSOLE_CLIENT_ID: ${GOOGLE_SEARCH_CONSOLE_CLIENT_ID:-}
+      GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET: ${GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET:-}
+      VETORCHAT_WIDGET_KEY: ${VETORCHAT_WIDGET_KEY:-}
       APP_URL: ${ABRASILSISTEMA_APP_URL:-http://abrasilsistema.localhost}
       APP_KEY: ${ABRASILSISTEMA_APP_KEY:?configure ABRASILSISTEMA_APP_KEY in .env}
       DB_DATABASE: abrasilsistemas
@@ -242,6 +248,11 @@ services:
       WEB_CHAT_SERVICE_TOKEN: ${VETORLEADS_WEB_CHAT_SERVICE_TOKEN:-}
       WEB_CHAT_TENANT_ID: ${VETORLEADS_WEB_CHAT_TENANT_ID:-}
       VETORCHAT_WIDGET_KEY: ${VETORCHAT_WIDGET_KEY:-}
+      # IA comercial: valores vêm do .env da raiz; COMMERCIAL_AI_ENABLED segue false até ser ativada
+      COMMERCIAL_AI_ENABLED: ${COMMERCIAL_AI_ENABLED:-false}
+      COMMERCIAL_AI_PROVIDER: ${COMMERCIAL_AI_PROVIDER:-openai}
+      COMMERCIAL_AI_OPENAI_API_KEY: ${COMMERCIAL_AI_OPENAI_API_KEY:-}
+      COMMERCIAL_AI_OPENAI_MODEL: ${COMMERCIAL_AI_OPENAI_MODEL:-}
       # Eventos internos para o n8n (VETOR-CHAT-10.2): só rede Docker, assinados por HMAC
       N8N_EVENTS_URL: ${VETORLEADS_N8N_EVENTS_URL:-http://n8n:5678/webhook/vetorleads-events}
       N8N_EVENTS_SECRET: ${VETORLEADS_N8N_EVENTS_SECRET:-}

@@ -1,48 +1,12 @@
-# ABRASIL-AUTH-UX-01 — Padronização de Login e Cadastro (VetorLeads, VetorSales e VetorOS). Resultado: **IMPLEMENTADO E VALIDADO EM BUILD; NÃO PUBLICADO**
+# ABRASIL-AUTH-UX-03 — Executado
 
-**Data:** 2026-10-25
-**Origem:** `correio.md` (raiz do `infra-abrasil`), diferente do correio anterior (DESGARRADOS-NEXT-29), que foi substituído.
+**Data:** 25/10/2026  
+**Origem:** `correio.md` da raiz, alterado em relação à versão anterior (`DESGARRADOS-NEXT-29`).
 
-## 1. Alterações por projeto
+Os logins de VetorSales, VetorLeads e VetorOS agora usam a mesma composição: imagem própria em tela cheia, overlay suave e card claro centralizado com medidas e estilos idênticos. Os cadastros seguem a mesma família visual, com largura de 896 px no desktop e rolagem natural no mobile. Campos, links, consentimentos e regras de cada aplicação foram preservados.
 
-Todas as alterações estão na árvore de trabalho. Nada foi commitado, enviado ou publicado.
+**Validação:** seis telas reais inspecionadas em desktop e mobile; 15 capturas PNG; nenhum overflow horizontal ou erro JavaScript. Login válido, login inválido, alternância de senha, recuperação e links auxiliares verificados. Testes Laravel passaram (11 VetorSales, 13 VetorLeads, 11 VetorOS); TypeScript, builds Vite e `git diff --check` passaram nos três projetos.
 
-### VetorLeads (`gateway/vetorleads`)
+**Commits e pushes:** `origin/abrasil-auth-ux-03` enviado em VetorSales (`25e8f7c`), VetorLeads (`41b30e1`) e VetorOS (`d891ed0e`).
 
-- `resources/js/layouts/auth/auth-simple-layout.tsx`: layout dividido (desktop: painel de marca com `public/images/vetorleads-hero-green-1280.webp` + formulário; mobile: formulário com imagem oculta).
-- `docs/ABRASIL-AUTH-UX-01.md`: registro da entrega.
-
-### VetorSales (`gateway/vetorsales`)
-
-- `resources/js/layouts/auth/auth-simple-layout.tsx`: mesmo padrão, com `public/images/vetorsales-commercial-hero.webp` e a mensagem "Sua operação comercial, sempre em movimento."
-- `resources/js/pages/auth/register.tsx`: removido o wrapper com `max-h-[72svh]` e rolagem interna. Havia alterações não commitadas nesse arquivo antes desta tarefa (`commercial_segment: 'other_b2b'`); foram mantidas.
-- `docs/ABRASIL-AUTH-UX-01.md`: registro da entrega.
-
-### VetorOS (`gateway/vetoros`)
-
-- `resources/js/layouts/auth/auth-simple-layout.tsx`: mesmo padrão, com `public/images/vetoros-hero-maintenance.png` e a mensagem "Sua assistência técnica mais organizada e produtiva.". `FlashToastMessages` e `Toaster` mantidos.
-- `resources/js/pages/auth/register.tsx`: removido o wrapper com `max-h-[72svh]` e rolagem interna. Largura de referência `max-w-4xl` mantida.
-- `docs/ABRASIL-AUTH-UX-01.md`: registro da entrega.
-
-Não foram alterados: autenticação, sessões, validações, recuperação de senha, multitenant, banco, pagamentos, integrações, landing pages e logos.
-
-## 2. Validação
-
-| Projeto    | `tsc --noEmit` | `vite build` | `eslint` (arquivos alterados)                       |
-|------------|----------------|--------------|-----------------------------------------------------|
-| VetorLeads | 0 erros        | OK           | OK (após `--fix` de ordem de imports)               |
-| VetorSales | 0 erros        | OK           | Layout OK; erro pré-existente `as any` em `login.tsx` (fora do escopo) |
-| VetorOS    | 0 erros        | OK           | OK                                                  |
-
-Não executado: testes de navegador, screenshots antes/depois e testes de responsividade em 360–1440 px. Também não foram executados testes PHP, porque nenhum arquivo de backend foi alterado.
-
-## 3. Efeitos colaterais tratados
-
-- O `vite build` apagou arquivos versionados em `public/build` nos projetos VetorLeads e VetorSales. Os arquivos foram restaurados com `git checkout -- public/build`, e os artefatos novos foram removidos com `git clean -f -- public/build`. Depois disso, `public/build` está igual ao commit. O VetorOS não teve alteração em `public/build`.
-- Uma tentativa de remoção com variável de shell foi bloqueada pela verificação de segurança e não foi executada. A limpeza acima foi feita com comandos de caminho literal.
-
-## 4. Pendências
-
-- Evidências visuais (antes/depois) e testes de responsividade e de fluxo de login/cadastro/recuperação no navegador.
-- Commit, push e deploy: não executados. O correio pede que nada seja publicado sem validação da interface e dos fluxos.
-- Os repositórios VetorLeads e VetorSales têm alterações não commitadas de outras frentes (por exemplo, `EfiSettingsController` e `efi.tsx` no VetorOS). Elas não foram tocadas.
+**Relatório e evidências:** [docs/ABRASIL-AUTH-UX-03.md](docs/ABRASIL-AUTH-UX-03.md).

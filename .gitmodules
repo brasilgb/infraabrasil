@@ -17,3 +17,7 @@
 [submodule "gateway/vetorleads"]
 	path = gateway/vetorleads
 	url = https://github.com/brasilgb/vetorleads.git
+[submodule "gateway/vetorsales"]
+	path = gateway/vetorsales
+	url = https://github.com/brasilgb/vetorsales.git
+	branch = main

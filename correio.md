@@ -1,184 +1,197 @@
-# VETORCHAT-SAAS-09 — EXECUÇÃO FINAL, COMMIT, PUSH E DEPLOY
+# VETOROS-WAHA-FIX-01 — Corrigir conexão WhatsApp
 
-## MISSÃO
+## Objetivo
+Investigar e corrigir a falha de conexão WhatsApp apresentada em Configurações → Mensagens WhatsApp do VetorOS.
 
-Encerrar o ciclo de desenvolvimento do VetorChat e publicar as implementações concluídas.
+**Erro apresentado:** "Não foi possível conectar. Verifique o serviço do WAHA e tente novamente."
 
-**Esta instrução autoriza commit, push, build, deploy e migrations necessárias, mediante as verificações de segurança abaixo.**
+## 1. Diagnóstico obrigatório
 
-Não transformar a execução em outra auditoria interminável.
+- Verificar o estado do serviço WAHA na VPS.
+- Conferir a conectividade entre o container VetorOS e o WAHA.
+- Verificar URL interna do serviço, porta, API Key, autenticação e sessão configurada.
+- Consultar logs da API, do VetorOS e do WAHA.
+- Verificar incompatibilidade entre endpoints utilizados pelo VetorOS e a versão instalada do WAHA.
+- Identificar se o botão "Conectar WhatsApp" está chamando o endpoint correto.
+- Identificar se o erro ocorre no backend ou no frontend.
 
-Já foram realizadas oito etapas de implementação, correções, testes, revisões e organização de código.
+Não presumir que o WAHA esteja indisponível apenas pela mensagem da interface.
 
-Utilizar o trabalho anterior, especialmente:
+## 2. Correção
 
-- `executed.md`
-- `docs/vetorchat-saas-08/staging-manifest.md`
-- Histórico VETORCHAT-SAAS-01 a 08.
+Corrigir a causa identificada, preservando:
 
-## 1. Prioridade absoluta: ENTREGAR
+- Integração existente do VetorChat/VetorLeads.
+- Sessões WhatsApp já configuradas.
+- Isolamento entre tenants.
+- Configurações e credenciais existentes.
+- Histórico de mensagens.
 
-Executar nesta ordem:
+Não criar uma nova instalação WAHA nem alterar sessões existentes sem necessidade comprovada.
 
-1. Resolver o ponto crítico de middleware em `gateway/vetorleads/routes/settings.php`.
-2. Separar o staging conforme o manifesto existente.
-3. Executar uma rodada final de testes relevantes.
-4. Corrigir somente falhas reais introduzidas pelas implementações.
-5. Criar commits separados por funcionalidade.
-6. Realizar push dos submódulos.
-7. Atualizar e publicar os gitlinks do superprojeto.
-8. Gerar ou atualizar as imagens necessárias na VPS.
-9. Executar deploy controlado.
-10. Confirmar funcionamento HTTP e disponibilidade dos serviços.
-11. Registrar o resultado em `executed.md`.
+## 3. Interface
 
-Não reiniciar auditorias já concluídas sem evidências novas.
+Aprimorar a tela de configuração WhatsApp para exibir estados reais:
 
-## 2. Testes — limite objetivo
+- Conectado.
+- Desconectado.
+- Aguardando leitura do QR Code.
+- Inicializando sessão.
+- Erro de autenticação.
+- Serviço WAHA indisponível.
 
-A etapa 08 já confirmou:
+O botão "Conectar WhatsApp" deverá abrir o fluxo de conexão, apresentando o QR Code quando necessário.
 
-- ABrasil: 81 testes aprovados.
-- VetorLeads: 18 testes aprovados.
-- VetorOS: 13 testes aprovados.
-- VetorOS: TypeScript aprovado.
-- VetorOS: ESLint dos relatórios aprovado.
+Adicionar ações de atualizar status e desconectar com confirmação.
 
-Reexecutar esses testes uma vez após as correções finais.
+Nunca exibir chaves ou tokens na interface.
 
-Caso falhem, investigar e corrigir a causa.
+## 4. Testes
 
-Limitar a duas tentativas de repetição por problema, exceto quando houver nova causa técnica comprovada.
+Executar testes funcionais do fluxo de conexão, consulta de status e tratamento de erros.
 
-Não bloquear a publicação por warnings ambientais conhecidos e sem impacto operacional.
+Validar o funcionamento sem prejudicar as integrações existentes.
 
-Testes VetorPet devem ser executados quando as dependências estiverem disponíveis no ambiente autorizado.
+Não executar alterações em containers locais. Utilizar testes de código e os serviços existentes na VPS quando necessário.
 
-Não instalar containers locais para testar.
+Não insistir repetidamente em ferramentas de teste que estejam indisponíveis.
 
-Não instalar navegadores nem insistir em testes visuais que não funcionam.
+## 5. Publicação
 
-Se o navegador estiver indisponível, usar testes HTTP e de integração disponíveis e registrar a limitação.
+Após identificar e corrigir o problema, executar os testes viáveis e preparar a publicação.
 
-**Não confundir ausência de testes de navegador com aprovação visual.**
+Alterações operacionais na VPS devem preservar os demais serviços, sem reinicialização geral da infraestrutura ou exclusão de sessões.
 
-## 3. Segurança obrigatória
+## 6. Relatório
 
-Antes do push:
+Registrar em `executed.md`:
 
-- Confirmar isolamento entre tenants.
-- Confirmar middleware e autorizações.
-- Não incluir segredos.
-- Não incluir `.env` privado.
-- Não incluir logs ou caches.
-- Não incluir alterações fora do escopo.
-- Confirmar ausência de erros críticos conhecidos.
+- Causa raiz.
+- Arquivos alterados.
+- Configuração corrigida.
+- Testes executados e resultados.
+- Estado real da conexão WhatsApp.
+- Pendências, se existirem.
 
-Não afrouxar autenticação, autorização ou validação de origem para facilitar testes.
+Priorizar a correção funcional. Não ampliar o escopo para refatorações desnecessárias.
 
-Se houver falha crítica de segurança, bloquear somente o componente afetado e informar claramente.
 
-## 4. Git e publicação
+# VETORCHAT-NATIVE-01 — Chat nativo do VetorLeads e correção da indisponibilidade
 
-Criar commits organizados para:
+## Objetivo
 
-- ABrasil SEO.
-- ABrasil VetorChat.
-- VetorLeads VetorChat.
-- VetorLeads branding/manual.
-- VetorOS relatórios.
-- VetorOS VetorChat.
-- VetorPet VetorChat, após validação.
+Corrigir a indisponibilidade do chat no VetorLeads e tornar o WebChat um recurso nativo do produto, sem depender da configuração de widget externo, domínio autorizado ou instalação manual para seu próprio funcionamento.
 
-Utilizar staging seletivo conforme o manifesto.
+Preservar a arquitetura multitenant do VetorChat e a integração compartilhada com o WAHA.
 
-Não usar `git add .` ou `git add -A`.
+## 1. Diagnosticar a falha atual
 
-Publicar primeiro os commits dos submódulos e confirmar que os hashes estão disponíveis nos respectivos remotos.
+Investigar:
 
-Somente depois atualizar e publicar os gitlinks do superprojeto.
+- Por que o chat não está disponível no VetorLeads.
+- Se há conflito entre domínio do VetorLeads e domínio do widget.
+- Se a validação de domínio, chave pública ou tenant está bloqueando a instalação.
+- Se o próprio VetorLeads está tentando consumir seu widget como uma integração externa.
+- Se existem problemas com cookies, CORS, CSP, autenticação, sessões, API ou proxy.
+- Se o carregamento do WebChat está indevidamente condicionado ao estado do WAHA.
 
-Se o remoto privado VetorLeads continuar exigindo autenticação, registrar o impedimento e não tentar contorná-lo com credenciais inseguras.
+Identificar a causa real antes de aplicar alterações.
 
-## 5. Deploy na VPS
+## 2. Tornar o chat nativo
 
-Infraestrutura oficial:
+Implementar o WebChat como funcionalidade própria do VetorLeads.
 
-`/opt/infra-abrasil`
+Requisitos:
 
-Não criar containers no ambiente local de desenvolvimento.
+- Chat disponível automaticamente na landing page do VetorLeads.
+- Tenant institucional resolvido internamente pelo backend.
+- Não exigir cadastro manual do domínio do próprio produto.
+- Não exigir geração ou instalação manual de widget para o VetorLeads.
+- Não depender de WAHA para mensagens WebChat.
+- Reutilizar componentes, APIs e regras de negócio existentes.
+- Manter a identificação do produto de origem como `vetorleads`.
+- Preservar isolamento multitenant e segurança.
 
-Na VPS autorizada:
+A interface pública poderá utilizar o mesmo componente visual do widget externo, mas com inicialização interna segura.
 
-- Inspecionar o Compose existente.
-- Confirmar serviços, volumes, redes e dependências.
-- Confirmar as tags reais das imagens.
-- Preservar bancos de dados e volumes.
-- Verificar backups antes de alterações em produção.
-- Gerar as imagens atualizadas com os commits publicados.
-- Executar migrations necessárias e compatíveis, após revisão e backup.
-- Atualizar somente os serviços afetados.
-- Não utilizar `docker compose down -v`.
-- Não apagar volumes nem bancos.
-- Não executar comandos destrutivos.
+Não criar um segundo motor de mensagens nem duplicar bancos, conversas ou lógica de atendimento.
 
-O `pull_policy: never` não deve impedir o uso de imagens novas: verificar a estratégia real de build e aplicar tags compatíveis com o Compose.
+## 3. Central de atendimento no painel
 
-Preservar o restante da infraestrutura.
+Verificar e ajustar a central de conversas existente para oferecer:
 
-## 6. Homologação operacional
+- Conversas recebidas pelo WebChat.
+- Identificação do produto de origem.
+- Nome, telefone e WhatsApp do visitante, quando informados.
+- Histórico de mensagens.
+- Associação ao CRM.
+- Resposta humana.
+- Resposta automática, quando habilitada.
+- Transferência para atendente.
+- Indicadores de mensagens não lidas.
 
-Verificar em produção:
+A central deve estar disponível ao tenant sem exigir configuração de instalação de widget.
 
-1. Site ABrasil carregando.
-2. Sitemap e robots respondendo.
-3. Widget VetorChat sendo apresentado.
-4. VetorLeads acessível.
-5. APIs do widget respondendo.
-6. Inbox carregando.
-7. VetorOS funcionando.
-8. VetorPet funcionando, se publicado.
-9. WAHA conectado.
-10. Identificação correta de tenant e produto.
+## 4. Preservar widget externo
 
-Utilizar verificações HTTP e diagnósticos seguros.
+O widget externo continuará funcionando normalmente para:
 
-Mensagens ponta a ponta somente com identidade de teste autorizada, sem contatar clientes reais.
+- ABrasil Sistemas.
+- VetorOS.
+- VetorSales.
+- Outros produtos.
+- Sites de tenants externos.
 
-Não habilitar automações para contatos reais sem validação específica.
+Preservar a arquitetura existente:
 
-Se não houver identidade de teste disponível, registrar a pendência operacional sem inventar homologação.
+- Tenant ABrasil compartilhado entre seus produtos.
+- Identificação independente do produto de origem.
+- Chaves próprias para outros tenants.
+- Isolamento de conversas e dados por tenant.
 
-## 7. Critério de conclusão
+Não modificar contratos públicos da API sem compatibilidade.
 
-Classificar o resultado como:
+## 5. WhatsApp e WAHA
 
-**PUBLICADO E HOMOLOGADO:** deploy concluído e fluxos essenciais testados efetivamente.
+Manter separação entre os canais:
 
-**PUBLICADO COM PENDÊNCIAS:** deploy concluído, serviços saudáveis, mas alguma homologação não crítica permanece pendente; não liberar a funcionalidade afetada para clientes até validá-la.
+**WebChat:** funcionamento nativo, independente do WAHA.
 
-**PUBLICAÇÃO PARCIAL:** somente alguns produtos puderam ser publicados com segurança.
+**WhatsApp:** integração com WAHA quando configurada e disponível.
 
-**BLOQUEADO:** impedimento crítico de segurança, dependência, autenticação ou infraestrutura.
+Uma falha no WAHA não pode impedir a abertura do chat web, o recebimento de mensagens ou o atendimento humano.
 
-Não declarar sucesso sem evidências.
+Não criar sessões WAHA automaticamente nem utilizar credenciais de outro tenant.
 
-## 8. Relatório final
+## 6. Experiência visual
 
-Atualizar `executed.md` com:
+Adicionar o botão flutuante de chat no canto inferior direito da landing page do VetorLeads.
 
-- Commits e hashes.
-- Push realizado.
-- Imagens geradas.
-- Serviços atualizados.
-- Migrations realizadas, se houver.
-- Resultado dos testes.
-- Estado HTTP.
-- Estado WAHA.
-- Funcionamento do widget e inbox.
-- Pendências realmente impeditivas.
-- Resultado final da publicação.
+Utilizar ícone de conversa, design profissional, responsivo e consistente com o produto.
 
-Não iniciar nova etapa de planejamento se a implementação puder ser concluída nesta execução.
+Evitar duplicidade de botões ou widgets.
 
-**OBJETIVO FINAL: ENTREGAR O VETORCHAT FUNCIONANDO NA VPS, COM SEGURANÇA, SEM NOVAS RODADAS DES
+Dentro do painel, utilizar a central de atendimento já existente, corrigindo interfaces incompletas ou confusas, sem adicionar outro widget desnecessário.
+
+## 7. Testes e publicação
+
+Testar os fluxos essenciais:
+
+1. Visitante abre o chat público do VetorLeads.
+2. Visitante envia uma mensagem.
+3. Mensagem aparece na central do tenant correto.
+4. Atendente responde e visitante recebe a resposta.
+5. Conversa é associada ao CRM corretamente.
+6. Chat funciona com WAHA indisponível.
+7. Widget externo continua funcionando no VetorOS e na ABrasil.
+8. Tenant externo não acessa conversas de outro tenant.
+
+Não implementar em containers locais.
+
+Usar testes automatizados disponíveis. Caso o navegador de testes não funcione, registrar a limitação e executar testes alternativos viáveis, sem insistir indefinidamente.
+
+Corrigir e publicar mediante validação dos fluxos críticos, preservando os dados existentes.
+
+Registrar causa raiz, alterações e resultados em `executed.md`.
+
+**Prioridade: disponibilizar o chat funcional, não iniciar outra rodada de refatorações ou auditorias sem necessidade.**

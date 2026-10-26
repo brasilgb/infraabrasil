@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker compose ps *)",
+      "Bash(docker compose ps)",
+      "Bash(docker compose logs *)",
+      "Bash(git -C * status*)",
+      "Bash(git -C * log*)",
+      "Bash(git submodule status*)",
+      "Bash(journalctl -b *)",
+      "Bash(git -C * diff*)",
+      "Bash(git -C * rev-parse*)",
+      "Bash(php artisan migrate:status*)",
+      "Bash(docker system df*)",
+      "Bash(docker volume ls*)",
+      "Bash(git -C * show*)",
+      "Bash(php artisan route:list*)"
+    ]
+  }
+}

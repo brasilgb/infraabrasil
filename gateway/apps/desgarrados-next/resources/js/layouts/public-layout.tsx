@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import PortalSearch from '@/components/portal-search';
+import PortalLocation from '@/components/portal-location';
 import { Toaster } from '@/components/ui/sonner';
 import { cultureLinks, landLinks } from '@/lib/public-navigation';
 
@@ -16,6 +17,7 @@ export default function PublicLayout({ children }: PropsWithChildren) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openDesktopMenu, setOpenDesktopMenu] = useState<'culture' | 'land' | null>(null);
     const [openMobileGroup, setOpenMobileGroup] = useState<'culture' | 'land' | null>(null);
+    const [showCookieNotice, setShowCookieNotice] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
     const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
     const cultureMenuButtonRef = useRef<HTMLButtonElement>(null);
@@ -28,6 +30,19 @@ export default function PublicLayout({ children }: PropsWithChildren) {
         setOpenMobileGroup(null);
         setMobileMenuOpen(false);
     }, [currentUrl]);
+
+    useEffect(() => {
+        try {
+            setShowCookieNotice(localStorage.getItem('desgarrados-cookie-choice') !== 'essential-only');
+        } catch {
+            setShowCookieNotice(true);
+        }
+    }, []);
+
+    function acceptEssentialCookies() {
+        try { localStorage.setItem('desgarrados-cookie-choice', 'essential-only'); } catch { /* keep notice dismissible when storage is blocked */ }
+        setShowCookieNotice(false);
+    }
 
     useEffect(() => {
         function closeMenusFromOutside(event: PointerEvent) {
@@ -91,6 +106,7 @@ export default function PublicLayout({ children }: PropsWithChildren) {
                     <Link href="/sobre" aria-current={currentUrl === '/sobre' ? 'page' : undefined} className={`rounded-full px-3 py-2 hover:bg-[#e8dfcf] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bb623e] ${currentUrl === '/sobre' ? 'bg-[#e8dfcf] text-[#7e402b]' : ''}`}>Sobre o Desgarrados</Link>
                 </nav>
                 <PortalSearch />
+                <PortalLocation />
                 <Link href="/contribua" className="hidden rounded-full bg-[#bb623e] px-4 py-2 text-sm font-semibold text-white sm:inline-flex">Compartilhe uma história</Link>
                 <Link href="/login" aria-label="Acesso da redação" title="Acesso da redação" className="hidden size-10 items-center justify-center rounded-full text-stone-600 transition-colors hover:bg-[#e8dfcf] hover:text-[#31453b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bb623e] md:inline-flex"><Fence aria-hidden="true" className="size-5 text-[#bb623e]"/></Link>
                 <button ref={mobileMenuButtonRef} type="button" aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" onClick={() => setMobileMenuOpen(value => !value)} className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#cfc4b2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bb623e] 2xl:hidden">
@@ -126,5 +142,8 @@ export default function PublicLayout({ children }: PropsWithChildren) {
                 <a href="https://abrasilsistemas.com.br" target="_blank" rel="noopener noreferrer" className="underline decoration-white/30 underline-offset-4 hover:text-white">Desenvolvido por ABrasil Sistemas ↗</a>
             </div>
         </footer>
+        {showCookieNotice && <aside role="dialog" aria-label="Preferências de cookies" aria-describedby="cookie-notice-description" className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-2xl border border-[#d9d0bf] bg-[#fbf8f1] p-5 text-[#28271f] shadow-2xl sm:inset-x-5 sm:bottom-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="font-serif text-lg font-bold text-[#31453b]">Cookies e armazenamento</h2><p id="cookie-notice-description" className="mt-1 max-w-xl text-sm leading-5 text-stone-700">Usamos cookies necessários para sessão e segurança, além de armazenamento local para preferências. Não usamos cookies de publicidade ou analytics.</p><Link href="/politica-de-privacidade#cookies" className="mt-1 inline-block text-sm font-semibold text-[#7e402b] underline">Saiba mais</Link></div><button type="button" onClick={acceptEssentialCookies} className="shrink-0 rounded-lg bg-[#31453b] px-4 py-2.5 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bb623e]">Continuar com cookies necessários</button></div>
+        </aside>}
     </div>;
 }

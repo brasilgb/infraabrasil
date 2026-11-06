@@ -264,6 +264,10 @@ services:
       MAIL_PASSWORD: ${ABRASIL_MAIL_PASSWORD:-}
       MAIL_FROM_ADDRESS: ${ABRASIL_MAIL_FROM_ADDRESS:-contato@abrasilsistemas.com.br}
       MAIL_FROM_NAME: VetorLeads
+      # Página de cadastro do VetorSales usada no link de indicação (VETORLEADS-SALES-CADASTRO-02)
+      VETORSALES_REGISTER_URL: ${VETORSALES_REGISTER_URL:-}
+      # Página de cadastro do VetorOS usada no link de indicação (VETOROS-LEADS-INTEGRATION)
+      VETOROS_REGISTER_URL: ${VETOROS_REGISTER_URL:-}
     volumes: [./volumes/vetorleads:/var/www/html/storage/app/public, vetorleads-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]

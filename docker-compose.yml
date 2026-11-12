@@ -31,6 +31,7 @@ services:
       DESGARRADOS_DB_PASSWORD: ${DESGARRADOS_DB_PASSWORD:?configure DESGARRADOS_DB_PASSWORD in .env}
       VETORLEADS_DB_PASSWORD: ${VETORLEADS_DB_PASSWORD:?configure VETORLEADS_DB_PASSWORD in .env}
       VETORSALES_DB_PASSWORD: ${VETORSALES_DB_PASSWORD:?configure VETORSALES_DB_PASSWORD in .env}
+      VETORSMART_DB_PASSWORD: ${VETORSMART_DB_PASSWORD:?configure VETORSMART_DB_PASSWORD in .env}
     volumes:
       - ./volumes/mysql:/var/lib/mysql
       - ./mysql-init:/docker-entrypoint-initdb.d:ro
@@ -310,6 +311,43 @@ services:
   vetorsales-scheduler:
     extends: {service: vetorsales}
     command: php artisan schedule:work
+  vetorsmart:
+    build: {context: ./gateway/vetorsmart, dockerfile: Dockerfile}
+    restart: unless-stopped
+    environment:
+      <<: *laravel-environment
+      APP_NAME: VetorSmart
+      APP_ENV: production
+      APP_DEBUG: "false"
+      LOG_LEVEL: ${VETORSMART_LOG_LEVEL:-warning}
+      APP_URL: ${VETORSMART_APP_URL:-http://vetorsmart.localhost}
+      APP_KEY: ${VETORSMART_APP_KEY:?configure VETORSMART_APP_KEY in .env}
+      DB_CONNECTION: mysql
+      DB_DATABASE: vetorsmart
+      DB_USERNAME: vetorsmart_user
+      DB_PASSWORD: ${VETORSMART_DB_PASSWORD:?configure VETORSMART_DB_PASSWORD in .env}
+      REDIS_PREFIX: vetorsmart_
+      # Domínio central (landing, login, painel) e base dos subdomínios das empresas
+      PLATFORM_CENTRAL_HOST: ${VETORSMART_DOMAIN:-vetorsmart.com.br}
+      PLATFORM_TENANT_BASE_DOMAIN: ${VETORSMART_DOMAIN:-vetorsmart.com.br}
+      PLATFORM_PUBLIC_SCHEME: https
+      # Proxy confiável: o nginx do stack (rede Docker interna)
+      PLATFORM_TRUSTED_PROXIES: ${VETORSMART_TRUSTED_PROXIES:-172.18.0.0/16}
+      SESSION_SECURE_COOKIE: "true"
+      MAIL_MAILER: ${VETORSMART_MAIL_MAILER:-log}
+      ASSISTANT_PROVIDER: ${VETORSMART_ASSISTANT_PROVIDER:-none}
+      ASSISTANT_PROVIDER_API_KEY: ${VETORSMART_ASSISTANT_PROVIDER_API_KEY:-}
+    volumes: [./volumes/vetorsmart:/var/www/html/storage/app/public, vetorsmart-build:/var/www/html/public/build]
+    depends_on: {mysql: {condition: service_healthy}}
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
+    logging: *default-logging
+  vetorsmart-worker:
+    extends: {service: vetorsmart}
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
+  vetorsmart-scheduler:
+    extends: {service: vetorsmart}
+    command: php artisan schedule:work
   nginx:
     image: nginx:1.27-alpine
     restart: unless-stopped
@@ -332,9 +370,13 @@ services:
       - desgarrados-build:/var/www/desgarrados/build:ro
       - vetorleads-build:/var/www/vetorleads/build:ro
       - vetorsales-build:/var/www/vetorsales/build:ro
+      - ./gateway/vetorsmart/public:/var/www/vetorsmart/public:ro
+      - vetorsmart-build:/var/www/vetorsmart/build:ro
+      - ./volumes/vetorsmart:/var/www/vetorsmart/storage:ro
+      - ./volumes/vetorsales:/var/www/vetorsales/storage:ro
       - ./volumes/certbot/conf:/etc/letsencrypt:ro
       - ./volumes/certbot/www:/var/www/certbot:ro
-    depends_on: [vetoros, vetorpet, abrasilsistema, desgarrados, vetorleads, vetorsales, n8n]
+    depends_on: [vetoros, vetorpet, abrasilsistema, desgarrados, vetorleads, vetorsales, vetorsmart, n8n]
     networks: [infra-abrasil-network]
     healthcheck: {test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz"], interval: 15s, timeout: 5s, retries: 5}
     logging: *default-logging
@@ -354,3 +396,4 @@ volumes:
   desgarrados-build:
   vetorleads-build:
   vetorsales-build:
+  vetorsmart-build:

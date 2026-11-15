@@ -32,11 +32,11 @@ services:
       start_period: 20s
 
   vetoros:
-    image: vetoros:venda-cancel-20261113-40d3c57b
+    image: vetoros:main-a09e727f
     pull_policy: never
   vetoros-worker:
-    image: vetoros:venda-cancel-20261113-40d3c57b
+    image: vetoros:main-a09e727f
     pull_policy: never
   vetoros-scheduler:
-    image: vetoros:venda-cancel-20261113-40d3c57b
+    image: vetoros:main-a09e727f
     pull_policy: never

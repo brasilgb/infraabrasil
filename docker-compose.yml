@@ -340,7 +340,9 @@ services:
     volumes: [./volumes/vetorsmart:/var/www/html/storage/app/public, vetorsmart-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}}
     networks: [infra-abrasil-network]
-    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
+    # Caches do Laravel, APP_KEY, banco e PHP-FPM (docker-healthcheck.php). Imagens anteriores à RELEASE-10.1
+    # não têm o script e caem na verificação antiga, o que mantém o rollback de imagem funcionando.
+    healthcheck: {test: ["CMD-SHELL", "if [ -f /usr/local/bin/infra-healthcheck ]; then php /usr/local/bin/infra-healthcheck; else php-fpm -t >/dev/null 2>&1; fi"], interval: 15s, timeout: 8s, retries: 5, start_period: 40s}
     logging: *default-logging
   vetorsmart-worker:
     extends: {service: vetorsmart}

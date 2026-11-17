@@ -30,6 +30,7 @@ services:
       ABRASILSISTEMA_DB_PASSWORD: ${ABRASILSISTEMA_DB_PASSWORD:?configure ABRASILSISTEMA_DB_PASSWORD in .env}
       DESGARRADOS_DB_PASSWORD: ${DESGARRADOS_DB_PASSWORD:?configure DESGARRADOS_DB_PASSWORD in .env}
       VETORLEADS_DB_PASSWORD: ${VETORLEADS_DB_PASSWORD:?configure VETORLEADS_DB_PASSWORD in .env}
+      VETORSALES_DB_PASSWORD: ${VETORSALES_DB_PASSWORD:?configure VETORSALES_DB_PASSWORD in .env}
       VETORSMART_DB_PASSWORD: ${VETORSMART_DB_PASSWORD:?configure VETORSMART_DB_PASSWORD in .env}
     volumes:
       - ./volumes/mysql:/var/lib/mysql
@@ -138,39 +139,18 @@ services:
   vetoros-scheduler:
     extends: {service: vetoros}
     command: php artisan schedule:work
-  vetorpet:
-    build: {context: ./gateway/vetorpet, dockerfile: Dockerfile}
-    restart: unless-stopped
-    env_file: ./gateway/vetorpet/.env.example
-    environment:
-      <<: *laravel-environment
-      APP_URL: ${VETORPET_APP_URL:-http://vetorpet.localhost}
-      APP_KEY: ${VETORPET_APP_KEY:?configure VETORPET_APP_KEY in .env}
-      DB_DATABASE: vetorpet
-      DB_USERNAME: vetorpet_user
-      DB_PASSWORD: ${VETORPET_DB_PASSWORD:?configure VETORPET_DB_PASSWORD in .env}
-      REDIS_PREFIX: vetorpet_
-      WAHA_BASE_URL: http://waha:3000
-      MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN:-}
-      MP_PUBLIC_KEY: ${MP_PUBLIC_KEY:-}
-      MP_WEBHOOK_TOKEN: ${MP_WEBHOOK_TOKEN:-}
-    volumes: [./volumes/vetorpet:/var/www/html/storage/app/public, vetorpet-build:/var/www/html/public/build]
-    depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
-    networks: [infra-abrasil-network]
-    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
-    logging: *default-logging
-  vetorpet-worker:
-    extends: {service: vetorpet}
-    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
-  vetorpet-scheduler:
-    extends: {service: vetorpet}
-    command: php artisan schedule:work
   abrasilsistema:
     build: {context: ./gateway/abrasilsistemas, dockerfile: Dockerfile}
     restart: unless-stopped
     env_file: ./gateway/abrasilsistemas/.env.example
     environment:
       <<: *laravel-environment
+      APP_ENV: production
+      APP_DEBUG: "false"
+      LOG_LEVEL: warning
+      GOOGLE_SEARCH_CONSOLE_CLIENT_ID: ${GOOGLE_SEARCH_CONSOLE_CLIENT_ID:-}
+      GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET: ${GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET:-}
+      VETORCHAT_WIDGET_KEY: ${VETORCHAT_WIDGET_KEY:-}
       APP_URL: ${ABRASILSISTEMA_APP_URL:-http://abrasilsistema.localhost}
       APP_KEY: ${ABRASILSISTEMA_APP_KEY:?configure ABRASILSISTEMA_APP_KEY in .env}
       DB_DATABASE: abrasilsistemas
@@ -242,6 +222,11 @@ services:
       WEB_CHAT_SERVICE_TOKEN: ${VETORLEADS_WEB_CHAT_SERVICE_TOKEN:-}
       WEB_CHAT_TENANT_ID: ${VETORLEADS_WEB_CHAT_TENANT_ID:-}
       VETORCHAT_WIDGET_KEY: ${VETORCHAT_WIDGET_KEY:-}
+      # IA comercial: valores vêm do .env da raiz; COMMERCIAL_AI_ENABLED segue false até ser ativada
+      COMMERCIAL_AI_ENABLED: ${COMMERCIAL_AI_ENABLED:-false}
+      COMMERCIAL_AI_PROVIDER: ${COMMERCIAL_AI_PROVIDER:-openai}
+      COMMERCIAL_AI_OPENAI_API_KEY: ${COMMERCIAL_AI_OPENAI_API_KEY:-}
+      COMMERCIAL_AI_OPENAI_MODEL: ${COMMERCIAL_AI_OPENAI_MODEL:-}
       # Eventos internos para o n8n (VETOR-CHAT-10.2): só rede Docker, assinados por HMAC
       N8N_EVENTS_URL: ${VETORLEADS_N8N_EVENTS_URL:-http://n8n:5678/webhook/vetorleads-events}
       N8N_EVENTS_SECRET: ${VETORLEADS_N8N_EVENTS_SECRET:-}
@@ -253,6 +238,10 @@ services:
       MAIL_PASSWORD: ${ABRASIL_MAIL_PASSWORD:-}
       MAIL_FROM_ADDRESS: ${ABRASIL_MAIL_FROM_ADDRESS:-contato@abrasilsistemas.com.br}
       MAIL_FROM_NAME: VetorLeads
+      # Página de cadastro do VetorSales usada no link de indicação (VETORLEADS-SALES-CADASTRO-02)
+      VETORSALES_REGISTER_URL: ${VETORSALES_REGISTER_URL:-}
+      # Página de cadastro do VetorOS usada no link de indicação (VETOROS-LEADS-INTEGRATION)
+      VETOROS_REGISTER_URL: ${VETOROS_REGISTER_URL:-}
     volumes: [./volumes/vetorleads:/var/www/html/storage/app/public, vetorleads-build:/var/www/html/public/build]
     depends_on: {mysql: {condition: service_healthy}, waha: {condition: service_healthy}}
     networks: [infra-abrasil-network]
@@ -263,6 +252,37 @@ services:
     command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
   vetorleads-scheduler:
     extends: {service: vetorleads}
+    command: php artisan schedule:work
+  vetorsales:
+    build: {context: ./gateway/vetorsales, dockerfile: Dockerfile}
+    restart: unless-stopped
+    env_file: ./gateway/vetorsales/.env.example
+    environment:
+      <<: *laravel-environment
+      APP_NAME: VetorSales
+      APP_ENV: production
+      APP_URL: ${VETORSALES_APP_URL:-http://vetorsales.localhost}
+      APP_KEY: ${VETORSALES_APP_KEY:?configure VETORSALES_APP_KEY in .env}
+      DB_DATABASE: vetorsales
+      DB_USERNAME: vetorsales_user
+      DB_PASSWORD: ${VETORSALES_DB_PASSWORD:?configure VETORSALES_DB_PASSWORD in .env}
+      REDIS_PREFIX: vetorsales_
+      MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN:-}
+      MP_WEBHOOK_TOKEN: ${MP_WEBHOOK_TOKEN:-}
+      # VetorChat no site público: mesma chave institucional do tenant ABrasil
+      VETORCHAT_WIDGET_KEY: ${VETORCHAT_WIDGET_KEY:-}
+      # Destinatário do formulário de contato do site público
+      MAIL_CONTACT_RECIPIENT: contato@abrasilsistemas.com.br
+    volumes: [./volumes/vetorsales:/var/www/html/storage/app/public, vetorsales-build:/var/www/html/public/build]
+    depends_on: {mysql: {condition: service_healthy}}
+    networks: [infra-abrasil-network]
+    healthcheck: {test: ["CMD-SHELL", "php-fpm -t >/dev/null 2>&1"], interval: 15s, timeout: 5s, retries: 5}
+    logging: *default-logging
+  vetorsales-worker:
+    extends: {service: vetorsales}
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
+  vetorsales-scheduler:
+    extends: {service: vetorsales}
     command: php artisan schedule:work
   vetorsmart:
     build: {context: ./gateway/vetorsmart, dockerfile: Dockerfile}
@@ -319,22 +339,23 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./gateway/vetoros/public:/var/www/vetoros/public:ro
-      - ./gateway/vetorpet/public:/var/www/vetorpet/public:ro
       - ./gateway/abrasilsistemas/public:/var/www/abrasilsistema/public:ro
       - ./gateway/desgarrados/public:/var/www/desgarrados/public:ro
       - ./volumes/desgarrados:/var/www/desgarrados/storage:ro
       - ./gateway/vetorleads/public:/var/www/vetorleads/public:ro
+      - ./gateway/vetorsales/public:/var/www/vetorsales/public:ro
       - vetoros-build:/var/www/vetoros/build:ro
-      - vetorpet-build:/var/www/vetorpet/build:ro
       - abrasilsistema-build:/var/www/abrasilsistema/build:ro
       - desgarrados-build:/var/www/desgarrados/build:ro
       - vetorleads-build:/var/www/vetorleads/build:ro
+      - vetorsales-build:/var/www/vetorsales/build:ro
       - ./gateway/vetorsmart/public:/var/www/vetorsmart/public:ro
       - vetorsmart-build:/var/www/vetorsmart/build:ro
       - ./volumes/vetorsmart:/var/www/vetorsmart/storage:ro
+      - ./volumes/vetorsales:/var/www/vetorsales/storage:ro
       - ./volumes/certbot/conf:/etc/letsencrypt:ro
       - ./volumes/certbot/www:/var/www/certbot:ro
-    depends_on: [vetoros, vetorpet, abrasilsistema, desgarrados, vetorleads, vetorsmart, n8n]
+    depends_on: [vetoros, abrasilsistema, desgarrados, vetorleads, vetorsales, vetorsmart, n8n]
     networks: [infra-abrasil-network]
     healthcheck: {test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz"], interval: 15s, timeout: 5s, retries: 5}
     logging: *default-logging
@@ -349,8 +370,8 @@ networks:
   infra-abrasil-network: {name: infra-abrasil-network}
 volumes:
   vetoros-build:
-  vetorpet-build:
   abrasilsistema-build:
   desgarrados-build:
   vetorleads-build:
+  vetorsales-build:
   vetorsmart-build:

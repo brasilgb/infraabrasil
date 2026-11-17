@@ -4,6 +4,7 @@ volumes/waha/*
 volumes/vetoros/*
 volumes/vetorpet/*
 volumes/vetorsmart/*
+volumes/vetorsmart-logs/*
 volumes/abrasilsistema/*
 volumes/certbot/*
 volumes/n8n/*

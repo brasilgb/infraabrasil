@@ -273,6 +273,9 @@ services:
       APP_ENV: production
       APP_DEBUG: "false"
       LOG_LEVEL: ${VETORSMART_LOG_LEVEL:-warning}
+      # Um arquivo por dia em storage/logs, mantido por 14 dias (volume persistente, um diretório por serviço)
+      LOG_STACK: daily
+      LOG_DAILY_DAYS: ${VETORSMART_LOG_DAILY_DAYS:-14}
       APP_URL: ${VETORSMART_APP_URL:-http://vetorsmart.localhost}
       APP_KEY: ${VETORSMART_APP_KEY:?configure VETORSMART_APP_KEY in .env}
       DB_CONNECTION: mysql
@@ -290,7 +293,7 @@ services:
       MAIL_MAILER: ${VETORSMART_MAIL_MAILER:-log}
       ASSISTANT_PROVIDER: ${VETORSMART_ASSISTANT_PROVIDER:-none}
       ASSISTANT_PROVIDER_API_KEY: ${VETORSMART_ASSISTANT_PROVIDER_API_KEY:-}
-    volumes: [./volumes/vetorsmart:/var/www/html/storage/app/public, vetorsmart-build:/var/www/html/public/build]
+    volumes: [./volumes/vetorsmart:/var/www/html/storage/app/public, vetorsmart-build:/var/www/html/public/build, ./volumes/vetorsmart-logs/web:/var/www/html/storage/logs]
     depends_on: {mysql: {condition: service_healthy}}
     networks: [infra-abrasil-network]
     # Caches do Laravel, APP_KEY, banco e PHP-FPM (docker-healthcheck.php). Imagens anteriores à RELEASE-10.1
@@ -299,9 +302,12 @@ services:
     logging: *default-logging
   vetorsmart-worker:
     extends: {service: vetorsmart}
+    # Logs separados por serviço: worker e scheduler rodam como root, o PHP-FPM do web como www-data
+    volumes: [./volumes/vetorsmart-logs/worker:/var/www/html/storage/logs]
     command: php artisan queue:work database --sleep=3 --tries=3 --timeout=90
   vetorsmart-scheduler:
     extends: {service: vetorsmart}
+    volumes: [./volumes/vetorsmart-logs/scheduler:/var/www/html/storage/logs]
     command: php artisan schedule:work
   nginx:
     image: nginx:1.27-alpine

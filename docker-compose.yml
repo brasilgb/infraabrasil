@@ -306,6 +306,8 @@ services:
       # Domínio central (landing, login, painel) e base dos subdomínios das empresas
       PLATFORM_CENTRAL_HOST: ${VETORSMART_DOMAIN:-vetorsmart.com.br}
       PLATFORM_TENANT_BASE_DOMAIN: ${VETORSMART_DOMAIN:-vetorsmart.com.br}
+      # Sites públicos das empresas nos subdomínios *.vetorsmart.com.br (WILDCARD-01)
+      PLATFORM_SUBDOMAIN_SITES: ${VETORSMART_SUBDOMAIN_SITES:-true}
       PLATFORM_PUBLIC_SCHEME: https
       # Proxy confiável: o nginx do stack (rede Docker interna)
       PLATFORM_TRUSTED_PROXIES: ${VETORSMART_TRUSTED_PROXIES:-172.18.0.0/16}

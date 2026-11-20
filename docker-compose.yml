@@ -315,7 +315,7 @@ services:
       MAIL_MAILER: ${VETORSMART_MAIL_MAILER:-log}
       ASSISTANT_PROVIDER: ${VETORSMART_ASSISTANT_PROVIDER:-none}
       ASSISTANT_PROVIDER_API_KEY: ${VETORSMART_ASSISTANT_PROVIDER_API_KEY:-}
-    volumes: [./volumes/vetorsmart:/var/www/html/storage/app/public, vetorsmart-build:/var/www/html/public/build, ./volumes/vetorsmart-logs/web:/var/www/html/storage/logs]
+    volumes: [./volumes/vetorsmart:/var/www/html/storage/app/public, ./volumes/vetorsmart-websites:/var/www/html/storage/app/private/websites, vetorsmart-build:/var/www/html/public/build, ./volumes/vetorsmart-logs/web:/var/www/html/storage/logs]
     depends_on: {mysql: {condition: service_healthy}}
     networks: [infra-abrasil-network]
     # Caches do Laravel, APP_KEY, banco e PHP-FPM (docker-healthcheck.php). Imagens anteriores à RELEASE-10.1

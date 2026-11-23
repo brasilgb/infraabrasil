@@ -355,6 +355,7 @@ services:
       - vetorsmart-build:/var/www/vetorsmart/build:ro
       - ./volumes/vetorsmart:/var/www/vetorsmart/storage:ro
       - ./volumes/vetorsales:/var/www/vetorsales/storage:ro
+      - ./volumes/abrasilsistema:/var/www/abrasilsistema/storage:ro
       - ./volumes/certbot/conf:/etc/letsencrypt:ro
       - ./volumes/certbot/www:/var/www/certbot:ro
     depends_on: [vetoros, abrasilsistema, desgarrados, vetorleads, vetorsales, vetorsmart, n8n]
